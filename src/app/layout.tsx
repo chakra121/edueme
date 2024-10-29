@@ -1,10 +1,10 @@
 import "@/styles/globals.css";
 import Navbar from "@/components/Navbar";
 import School_Logo from "@/components/School_Logo";
+import Info1 from "@/components/Info1";
 
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
-import Info1 from "@/components/Info1";
 
 export const metadata: Metadata = {
   title: "Edueme Research Lab",
@@ -20,8 +20,8 @@ export default function RootLayout({
       <body>
         <Navbar />
         {children}
-        <Info1/>
-        <School_Logo/>
+        <Info1 />
+        <School_Logo />
       </body>
     </html>
   );
