@@ -15,7 +15,6 @@ const Navbar = () => {
             <Link href="/blog"className='hover:bg-yellow-500 hover:text-white px-[1rem] py-[0.5rem] rounded-md'>Blog</Link>
             <Link href={"/test"}className='hover:bg-yellow-500 hover:text-white px-[1rem] py-[0.5rem] rounded-md'>Test</Link>
             <Link href={"/shop"} className='bg-blue-600 text-white px-[1rem] py-[0.5rem] rounded-md'>Shop Now</Link>
-        <h1>Shrrrr</h1>
         </div>
     </div>
   )
