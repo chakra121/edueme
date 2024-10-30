@@ -12,7 +12,7 @@ const Info1 = () => {
         </p>
       </div>
       <div>
-        <img className="" src="/info1.gif" alt="logo" />
+
       </div>
     </div>
   );
