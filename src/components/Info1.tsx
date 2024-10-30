@@ -11,6 +11,7 @@ const Info1 = () => {
         muted
         playsInline
       >
+        
         Your browser does not support the video tag.
       </video>
 
