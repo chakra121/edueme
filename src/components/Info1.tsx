@@ -2,17 +2,24 @@ import React from "react";
 
 const Info1 = () => {
   return (
-    <div className="flex h-64 space-x-4 ">
-      <div className="px-[15%] pt-[10%]">
-        <h1>EDUEME Way To Learn Anything</h1>
-        <p>
-          Learning is a complex process that depends on various factors such as
-          motivation, cognitive ability, and study strategies. Edueme helps
-          youngsters learn more effectively and efficiently.
-        </p>
-      </div>
-      <div className="flex pr-[10%] pt-[5%]">
-        <img src="/info1_robo.png" alt="Animated Gif"></img>
+    <div className="relative h-screen w-full overflow-hidden bg-gradient-to-r from-yellow-200 to-orange-400">
+      <video
+        className="absolute left-0 top-0 h-full w-full object-cover"
+        src="/bgVideo.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+      >
+        Your browser does not support the video tag.
+      </video>
+
+      <div className="absolute inset-0 z-10 bg-gradient-to-r from-yellow-50 to-orange-50 opacity-30"></div>
+
+      {/* Content Layer */}
+      <div className="relative z-20 flex h-full items-center justify-center">
+        <h1 className="text-4xl font-bold text-black">Hello World!</h1>
+        <h2 className="text-3xl font-bold text-black">Welcome to Edueme</h2>
       </div>
     </div>
   );
