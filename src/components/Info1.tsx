@@ -14,12 +14,16 @@ const Info1 = () => {
         Your browser does not support the video tag.
       </video>
 
-      <div className="absolute inset-0 z-10 bg-gradient-to-r from-yellow-50 to-orange-50 opacity-30"></div>
+      <div className="absolute inset-0 z-10 bg-gradient-to-r from-yellow-50 to-orange-50 opacity-25"></div>
 
       {/* Content Layer */}
-      <div className="relative z-20 flex h-full items-center justify-center">
-        <h1 className="text-4xl font-bold text-black">Hello World!</h1>
-        <h2 className="text-3xl font-bold text-black">Welcome to Edueme</h2>
+      <div className="flex h-screen w-full items-center justify-center bg-black">
+        <span className="absolute mx-auto box-content flex w-fit select-none border bg-gradient-to-l from-yellow-400 to-orange-400 bg-clip-text pb-[15%] text-center text-7xl font-extrabold text-transparent blur-xl">
+          Hello World!
+        </span>
+        <h1 className="relative top-0 flex h-auto w-fit select-auto items-center justify-center bg-gradient-to-l from-yellow-400 to-orange-500 bg-clip-text pb-[15%] text-center text-7xl font-extrabold text-transparent">
+          Hello World!
+        </h1>
       </div>
     </div>
   );
