@@ -1,7 +1,6 @@
 import "@/styles/globals.css";
 import Navbar from "@/components/Navbar";
 import Info1 from "@/components/Info1";
-import { Analytics } from "@vercel/analytics/react"
 
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
