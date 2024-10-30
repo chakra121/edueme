@@ -2,6 +2,6 @@ import React from 'react'
 
 export const page = () => {
   return (
-    <div>page</div>
+    <div>Book a Demo Form</div>
   )
 }
