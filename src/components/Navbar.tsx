@@ -16,7 +16,7 @@ const Navbar = () => {
           Home
         </Link>
         <Link
-          href="/about"
+          href="/"
           className="rounded-md px-[1rem] py-[0.5rem] hover:bg-yellow-500 hover:text-white hover:shadow-xl"
         >
           About
@@ -40,13 +40,13 @@ const Navbar = () => {
           Take Live Test
         </Link>
         <Link
-          href="/"
+          href="/login"
           className="rounded-md bg-orange-100 px-[1rem] py-[0.5rem] text-black hover:bg-orange-500 hover:text-white hover:shadow-lg"
         >
           Login
         </Link>
         <Link
-          href="/"
+          href="/signup"
           className="rounded-md bg-orange-100 px-[1rem] py-[0.5rem] text-black hover:bg-orange-500 hover:text-white hover:shadow-lg"
         >
           Signup
