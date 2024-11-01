@@ -28,7 +28,7 @@ const Navbar = () => {
           Contact
         </Link>
         <Link
-          href="/"
+          href="/demoFrom"
           className="rounded-md px-[1rem] py-[0.5rem] hover:bg-yellow-500 hover:text-white hover:shadow-xl"
         >
           Book Demo
@@ -37,7 +37,7 @@ const Navbar = () => {
           href="/"
           className="rounded-md px-[1rem] py-[0.5rem] hover:bg-yellow-500 hover:text-white hover:shadow-xl"
         >
-          Take Live Test
+          Courses
         </Link>
         <Link
           href="/demoFrom"
