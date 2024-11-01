@@ -27,12 +27,12 @@ const Info1 = () => {
           Hello World!
         </h1>
       </div>
-      
+
       <div className="absolute inset-0 bottom-20 z-20 flex items-center justify-center">
-        <span className="absolute mx-auto flex w-fit select-none bg-gradient-to-l from-red-500 to-orange-500 bg-clip-text text-center text-4xl font-extrabold text-transparent blur-xl pb-[2rem]">
+        <span className="absolute mx-auto flex w-fit select-none bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text pb-[2rem] text-center text-4xl font-extrabold text-transparent blur-xl">
           Welcome to Edueme Online
         </span>
-        <h1 className="relative top-0 flex h-auto w-fit select-auto bg-gradient-to-l from-red-400 to-orange-500 bg-clip-text text-center text-4xl font-extrabold text-transparent pb-[2rem]">
+        <h1 className="relative top-0 flex h-auto w-fit select-auto bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text pb-[2rem] text-center text-4xl font-extrabold text-transparent">
           Welcome to Edueme Online
         </h1>
       </div>
