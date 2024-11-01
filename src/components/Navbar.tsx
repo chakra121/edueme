@@ -16,7 +16,7 @@ const Navbar = () => {
           Home
         </Link>
         <Link
-          href="/"
+          href="/about"
           className="rounded-md px-[1rem] py-[0.5rem] hover:bg-yellow-500 hover:text-white hover:shadow-xl"
         >
           About

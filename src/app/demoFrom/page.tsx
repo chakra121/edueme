@@ -9,10 +9,11 @@ return (
         <div className="mb-8 flex space-x-4">
           <img className="h-80 w-auto" src="/demoimg.png"></img>
         </div>
-        <div className='text-left'>
+        <div className="text-left">
           <h1 className="mb-2 text-2xl font-bold">One step</h1>
           <h1 className="mb-2 text-2xl font-bold">ahead towards your</h1>
-          <h1 className="mb-2 text-2xl font-bold">Robotics Journey...</h1>
+          <h1 className="mb-2 text-2xl font-bold">Robotics</h1>
+          <h1 className="mb-2 text-2xl font-bold"> Journey...</h1>
         </div>
       </div>
 
