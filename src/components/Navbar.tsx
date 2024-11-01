@@ -40,7 +40,7 @@ const Navbar = () => {
           Take Live Test
         </Link>
         <Link
-          href="/login"
+          href="/demoFrom"
           className="rounded-md bg-orange-100 px-[1rem] py-[0.5rem] text-black hover:bg-orange-500 hover:text-white hover:shadow-lg"
         >
           Login
