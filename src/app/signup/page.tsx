@@ -1,8 +1,3 @@
-//import React from 'react'
-
-//const Signup = () => {
-//  return (
-    /////////
 "use client";
 import React, { useState } from 'react';
 
@@ -57,8 +52,16 @@ function Signup() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md w-96 w-full max-w-sm">
+    <div className="flex items-center  min-h-screen bg-gray-100 bg-cover bg-center"
+    style={{
+      backgroundImage: "url('/registerbg.jpg')",
+      backgroundPosition: 'center 30%',
+    }}
+    >
+
+    <div className="flex-1"></div>  {/* Empty space on the left to move the form right */}
+
+      <form onSubmit={handleSubmit} className="w-full max-w-md p-6 bg-white bg-opacity-90 rounded-lg shadow-md mr-80 -mt-20">
         <h2 className="mb-6 text-2xl items-center text-center font-bold text-gray-800">Register for a Course</h2>
         
         <label className="block mb-2">
