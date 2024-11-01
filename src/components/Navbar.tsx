@@ -40,7 +40,7 @@ const Navbar = () => {
           Courses
         </Link>
         <Link
-          href="/demoFrom"
+          href="/login"
           className="rounded-md bg-orange-100 px-[1rem] py-[0.5rem] text-black hover:bg-orange-500 hover:text-white hover:shadow-lg"
         >
           Login
