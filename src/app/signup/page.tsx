@@ -58,7 +58,7 @@ function Signup() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md w-96">
+      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md w-96 w-full max-w-sm">
         <h2 className="mb-6 text-2xl items-center text-center font-bold text-gray-800">Register for a Course</h2>
         
         <label className="block mb-2">
@@ -69,7 +69,7 @@ function Signup() {
             name="fullName"
             value={formData.fullName}
             onChange={handleChange}
-            className="w-full rounded border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded border border-gray-300 p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           {errors.fullName && <p className="text-red-500 text-sm">{errors.fullName}</p>}
         </label>
@@ -82,7 +82,7 @@ function Signup() {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full rounded border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded border border-gray-300 p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
         </label>
@@ -95,7 +95,7 @@ function Signup() {
             name="phoneNumber"
             value={formData.phoneNumber}
             onChange={handleChange}
-            className="w-full rounded border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded border border-gray-300 p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           {errors.phoneNumber && <p className="text-red-500 text-sm">{errors.phoneNumber}</p>}
         </label>
@@ -108,7 +108,7 @@ function Signup() {
             name="password"
             value={formData.password}
             onChange={handleChange}
-            className="w-full rounded border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded border border-gray-300 p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
         </label>
@@ -121,7 +121,7 @@ function Signup() {
             name="confirmPassword"
             value={formData.confirmPassword}
             onChange={handleChange}
-            className="w-full rounded border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded border border-gray-300 p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
         </label>
@@ -132,7 +132,7 @@ function Signup() {
             name="course"
             value={formData.course}
             onChange={handleChange}
-            className="w-full rounded border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded border border-gray-300 p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="">Select Course</option>
             <option value="rob">Robotics</option>
