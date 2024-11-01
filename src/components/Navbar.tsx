@@ -49,7 +49,7 @@ const Navbar = () => {
           href="/signup"
           className="rounded-md bg-orange-100 px-[1rem] py-[0.5rem] text-black hover:bg-orange-500 hover:text-white hover:shadow-lg"
         >
-          Signup
+          Register
         </Link>
       </div>
     </div>
