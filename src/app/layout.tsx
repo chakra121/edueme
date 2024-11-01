@@ -1,6 +1,5 @@
 import "@/styles/globals.css";
 import Navbar from "@/components/Navbar";
-import Info1 from "@/app/(landing)/Info1";
 
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
