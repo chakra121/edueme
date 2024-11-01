@@ -94,25 +94,25 @@ const About = () => {
         <div className="relative flex w-[70%] justify-between gap-6 p-2">
           <div className="relative z-50 flex h-64 w-64 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400 to-yellow-300 p-1 transition-transform duration-200 hover:scale-110 hover:shadow-lg">
             <h1 className="mb-2 text-center text-2xl font-semibold text-gray-800">
-              Research
+              Research Box
             </h1>
           </div>
 
           <div className="relative z-50 flex h-64 w-64 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400 to-yellow-300 p-1 transition-transform duration-200 hover:scale-110 hover:shadow-lg">
             <h1 className="mb-2 text-center text-2xl font-semibold text-gray-800">
-              Research
+              Research Box
             </h1>
           </div>
 
           <div className="relative z-50 flex h-64 w-64 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400 to-yellow-300 p-1 transition-transform duration-200 hover:scale-110 hover:shadow-lg">
             <h1 className="mb-2 text-center text-2xl font-semibold text-gray-800">
-              Research
+              Research Box
             </h1>
           </div>
 
           <div className="relative z-50 flex h-64 w-64 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400 to-yellow-300 p-1 transition-transform duration-200 hover:scale-110 hover:shadow-lg">
             <h1 className="mb-2 text-center text-2xl font-semibold text-gray-800">
-              Research
+              Research Box
             </h1>
           </div>
         </div>
