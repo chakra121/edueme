@@ -2,7 +2,7 @@ import React from 'react'
 
 const demoFrom = () => {
 return (
-  <div className="flex h-screen items-center justify-center bg-gray-100">
+  <div className="flex h-screen p-4 items-center justify-center bg-gray-100">
     <div className="flex w-full max-w-6xl overflow-hidden rounded-2xl bg-white hover:shadow-lg">
       {/* Left Section */}
       <div className="flex w-1/2 flex-col items-center justify-center bg-slate-900 p-8 text-white">
