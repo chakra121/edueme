@@ -92,27 +92,37 @@ const About = () => {
       </div>
       <div className="flex items-center justify-center">
         <div className="relative flex w-[70%] justify-between gap-6 p-2">
-          <div className="relative z-50 flex h-64 w-64 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400 to-yellow-300 p-1 transition-transform duration-200 hover:scale-110 hover:shadow-lg">
-            <h1 className="mb-2 text-center text-2xl font-semibold text-gray-800">
-              Research Box
+          <div className="relative z-50 flex h-64 w-64 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-300 to-yellow-200 p-1 transition-transform duration-200 hover:scale-110 hover:shadow-lg">
+            <h1 className="mb-2 text-left text-2xl font-semibold text-gray-800">
+              75+
+              <br />
+              Students
+              <br />
+              Enrolled
+            </h1>
+          </div>
+
+          <div className="relative z-50 flex h-64 w-64 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-300 to-yellow-200 p-1 transition-transform duration-200 hover:scale-110 hover:shadow-lg">
+            <h1 className="mb-2 text-left text-2xl font-semibold text-gray-800">
+              100+
+              <br />
+              Teachers
+            </h1>
+          </div>
+
+          <div className="relative z-50 flex h-64 w-64 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-300 to-yellow-200 p-1 transition-transform duration-200 hover:scale-110 hover:shadow-lg">
+            <h1 className="mb-2 text-left text-2xl font-semibold text-gray-800">
+              50+
+              <br />
+              Schools
+              <br />
+              Registered
             </h1>
           </div>
 
           <div className="relative z-50 flex h-64 w-64 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400 to-yellow-300 p-1 transition-transform duration-200 hover:scale-110 hover:shadow-lg">
-            <h1 className="mb-2 text-center text-2xl font-semibold text-gray-800">
-              Research Box
-            </h1>
-          </div>
-
-          <div className="relative z-50 flex h-64 w-64 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400 to-yellow-300 p-1 transition-transform duration-200 hover:scale-110 hover:shadow-lg">
-            <h1 className="mb-2 text-center text-2xl font-semibold text-gray-800">
-              Research Box
-            </h1>
-          </div>
-
-          <div className="relative z-50 flex h-64 w-64 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400 to-yellow-300 p-1 transition-transform duration-200 hover:scale-110 hover:shadow-lg">
-            <h1 className="mb-2 text-center text-2xl font-semibold text-gray-800">
-              Research Box
+            <h1 className="mb-2 text-left text-2xl font-semibold text-gray-800">
+              30+<br/>Courses
             </h1>
           </div>
         </div>
