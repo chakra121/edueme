@@ -22,7 +22,7 @@ const Navbar = () => {
           About
         </Link>
         <Link
-          href="/"
+          href="/contact"
           className="rounded-md px-[1rem] py-[0.5rem] hover:bg-yellow-500 hover:text-white hover:shadow-xl"
         >
           Contact
