@@ -8,7 +8,7 @@ const Navbar = () => {
         <img src="/logo.png" alt="logo" />
       </div>
 
-      <div className="flex items-center gap-[1rem]">
+      <div className="hidden lg:flex items-center gap-[1rem]">
         <Link
           href="/"
           className="rounded-md px-[1rem] py-[0.5rem] hover:bg-yellow-500 hover:text-white hover:shadow-xl"

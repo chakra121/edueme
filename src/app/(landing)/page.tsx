@@ -1,10 +1,10 @@
-import Info1 from "./Info1";
+import Hero from "./Hero";
 import Features from "./Features";
 
 export default function HomePage() {
   return (
     <div>
-      <Info1 />
+      <Hero />
       <Features />
     </div>
   );

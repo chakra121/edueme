@@ -3,7 +3,7 @@ import React from "react";
 
 const Features = () => {
   return (
-    <div className="flex h-screen flex-col lg:flex-row items-center justify-center px-[20%] gap-[5%]">
+    <div className="flex min-h-screen flex-col lg:flex-row items-center justify-center px-[1rem] lg:px-[20%] gap-[5%] py-[2rem]">
       {/* Left Section */}
       <div>
         <div>
