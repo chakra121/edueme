@@ -43,89 +43,120 @@ function ContactForm() {
 
   return (
     <div
-      className="flex flex-row items-center min-h-screen bg-cover bg-center px-4 sm:px-10 "
+      className="flex min-h-screen flex-row items-center bg-cover bg-center px-4 sm:px-10"
       style={{
         backgroundImage: "url('/contactbgg.png')",
       }}
     >
-      <div className="w-full max-w-sm sm:max-w-md p-6 sm:p-6 bg-white bg-opacity-90 rounded-lg shadow-md -mt-10 mx-auto">
-        <h2 className="text-2xl font-bold mb-4 text-gray-800  sm:text-left">Contact Us</h2>
+      <div className="mx-auto -mt-10 w-full max-w-sm rounded-lg bg-white bg-opacity-90 p-6 shadow-md sm:max-w-md sm:p-6">
+        <h2 className="mb-4 text-2xl font-bold text-gray-800 sm:text-left">
+          Contact Us
+        </h2>
 
         <form onSubmit={handleSubmit}>
-          <label className="block mb-2">
+          <label className="mb-2 block">
             Name
             <input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full mt-1 p-2 border rounded-md"
+              className="mt-1 w-full rounded-md border p-2"
             />
-            {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+            {errors.name && (
+              <p className="text-sm text-red-500">{errors.name}</p>
+            )}
           </label>
 
-          <label className="block mb-2">
+          <label className="mb-2 block">
             Email
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full mt-1 p-2 border rounded-md"
+              className="mt-1 w-full rounded-md border p-2"
             />
-            {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+            {errors.email && (
+              <p className="text-sm text-red-500">{errors.email}</p>
+            )}
           </label>
 
-          <label className="block mb-2">
+          <label className="mb-2 block">
             Subject
             <input
               type="text"
               name="subject"
               value={formData.subject}
               onChange={handleChange}
-              className="w-full mt-1 p-2 border rounded-md"
+              className="mt-1 w-full rounded-md border p-2"
             />
-            {errors.subject && <p className="text-red-500 text-sm">{errors.subject}</p>}
+            {errors.subject && (
+              <p className="text-sm text-red-500">{errors.subject}</p>
+            )}
           </label>
 
-          <label className="block mb-4">
+          <label className="mb-4 block">
             Message
             <textarea
               name="message"
               value={formData.message}
               onChange={handleChange}
-              className="w-full mt-1 p-2 border rounded-md h-32 resize-none"
+              className="mt-1 h-32 w-full resize-none rounded-md border p-2"
             />
-            {errors.message && <p className="text-red-500 text-sm">{errors.message}</p>}
+            {errors.message && (
+              <p className="text-sm text-red-500">{errors.message}</p>
+            )}
           </label>
 
-          <button type="submit" className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md">
+          <button
+            type="submit"
+            className="w-full rounded-md bg-blue-500 py-2 text-white hover:bg-blue-600"
+          >
             Send Message
           </button>
 
-          {submitted && <p className="mt-4 text-green-500 text-center">Message sent successfully!</p>}
+          {submitted && (
+            <p className="mt-4 text-center text-green-500">
+              Message sent successfully!
+            </p>
+          )}
         </form>
       </div>
 
       {/* Additional Contact Information */}
-      <div className="-mt-10 mr-40 p-6 bg-white bg-opacity-90 rounded-lg shadow-md text-center w-full max-w-sm sm:max-w-md ">
-        <h3 className="text-lg font-semibold mb-2">Reach Us Directly</h3>
-        
+      <div className="-mt-10 mr-40 w-full max-w-sm rounded-lg bg-white bg-opacity-90 p-6 text-center shadow-md sm:max-w-md">
+        <h3 className="mb-2 text-lg font-semibold">Reach Us Directly</h3>
+
         <p className="text-gray-700">
-          <a href="mailto:contact@edtechplatform.com" className="text-blue-500 hover:text-blue-700">
-            Email: edumeintern@gmail.com
+          Email:{" "}
+          <a
+            href="mailto:contact@edtechplatform.com"
+            className="text-blue-500 hover:text-blue-700"
+          >
+            edumeintern@gmail.com
           </a>
         </p>
 
-        <p className="text-gray-700 mt-2">
-          <a href="tel:+918341166882" className="text-blue-500 hover:text-blue-700">
-            Phone: +91 8341166882
+        <p className="mt-2 text-gray-700">
+          Phone:{" "}
+          <a
+            href="tel:+918341166882"
+            className="text-blue-500 hover:text-blue-700"
+          >
+            +91 8341166882
           </a>
         </p>
 
-        <p className="text-gray-700 mt-2">
-          <a href="https://wa.me/+918341166882" className="text-blue-500 hover:text-blue-700" target="_blank" rel="noopener noreferrer">
-            WhatsApp Chat: +91 8341166882
+        <p className="mt-2 text-gray-700">
+          WhatsApp Chat:{" "}
+          <a
+            href="https://wa.me/+918341166882"
+            className="text-blue-500 hover:text-blue-700"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            +91 8341166882
           </a>
         </p>
       </div>
