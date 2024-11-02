@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Link from 'next/link'
 
 const Navbar = () => {
   return (
-    <div className="flex items-center justify-between bg-gradient-to-r from-yellow-200 to-orange-400 px-[10%] pb-[0.5rem] pt-[0.5rem] hover:shadow-xl">
+    <div className="fixed w-full flex items-center justify-between bg-gradient-to-r from-yellow-200 to-orange-400 px-[10%] py-[0.3rem] shadow-xl z-[99]">
       <div >
         <img src="/logo.png" alt="logo" />
       </div>
