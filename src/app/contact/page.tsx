@@ -141,7 +141,7 @@ function ContactForm() {
         <p className="mt-2 text-gray-700">
           Phone:{" "}
           <a
-            href="tel:+918341166882"
+            href="tel:+919059508050"
             className="text-blue-500 hover:text-blue-700"
           >
             +91 8341166882
@@ -151,12 +151,12 @@ function ContactForm() {
         <p className="mt-2 text-gray-700">
           WhatsApp Chat:{" "}
           <a
-            href="https://wa.me/+918341166882"
+            href="https://wa.me/+919059508050"
             className="text-blue-500 hover:text-blue-700"
             target="_blank"
             rel="noopener noreferrer"
           >
-            +91 8341166882
+            +91 9059508050
           </a>
         </p>
       </div>
