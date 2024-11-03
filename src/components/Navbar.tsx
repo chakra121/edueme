@@ -5,7 +5,7 @@ const Navbar = () => {
   return (
     <div className="fixed w-full flex items-center justify-between bg-gradient-to-r from-yellow-200 to-orange-400 px-[10%] py-[0.3rem] shadow-xl z-[99]">
       <div >
-        <img src="/logo.png" alt="logo" />
+        <img className="h-14 w-auto" src="/Edueme_Final_Logo.png" alt="logo" />
       </div>
 
       <div className="hidden lg:flex items-center gap-[1rem]">
