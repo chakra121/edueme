@@ -144,7 +144,7 @@ function ContactForm() {
             href="tel:+919059508050"
             className="text-blue-500 hover:text-blue-700"
           >
-            +91 8341166882
+            +91 9059508050
           </a>
         </p>
 
