@@ -1,0 +1,4 @@
+/* Custom CSS for hover pause */
+.marquee:hover {
+    animation-play-state: paused;
+}

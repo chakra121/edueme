@@ -1,8 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faFacebook,
-  faTwitter,
+  faWhatsapp,
   faInstagram,
   faLinkedin,
 } from "@fortawesome/free-brands-svg-icons";
@@ -24,10 +23,11 @@ const Footer = () => {
                 physicists bring a wealth of knowledge and experience in
                 Robotics, Mechanical Design, Machine Learning, and Artificial
                 Intelligence to provide our students with unparalleled learning
-                opportunities.<br/> With a focus on the second half of the 21st
-                century, we are proud to be the pioneers in India to introduce
-                robotics education from as early as third grade, empowering our
-                students to explore the exciting world of robotics with hands-on
+                opportunities.
+                <br /> With a focus on the second half of the 21st century, we
+                are proud to be the pioneers in India to introduce robotics
+                education from as early as third grade, empowering our students
+                to explore the exciting world of robotics with hands-on
                 experience.
               </p>
             </div>
@@ -108,20 +108,31 @@ const Footer = () => {
                     +91 9059508050
                   </a>
                 </li>
-                <div className="flex justify-center">
-                  <a href="#" className="hover:text-white">
-                    <FontAwesomeIcon icon={faFacebook} />
-                  </a>
-                  <a href="#" className="hover:text-white">
-                    <FontAwesomeIcon icon={faTwitter} />
-                  </a>
-                  <a href="#" className="hover:text-white">
-                    <FontAwesomeIcon icon={faInstagram} />
-                  </a>
-                  <a href="#" className="hover:text-white">
-                    <FontAwesomeIcon icon={faLinkedin} />
-                  </a>
-                </div>
+                <ul>
+                  {/*<div className="">
+                    <a
+                      href="https://wa.me/+919059508050"
+                      target="#"
+                      className="hover:text-white"
+                    >
+                      <FontAwesomeIcon icon={faWhatsapp} text-sm />
+                    </a>
+                    <a
+                      href="https://www.instagram.com/edueme_researchlabs/"
+                      target="#"
+                      className="hover:text-white"
+                    >
+                      <FontAwesomeIcon icon={faInstagram} text-sm />
+                    </a>
+                    <a
+                      href="https://www.linkedin.com/company/edueme-research-labs/"
+                      target="#"
+                      className="hover:text-white"
+                    >
+                      <FontAwesomeIcon icon={faLinkedin} text-sm />
+                    </a>
+                  </div>*/}
+                </ul>
               </ul>
             </div>
           </div>
