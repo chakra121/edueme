@@ -1,59 +1,69 @@
 import React from "react";
-import Link from 'next/link'
+import Link from "next/link";
+import Image from "next/image";
+import { RainbowButton } from "./ui/rainbow-button";
+import HomeIcon from "@mui/icons-material/Home";
+import InfoIcon from "@mui/icons-material/Info";
+import ContactMailIcon from "@mui/icons-material/ContactMail";
+import EventIcon from "@mui/icons-material/Event";
+import SchoolIcon from "@mui/icons-material/School";
 
 const Navbar = () => {
   return (
-    <div className="fixed w-full flex items-center justify-between bg-gradient-to-r from-yellow-200 to-orange-400 px-[10%] py-[0.3rem] shadow-xl z-[99]">
-      <div >
-        <img className="h-14 w-auto" src="/Edueme_Final_Logo.png" alt="logo" />
+    <div className="fixed z-[99] flex w-full items-center justify-between bg-black/20 px-[1rem] py-[0.5rem] text-white backdrop-blur-md lg:px-[10%] gap-[1rem]">
+      <div>
+        <Image
+          className="hidden h-14 w-auto lg:block"
+          width={300}
+          height={300}
+          src="/logo_white.png"
+          alt="logo"
+        />
+        <Image
+          className="block lg:hidden"
+          width={200}
+          height={200}
+          src="/logo_white.png"
+          alt="logo"
+        />
       </div>
 
-      <div className="hidden lg:flex items-center gap-[1rem]">
+      <div className="hidden items-center gap-[1rem] lg:flex">
         <Link
           href="/"
-          className="rounded-md px-[1rem] py-[0.5rem] hover:bg-yellow-500 hover:text-white hover:shadow-xl"
+          className="rounded-md px-[1rem] hover:bg-yellow-500 hover:text-black"
         >
           Home
         </Link>
         <Link
           href="/about"
-          className="rounded-md px-[1rem] py-[0.5rem] hover:bg-yellow-500 hover:text-white hover:shadow-xl"
+          className="rounded-md px-[1rem] hover:bg-yellow-500 hover:text-black"
         >
           About
         </Link>
         <Link
           href="/contact"
-          className="rounded-md px-[1rem] py-[0.5rem] hover:bg-yellow-500 hover:text-white hover:shadow-xl"
+          className="rounded-md px-[1rem] hover:bg-yellow-500 hover:text-black"
         >
           Contact
         </Link>
         <Link
           href="/demoFrom"
-          className="rounded-md px-[1rem] py-[0.5rem] hover:bg-yellow-500 hover:text-white hover:shadow-xl"
+          className="rounded-md px-[1rem] hover:bg-yellow-500 hover:text-black"
         >
           Book Demo
         </Link>
         <Link
           href="/"
-          className="rounded-md px-[1rem] py-[0.5rem] hover:bg-yellow-500 hover:text-white hover:shadow-xl"
+          className="rounded-md px-[1rem] hover:bg-yellow-500 hover:text-black"
         >
           Courses
         </Link>
-        <Link
-          href="/login"
-          className="rounded-md bg-orange-100 px-[1rem] py-[0.5rem] text-black hover:bg-orange-500 hover:text-white hover:shadow-lg"
-        >
-          Login
-        </Link>
-        <Link
-          href="/signup"
-          className="rounded-md bg-orange-100 px-[1rem] py-[0.5rem] text-black hover:bg-orange-500 hover:text-white hover:shadow-lg"
-        >
-          Register
-        </Link>
       </div>
+
+      <RainbowButton>Book Demo</RainbowButton>
     </div>
   );
-}
+};
 
-export default Navbar
+export default Navbar;
