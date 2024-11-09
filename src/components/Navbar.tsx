@@ -2,11 +2,6 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { RainbowButton } from "./ui/rainbow-button";
-import HomeIcon from "@mui/icons-material/Home";
-import InfoIcon from "@mui/icons-material/Info";
-import ContactMailIcon from "@mui/icons-material/ContactMail";
-import EventIcon from "@mui/icons-material/Event";
-import SchoolIcon from "@mui/icons-material/School";
 
 const Navbar = () => {
   return (
