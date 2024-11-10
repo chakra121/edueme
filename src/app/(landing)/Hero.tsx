@@ -19,7 +19,7 @@ const Hero = () => {
 
       {/* Content */}
       <div className="h-screen flex flex-col justify-center px-[1rem] lg:px-[10%] gap-[1rem]">
-        <h1 className="text-6xl lg:text-8xl lg:max-w-[60%] text-balance font-bold">Edueme Research Labs</h1>
+        <h1 className="text-6xl lg:text-8xl lg:max-w-[60%] text-balance font-bold">Welcome to Edueme Online</h1>
         <p className="mt-4 text-balance">
           Robotics and AI Curriculum for the Future Innovators
         </p>
