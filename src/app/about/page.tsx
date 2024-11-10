@@ -57,7 +57,7 @@ const About = () => {
               Edueme Research Labs
             </h1>
             {/* First Para */}
-            <p className="relative px-[2rem] pt-5 text-center text-base font-normal">
+            <p className="relative px-[2rem] pt-5 text-center text-base font-normal text-gray-800">
               The pace of technical development in the modern world is
               accelerating more quickly than before. Adaptation and the
               acquisition of new competencies and skills are crucial in this

@@ -48,13 +48,13 @@ function ContactForm() {
         backgroundImage: "url('/contactbgg.png')",
       }}
     >
-      <div className="mx-auto -mt-10 w-full max-w-sm rounded-lg bg-white bg-opacity-90 p-6 shadow-md sm:max-w-md sm:p-6">
+      <div className="mx-auto mt-10 w-full max-w-sm rounded-lg bg-white bg-opacity-90 p-6 shadow-md sm:max-w-md sm:p-6">
         <h2 className="mb-4 text-2xl font-bold text-gray-800 sm:text-left">
           Contact Us
         </h2>
 
         <form onSubmit={handleSubmit}>
-          <label className="mb-2 block">
+          <label className="mb-2 block text-gray-800">
             Name
             <input
               type="text"
@@ -68,7 +68,7 @@ function ContactForm() {
             )}
           </label>
 
-          <label className="mb-2 block">
+          <label className="mb-2 block text-gray-800">
             Email
             <input
               type="email"
@@ -82,7 +82,7 @@ function ContactForm() {
             )}
           </label>
 
-          <label className="mb-2 block">
+          <label className="mb-2 block text-gray-800">
             Subject
             <input
               type="text"
@@ -96,7 +96,7 @@ function ContactForm() {
             )}
           </label>
 
-          <label className="mb-4 block">
+          <label className="mb-4 block text-gray-800">
             Message
             <textarea
               name="message"
@@ -126,7 +126,7 @@ function ContactForm() {
 
       {/* Additional Contact Information */}
       <div className="-mt-10 mr-40 w-full max-w-sm rounded-lg bg-white bg-opacity-90 p-6 text-center shadow-md sm:max-w-md">
-        <h3 className="mb-2 text-lg font-semibold">Reach Us Directly</h3>
+        <h3 className="mb-2 text-lg font-semibold text-gray-800">Reach Us Directly</h3>
 
         <p className="text-gray-700">
           Email:{" "}
