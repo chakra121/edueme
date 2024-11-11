@@ -50,8 +50,9 @@ const Navbar = () => {
           Courses
         </Link>
       </div>
-
+<Link href='/demoFrom'>
       <RainbowButton>Book Demo</RainbowButton>
+</Link>  
     </div>
   );
 };
