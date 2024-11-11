@@ -1,46 +1,6 @@
 "use client";
-import React, { useState } from 'react';
 
 function ContactForm() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  });
-
-  const [errors, setErrors] = useState({});
-  const [submitted, setSubmitted] = useState(false);
-
-  const validate = () => {
-    let tempErrors = {};
-    if (!formData.name) tempErrors.name = "Name is required";
-    if (!formData.email) {
-      tempErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      tempErrors.email = "Email address is invalid";
-    }
-    if (!formData.subject) tempErrors.subject = "Subject is required";
-    if (!formData.message) tempErrors.message = "Message is required";
-    setErrors(tempErrors);
-    return Object.keys(tempErrors).length === 0;
-  };
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validate()) {
-      setSubmitted(true);
-      // Handle form submission here
-    }
-  };
-
   return (
     <div
       className="flex min-h-screen flex-row items-center bg-cover bg-center px-4 sm:px-10"
