@@ -1,6 +1,8 @@
 import Hero from "./Hero";
 import Features from "./Features";
 import Schools from "./Schools";
+import Products from "./Products";
+import Services from "./Services";
 
 export default function HomePage() {
   return (
@@ -8,6 +10,8 @@ export default function HomePage() {
       <Hero />
       <Schools />
       <Features />
+      <Products />
+      <Services/>
     </div>
   );
 }
