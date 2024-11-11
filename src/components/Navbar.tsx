@@ -42,12 +42,7 @@ const Navbar = () => {
         >
           Contact
         </Link>
-        <Link
-          href="/demoFrom"
-          className="rounded-md px-[1rem] hover:bg-yellow-500 hover:text-black"
-        >
-          Book Demo
-        </Link>
+
         <Link
           href="/"
           className="rounded-md px-[1rem] hover:bg-yellow-500 hover:text-black"

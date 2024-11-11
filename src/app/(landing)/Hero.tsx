@@ -24,7 +24,7 @@ const Hero = () => {
           Robotics and AI Curriculum for the Future Innovators
         </p>
         <div className="flex gap-[1rem] items-center">
-        <RainbowButton className="w-fit">Book Demo</RainbowButton>
+        <RainbowButton className="w-fit" >Book Demo</RainbowButton>
         <Link href={"/"} className="font-bold">Join our community <LaunchIcon /></Link>
         </div>
       </div>

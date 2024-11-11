@@ -44,6 +44,9 @@ const ReviewCard = ({
 export default function Schools() {
   return (
     <div className="relative flex h-[400px] w-full flex-col items-center justify-center overflow-hidden">
+      <div className="text-balance text-4xl font-bold lg:max-w-[60%] lg:text-4xl">
+        <h1>Schools in Collaboration:</h1>
+      </div>
       <Marquee pauseOnHover className="[--duration:20s]">
         {schoolsList.map((review) => (
           <ReviewCard key={review.img} {...review} />
@@ -54,7 +57,7 @@ export default function Schools() {
           <ReviewCard key={review.img} {...review} />
         ))}
       </Marquee>
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 "></div>
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3"></div>
       <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3"></div>
     </div>
   );
