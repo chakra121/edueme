@@ -47,7 +47,7 @@ const DemoForm = () => {
   };
 
   return (
-    <div className="flex h-screen p-4 items-center justify-center bg-gray-100">
+    <div className="flex h-screen items-center justify-center bg-gray-100 p-4">
       <div className="flex w-full max-w-6xl overflow-hidden rounded-2xl bg-white hover:shadow-lg">
         {/* Left Section */}
         <div className="flex w-1/2 flex-col items-center justify-center bg-slate-900 p-8 text-white">
@@ -66,7 +66,9 @@ const DemoForm = () => {
 
         {/* Right Section */}
         <div className="flex w-1/2 flex-col items-center justify-center bg-white p-8">
-          <h2 className="mb-6 text-2xl font-bold text-gray-800">Book a Free Demo Now!</h2>
+          <h2 className="mb-6 text-2xl font-bold text-gray-800">
+            Book a Free Demo Now!
+          </h2>
           <form onSubmit={handleSubmit} className="w-full max-w-sm">
             <div className="mb-4">
               <input
@@ -95,7 +97,7 @@ const DemoForm = () => {
                 className="w-full rounded bg-green-500 text-white hover:bg-green-600"
                 disabled={otpSent}
               >
-                {otpSent ? 'OTP Sent' : 'Send OTP'}
+                {otpSent ? "OTP Sent" : "Send OTP"}
               </button>
             </div>
 
@@ -145,7 +147,9 @@ const DemoForm = () => {
               Schedule Now!
             </button>
           </form>
-          <p className="mt-6 text-sm text-gray-400">&copy; 2024 All Rights Reserved</p>
+          <p className="mt-6 text-sm text-gray-400">
+            © 2024 Edueme Research Labs. All rights reserved.
+          </p>
         </div>
       </div>
     </div>
