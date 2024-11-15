@@ -1,6 +1,26 @@
 "use client";
 
 function ContactForm() {
+  const handleSubmit = () =>{
+    return null;
+  };
+  const handleChange = () =>{
+    return null;
+  };
+  const formData = {
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+    
+  }
+  const errors = {
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  }
+  const submitted = false;
   return (
     <div
       className="flex min-h-screen flex-row items-center bg-cover bg-center px-4 sm:px-10"
