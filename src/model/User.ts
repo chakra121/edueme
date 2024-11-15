@@ -1,31 +1,17 @@
 import mongoose, { Schema, type Document } from "mongoose";
-import type { RegistrationForm } from "../app/register/interface";
+import type { DemoForm } from "../app/api/register/interface";
 
-interface Team extends Document, RegistrationForm { }
+interface DemoFormDocument extends Document, DemoForm {}
 
-const memberSchema = new Schema({
-    name: { type: String, required: true, trim: true },
-    email: { type: String, required: true, trim: true, unique: true },
-    rollNo: { type: String, required: true, trim: true, unique: true },
-    phoneNumber: { type: String, required: true, trim: true, unique: true },
-    branch: { type: String, required: true, trim: true },
-    year: { type: String, required: true, trim: true },
+const DemoFormSchema: Schema = new Schema<DemoFormDocument>({
+  name: { type: String, required: true, trim: true },
+  phoneNumber: { type: String, required: true, match: /^[0-9]{10}$/ },
+  email: { type: String, required: true, unique: true, match: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/ },
+  grade: { type: String, required: true },
 });
 
-const teamSchema = new Schema<Team>({
-    lead: { type: memberSchema, required: true },
-    teamSize: { type: Number, required: true, min: 1 },
-    teamName: { type: String, required: true, trim: true },
-    completedCourse: { type: Boolean, required: true, default: false },
-    college: { type: String, required: true, trim: true },
-    teamDetails: { type: [memberSchema] },
-},
-    {
-        timestamps: true,
-    });
+const DemoFormModel =
+  mongoose.models.DemoForm ??
+  mongoose.model<DemoFormDocument>("DemoForm", DemoFormSchema);
 
-const TeamModel =
-    (mongoose.models.Team as mongoose.Model<Team>) ||
-    mongoose.model<Team>("Team", teamSchema);
-
-export default TeamModel;
+export default DemoFormModel;
