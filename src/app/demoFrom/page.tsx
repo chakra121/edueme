@@ -54,10 +54,21 @@ const DemoForm = () => {
     <div className="flex h-screen items-center justify-center bg-gray-100 p-4">
       <div className="flex w-full max-w-6xl overflow-hidden rounded-2xl bg-white shadow-lg">
         <div className="flex w-1/2 flex-col items-center justify-center bg-slate-900 p-8 text-white">
-          <Image width={200} height={200} className="h-80 w-auto" src="/demoimg.png" alt="Demo" />
-          <h1 className="text-2xl font-bold text-fuchsia-500">
-            Robotics Journey
-          </h1>
+          <Image
+            width={200}
+            height={200}
+            className="h-80 w-auto"
+            src="/demoimg.png"
+            alt="Demo"
+          />
+          <div className="text-left">
+            <h1 className="mb-2 text-2xl font-bold">One step</h1>
+            <h1 className="mb-2 text-2xl font-bold">Ahead towards your</h1>
+            <div className="flex items-center space-x-2">
+              <h1 className="text-2xl font-bold text-fuchsia-500">Robotics</h1>
+              <h1 className="text-2xl font-bold">Journey...</h1>
+            </div>
+          </div>
         </div>
         <div className="flex w-1/2 flex-col items-center justify-center bg-white p-8">
           <h2 className="mb-6 text-2xl font-bold text-gray-800">
@@ -71,7 +82,7 @@ const DemoForm = () => {
               value={formData.name}
               onChange={handleChange}
               required
-              className="mb-4 w-full rounded border p-3"
+              className="mb-4 w-full rounded border bg-white p-3 text-black placeholder-gray-500"
             />
             <input
               type="tel"
@@ -80,7 +91,7 @@ const DemoForm = () => {
               value={formData.phoneNumber}
               onChange={handleChange}
               required
-              className="mb-4 w-full rounded border p-3"
+              className="mb-4 w-full rounded border bg-white p-3 text-black placeholder-gray-500"
             />
             <input
               type="email"
@@ -89,14 +100,14 @@ const DemoForm = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="mb-4 w-full rounded border p-3"
+              className="mb-4 w-full rounded border bg-white p-3 text-black placeholder-gray-500"
             />
             <select
               name="grade"
               value={formData.grade}
               onChange={handleChange}
               required
-              className="mb-4 w-full rounded border p-3"
+              className="mb-4 w-full rounded border bg-white p-3 text-black placeholder-gray-500"
             >
               <option value="" disabled>
                 Select Grade
@@ -114,8 +125,12 @@ const DemoForm = () => {
             >
               {loading ? "Submitting..." : "Register"}
             </button>
-            {error && <p className="mt-4 text-red-500 text-center">
-              <CloseIcon />{error}</p>}
+            {error && (
+              <p className="mt-4 text-center text-red-500">
+                <CloseIcon />
+                {error}
+              </p>
+            )}
           </form>
         </div>
       </div>
