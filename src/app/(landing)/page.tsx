@@ -8,10 +8,10 @@ export default function HomePage() {
   return (
     <div>
       <Hero />
-      <Schools />
       <Features />
+      <Schools />
       <Products />
-      <Services/>
+      <Services />
     </div>
   );
 }

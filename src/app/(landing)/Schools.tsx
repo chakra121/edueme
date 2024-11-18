@@ -47,11 +47,6 @@ export default function Schools() {
       <div className="text-balance text-4xl font-bold lg:max-w-[60%] lg:text-4xl">
         <h1>Schools in Collaboration:</h1>
       </div>
-      <Marquee pauseOnHover className="[--duration:20s]">
-        {schoolsList.map((review) => (
-          <ReviewCard key={review.img} {...review} />
-        ))}
-      </Marquee>
       <Marquee reverse pauseOnHover className="[--duration:20s]">
         {schoolsList.map((review) => (
           <ReviewCard key={review.img} {...review} />

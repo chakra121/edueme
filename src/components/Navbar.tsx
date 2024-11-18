@@ -5,7 +5,7 @@ import { RainbowButton } from "./ui/rainbow-button";
 
 const Navbar = () => {
   return (
-    <div className="fixed z-[99] flex w-full items-center justify-between bg-black/20 px-[1rem] py-[0.5rem] text-white backdrop-blur-md lg:px-[10%] gap-[1rem]">
+    <div className="fixed z-[99] flex w-full items-center justify-between gap-[1rem] bg-black/20 px-[1rem] py-[0.5rem] text-white backdrop-blur-md lg:px-[10%]">
       <Link href="/">
         <Image
           className="hidden h-14 w-auto lg:block"
@@ -26,33 +26,36 @@ const Navbar = () => {
       <div className="hidden items-center gap-[1rem] lg:flex">
         <Link
           href="/"
-          className="rounded-md px-[1rem] hover:bg-yellow-500 hover:text-black"
+          className="rounded-md px-[1rem] py-2 transition duration-300 ease-in-out hover:scale-105 hover:bg-yellow-500 hover:text-black"
         >
           Home
         </Link>
         <Link
           href="/about"
-          className="rounded-md px-[1rem] hover:bg-yellow-500 hover:text-black"
+          className="rounded-md px-[1rem] py-2 transition duration-300 ease-in-out hover:scale-105 hover:bg-yellow-500 hover:text-black"
         >
           About
         </Link>
         <Link
           href="/contact"
-          className="rounded-md px-[1rem] hover:bg-yellow-500 hover:text-black"
+          className="rounded-md px-[1rem] py-2 transition duration-300 ease-in-out hover:scale-105 hover:bg-yellow-500 hover:text-black"
         >
           Contact
         </Link>
 
         <Link
-          href="/"
-          className="rounded-md px-[1rem] hover:bg-yellow-500 hover:text-black"
+          href="/courses"
+          className="rounded-md px-[1rem] py-2 transition duration-300 ease-in-out hover:scale-105 hover:bg-yellow-500 hover:text-black"
         >
           Courses
         </Link>
       </div>
-<Link href='/demoFrom'>
-      <RainbowButton>Book Demo</RainbowButton>
-</Link>  
+      <Link
+        href="/demoFrom"
+        className="transition duration-300 ease-in-out hover:scale-105"
+      >
+        <RainbowButton>Book Demo</RainbowButton>
+      </Link>
     </div>
   );
 };
