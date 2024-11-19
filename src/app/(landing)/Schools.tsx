@@ -18,7 +18,22 @@ const schoolsList = [
   },
   {
     img: "/schools/logo5.png",
-  }
+  },
+  {
+    img: "/schools/logo6.png",
+  },
+  {
+    img: "/schools/logo7.png",
+  },
+  {
+    img: "/schools/logo8.png",
+  },
+  {
+    img: "/schools/logo9.png",
+  },
+  {
+    img: "/schools/logo10.png",
+  },
 ];
 
 const ReviewCard = ({
@@ -43,8 +58,8 @@ const ReviewCard = ({
 
 export default function Schools() {
   return (
-    <div className="relative flex h-[400px] w-full flex-col items-center justify-center overflow-hidden">
-      <div className="text-balance text-4xl font-bold lg:max-w-[60%] lg:text-4xl">
+    <div className=" relative flex h-[400px] w-full flex-col items-center justify-center overflow-hidden">
+      <div className="text-balance text-4xl py-5 font-bold lg:max-w-[60%] lg:text-4xl">
         <h1>Schools in Collaboration:</h1>
       </div>
       <Marquee reverse pauseOnHover className="[--duration:20s]">

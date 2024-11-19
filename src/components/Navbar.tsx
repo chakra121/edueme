@@ -8,7 +8,7 @@ const Navbar = () => {
     <div className="fixed z-[99] flex w-full items-center justify-between gap-[1rem] bg-black/20 px-[1rem] py-[0.5rem] text-white backdrop-blur-md lg:px-[10%]">
       <Link href="/">
         <Image
-          className="hidden h-14 w-auto lg:block"
+          className="hidden h-14 w-auto transition duration-300 ease-in-out hover:scale-105 lg:block"
           width={300}
           height={300}
           src="/logo_white.png"
