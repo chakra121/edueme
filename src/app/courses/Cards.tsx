@@ -6,9 +6,6 @@ const Cards = () => {
   return (
     <div className="flex justify-center space-x-20 px-16 pb-8 pt-[8rem]">
       {/* Orange Card */}
-      {/* This course offers you wide range of experience into the world of
-      robotics. This is a complete beginner course where this course objective
-      is to stem education amoung the students. */}
       <div className="flex transform flex-col items-center rounded-xl border-4 border-orange-500 bg-orange-100 p-4 text-orange-900 transition duration-300 ease-in-out hover:scale-110 hover:bg-orange-200 dark:border-orange-700 dark:bg-orange-900 dark:text-orange-100 dark:hover:bg-orange-800">
         <h1 className="p-2 text-left font-sans text-2xl font-bold">Robotics</h1>
         <p className="text-center text-lg font-semibold">
@@ -61,6 +58,7 @@ const Cards = () => {
         </Link>
       </div>
     </div>
+
   );
 };
 
