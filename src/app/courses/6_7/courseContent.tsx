@@ -2,9 +2,15 @@
 
 import { useState } from "react";
 
+interface Subsection {
+  subheading: string;
+  details: string[]; // Array of content under the subheading
+}
+
 interface CourseSection {
   title: string;
   content: string[];
+  subsections?: Subsection[]; // Optional subsections
 }
 
 const CourseContent: React.FC = () => {
@@ -25,40 +31,97 @@ const CourseContent: React.FC = () => {
     setExpanded(updatedExpanded);
   };
 
-  const courseSections: CourseSection[] = [
-    {
-      title: "1. Introduction to Robotics",
-      content: [
-        "1.1 : What is Robotics",
-        "1.2 : How Robots Work",
-        "1.3 : Uses of Robotics",
-        "1.4 : Types of Robots",
-      ],
-    },
-    {
-      title: "2. Basic Electronic Components and Sensors",
-      content: [
-        "2.1 : Introduction to Sensors",
-        "2.2 : Understanding Circuits",
-        "2.3 : How to connect sensors",
-      ],
-    },
-    {
-      title: "3. Introduction to TinkerCad",
-      content: [
-        "3.1 : Getting Started with TinkerCad",
-        "3.2 : Basics of Circuit Simulation",
-      ],
-    },
-    {
-      title: "4. Introduction to Arduino",
-      content: [
-        "4.1 : Setting up Arduino",
-        "4.2 : Writing your first program",
-        "4.3 : Uploading code to Arduino",
-      ],
-    },
-  ];
+const courseSections: CourseSection[] = [
+  {
+    title: "Chapter 1 : Introduction to Robotics",
+    content: [
+      "1.1 : What is Robotics",
+      "1.2 : Parts of a Robot",
+      "1.3 : How Robots Work",
+      "1.4 : Uses of Robotics",
+      "1.5 : Types of Robots",
+    ],
+    subsections: [
+      {
+        subheading: "Prayog",
+        details: ["Unboxing Astra Kit"],
+      },
+      {
+        subheading: "Abhyas",
+        details: ["Identify the components in the Astra Kit"],
+      },
+    ],
+  },
+  {
+    title: "Chapter 2 : Basic Electronic Components and Sensors",
+    content: [
+      "2.1 : Introduction to electronic components",
+      "2.2 : Basic electronic components",
+      "2.3 : Electronic devices",
+      "2.4 : Introduction to sensors",
+      "2.5 : Types of sensors",
+      "2.6 : Applications of Electronic Components and Sensors",
+    ],
+    subsections: [
+      {
+        subheading: "Prayog",
+        details: [
+          "Basic circuit",
+          "Different types of circuit (Series and Parallel)",
+        ],
+      },
+      {
+        subheading: "Abhyas",
+        details: ["Fill in the Blanks/Matching"],
+      },
+    ],
+  },
+  {
+    title: "Chapter 3 : Introduction to TinkerCad",
+    content: [
+      "3.1 : Getting Started with TinkerCad",
+      "3.2 : Basics of Circuit Simulation",
+      "3.3 Login to TinkerCad",
+    ],
+    subsections: [
+      {
+        subheading: "Prayog",
+        details: [
+          "Open Tinkercad in browser",
+          "Problems with TinkerCad with (Basic circuit with different batteries)",
+        ],
+      },
+      {
+        subheading: "Abhyas",
+        details: ["Choose the Correct Answers"],
+      },
+    ],
+  },
+  {
+    title: "Chapter 4 : Introduction to Arduino",
+    content: [
+      "4.1 : What is an arduino?",
+      "4.2 : Types of arduino",
+      "4.3 : Parts of arduino",
+      "4.4 : Uses of arduino with realtime examples",
+      "4.5 : Installation of IDE Software",
+    ],
+    subsections: [
+      {
+        subheading: "Prayog",
+        details: [
+          "Activity installing arduino IDE",
+          "Connecting an arduino to a computer",
+        ],
+      },
+      {
+        subheading: "Abhyas",
+        details: ["Exercises on Arduino overview"],
+      },
+    ],
+  },
+];
+
 
   return (
     <div className="mx-auto max-w-4xl bg-black p-6">
@@ -83,7 +146,7 @@ const CourseContent: React.FC = () => {
             onClick={() => toggleDropdown(index)}
             className="flex w-full items-center justify-between bg-gray-800 p-4 text-left text-white focus:outline-none"
           >
-            <span className="font-medium">{section.title}</span>
+            <span className="font-semibold">{section.title}</span>
             <svg
               className={`h-5 w-5 transform ${
                 expanded[index] ? "rotate-180" : "rotate-0"
@@ -104,12 +167,33 @@ const CourseContent: React.FC = () => {
 
           {/* Dropdown Content */}
           {expanded[index] && (
-            <div className="bg-gray-900 p-4 text-gray-300">
-              <ul>
+            <div className="bg-gray-900 p-4 font-sans text-gray-300">
+              <ul className="mb-4 pl-5 text-lg">
                 {section.content.map((item, i) => (
-                  <li key={i}>{item}</li>
+                  <li key={i} className="mb-2">
+                    {item}
+                  </li>
                 ))}
               </ul>
+              {/* Subsections */}
+              {section.subsections && (
+                <div className="mt-4">
+                  {section.subsections.map((sub, i) => (
+                    <div key={i} className="mb-4 text-base">
+                      <h4 className="text-lg font-semibold text-fuchsia-400">
+                        {sub.subheading}
+                      </h4>
+                      <ul className="pl-5 text-lg text-gray-300">
+                        {sub.details.map((detail, j) => (
+                          <li key={j} className="mb-2">
+                            {detail}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
         </div>
