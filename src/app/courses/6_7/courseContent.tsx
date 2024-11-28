@@ -132,12 +132,12 @@ const courseSections: CourseSection[] = [
         </button>
       </div>
       <p className="mb-4 text-gray-400">
-        {courseSections.length} sections •{" "}
+        {courseSections.length} Sections •{" "}
         {courseSections.reduce(
           (sum, section) => sum + section.content.length,
           0,
         )}{" "}
-        lectures • Estimated total length
+        Lectures
       </p>
       {courseSections.map((section, index) => (
         <div key={index} className="mb-2 rounded-lg border border-gray-700">
