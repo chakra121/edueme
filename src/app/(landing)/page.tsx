@@ -3,6 +3,7 @@ import Features from "./Features";
 import Schools from "./Schools";
 import Products from "./Products";
 import Services from "./Services";
+import Gallery from "./Gallery";
 
 export default function HomePage() {
   return (
@@ -12,6 +13,7 @@ export default function HomePage() {
       <Schools />
       <Products />
       <Services />
+      <Gallery/>
     </div>
   );
 }
