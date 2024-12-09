@@ -1,54 +1,72 @@
-import React from 'react'
-import Link from 'next/link';
+import React from "react";
+import Link from "next/link";
 
 const Services = () => {
   return (
-    <div className="relative flex flex-col items-center justify-center">
-      <div className="text-balance pb-5 text-4xl font-bold lg:max-w-[60%] lg:text-4xl">
-        <h1>Our Services:</h1>
+    <div className="relative flex flex-col items-center justify-center px-4 py-10 lg:px-20">
+      {/* Title Section */}
+      <div className="mb-8 text-center">
+        <h1 className="text-3xl font-bold text-white sm:text-4xl">
+          Our Services:
+        </h1>
       </div>
-      <div className="relative z-10 flex flex-col items-center justify-center gap-10 p-10 lg:flex-row">
+
+      {/* Services Section */}
+      <div className="flex flex-wrap items-center justify-center gap-10">
+        {/* Service 1 */}
         <div className="flex flex-col items-center justify-center overflow-hidden">
           <img
-            className="h-48 w-auto rounded-full"
+            className="h-[8rem] w-[8rem] rounded-full border border-gray-200 object-cover p-[0.5rem] md:h-[10rem] md:w-[10rem] lg:h-[12rem] lg:w-[12rem]"
             src="services_online.jpg"
-          ></img>
-          <h3 className="justify-center text-balance py-4 text-xl font-semibold lg:max-w-[60%] lg:text-xl">
+            alt="Service - Online Learning"
+          />
+          <h3 className="mt-4 text-xl font-semibold text-white sm:text-2xl">
             Online Learning
           </h3>
         </div>
+
+        {/* Service 2 */}
         <div className="flex flex-col items-center justify-center overflow-hidden">
           <img
-            className="h-48 w-auto rounded-full"
+            className="h-[8rem] w-[8rem] rounded-full border border-gray-200 object-cover p-[0.5rem] md:h-[10rem] md:w-[10rem] lg:h-[12rem] lg:w-[12rem]"
             src="services_notes.jpg"
-          ></img>
-          <h3 className="justify-center text-balance p-4 text-xl font-semibold lg:max-w-[60%] lg:text-xl">
+            alt="Service - Online Notes"
+          />
+          <h3 className="mt-4 text-xl font-semibold text-white sm:text-2xl">
             Online Notes
           </h3>
         </div>
+
+        {/* Service 3 */}
         <div className="flex flex-col items-center justify-center overflow-hidden">
           <img
-            className="h-48 w-auto rounded-full"
+            className="h-[8rem] w-[8rem] rounded-full border border-gray-200 object-cover p-[0.5rem] md:h-[10rem] md:w-[10rem] lg:h-[12rem] lg:w-[12rem]"
             src="services_projects.avif"
-          ></img>
-          <h3 className="justify-center text-balance p-4 text-xl font-semibold lg:max-w-[60%] lg:text-xl">
+            alt="Service - Projects"
+          />
+          <h3 className="mt-4 text-xl font-semibold text-white sm:text-2xl">
             Projects
           </h3>
         </div>
       </div>
-      <div className="flex flex-col pb-5">
+
+      {/* Links Section */}
+      <div className="mt-10 flex flex-col gap-4">
         <Link
           href="/outcome"
-          className="rounded-lg bg-amber-400 p-3 py-2 font-semibold normal-case text-black transition duration-300 ease-in-out hover:scale-105 hover:bg-yellow-400 hover:text-yellow-900"
+          className="rounded-lg bg-amber-400 px-6 py-3 text-center font-semibold normal-case text-black transition duration-300 ease-in-out hover:scale-105 hover:bg-yellow-400 hover:text-yellow-900"
         >
           Courses Outcome
         </Link>
-        <Link href="/gallery" className="items-center bg-red-500 p-5">
+        <Link
+          href="/gallery"
+          className="rounded-lg bg-red-500 px-6 py-3 text-center font-semibold text-white transition duration-300 ease-in-out hover:scale-105 hover:bg-red-600"
+        >
           Gallery
         </Link>
       </div>
     </div>
   );
-}
+};
 
-export default Services
+export default Services;

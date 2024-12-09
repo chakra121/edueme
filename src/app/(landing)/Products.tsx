@@ -3,14 +3,42 @@ import Image from "next/image";
 
 const Products = () => {
   return (
-    <div className="relative flex flex-col items-center justify-center">
-      <div className="text-balance py-5 text-4xl font-bold lg:max-w-[60%] lg:text-4xl">
-        <h1>Our Products:</h1>
+    <div className="flex flex-col items-center justify-center px-4 py-10 lg:px-20">
+      {/* Title Section */}
+      <div className="mb-8 text-center">
+        <h1 className="text-3xl font-bold text-white sm:text-4xl">
+          Our Products:
+        </h1>
       </div>
-      <div className="relative z-10 flex flex-col lg:flex-row gap-10 p-10 justify-center items-center">
-        <Image width={200} height={200} className="p-[1rem] border size-[15rem] rounded-full" alt="Product" src="/nuroscience.jpg"></Image>
-        <Image width={200} height={200} className="p-[1rem] border size-[15rem] rounded-full" alt="Product" src="/ai_robotics.jpg"></Image>
-        <Image width={200} height={200} className="p-[1rem] border size-[15rem] rounded-full" alt="Product" src="/young_innovators.jpg"></Image>
+
+      {/* Products Section */}
+      <div className="flex flex-wrap items-center justify-center gap-8">
+        {/* Product 1 */}
+        <Image
+          width={300}
+          height={300}
+          className="h-[10rem] w-[10rem] rounded-full border border-gray-200 p-[1rem] md:h-[12rem] md:w-[12rem] lg:h-[15rem] lg:w-[15rem]"
+          alt="Product - Neuroscience"
+          src="/nuroscience.jpg"
+        />
+
+        {/* Product 2 */}
+        <Image
+          width={300}
+          height={300}
+          className="h-[10rem] w-[10rem] rounded-full border border-gray-200 p-[1rem] md:h-[12rem] md:w-[12rem] lg:h-[15rem] lg:w-[15rem]"
+          alt="Product - AI Robotics"
+          src="/ai_robotics.jpg"
+        />
+
+        {/* Product 3 */}
+        <Image
+          width={300}
+          height={300}
+          className="h-[10rem] w-[10rem] rounded-full border border-gray-200 p-[1rem] md:h-[12rem] md:w-[12rem] lg:h-[15rem] lg:w-[15rem]"
+          alt="Product - Young Innovators"
+          src="/young_innovators.jpg"
+        />
       </div>
     </div>
   );

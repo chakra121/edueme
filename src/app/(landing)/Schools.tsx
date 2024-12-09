@@ -1,46 +1,21 @@
-import Marquee from '@/components/ui/marquee'
+import Marquee from "@/components/ui/marquee";
 import { cn } from "@/lib/utils";
-import React from 'react'
-
+import React from "react";
 
 const schoolsList = [
-  {
-    img: "/schools/logo1.png",
-  },
-  {
-    img: "/schools/logo2.png",
-  },
-  {
-    img: "/schools/logo3.png",
-  },
-  {
-    img: "/schools/logo4.png",
-  },
-  {
-    img: "/schools/logo5.png",
-  },
-  {
-    img: "/schools/logo6.png",
-  },
-  {
-    img: "/schools/logo7.png",
-  },
-  {
-    img: "/schools/logo8.png",
-  },
-  {
-    img: "/schools/logo9.png",
-  },
-  {
-    img: "/schools/logo10.png",
-  },
+  { img: "/schools/logo1.png" },
+  { img: "/schools/logo2.png" },
+  { img: "/schools/logo3.png" },
+  { img: "/schools/logo4.png" },
+  { img: "/schools/logo5.png" },
+  { img: "/schools/logo6.png" },
+  { img: "/schools/logo7.png" },
+  { img: "/schools/logo8.png" },
+  { img: "/schools/logo9.png" },
+  { img: "/schools/logo10.png" },
 ];
 
-const ReviewCard = ({
-  img
-}: {
-  img: string;
-}) => {
+const ReviewCard = ({ img }: { img: string }) => {
   return (
     <figure
       className={cn(
@@ -51,24 +26,41 @@ const ReviewCard = ({
         "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]",
       )}
     >
-        <img width="100" height="100" alt={img} src={img} className='rounded-md' />
+      <img
+        width="120"
+        height="120"
+        alt={img}
+        src={img}
+        className="rounded-md"
+      />
     </figure>
   );
 };
 
 export default function Schools() {
   return (
-    <div className=" relative flex h-[400px] w-full flex-col items-center justify-center overflow-hidden">
-      <div className="text-balance text-4xl py-5 font-bold lg:max-w-[60%] lg:text-4xl">
-        <h1>Schools in Collaboration:</h1>
+    <div className="relative flex flex-col items-center justify-center overflow-hidden bg-black px-4 py-10 lg:py-16">
+      {/* Title Section */}
+      <div className="text-center">
+        <h1 className="text-balance text-2xl font-bold text-gray-50 sm:text-3xl lg:text-4xl">
+          Schools in Collaboration:
+        </h1>
       </div>
-      <Marquee reverse pauseOnHover className="[--duration:20s]">
-        {schoolsList.map((review) => (
-          <ReviewCard key={review.img} {...review} />
-        ))}
-      </Marquee>
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3"></div>
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3"></div>
+
+      {/* Marquee Section */}
+      <div className="mt-8 w-full">
+        <Marquee reverse pauseOnHover className="[--duration:20s]">
+          {schoolsList.map((review) => (
+            <div key={review.img} className="flex items-center justify-center">
+              <ReviewCard {...review} />
+            </div>
+          ))}
+        </Marquee>
+      </div>
+
+      {/* Gradient Overlay for Better Focus */}
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-black"></div>
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-black"></div>
     </div>
   );
 }
