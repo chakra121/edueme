@@ -24,7 +24,7 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
-    // await DemoFormModel.create({ name, phoneNumber, email, grade });
+    await DemoFormModel.create({ name, phoneNumber, email, grade });
     console.log({ name, phoneNumber, email, grade });
 
     return NextResponse.json({ message: "Registration saved successfully", success: true }, { status: 200 });

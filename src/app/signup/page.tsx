@@ -33,7 +33,7 @@ const Signup: React.FC = () => {
   const [submitted, setSubmitted] = useState<boolean>(false);
 
   const validate = (): boolean => {
-    let tempErrors: FormErrors = {};
+    const tempErrors: FormErrors = {};
     if (!formData.fullName) tempErrors.fullName = "Full name is required";
     if (!formData.email) {
       tempErrors.email = "Email is required";
