@@ -133,3 +133,7 @@ body {
     @apply border-border;}
   body {
     @apply bg-background text-foreground;}}
+/* Custom Masonry Styles */
+.break-inside-avoid {
+  break-inside: avoid; /* Prevents breaking images across columns */
+}

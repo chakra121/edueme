@@ -9,6 +9,10 @@ export default {
   		fontFamily: {
   			sans: ["var(--font-geist-sans)", ...fontFamily.sans]
   		},
+		 spacing: {
+        "128": "32rem", // Custom spacing example
+        "144": "36rem",
+      },
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',

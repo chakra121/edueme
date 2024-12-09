@@ -43,6 +43,9 @@ const Services = () => {
         >
           Courses Outcome
         </Link>
+        <Link href="/gallery" className="items-center bg-red-500 p-5">
+          Gallery
+        </Link>
       </div>
     </div>
   );
