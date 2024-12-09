@@ -1,16 +1,25 @@
-import mongoose, { Schema, type Document } from "mongoose";
+import mongoose, { Schema } from "mongoose";
+import type { Document, Model } from "mongoose";
 import type { DemoForm } from "../app/api/register/interface";
 
-interface DemoFormDocument extends Document, DemoForm {}
+// Define the interface extending both Document and DemoForm
+export interface DemoFormDocument extends Document, DemoForm {}
 
+// Define the schema
 const DemoFormSchema: Schema = new Schema<DemoFormDocument>({
   name: { type: String, required: true, trim: true },
   phoneNumber: { type: String, required: true, match: /^[0-9]{10}$/ },
-  email: { type: String, required: true, unique: true, match: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/ },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    match: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+  },
   grade: { type: String, required: true },
 });
 
-const DemoFormModel =
+// Define the model with explicit typing
+const DemoFormModel: Model<DemoFormDocument> =
   mongoose.models.DemoForm ??
   mongoose.model<DemoFormDocument>("DemoForm", DemoFormSchema);
 

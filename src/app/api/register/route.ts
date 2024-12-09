@@ -27,7 +27,15 @@ export async function POST(request: Request) {
         { status: 400 },
       );
     }
-    await DemoFormModel.create({ name, phoneNumber, email, grade });
+
+    // Explicitly type the input for `create`
+    await DemoFormModel.create({
+      name: name,
+      phoneNumber: phoneNumber,
+      email: email,
+      grade: grade,
+    } as DemoForm);
+
     console.log({ name, phoneNumber, email, grade });
 
     return NextResponse.json(
