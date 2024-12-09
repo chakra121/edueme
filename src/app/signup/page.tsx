@@ -1,21 +1,39 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from "react";
 
-function Signup() {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    phoneNumber: '',
-    course: '',
+interface FormData {
+  fullName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  phoneNumber: string;
+  course: string;
+}
+
+interface FormErrors {
+  fullName?: string;
+  email?: string;
+  password?: string;
+  confirmPassword?: string;
+  phoneNumber?: string;
+  course?: string;
+}
+
+const Signup: React.FC = () => {
+  const [formData, setFormData] = useState<FormData>({
+    fullName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    phoneNumber: "",
+    course: "",
   });
 
-  const [errors, setErrors] = useState({});
-  const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [submitted, setSubmitted] = useState<boolean>(false);
 
-  const validate = () => {
-    let tempErrors = {};
+  const validate = (): boolean => {
+    let tempErrors: FormErrors = {};
     if (!formData.fullName) tempErrors.fullName = "Full name is required";
     if (!formData.email) {
       tempErrors.email = "Email is required";
@@ -36,14 +54,16 @@ function Signup() {
     return Object.keys(tempErrors).length === 0;
   };
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validate()) {
       setSubmitted(true);
@@ -52,85 +72,94 @@ function Signup() {
   };
 
   return (
-    <div className="flex items-center  min-h-screen bg-gray-100 bg-cover bg-center"
-    style={{
-      backgroundImage: "url('/registerbg.jpg')",
-      backgroundPosition: 'center 30%',
-    }}
+    <div
+      className="flex min-h-screen items-center bg-gray-100 bg-cover bg-center"
+      style={{
+        backgroundImage: "url('/registerbg.jpg')",
+        backgroundPosition: "center 30%",
+      }}
     >
+      <div className="flex-1"></div>{" "}
+      {/* Empty space on the left to move the form right */}
+      <form
+        onSubmit={handleSubmit}
+        className="-mt-20 mr-80 w-full max-w-md rounded-lg bg-white bg-opacity-90 p-6 shadow-md"
+      >
+        <h2 className="mb-6 items-center text-center text-2xl font-bold text-gray-800">
+          Register for a Course
+        </h2>
 
-    <div className="flex-1"></div>  {/* Empty space on the left to move the form right */}
-
-      <form onSubmit={handleSubmit} className="w-full max-w-md p-6 bg-white bg-opacity-90 rounded-lg shadow-md mr-80 -mt-20">
-        <h2 className="mb-6 text-2xl items-center text-center font-bold text-gray-800">Register for a Course</h2>
-        
-        <label className="block mb-2">
-          
+        <label className="mb-2 block">
           <input
             type="text"
-            placeholder='Full Name'
+            placeholder="Full Name"
             name="fullName"
             value={formData.fullName}
             onChange={handleChange}
             className="w-full rounded border border-gray-300 p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          {errors.fullName && <p className="text-red-500 text-sm">{errors.fullName}</p>}
+          {errors.fullName && (
+            <p className="text-sm text-red-500">{errors.fullName}</p>
+          )}
         </label>
 
-        <label className="block mb-2">
-          
+        <label className="mb-2 block">
           <input
             type="email"
-            placeholder='Email'
+            placeholder="Email"
             name="email"
             value={formData.email}
             onChange={handleChange}
             className="w-full rounded border border-gray-300 p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+          {errors.email && (
+            <p className="text-sm text-red-500">{errors.email}</p>
+          )}
         </label>
 
-        <label className="block mb-2">
-          
+        <label className="mb-2 block">
           <input
             type="text"
-            placeholder='Phone Number'
+            placeholder="Phone Number"
             name="phoneNumber"
             value={formData.phoneNumber}
             onChange={handleChange}
             className="w-full rounded border border-gray-300 p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          {errors.phoneNumber && <p className="text-red-500 text-sm">{errors.phoneNumber}</p>}
+          {errors.phoneNumber && (
+            <p className="text-sm text-red-500">{errors.phoneNumber}</p>
+          )}
         </label>
 
-        <label className="block mb-2">
-          
+        <label className="mb-2 block">
           <input
             type="password"
-            placeholder='Password'
+            placeholder="Password"
             name="password"
             value={formData.password}
             onChange={handleChange}
             className="w-full rounded border border-gray-300 p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+          {errors.password && (
+            <p className="text-sm text-red-500">{errors.password}</p>
+          )}
         </label>
 
-        <label className="block mb-2">
-          
+        <label className="mb-2 block">
           <input
             type="password"
-            placeholder='Confirm Password'
+            placeholder="Confirm Password"
             name="confirmPassword"
             value={formData.confirmPassword}
             onChange={handleChange}
             className="w-full rounded border border-gray-300 p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
+          {errors.confirmPassword && (
+            <p className="text-sm text-red-500">{errors.confirmPassword}</p>
+          )}
         </label>
 
-        <label className="block mb-4">
-          
+        <label className="mb-4 block">
           <select
             name="course"
             value={formData.course}
@@ -142,23 +171,26 @@ function Signup() {
             <option value="rob-ai">Robotics+AI</option>
             <option value="iot">IoT</option>
           </select>
-          {errors.course && <p className="text-red-500 text-sm">{errors.course}</p>}
+          {errors.course && (
+            <p className="text-sm text-red-500">{errors.course}</p>
+          )}
         </label>
 
-        <button type="submit" className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md">
+        <button
+          type="submit"
+          className="w-full rounded-md bg-blue-500 py-2 text-white hover:bg-blue-600"
+        >
           Register
         </button>
 
-        {submitted && <p className="mt-4 text-green-500 text-center">Registration successful!</p>}
+        {submitted && (
+          <p className="mt-4 text-center text-green-500">
+            Registration successful!
+          </p>
+        )}
       </form>
     </div>
-  
-
-  
-
-  
-    /////////
   );
-}
+};
 
-export default Signup
+export default Signup;

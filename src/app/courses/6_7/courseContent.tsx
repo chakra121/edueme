@@ -120,85 +120,187 @@ const courseSections: CourseSection[] = [
       },
     ],
   },
+  {
+    title: "Chapter 5 : Sensors - We sense the world",
+    content: ["We are working on it"],
+    subsections: [
+      {
+        subheading: "Prayog",
+        details: [],
+      },
+      {
+        subheading: "Abhyas",
+        details: [],
+      },
+    ],
+  },
+  {
+    title:
+      "Chapter 6 : M-Block a world of block programming / Creative coding software",
+    content: ["We are working on it"],
+    subsections: [
+      {
+        subheading: "Prayog",
+        details: [],
+      },
+      {
+        subheading: "Abhyas",
+        details: [],
+      },
+    ],
+  },
+  {
+    title: "Chapter 7 : Robot Design and Construction",
+    content: ["We are working on it"],
+    subsections: [
+      {
+        subheading: "Prayog",
+        details: [],
+      },
+      {
+        subheading: "Abhyas",
+        details: [],
+      },
+    ],
+  },
+  {
+    title: "Chapter 8 : IoT (Internet of Things)",
+    content: ["We are working on it"],
+    subsections: [
+      {
+        subheading: "Prayog",
+        details: [],
+      },
+      {
+        subheading: "Abhyas",
+        details: [],
+      },
+    ],
+  },
+  {
+    title: "Chapter 9 : Projects",
+    content: ["We are working on it"],
+    subsections: [
+      {
+        subheading: "Prayog",
+        details: [],
+      },
+      {
+        subheading: "Abhyas",
+        details: [],
+      },
+    ],
+  },
+  {
+    title: "Chapter 10 : Ethics and Social Implications of Robotics",
+    content: ["We are working on it"],
+    subsections: [
+      {
+        subheading: "Prayog",
+        details: [],
+      },
+      {
+        subheading: "Abhyas",
+        details: [],
+      },
+    ],
+  },
+  {
+    title: "Chapter 11 : Summary",
+    content: ["We are working on it"],
+    subsections: [
+      {
+        subheading: "Prayog",
+        details: [],
+      },
+      {
+        subheading: "Abhyas",
+        details: [],
+      },
+    ],
+  },
 ];
 
 
   return (
-    <div className="mx-auto max-w-4xl bg-black p-6">
-      <div className="mb-4 flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-white">Course Content</h2>
-        <button onClick={toggleAll} className="text-purple-400 hover:underline">
-          {expandedAll ? "Collapse all sections" : "Expand all sections"}
-        </button>
-      </div>
-      <p className="mb-4 text-gray-400">
-        {courseSections.length} Sections •{" "}
-        {courseSections.reduce(
-          (sum, section) => sum + section.content.length,
-          0,
-        )}{" "}
-        Lectures
-      </p>
-      {courseSections.map((section, index) => (
-        <div key={index} className="mb-2 rounded-lg border border-gray-700">
-          {/* Dropdown Button */}
+      <div className="ml-10 max-w-4xl bg-black p-6">
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-2xl font-bold text-white">Course Content</h2>
           <button
-            onClick={() => toggleDropdown(index)}
-            className="flex w-full items-center justify-between bg-gray-800 p-4 text-left text-white focus:outline-none"
+            onClick={toggleAll}
+            className="text-purple-400 hover:underline"
           >
-            <span className="font-semibold">{section.title}</span>
-            <svg
-              className={`h-5 w-5 transform ${
-                expanded[index] ? "rotate-180" : "rotate-0"
-              } transition-transform`}
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
+            {expandedAll ? "Collapse all sections" : "Expand all sections"}
           </button>
-
-          {/* Dropdown Content */}
-          {expanded[index] && (
-            <div className="bg-gray-900 p-4 font-sans text-gray-300">
-              <ul className="mb-4 pl-5 text-lg">
-                {section.content.map((item, i) => (
-                  <li key={i} className="mb-2">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              {/* Subsections */}
-              {section.subsections && (
-                <div className="mt-4">
-                  {section.subsections.map((sub, i) => (
-                    <div key={i} className="mb-4 text-base">
-                      <h4 className="text-lg font-semibold text-fuchsia-400">
-                        {sub.subheading}
-                      </h4>
-                      <ul className="pl-5 text-lg text-gray-300">
-                        {sub.details.map((detail, j) => (
-                          <li key={j} className="mb-2">
-                            {detail}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
         </div>
-      ))}
-    </div>
+        <p className="mb-4 text-gray-400">
+          {courseSections.length} Sections •{" "}
+          {courseSections.reduce(
+            (sum, section) => sum + section.content.length,
+            0,
+          )}{" "}
+          Lectures
+        </p>
+        {courseSections.map((section, index) => (
+          <div key={index} className="mb-2 rounded-lg border border-gray-700">
+            {/* Dropdown Button */}
+            <button
+              onClick={() => toggleDropdown(index)}
+              className="flex w-full items-center justify-between bg-gray-800 p-4 text-left text-white focus:outline-none"
+            >
+              <span className="font-semibold">{section.title}</span>
+              <svg
+                className={`h-5 w-5 transform ${
+                  expanded[index] ? "rotate-180" : "rotate-0"
+                } transition-transform`}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+
+            {/* Dropdown Content */}
+            {expanded[index] && (
+              <div className="bg-gray-900 p-4 font-sans text-gray-300">
+                <ul className="mb-4 pl-5 text-lg">
+                  {section.content.map((item, i) => (
+                    <li key={i} className="mb-2">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                {/* Subsections */}
+                {section.subsections && (
+                  <div className="mt-4">
+                    {section.subsections.map((sub, i) => (
+                      <div key={i} className="mb-4 text-base">
+                        <h4 className="text-lg font-semibold text-fuchsia-400">
+                          {sub.subheading}
+                        </h4>
+                        <ul className="pl-5 text-lg text-gray-300">
+                          {sub.details.map((detail, j) => (
+                            <li key={j} className="mb-2">
+                              {detail}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
   );
 };
 

@@ -9,15 +9,11 @@ const Robotics = () => {
       <div className="grid-row-2 grid">
         <div className="grid grid-cols-3 gap-7 px-6 py-3">
           {/* 2-3 */}
-          <div className="flex transform flex-col items-center rounded-full border-4 border-orange-500 bg-white p-4 font-semibold text-orange-900 transition duration-500 ease-in-out hover:z-10 hover:-translate-y-1 hover:scale-105 hover:text-orange-950">
-            {/* <img src="/courses/kid_robo.jpg" className="rounded-t-xl "></img> */}
-            <img src="/courses/2_3.jpg" className="rounded-full pt-2" />
-            <Link
-              href="/"
-              className="text-center text-2xl font-bold hover:underline"
-            >
+          <div className="transform rounded-lg border-2 border-orange-500 bg-orange-100 p-4 font-semibold text-orange-900 transition duration-500 ease-in-out hover:z-10 hover:-translate-y-1 hover:scale-105 hover:bg-orange-300 hover:text-orange-950">
+            <Link href="/" className="text-2xl font-bold hover:underline">
               2nd - 3rd Grade
             </Link>
+            <p className="text-lg"></p>
           </div>
 
           {/* 4-5 */}
