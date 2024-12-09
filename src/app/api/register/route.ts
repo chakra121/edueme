@@ -15,24 +15,30 @@ export async function POST(request: Request) {
     if (!emailRegex.test(email)) {
       return NextResponse.json(
         { message: "Invalid email format for lead.", success: false },
-        { status: 400 }
+        { status: 400 },
       );
     }
     if (!phoneRegex.test(phoneNumber)) {
       return NextResponse.json(
-        { message: "Invalid phone number format for lead. Must be 10 digits.", success: false },
-        { status: 400 }
+        {
+          message: "Invalid phone number format for lead. Must be 10 digits.",
+          success: false,
+        },
+        { status: 400 },
       );
     }
     await DemoFormModel.create({ name, phoneNumber, email, grade });
     console.log({ name, phoneNumber, email, grade });
 
-    return NextResponse.json({ message: "Registration saved successfully", success: true }, { status: 200 });
+    return NextResponse.json(
+      { message: "Registration saved successfully", success: true },
+      { status: 200 },
+    );
   } catch (error) {
     console.error("Error registering:", error);
     return NextResponse.json(
       { message: "Failed to save registration", success: false },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

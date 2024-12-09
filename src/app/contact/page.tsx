@@ -1,10 +1,10 @@
 "use client";
 
 function ContactForm() {
-  const handleSubmit = () =>{
+  const handleSubmit = () => {
     return null;
   };
-  const handleChange = () =>{
+  const handleChange = () => {
     return null;
   };
   const formData = {
@@ -12,23 +12,22 @@ function ContactForm() {
     email: "",
     subject: "",
     message: "",
-    
-  }
+  };
   const errors = {
     name: "",
     email: "",
     subject: "",
     message: "",
-  }
+  };
   const submitted = false;
   return (
     <div
-      className="flex min-h-screen flex-row items-center bg-cover bg-center px-4 sm:px-10"
+      className="flex min-h-screen flex-col lg:flex-row items-center lg:justify-between bg-cover bg-center pt-[6rem] px-[1rem] lg:px-[20%] gap-[1rem]"
       style={{
         backgroundImage: "url('/contactbgg.png')",
       }}
     >
-      <div className="mx-auto mt-10 w-full max-w-sm rounded-lg bg-white bg-opacity-90 p-6 shadow-md sm:max-w-md sm:p-6">
+      <div className="w-full rounded-lg bg-white bg-opacity-90 p-6 shadow-md lg:max-w-sm">
         <h2 className="mb-4 text-2xl font-bold text-gray-800 sm:text-left">
           Contact Us
         </h2>
@@ -105,8 +104,10 @@ function ContactForm() {
       </div>
 
       {/* Additional Contact Information */}
-      <div className="-mt-10 mr-40 w-full max-w-sm rounded-lg bg-white bg-opacity-90 p-6 text-center shadow-md sm:max-w-md">
-        <h3 className="mb-2 text-lg font-semibold text-gray-800">Reach Us Directly</h3>
+      <div className=" w-full rounded-lg bg-white bg-opacity-90 py-[2rem] text-center shadow-md sm:max-w-md">
+        <h3 className="mb-2 text-lg font-semibold text-gray-800">
+          Reach Us Directly
+        </h3>
 
         <p className="text-gray-700">
           Email:{" "}
