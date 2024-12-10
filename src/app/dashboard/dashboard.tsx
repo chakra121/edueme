@@ -3,6 +3,17 @@
 import Link from "next/link";
 import React, { useEffect, useState } from 'react';
 
+import {
+  HomeIcon,
+  UserIcon,
+  ClipboardDocumentIcon,
+  BookOpenIcon,
+  Cog6ToothIcon,
+  QuestionMarkCircleIcon,
+} from "@heroicons/react/24/outline"; // Correct import for v2
+
+
+
 const Dashboard = () => {
   const [upcomingCourses, setUpcomingCourses] = useState([]);
   const [studentInfo, setStudentInfo] = useState(null);
@@ -42,47 +53,49 @@ const Dashboard = () => {
     <div className="flex h-screen">
       {/* Sidebar */}
       <aside className="w-64 bg-stone-800 text-white p-6 opacity-70">
-        <h2 className="text-2xl font-bold mb-8">Student LMS</h2>
+        <h2 className="text-2xl font-bold mb-8"></h2>
         <ul className="space-y-6">
-          <li>
-            <button className="block w-full text-left hover:underline">
+          <li class="active flex items-center">
+            <HomeIcon className="h-6 w-6 text-gray-500 hover:text-gray-700" />
+              <span className="ml-2 text-lg font-sans text-left hover:font-bold">
               Home
-            </button>
+              </span>
           </li>
-          <li>
-            <button className="block w-full text-left hover:underline">
+          <li class="active flex items-center">
+            <UserIcon className="h-6 w-6 text-gray-500 hover:text-gray-700" />
+              <span className="ml-2 text-lg font-sans text-left hover:font-bold">
               Profile
-            </button>
+              </span>
           </li>
-          <li>
-            <button className="block w-full text-left hover:underline">
-              Courses Registered
-            </button>
+          <li class="active flex items-center">
+            <BookOpenIcon className="h-6 w-6 text-gray-500 hover:text-gray-700" />
+              <span className="ml-2 text-lg font-sans text-left hover:font-bold">Enrolled Courses</span>
           </li>
-          <li>
-            <button className="block w-full text-left hover:underline">
-              Account
-            </button>
+          <li class="active flex items-center">
+            {/* <ClipboardDocumentListIcon className="h-6 w-6 text-gray-500 hover:text-gray-700" /> */}
+              <span className="ml-2 text-lg font-sans text-left hover:font-bold">Assessments</span>
           </li>
-          <li>
-            <button className="block w-full text-left hover:underline">
-              Help
-            </button>
+          <li class="active flex items-center">
+            {/* <ChartBarIcon className="h-6 w-6 text-gray-500 hover:text-gray-700" /> */}
+              <span className="ml-2 text-lg font-sans text-left hover:font-bold">Course Progress</span>
           </li>
-          <li>
-            <button className="block w-full text-left hover:underline">
-              Live Classes
-            </button>
+          <li class="active flex items-center">
+            {/* <ClockIcon className="h-6 w-6 text-gray-500 hover:text-gray-700" /> */}
+              <span className="ml-2 text-lg font-sans text-left hover:font-bold">Upcoming Sessions</span>
+          </li>
+          <li class="active flex items-center">
+            <QuestionMarkCircleIcon className="h-6 w-6 text-gray-500 hover:text-gray-700" />
+                <span className="ml-2 text-lg font-sans text-left hover:font-bold">Help</span>
           </li>
         </ul>
-      </aside>
-
+  </aside>
+         
       {/* Main Content */}
       <main className="flex-1 p-8 bg-gray-100">
         {/* Welcome Message */}
         <section className="mb-8">
           <h1 className="text-4xl font-bold text-gray-800">
-            Welcome, SRI CHAKRA!
+            Welcome, BUDDY!
           </h1>
           <p className="text-gray-600"></p>
         </section>
