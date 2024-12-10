@@ -1,25 +1,35 @@
 "use client";
 
+import { useState, useEffect } from "react";
+
 function ContactForm() {
-  const handleSubmit = () => {
-    return null;
-  };
-  const handleChange = () => {
-    return null;
-  };
-  const formData = {
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
     subject: "",
     message: "",
+  });
+  const [errors, setErrors] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+  const [showIcons, setShowIcons] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Add form submission logic here
+    setSubmitted(true);
   };
-  const errors = {
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const submitted = false;
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const feather = require("feather-icons");
+      feather.replace();
+    }
+  }, [showIcons]);
+
   return (
     <div
       className="flex min-h-screen flex-col lg:flex-row items-center lg:justify-between bg-cover bg-center pt-[6rem] px-[1rem] lg:px-[20%] gap-[1rem]"
@@ -27,66 +37,85 @@ function ContactForm() {
         backgroundImage: "url('/contactbgg.png')",
       }}
     >
-      <div className="w-full rounded-lg bg-white bg-opacity-90 p-6 shadow-md lg:max-w-sm">
-        <h2 className="mb-4 text-2xl font-bold text-gray-800 sm:text-left">
+      {/* Form Card */}
+      <div
+        className="w-full max-w-md rounded-lg bg-white bg-opacity-30 p-6 shadow-md lg:max-w-sm backdrop-blur-3xl"
+        style={{
+          backdropFilter: "blur(1px)",
+          WebkitBackdropFilter: "blur(20px)",
+        }}
+      >
+        <h2 className="mb-4 text-2xl font-bold text-black sm:text-left">
           Contact Us
         </h2>
 
         <form onSubmit={handleSubmit}>
-          <label className="mb-2 block text-gray-800">
-            Name
+          <div className="mb-4">
+            <label htmlFor="name" className="block text-lg text-black">
+              Name
+            </label>
             <input
               type="text"
+              id="name"
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="mt-1 w-full rounded-md border p-2"
+              className="mt-1 w-full rounded-md border border-gray-300 p-2 text-black"
             />
             {errors.name && (
               <p className="text-sm text-red-500">{errors.name}</p>
             )}
-          </label>
+          </div>
 
-          <label className="mb-2 block text-gray-800">
-            Email
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-lg text-black">
+              Email
+            </label>
             <input
               type="email"
+              id="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="mt-1 w-full rounded-md border p-2"
+              className="mt-1 w-full rounded-md border border-gray-300 p-2 text-black"
             />
             {errors.email && (
               <p className="text-sm text-red-500">{errors.email}</p>
             )}
-          </label>
+          </div>
 
-          <label className="mb-2 block text-gray-800">
-            Subject
+          <div className="mb-4">
+            <label htmlFor="subject" className="block text-lg text-black">
+              Subject
+            </label>
             <input
               type="text"
+              id="subject"
               name="subject"
               value={formData.subject}
               onChange={handleChange}
-              className="mt-1 w-full rounded-md border p-2"
+              className="mt-1 w-full rounded-md border border-gray-300 p-2 text-black"
             />
             {errors.subject && (
               <p className="text-sm text-red-500">{errors.subject}</p>
             )}
-          </label>
+          </div>
 
-          <label className="mb-4 block text-gray-800">
-            Message
+          <div className="mb-4">
+            <label htmlFor="message" className="block text-lg text-black">
+              Message
+            </label>
             <textarea
+              id="message"
               name="message"
               value={formData.message}
               onChange={handleChange}
-              className="mt-1 h-32 w-full resize-none rounded-md border p-2"
+              className="mt-1 w-full h-32 rounded-md border border-gray-300 p-2 text-black"
             />
             {errors.message && (
               <p className="text-sm text-red-500">{errors.message}</p>
             )}
-          </label>
+          </div>
 
           <button
             type="submit"
@@ -103,44 +132,63 @@ function ContactForm() {
         </form>
       </div>
 
-      {/* Additional Contact Information */}
-      <div className=" w-full rounded-lg bg-white bg-opacity-90 py-[2rem] text-center shadow-md sm:max-w-md">
-        <h3 className="mb-2 text-lg font-semibold text-gray-800">
-          Reach Us Directly
-        </h3>
-
-        <p className="text-gray-700">
-          Email:{" "}
-          <a
-            href="mailto:contact@edtechplatform.com"
-            className="text-blue-500 hover:text-blue-700"
+      {/* Floating Action Button with Label */}
+      <div className="fixed bottom-6 right-6 flex items-center gap-3">
+        {/* Initially displayed label with Tailwind animation */}
+        {!showIcons && (
+          <span
+            className={`text-xl font-semibold text-white mb-2 transition-opacity duration-500 ease-out ${showIcons ? "opacity-0" : "opacity-100"}`}
           >
-            edumeintern@gmail.com
-          </a>
-        </p>
+            Get in touch
+          </span>
+        )}
 
-        <p className="mt-2 text-gray-700">
-          Phone:{" "}
-          <a
-            href="tel:+919059508050"
-            className="text-blue-500 hover:text-blue-700"
-          >
-            +91 9059508050
-          </a>
-        </p>
-
-        <p className="mt-2 text-gray-700">
-          WhatsApp Chat:{" "}
-          <a
-            href="https://wa.me/+919059508050"
-            className="text-blue-500 hover:text-blue-700"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            +91 9059508050
-          </a>
-        </p>
+        {/* Main Floating Button */}
+        <button
+          onClick={() => setShowIcons(!showIcons)}
+          className="w-14 h-14 flex items-center justify-center rounded-full bg-gray-800 text-white shadow-lg hover:bg-gray-700"
+          title="Toggle Contact Options"
+        >
+          <i data-feather="plus"></i>
+        </button>
       </div>
+
+      {/* Social Icons */}
+      {showIcons && (
+        <div className="fixed bottom-24 right-6 flex flex-col items-center gap-3">
+          <div className="footer-card flex flex-col items-center gap-3">
+            <div className="social flex flex-col items-center gap-3">
+              <a
+                href="mailto:edumeeresearchlabs.com?subject=Contact%20from%20Website&body=Hello%2C%0A%0A%20I%20would%20like%20to%20get%20in%20touch%20with%20you.%20%0A%0A%20Best%20regards%2C%0A%20[Your%20Name]"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500 text-white shadow-lg hover:bg-blue-600"
+                title="Email"
+              >
+                <i data-feather="mail"></i>
+              </a>
+              <a
+                href="https://wa.me/917569605019?text=Hi"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center w-12 h-12 rounded-full bg-green-500 text-white shadow-lg hover:bg-green-600"
+                title="WhatsApp"
+              >
+                <i data-feather="message-circle"></i>
+              </a>
+              <a
+                href="https://www.instagram.com/edueme_researchlabs/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500 text-white shadow-lg hover:bg-purple-600"
+                title="Instagram"
+              >
+                <i data-feather="instagram"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
