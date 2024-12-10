@@ -21,12 +21,9 @@ const AboutHeader = () => {
         {/* Content Card */}
         <div className="bg-gradient-to-br from-gray-800 to-gray-600 text-white rounded-lg p-6 shadow-lg max-w-3xl">
           <p className="text-white/70 leading-relaxed">
-            The pace of technical development in the modern world is
-            accelerating more quickly than before. Adaptation and the
-            acquisition of new competencies and skills are crucial in this
-            continuously changing world. All citizens—young and old—are impacted
-            by the advancement of digital technology and the digitalization of
-            society.
+          At [Your Organization Name], we are passionate about empowering the next generation of innovators, 
+          thinkers, and problem-solvers through STEM education. Our mission is to inspire curiosity, 
+          cultivate critical thinking, and equip learners with the skills they need to thrive in a rapidly evolving world.
             <br />
             <br />
             Everyday life is greatly influenced by the use of mobile phones,
