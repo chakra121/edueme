@@ -22,7 +22,7 @@ const Login: React.FC = () => {
   const [submitted, setSubmitted] = useState<boolean>(false);
 
   const validate = (): boolean => {
-    let tempErrors: FormErrors = {};
+    const tempErrors: FormErrors = {};
     if (!formData.email) {
       tempErrors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {

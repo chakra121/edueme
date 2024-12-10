@@ -51,9 +51,9 @@ const DemoForm = () => {
   };
 
   return (
-    <div className="flex h-screen items-center justify-center bg-gray-100 p-4">
-      <div className="flex w-full max-w-6xl overflow-hidden rounded-2xl bg-white shadow-lg">
-        <div className="flex w-1/2 flex-col items-center justify-center bg-slate-900 p-8 text-white">
+    <div className="flex h-screen items-center justify-center bg-black px-[1rem] lg:px-[20%]">
+      <div className="flex w-full flex-col px-[1rem] lg:px-0 overflow-hidden rounded-md bg-white/10 lg:flex-row">
+        <div className="hidden flex-col items-center justify-center bg-slate-900 p-8 text-white lg:flex lg:w-1/2">
           <Image
             width={200}
             height={200}
@@ -70,11 +70,18 @@ const DemoForm = () => {
             </div>
           </div>
         </div>
-        <div className="flex w-1/2 flex-col items-center justify-center bg-white p-8">
-          <h2 className="mb-6 text-2xl font-bold text-gray-800">
+        <Image
+          width={200}
+          height={200}
+          className="h-80 w-auto lg:hidden"
+          src="/demoimg.png"
+          alt="Demo"
+        />
+        <div className="flex flex-col items-center justify-center px-[1rem] py-[2rem] lg:w-1/2">
+          <h2 className="mb-6 text-2xl font-bold text-white">
             Book a Free Demo Now!
           </h2>
-          <form onSubmit={handleSubmit} className="w-full max-w-sm">
+          <form onSubmit={handleSubmit} className="w-full flex flex-col gap-[1rem]">
             <input
               type="text"
               name="name"
@@ -82,7 +89,7 @@ const DemoForm = () => {
               value={formData.name}
               onChange={handleChange}
               required
-              className="mb-4 w-full rounded border bg-white p-3 text-black placeholder-gray-500"
+              className=" w-full rounded-md border border-white/20 bg-transparent px-[1rem] py-[0.5rem] text-white placeholder-white/60"
             />
             <input
               type="tel"
@@ -91,7 +98,7 @@ const DemoForm = () => {
               value={formData.phoneNumber}
               onChange={handleChange}
               required
-              className="mb-4 w-full rounded border bg-white p-3 text-black placeholder-gray-500"
+              className=" w-full rounded-md border border-white/20 bg-transparent px-[1rem] py-[0.5rem] text-white placeholder-white/60"
             />
             <input
               type="email"
@@ -100,23 +107,23 @@ const DemoForm = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="mb-4 w-full rounded border bg-white p-3 text-black placeholder-gray-500"
+              className=" w-full rounded-md border border-white/20 bg-transparent px-[1rem] py-[0.5rem] text-white placeholder-white/60"
             />
             <select
               name="grade"
               value={formData.grade}
               onChange={handleChange}
               required
-              className="mb-4 w-full rounded border bg-white p-3 text-black placeholder-gray-500"
+              className=" w-full rounded-md border border-white/20 bg-transparent px-[1rem] py-[0.5rem] text-white placeholder-white/60"
             >
-              <option value="" disabled>
+              <option value="" disabled className="bg-transparent">
                 Select Grade
               </option>
-              <option value="2-3">2-3</option>
-              <option value="4-5">4-5</option>
-              <option value="6-7">6-7</option>
-              <option value="8-9">8-9</option>
-              <option value="10-12">10-12</option>
+              <option value="2-3" className=" text-black bg-white/10">2-3</option>
+              <option value="4-5" className=" text-black bg-white/10">4-5</option>
+              <option value="6-7" className=" text-black bg-white/10">6-7</option>
+              <option value="8-9" className=" text-black bg-white/10">8-9</option>
+              <option value="10-12" className=" text-black bg-white/10">10-12</option>
             </select>
             <button
               type="submit"
