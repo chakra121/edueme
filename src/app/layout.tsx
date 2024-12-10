@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Edueme Research Lab",
@@ -16,6 +17,13 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
+      <head>
+        {/* Feather Icons Script */}
+        <Script
+          src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"
+          strategy="afterInteractive" // Ensures the script is loaded after the page loads
+        />
+      </head>
       <body>
         <Navbar />
         {children}
