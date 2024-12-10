@@ -56,7 +56,7 @@ const Services = () => {
           href="/outcome"
           className="rounded-lg bg-amber-400 px-6 py-3 text-center font-semibold normal-case text-black transition duration-300 ease-in-out hover:scale-105 hover:bg-yellow-400 hover:text-yellow-900"
         >
-          Courses Outcome
+          Courses outcome
         </Link>
         <Link
           href="/gallery"
