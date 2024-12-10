@@ -39,14 +39,6 @@ const Products = () => {
           alt="Product - Young Innovators"
           src="/young_innovators.jpg"
         />
-        {/* Product 4 */}
-        <Image
-          width={300}
-          height={300}
-          className="h-[10rem] w-[10rem] rounded-full border border-gray-200 p-[1rem] md:h-[12rem] md:w-[12rem] lg:h-[15rem] lg:w-[15rem]"
-          alt="Mechatronites_Club"
-          src="/mech_logo.jpg"
-        />
       </div>
     </div>
   );
