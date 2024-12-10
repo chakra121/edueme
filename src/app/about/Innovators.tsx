@@ -9,7 +9,7 @@ const Innovators: React.FC = () => {
     { src: "/ai_robotics.jpg", alt: "Image 2" },
     { src: "/nuroscience.jpg", alt: "Image 3" },
     { src: "/mech_logo.jpg", alt: "Image 4" },
-    { src: "/young_innovators.jpg", alt: "Image 5" }
+    { src: "/org_edume.png", alt: "Image 5" }
   
   ];
 
