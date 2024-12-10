@@ -5,7 +5,7 @@ import Link from "next/link";
 const Gallery = () => {
   return (
     <div>
-
+GAllery
     </div>
   );
 };
