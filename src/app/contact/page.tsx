@@ -1,28 +1,52 @@
 "use client";
 
+import { useState } from "react";
+
 function ContactForm() {
-  const handleSubmit = () => {
-    return null;
-  };
-  const handleChange = () => {
-    return null;
-  };
-  const formData = {
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
     subject: "",
     message: "",
-  };
-  const errors = {
+  });
+  const [errors, setErrors] = useState({
     name: "",
     email: "",
     subject: "",
     message: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
-  const submitted = false;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Example validation logic
+    const newErrors = {};
+    if (!formData.name) newErrors.name = "Name is required.";
+    if (!formData.email) newErrors.email = "Email is required.";
+    if (!formData.subject) newErrors.subject = "Subject is required.";
+    if (!formData.message) newErrors.message = "Message is required.";
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+    } else {
+      setErrors({});
+      setSubmitted(true);
+      console.log("Form submitted:", formData);
+      // Add your form submission logic here
+    }
+  };
+
   return (
     <div
-      className="flex min-h-screen flex-col lg:flex-row items-center lg:justify-between bg-cover bg-center pt-[6rem] px-[1rem] lg:px-[20%] gap-[1rem]"
+      className="flex min-h-screen flex-col items-center gap-[1rem] bg-cover bg-center px-[1rem] pt-[6rem] lg:flex-row lg:justify-between lg:px-[20%]"
       style={{
         backgroundImage: "url('/contactbgg.png')",
       }}
@@ -103,8 +127,7 @@ function ContactForm() {
         </form>
       </div>
 
-      {/* Additional Contact Information */}
-      <div className=" w-full rounded-lg bg-white bg-opacity-90 py-[2rem] text-center shadow-md sm:max-w-md">
+      <div className="w-full rounded-lg bg-white bg-opacity-90 py-[2rem] text-center shadow-md sm:max-w-md">
         <h3 className="mb-2 text-lg font-semibold text-gray-800">
           Reach Us Directly
         </h3>
