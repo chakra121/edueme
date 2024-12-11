@@ -5,8 +5,8 @@ import CourseContent from "./courseContent";
 const page = () => {
   return (
     <div>
-      <Brief />
-      <CourseContent />
+        <Brief />
+        <CourseContent />
     </div>
   );
 };

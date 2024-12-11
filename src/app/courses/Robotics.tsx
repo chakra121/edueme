@@ -23,7 +23,10 @@ const Robotics = () => {
               />
             </div>
             <div className="flex flex-col gap-y-2">
-              <Link href="/" className="text-2xl font-bold hover:underline">
+              <Link
+                href="/courses/roboticsCourse/2_3"
+                className="text-2xl font-bold hover:underline"
+              >
                 2nd - 3rd Grade
               </Link>
               <p className="text-base">11 Chapters</p>
@@ -46,7 +49,10 @@ const Robotics = () => {
               />
             </div>
             <div className="flex flex-col gap-y-2">
-              <Link href="/" className="text-2xl font-bold hover:underline">
+              <Link
+                href="/courses/roboticsCourse/4_5"
+                className="text-2xl font-bold hover:underline"
+              >
                 4th - 5th Grade
               </Link>
               <p className="text-base">11 Chapters</p>
@@ -70,7 +76,7 @@ const Robotics = () => {
             </div>
             <div className="flex flex-col gap-y-2">
               <Link
-                href="/courses/6_7"
+                href="/courses/roboticsCourse/6_7"
                 className="text-2xl font-bold hover:underline"
               >
                 6th - 7th Grade
@@ -97,7 +103,7 @@ const Robotics = () => {
             </div>
             <div className="flex flex-col gap-y-2">
               <Link
-                href="/courses/8_9"
+                href="/courses/roboticsCourse/8_9"
                 className="text-2xl font-bold hover:underline"
               >
                 8th - 9th Grade
@@ -123,7 +129,7 @@ const Robotics = () => {
             </div>
             <div className="flex flex-col gap-y-2">
               <Link
-                href="/courses/10_12"
+                href="/courses/roboticsCourse/10_12"
                 className="text-2xl font-bold hover:underline"
               >
                 10th - 12th Grade

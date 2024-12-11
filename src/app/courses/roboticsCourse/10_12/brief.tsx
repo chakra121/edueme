@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import StarRating from "../Stars";
+import StarRating from "../../Stars";
 
 const Brief = () => {
   return (
@@ -11,7 +11,7 @@ const Brief = () => {
           {/* Course Details */}
           <div className="relative">
             <h2 className="py-2 font-sans text-5xl font-bold text-black">
-              Grade - 6th and 7th
+              Grade - 10th and 12th
             </h2>
             <h2 className="py-2 font-sans text-4xl font-bold text-black">
               Robotics Course
