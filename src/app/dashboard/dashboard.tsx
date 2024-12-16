@@ -100,7 +100,7 @@ const Dashboard = () => {
           </li>
         </ul>
       </aside>
-
+      
       {/* Main Content */}
       <main className="flex-1 bg-gray-100 p-8">
         {/* Welcome Message */}
