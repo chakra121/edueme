@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from "react";
 
+// Define interfaces for form data and errors
 interface FormData {
   fullName: string;
   email: string;
@@ -19,6 +20,12 @@ interface FormErrors {
   course?: string;
 }
 
+interface LoginResponse {
+  success: boolean;
+  token: string;
+  message?: string;
+}
+
 const Signup: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     fullName: "",
@@ -31,7 +38,10 @@ const Signup: React.FC = () => {
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const [apiError, setApiError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
+  // Validation Function
   const validate = (): boolean => {
     const tempErrors: FormErrors = {};
     if (!formData.fullName) tempErrors.fullName = "Full name is required";
@@ -41,6 +51,8 @@ const Signup: React.FC = () => {
       tempErrors.email = "Email address is invalid";
     }
     if (!formData.password) tempErrors.password = "Password is required";
+    if (formData.password.length < 6)
+      tempErrors.password = "Password must be at least 6 characters";
     if (formData.password !== formData.confirmPassword) {
       tempErrors.confirmPassword = "Passwords do not match";
     }
@@ -54,8 +66,9 @@ const Signup: React.FC = () => {
     return Object.keys(tempErrors).length === 0;
   };
 
+  // Handle Input Change
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     setFormData({
       ...formData,
@@ -63,29 +76,54 @@ const Signup: React.FC = () => {
     });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  // Handle Form Submission
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setApiError(null);
     if (validate()) {
-      setSubmitted(true);
-      // Submit form data to API or handle as needed
+      setLoading(true);
+      try {
+        const response = await fetch("/api/auth/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: formData.fullName,
+            email: formData.email,
+            password: formData.password,
+            phoneNumber: formData.phoneNumber,
+            grade: formData.course,
+          }),
+        });
+
+        const result = await response.json() as LoginResponse;
+
+        if (response.ok && result.success) {
+          setSubmitted(true);
+        } else {
+          setApiError(result.message ?? "Registration failed.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        setApiError("Something went wrong. Please try again.");
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
   return (
     <div
-      className="flex min-h-screen items-center bg-gray-100 bg-cover bg-center"
+      className="flex min-h-screen items-center bg-gray-100 bg-cover bg-center justify-center"
       style={{
         backgroundImage: "url('/registerbg.jpg')",
         backgroundPosition: "center 30%",
       }}
     >
-      <div className="flex-1"></div>{" "}
-      {/* Empty space on the left to move the form right */}
       <form
         onSubmit={handleSubmit}
-        className="-mt-20 mr-80 w-full max-w-md rounded-lg bg-white bg-opacity-90 p-6 shadow-md"
+        className=" mx-[1rem] w-full max-w-md rounded-lg bg-white bg-opacity-90 p-6 shadow-md text-black"
       >
-        <h2 className="mb-6 items-center text-center text-2xl font-bold text-gray-800">
+        <h2 className="mb-6 text-center text-2xl font-bold text-gray-800">
           Register for a Course
         </h2>
 
@@ -96,7 +134,7 @@ const Signup: React.FC = () => {
             name="fullName"
             value={formData.fullName}
             onChange={handleChange}
-            className="w-full rounded border border-gray-300 p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded border border-gray-300 p-4 focus:ring-2 focus:ring-blue-500 text-black"
           />
           {errors.fullName && (
             <p className="text-sm text-red-500">{errors.fullName}</p>
@@ -110,7 +148,7 @@ const Signup: React.FC = () => {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full rounded border border-gray-300 p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded border border-gray-300 p-4 focus:ring-2 focus:ring-blue-500"
           />
           {errors.email && (
             <p className="text-sm text-red-500">{errors.email}</p>
@@ -124,7 +162,7 @@ const Signup: React.FC = () => {
             name="phoneNumber"
             value={formData.phoneNumber}
             onChange={handleChange}
-            className="w-full rounded border border-gray-300 p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded border border-gray-300 p-4 focus:ring-2 focus:ring-blue-500"
           />
           {errors.phoneNumber && (
             <p className="text-sm text-red-500">{errors.phoneNumber}</p>
@@ -138,7 +176,7 @@ const Signup: React.FC = () => {
             name="password"
             value={formData.password}
             onChange={handleChange}
-            className="w-full rounded border border-gray-300 p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded border border-gray-300 p-4 focus:ring-2 focus:ring-blue-500"
           />
           {errors.password && (
             <p className="text-sm text-red-500">{errors.password}</p>
@@ -152,7 +190,7 @@ const Signup: React.FC = () => {
             name="confirmPassword"
             value={formData.confirmPassword}
             onChange={handleChange}
-            className="w-full rounded border border-gray-300 p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded border border-gray-300 p-4 focus:ring-2 focus:ring-blue-500"
           />
           {errors.confirmPassword && (
             <p className="text-sm text-red-500">{errors.confirmPassword}</p>
@@ -164,24 +202,41 @@ const Signup: React.FC = () => {
             name="course"
             value={formData.course}
             onChange={handleChange}
-            className="w-full rounded border border-gray-300 p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded border border-gray-300 p-4 focus:ring-2 focus:ring-blue-500"
           >
             <option value="">Select Course</option>
-            <option value="rob">Robotics</option>
-            <option value="rob-ai">Robotics+AI</option>
-            <option value="iot">IoT</option>
+            <option value="Robotics">Robotics</option>
+            <option value="Robotics+AI">Robotics+AI</option>
+            <option value="IoT">IoT</option>
           </select>
           {errors.course && (
             <p className="text-sm text-red-500">{errors.course}</p>
           )}
         </label>
 
+        <p className="text-center text-sm text-gray-600">
+          Already have an account?{" "}
+          <a
+            href="/auth/login"
+            className="font-medium text-blue-500 hover:underline"
+          >
+            Login
+          </a>
+        </p>
+
         <button
           type="submit"
-          className="w-full rounded-md bg-blue-500 py-2 text-white hover:bg-blue-600"
+          className={`w-full rounded-md bg-blue-500 py-2 text-white ${
+            loading ? "opacity-70 cursor-not-allowed" : "hover:bg-blue-600"
+          }`}
+          disabled={loading}
         >
-          Register
+          {loading ? "Registering..." : "Register"}
         </button>
+
+        {apiError && (
+          <p className="mt-4 text-center text-red-500">{apiError}</p>
+        )}
 
         {submitted && (
           <p className="mt-4 text-center text-green-500">

@@ -65,10 +65,10 @@ const Navbar = () => {
 
       {/* Book Demo Button */}
       <Link
-        href="/demoFrom"
+        href="/auth/login"
         className="hidden transition duration-300 ease-in-out hover:scale-105 lg:block"
       >
-        <RainbowButton>Book Demo</RainbowButton>
+        <RainbowButton>Get Started</RainbowButton>
       </Link>
 
       {/* Mobile Menu (Hamburger Icon) */}
