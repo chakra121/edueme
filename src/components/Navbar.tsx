@@ -9,7 +9,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="fixed z-[99] flex w-full items-center justify-between bg-black/20 px-[1rem] py-[0.5rem] text-white backdrop-blur-md lg:px-[10%]">
+    <div className="fixed z-[99] flex w-full items-center justify-between bg-black/90 px-[1rem] py-[0.5rem] text-white backdrop-blur-md lg:px-[10%]">
       {/* Logo Section */}
       <Link href="/">
         <Image
