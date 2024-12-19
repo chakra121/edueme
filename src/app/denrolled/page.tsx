@@ -6,12 +6,12 @@ const Enrolled = () => {
   return (
     <div className="flex min-h-screen pt-16">
       {/* Sidepanel */}
-      <aside className="  p-4 shadow-md">
+      <aside className="  w-1/4 bg-blue-100 p-6 rounded-lg shadow-sm text-black shadow-md h-screen mt-10 ml-5">
         <Sidepanel />
       </aside>
 
       {/* Enrolled Courses */}
-      <main className=" p-4 min-h-screen">
+      <main className=" p-4 flex">
         <EnrolledCourses />
       </main>
     </div>

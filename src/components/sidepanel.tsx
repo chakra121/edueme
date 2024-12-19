@@ -25,9 +25,7 @@ const Sidepanel = () => {
         <ul className="space-y-6">
           <li className="active flex items-center">
             <HomeIcon className="h-6 w-6 text-gray-400" />
-            <Link 
-            href="/dashboard"
-            className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
+            <Link href="/dashboard" className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
               Home
             </Link>
           </li>
@@ -39,41 +37,31 @@ const Sidepanel = () => {
           </li>
           <li className="active flex items-center">
             <BookOpenIcon className="h-6 w-6 text-gray-400" />
-            <Link 
-            href="/denrolled"
-            className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
-              Enrolled Course
+            <Link href="/denrolled" className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
+              Enrolled Courses
             </Link>
           </li>
           <li className="active flex items-center">
             <ClipboardDocumentIcon className="h-6 w-6 text-gray-400" />
-            <Link 
-            href="/dassesment"
-            className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
-              Assessment
+            <Link href="dassesments" className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
+              Assessments
             </Link>
           </li>
           <li className="active flex items-center">
             <Cog6ToothIcon className="h-6 w-6 text-gray-400" />
-            <Link 
-            href="/dprogress"
-            className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
+            <Link href="dprogress" className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
               Course Progress
             </Link>
           </li>
           <li className="active flex items-center">
             <ClockIcon className="h-6 w-6 text-gray-400" />
-            <Link 
-            href="/dupsessions"
-            className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
+            <Link href="dupsessions"className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
               Upcoming Sessions
             </Link>
           </li>
           <li className="active flex items-center">
             <QuestionMarkCircleIcon className="h-6 w-6 text-gray-400" />
-            <Link 
-            href="/dhelp"
-            className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
+            <Link href="dhelp" className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
               Help
             </Link>
           </li>

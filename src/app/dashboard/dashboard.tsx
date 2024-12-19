@@ -160,9 +160,9 @@ const Dashboard = () => {
               📅 Dec 11, 2024 - Dec 31, 2024 &nbsp;&nbsp; 🕒 02:30 PM - 04:30 PM
             </p>
             <div className="mt-4 flex justify-between items-center">
-              <button className="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-600">
+              <Link href="/classdetail"className="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-600">
               JOIN CLASS
-              </button>
+              </Link>
               <div className="space-x-2">
                 <button className="text-sm bg-blue-200 px-3 py-1 rounded hover:bg-blue-300">
                   Mark Attendance for 2024-12-18

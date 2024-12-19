@@ -113,7 +113,7 @@ const Profile = () => {
                 {isEditing ? "Save Changes" : "Edit Profile"}
               </button>
               {isEditing && (
-                <button
+                <button 
                   onClick={() => setIsEditing(false)}
                   className="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400"
                 >
