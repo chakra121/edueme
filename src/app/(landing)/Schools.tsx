@@ -14,6 +14,7 @@ const schoolsList = [
   { img: "/schools/logo9.png" },
   { img: "/schools/logo10.png" },
   { img: "/schools/logo11.png" },
+  { img: "/schools/logo12.jpg" },
 ];
 
 const ReviewCard = ({ img }: { img: string }) => {

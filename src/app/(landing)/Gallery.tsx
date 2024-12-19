@@ -17,10 +17,10 @@ const GalleryPage = () => {
             Upgrading Education with Forward-Thinking Initiatives
           </h1>
           <p className="text-gray-300 leading-relaxed">
-            STEMpedia has tailored its products, curricula, and services to meet
+            EdueMe has tailored its products, curricula, and services to meet
             the needs of the general public through its innovative initiatives
-            in <strong>schools</strong>, <strong>government</strong>,{" "}
-            <strong>corporate social responsibility</strong>, and{" "}
+            in <strong>schools</strong>, {" "}
+            and{" "}
             <strong>impact programs</strong>. These programs are designed to
             achieve desired outcomes and adhere to the educational standards
             established by modern policies around the world.
@@ -43,13 +43,13 @@ const GalleryPage = () => {
           </div>
           <div className="content p-6 md:w-2/3">
             <h2 className="text-2xl font-bold text-yellow-500 mb-2">
-              AI & Robotics Lab for Schools
+              Classroom Learning
             </h2>
             <p className="text-gray-300 font-semibold mb-1">
-              500+ AI and Robotics Labs Established
+              500+ hours classroom teaching
             </p>
             <p className="text-gray-300 leading-snug mb-4">
-              STEMpedia AI and Robotics Lab are upgrading ICT labs in schools
+              EdueME's  AI and Robotics Lab are upgrading ICT labs in schools
               by integrating modern ICT, coding, AI, and robotics education
               into the curriculum for classes 3-12.
             </p>
@@ -86,14 +86,15 @@ const GalleryPage = () => {
           </div>
           <div className="content p-6 md:w-2/3">
             <h2 className="text-2xl font-bold text-yellow-500 mb-2">
-              Atal Tinkering Lab in Schools
+              Expos
             </h2>
             <p className="text-gray-300 font-semibold mb-1">
-              500+ Atal Tinkering Labs Established
+              500+ expo's visits
             </p>
             <p className="text-gray-300 leading-snug mb-4">
-              STEMpedia offers comprehensive end-to-end assistance in
-              establishing and running Atal Tinkering Labs in schools.
+              EDueME offers comprehensive end-to-end assistance in
+              establishing and running expos in various schools to 
+              promote the talent in the young minds.
             </p>
             <div>
               <Link href="/gall/expo">
@@ -128,15 +129,13 @@ const GalleryPage = () => {
           </div>
           <div className="content p-6 md:w-2/3">
             <h2 className="text-2xl font-bold text-yellow-500 mb-2">
-              Impact Programs
+              Tech Tours
             </h2>
             <p className="text-gray-300 font-semibold mb-1">
-              50+ Programs Executed
+              50+ Tech tours visits
             </p>
             <p className="text-gray-300 leading-snug mb-4">
-              STEMpedia provides tech and execution support for impactful
-              programs at a large scale, positively impacting over 500,000
-              students.
+              EdueME organizes multiple tech tours in throughout the academic year to promote knowledge expansion in real time situations and industry ready projects to develop the intrests among the students
             </p>
             <div>
               <Link href="/gall/tech">
