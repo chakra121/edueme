@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link"; // Import Link from Next.js
 
 export default function StickyCard() {
   return (
@@ -11,24 +12,24 @@ export default function StickyCard() {
           alt="Image not found"
           width={450}
           height={450}
-        ></Image>
+        />
         <h3 className="my-3 text-2xl font-semibold text-black">
           Course Include:
         </h3>
         <div className="pl-3">
           <li className="text-lg font-semibold text-black">Certification</li>
           <li className="text-lg font-semibold text-black">Online Classes</li>
-          <li className="text-lg font-semibold text-black">
-            Practical Sessions
-          </li>
+          <li className="text-lg font-semibold text-black">Practical Sessions</li>
         </div>
         <p className="mt-2 text-gray-600">Price: ₹3999</p>
 
         {/* Responsive Buttons and Centered "Or" */}
         <div className="mt-4 flex flex-col gap-3">
-          <button className="w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 sm:px-6 md:px-8">
-            Enroll Now
-          </button>
+          <Link href="/courses/roboticsCourse/2_3/paypage">
+            <button className="w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 sm:px-6 md:px-8">
+              Enroll Now
+            </button>
+          </Link>
 
           <p className="text-center font-semibold text-black">Or</p>
 
