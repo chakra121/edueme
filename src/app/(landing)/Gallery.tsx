@@ -1,13 +1,162 @@
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 
-const Gallery = () => {
+const GalleryPage = () => {
   return (
-    <div>
+    <div className="bg-black min-h-screen py-12">
+      {/* Top Heading Outside the Container */}
+      <div className="text-center mb-6">
+        <h1 className="text-4xl font-bold text white">Gallery</h1>
+      </div>
 
+      {/* Main Container Card */}
+      <div className="bg-gray-800 shadow-lg rounded-lg overflow-hidden container mx-auto px-6 max-w-5xl">
+        {/* Top Section: Heading */}
+        <div className="text-center px-4 py-6">
+          <h1 className="text-3xl font-bold text-indigo-500 mb-4">
+            Upgrading Education with Forward-Thinking Initiatives
+          </h1>
+          <p className="text-gray-300 leading-relaxed">
+            STEMpedia has tailored its products, curricula, and services to meet
+            the needs of the general public through its innovative initiatives
+            in <strong>schools</strong>, <strong>government</strong>,{" "}
+            <strong>corporate social responsibility</strong>, and{" "}
+            <strong>impact programs</strong>. These programs are designed to
+            achieve desired outcomes and adhere to the educational standards
+            established by modern policies around the world.
+          </p>
+        </div>
+
+        {/* Section 1: Image and Content */}
+        <div className="flex flex-col md:flex-row items-stretch mb-6">
+          <div className="image-section group w-full md:w-1/3 relative">
+            <div className="card relative">
+              <div className="absolute top-0 left-0 w-full h-full bg-indigo-600 opacity-0 group-hover:opacity-100 transition duration-500"></div>
+              <div className="absolute top-0 left-0 w-full h-full bg-indigo-500 opacity-0 group-hover:opacity-100 group-hover:rotate-6 transition duration-500"></div>
+              <div className="absolute top-0 left-0 w-full h-full bg-indigo-400 opacity-0 group-hover:opacity-100 group-hover:-rotate-6 transition duration-500"></div>
+              <img
+                src="/g1.jpeg"
+                alt="AI & Robotics Lab"
+                className="object-cover h-64 w-full relative group-hover:rotate-6 transition duration-500"
+              />
+            </div>
+          </div>
+          <div className="content p-6 md:w-2/3">
+            <h2 className="text-2xl font-bold text-indigo-500 mb-2">
+              AI & Robotics Lab for Schools
+            </h2>
+            <p className="text-gray-300 font-semibold mb-1">
+              500+ AI and Robotics Labs Established
+            </p>
+            <p className="text-gray-300 leading-snug mb-4">
+              STEMpedia AI and Robotics Lab are upgrading ICT labs in schools
+              by integrating modern ICT, coding, AI, and robotics education
+              into the curriculum for classes 3-12.
+            </p>
+            <div>
+              <Link href="/gall/class">
+                <button
+                  className="bg-indigo-500 text-white px-6 py-2 rounded hover:bg-indigo-600 transition mr-4 hover:shadow-lg hover:scale-105"
+                >
+                  Explore More
+                </button>
+              </Link>
+              <button
+                className="bg-orange-500 text-white px-6 py-2 rounded hover:bg-orange-600 transition hover:shadow-lg hover:scale-105"
+              >
+                Watch Video
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Section 2: Image and Content */}
+        <div className="flex flex-col md:flex-row-reverse items-stretch mb-6">
+          <div className="image-section group w-full md:w-1/3 relative">
+            <div className="card relative">
+              <div className="absolute top-0 left-0 w-full h-full bg-indigo-600 opacity-0 group-hover:opacity-100 transition duration-500"></div>
+              <div className="absolute top-0 left-0 w-full h-full bg-indigo-500 opacity-0 group-hover:opacity-100 group-hover:rotate-6 transition duration-500"></div>
+              <div className="absolute top-0 left-0 w-full h-full bg-indigo-400 opacity-0 group-hover:opacity-100 group-hover:-rotate-6 transition duration-500"></div>
+              <img
+                src="/g2.jpeg"
+                alt="Atal Tinkering Lab"
+                className="object-cover h-64 w-full relative group-hover:rotate-6 transition duration-500"
+              />
+            </div>
+          </div>
+          <div className="content p-6 md:w-2/3">
+            <h2 className="text-2xl font-bold text-indigo-500 mb-2">
+              Atal Tinkering Lab in Schools
+            </h2>
+            <p className="text-gray-300 font-semibold mb-1">
+              500+ Atal Tinkering Labs Established
+            </p>
+            <p className="text-gray-300 leading-snug mb-4">
+              STEMpedia offers comprehensive end-to-end assistance in
+              establishing and running Atal Tinkering Labs in schools.
+            </p>
+            <div>
+              <Link href="/gall/expo">
+                <button
+                  className="bg-indigo-500 text-white px-6 py-2 rounded hover:bg-indigo-600 transition mr-4 hover:shadow-lg hover:scale-105"
+                >
+                  Explore More
+                </button>
+              </Link>
+              <button
+                className="bg-orange-500 text-white px-6 py-2 rounded hover:bg-orange-600 transition hover:shadow-lg hover:scale-105"
+              >
+                Watch Video
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Section 3: Image and Content */}
+        <div className="flex flex-col md:flex-row items-stretch mb-6">
+          <div className="image-section group w-full md:w-1/3 relative">
+            <div className="card relative">
+              <div className="absolute top-0 left-0 w-full h-full bg-indigo-600 opacity-0 group-hover:opacity-100 transition duration-500"></div>
+              <div className="absolute top-0 left-0 w-full h-full bg-indigo-500 opacity-0 group-hover:opacity-100 group-hover:rotate-6 transition duration-500"></div>
+              <div className="absolute top-0 left-0 w-full h-full bg-indigo-400 opacity-0 group-hover:opacity-100 group-hover:-rotate-6 transition duration-500"></div>
+              <img
+                src="/g3.jpeg"
+                alt="Impact Programs"
+                className="object-cover h-64 w-full relative group-hover:rotate-6 transition duration-500"
+              />
+            </div>
+          </div>
+          <div className="content p-6 md:w-2/3">
+            <h2 className="text-2xl font-bold text-indigo-500 mb-2">
+              Impact Programs
+            </h2>
+            <p className="text-gray-300 font-semibold mb-1">
+              50+ Programs Executed
+            </p>
+            <p className="text-gray-300 leading-snug mb-4">
+              STEMpedia provides tech and execution support for impactful
+              programs at a large scale, positively impacting over 500,000
+              students.
+            </p>
+            <div>
+              <Link href="/gall/tech">
+                <button
+                  className="bg-indigo-500 text-white px-6 py-2 rounded hover:bg-indigo-600 transition mr-4 hover:shadow-lg hover:scale-105"
+                >
+                  Explore More
+                </button>
+              </Link>
+              <button
+                className="bg-orange-500 text-white px-6 py-2 rounded hover:bg-orange-600 transition hover:shadow-lg hover:scale-105"
+              >
+                Watch Video
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Gallery;
+export default GalleryPage;

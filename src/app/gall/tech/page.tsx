@@ -14,9 +14,26 @@ const Tech = () => {
     '/Tech Tours/IMG-20241122-WA0073.jpg',
     '/Tech Tours/IMG-20241122-WA0074.jpg',
     '/Tech Tours/IMG-20241122-WA0088.jpg',
-    '/Tech Tours/IMG-20241122-WA0089.jpg'
+    '/Tech Tours/IMG-20241122-WA0089.jpg',
+    '/Tech Tours/IMG-20241122-WA0094.jpg',
+    '/Tech Tours/IMG-20241122-WA0095.jpg',
+    '/Tech Tours/IMG-20241122-WA0103.jpg',
+    '/Tech Tours/IMG-20241122-WA0108.jpg',
+    '/Tech Tours/IMG-20241122-WA0109.jpg',
+    '/Tech Tours/IMG-20241122-WA0110.jpg',
+    '/Tech Tours/IMG-20241122-WA0113.jpg',
+    '/Tech Tours/IMG-20241122-WA0114.jpg',
+    '/Tech Tours/IMG-20241122-WA0115.jpg',
+    '/Tech Tours/IMG-20241122-WA0116.jpg',
+    '/Tech Tours/IMG-20241122-WA0117.jpg',
+    '/Tech Tours/IMG-20241122-WA0118.jpg',
+    '/Tech Tours/IMG-20241122-WA0119.jpg',
+    '/Tech Tours/IMG-20241122-WA0120.jpg',
+    '/Tech Tours/IMG-20241122-WA0121.jpg',
+    '/Tech Tours/IMG-20241122-WA0122.jpg'
   ];
 
+  
   return (
     <div className="text-center mb-10 pt-20">
       <h2 className="text-3xl font-semibold mb-5">Tech Tours</h2>

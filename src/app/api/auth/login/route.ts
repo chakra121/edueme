@@ -1,7 +1,7 @@
 import { connectDb } from "@/lib/connectDB";
 import { NextResponse } from "next/server";
 import DemoFormModel from "@/model/User";
-import bcrypt from "bcrypt";
+import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
 
 const SECRET_KEY = process.env.JWT_SECRET ?? "your_secret_key"; // Replace in .env

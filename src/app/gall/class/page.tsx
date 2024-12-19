@@ -9,7 +9,25 @@ const Class = () => {
     '/Classroom Tech/IMG-20241122-WA0025.jpg',
     '/Classroom Tech/IMG-20241122-WA0035.jpg',
     '/Classroom Tech/IMG-20241122-WA0036.jpg',
-    '/Classroom Tech/IMG-20241122-WA0037.jpg'
+    '/Classroom Tech/IMG-20241122-WA0037.jpg',
+    '/Classroom Tech/IMG-20241122-WA0038.jpg',
+    '/Classroom Tech/IMG-20241122-WA0085.jpg',
+    '/Classroom Tech/IMG-20241122-WA0086.jpg',
+    '/Classroom Tech/IMG-20241122-WA0087.jpg',
+    '/Classroom Tech/IMG-20241122-WA0090.jpg',
+    '/Classroom Tech/IMG-20241122-WA0091.jpg',
+    '/Classroom Tech/IMG-20241122-WA0092.jpg',
+    '/Classroom Tech/IMG-20241122-WA0099.jpg',
+    '/Classroom Tech/IMG-20241122-WA0100.jpg',
+    '/Classroom Tech/IMG-20241122-WA0106.jpg',
+    '/Classroom Tech/IMG-20241122-WA0124.jpg',
+    '/Classroom Tech/IMG-20241122-WA0125.jpg',
+    '/Classroom Tech/IMG-20241122-WA0126.jpg',
+    '/Classroom Tech/IMG-20241122-WA0128.jpg',
+    '/Classroom Tech/IMG-20241122-WA0129.jpg',
+    '/Classroom Tech/IMG-20241122-WA0130.jpg',
+    '/Classroom Tech/IMG-20241122-WA0131.jpg',
+    '/Classroom Tech/IMG-20241122-WA0134.jpg'
   ];
 
   return (

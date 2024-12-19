@@ -9,10 +9,9 @@ export default function HomePage() {
   return (
     <div>
       <Hero />
-      <Features />
+      <Services />
       <Schools />
       <Products />
-      <Services />
       <Gallery/>
     </div>
   );
