@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    /* Base Options: */
+    /* Base Options */
     "esModuleInterop": true,
     "skipLibCheck": true,
     "target": "es2022",
@@ -27,7 +27,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    /* Added TypeRoots */
+    "typeRoots": ["./node_modules/@types", "./types"]
   },
   "include": [
     ".eslintrc.cjs",
@@ -36,7 +38,9 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.js",
-    ".next/types/**/*.ts"
-, "src/components/about_para"  ],
+    ".next/types/**/*.ts",
+    "src/components/about_para",
+    "types" /* Added */
+  ],
   "exclude": ["node_modules"]
 }
