@@ -15,14 +15,14 @@ const EnrolledCourses = () => {
   const enrolledCourses = [
     {
       id: 1,
-      title: "Mastering Data Structures & Algorithms",
+      title: "AI ON FINGERTIPS",
       instructor: "Prof. John Smith",
       progress: 75,
       duration: "Dec 10 - Dec 30, 2024",
     },
     {
       id: 2,
-      title: "Web Development Bootcamp",
+      title: "ROBOTICS WORLD",
       instructor: "Jane Doe",
       progress: 40,
       duration: "Jan 1 - Feb 10, 2025",
@@ -32,13 +32,13 @@ const EnrolledCourses = () => {
   const recommendedCourses = [
     {
       id: 3,
-      title: "Machine Learning with Python",
+      title: "IOT",
       instructor: "Dr. Sarah Lee",
       duration: "Feb 15 - Mar 30, 2025",
     },
     {
       id: 4,
-      title: "Introduction to Cybersecurity",
+      title: "Introduction to Robotics",
       instructor: "Dr. Alan Turing",
       duration: "Mar 1 - Apr 10, 2025",
     },
@@ -105,7 +105,7 @@ const EnrolledCourses = () => {
 
           {/* Enrolled Courses */}
           <section className="mt-6">
-            <h3 className="text-2xl font-bold mb-4 text-gray-800">
+            <h3 className="text-2xl font-bold mb-4 text-white">
               Your Courses
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -141,7 +141,7 @@ const EnrolledCourses = () => {
 
           {/* Recommended Courses */}
           <section className="mt-8">
-            <h3 className="text-2xl font-bold mb-4 text-gray-800">
+            <h3 className="text-2xl font-bold mb-4 text-white">
               Recommended Courses
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

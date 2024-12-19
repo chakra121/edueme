@@ -58,9 +58,9 @@ const Dashboard = () => {
         <ul className="space-y-6">
           <li className="active flex items-center">
             <HomeIcon className="h-6 w-6 text-gray-400" />
-            <span className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
+            <Link href="/dashboard" className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
               Home
-            </span>
+            </Link>
           </li>
           <li className="active flex items-center">
             <UserIcon className="h-6 w-6 text-gray-400" />
@@ -78,7 +78,7 @@ const Dashboard = () => {
             <ClipboardDocumentIcon className="h-6 w-6 text-gray-400" />
             <Link href="dassesments" className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
               Assessments
-            </span>
+            </Link>
           </li>
           <li className="active flex items-center">
             <Cog6ToothIcon className="h-6 w-6 text-gray-400" />
