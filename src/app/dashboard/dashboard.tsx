@@ -70,33 +70,33 @@ const Dashboard = () => {
           </li>
           <li className="active flex items-center">
             <BookOpenIcon className="h-6 w-6 text-gray-400" />
-            <span className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
+            <Link href="/denrolled" className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
               Enrolled Courses
-            </span>
+            </Link>
           </li>
           <li className="active flex items-center">
             <ClipboardDocumentIcon className="h-6 w-6 text-gray-400" />
-            <span className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
+            <Link href="dassesments" className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
               Assessments
             </span>
           </li>
           <li className="active flex items-center">
             <Cog6ToothIcon className="h-6 w-6 text-gray-400" />
-            <span className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
+            <Link href="dprogress" className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
               Course Progress
-            </span>
+            </Link>
           </li>
           <li className="active flex items-center">
             <ClockIcon className="h-6 w-6 text-gray-400" />
-            <span className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
+            <Link href="dupsessions"className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
               Upcoming Sessions
-            </span>
+            </Link>
           </li>
           <li className="active flex items-center">
             <QuestionMarkCircleIcon className="h-6 w-6 text-gray-400" />
-            <span className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
+            <Link href="dhelp" className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
               Help
-            </span>
+            </Link>
           </li>
         </ul>
       </aside>
