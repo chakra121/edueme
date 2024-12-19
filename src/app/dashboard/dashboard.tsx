@@ -51,50 +51,50 @@ const Dashboard = () => {
   // if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className="flex h-screen">
+    <div className="flex min-h-screen">
       {/* Sidebar */}
-      <aside className="w-64 bg-stone-800 p-6 text-white opacity-70">
+      <aside className="w-64 bg-blue-100 p-6 rounded-lg shadow-sm text-black ">
         <h2 className="mb-8 text-2xl font-bold"></h2>
         <ul className="space-y-6">
           <li className="active flex items-center">
             <HomeIcon className="h-6 w-6 text-gray-400" />
-            <span className="ml-2 text-left font-sans text-lg hover:font-bold">
+            <span className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
               Home
             </span>
           </li>
           <li className="active flex items-center">
             <UserIcon className="h-6 w-6 text-gray-400" />
-            <span className="ml-2 text-left font-sans text-lg hover:font-bold">
+            <Link href="/dprofile" className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
               Profile
-            </span>
+            </Link>
           </li>
           <li className="active flex items-center">
             <BookOpenIcon className="h-6 w-6 text-gray-400" />
-            <span className="ml-2 text-left font-sans text-lg hover:font-bold">
+            <span className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
               Enrolled Courses
             </span>
           </li>
           <li className="active flex items-center">
             <ClipboardDocumentIcon className="h-6 w-6 text-gray-400" />
-            <span className="ml-2 text-left font-sans text-lg hover:font-bold">
+            <span className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
               Assessments
             </span>
           </li>
           <li className="active flex items-center">
             <Cog6ToothIcon className="h-6 w-6 text-gray-400" />
-            <span className="ml-2 text-left font-sans text-lg hover:font-bold">
+            <span className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
               Course Progress
             </span>
           </li>
           <li className="active flex items-center">
             <ClockIcon className="h-6 w-6 text-gray-400" />
-            <span className="ml-2 text-left font-sans text-lg hover:font-bold">
+            <span className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
               Upcoming Sessions
             </span>
           </li>
           <li className="active flex items-center">
             <QuestionMarkCircleIcon className="h-6 w-6 text-gray-400" />
-            <span className="ml-2 text-left font-sans text-lg hover:font-bold">
+            <span className="ml-2 text-left font-sans text-lg hover:font-bold hover:cursor-pointer">
               Help
             </span>
           </li>
@@ -102,58 +102,87 @@ const Dashboard = () => {
       </aside>
       
       {/* Main Content */}
-      <main className="flex-1 bg-gray-100 p-8">
-        {/* Welcome Message */}
-        <section className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-800">Welcome, BUDDY!</h1>
-          <p className="text-gray-600"></p>
+        <main className="flex-1 p-6 -mt-6">
+        {/* Welcome Section */}
+        <section className="bg-blue-100 p-6 rounded-lg shadow-sm">
+          <h2 className="text-3xl font-bold text-black">
+            Welcome Back, <span className="text-blue-600">BUDDDY!</span> ✨
+          </h2>
+          <p className="text-gray-600 mt-2">Ready to continue your learning journey? You're making great progress!</p>
+          <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+            Resume Journey →
+          </button>
         </section>
 
-        {/* Enrolled Courses */}
-        <section className="mb-8">
-          <h2 className="mb-4 text-2xl font-bold text-gray-800">
-            Enrolled Courses
-          </h2>
-          <ul className="ml-6 list-disc text-gray-700">
-            <li>Artificial intelligence</li>
-          </ul>
-        </section>
-
-        {/* Live Classes */}
-        <section>
-          <h2 className="mb-4 text-2xl font-bold text-gray-800">
-            Upcoming Live Classes
-          </h2>
-          <div className="space-y-4">
-            <div className="flex items-center justify-between rounded-lg bg-white p-4 shadow">
-              <div>
-                <p className="font-medium text-gray-900">
-                  Robotics on fingers 101 Live Session
-                </p>
-                <p className="text-gray-600">2024-11-28 10:00 AM</p>
+        {/* Assessment Section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          {/* Assessment Activity */}
+          <section className="bg-white p-6 rounded-lg shadow-md">
+            <h3 className="text-xl text-black font-bold mb-4">Assessment Activity</h3>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="text-blue-600">
+                <p className="text-3xl font-bold">10</p>
+                <p>Tests Assigned</p>
               </div>
-              <Link
-                href="/classdetail"
-                className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-              >
-                Join
-              </Link>
+              <div className="text-green-600">
+                <p className="text-3xl font-bold">2</p>
+                <p>Tests Completed</p>
+              </div>
+              <div className="text-purple-600">
+                <p className="text-3xl font-bold">35</p>
+                <p>Questions Attempted</p>
+              </div>
+              <div className="text-orange-600">
+                <p className="text-3xl font-bold">12 mins</p>
+                <p>Total Time Spent</p>
+              </div>
             </div>
-            <div className="flex items-center justify-between rounded-lg bg-white p-4 shadow">
-              <div>
-                <p className="font-medium text-gray-900">
-                  AI in mind Live Session
-                </p>
-                <p className="text-gray-600">2024-11-29 11:00 AM</p>
+            <p className="mt-4 text-sm text-gray-500">
+              Please visit the <span className="font-bold">Assessments page</span> for all active assignments.
+            </p>
+          </section>
+
+          {/* Announcements */}
+          <section className="bg-white p-6 rounded-lg shadow-md text-center">
+            <h3 className="text-xl font-bold text-gray-700">Announcements</h3>
+            <div className="text-pink-400 mt-6 text-6xl">💬</div>
+            <p className="mt-4 text-gray-500">No Announcements</p>
+            <p className="text-sm text-gray-400">Check back later for important updates and news!</p>
+          </section>
+        </div>
+
+        {/* Upcoming Live Classes */}
+        <section className="bg-white p-6 text-black rounded-lg shadow-md mt-6">
+          <h3 className="text-xl font-bold mb-4">Upcoming Live Classes</h3>
+          <div className="p-4 bg-blue-50 rounded-md">
+            <h4 className="text-lg font-semibold">AI on Fingertips | 2024 | BATCH 1</h4>
+            <p className="text-gray-600 mt-1">
+              📅 Dec 11, 2024 - Dec 31, 2024 &nbsp;&nbsp; 🕒 02:30 PM - 04:30 PM
+            </p>
+            <div className="mt-4 flex justify-between items-center">
+              <button className="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-600">
+              JOIN CLASS
+              </button>
+              <div className="space-x-2">
+                <button className="text-sm bg-blue-200 px-3 py-1 rounded hover:bg-blue-300">
+                  Mark Attendance for 2024-12-18
+                </button>
+                <button className="text-sm bg-blue-200 px-3 py-1 rounded hover:bg-blue-300">
+                  Give Session Feedback
+                </button>
               </div>
-              <Link
-                href="/classdetail"
-                className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-              >
-                Join
-              </Link>
             </div>
           </div>
+        </section>
+
+        {/* Overall Performance */}
+        <section className="bg-white p-6 text-black rounded-lg shadow-md mt-6 text-center">
+          <h3 className="text-xl font-bold text-gray-700">Overall Performance</h3>
+          <p className="text-gray-500 mt-2">
+            No test attempts found. Please take an assessment to view your results.
+          </p>
+          <p className="text-blue-600 text-3xl font-bold mt-4">Overall Mastery</p>
+          <p className="text-5xl font-bold text-gray-400 mt-2">0.0%</p>
         </section>
       </main>
     </div>
