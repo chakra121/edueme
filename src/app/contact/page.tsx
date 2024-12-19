@@ -39,7 +39,7 @@ function ContactForm() {
     >
       {/* Form Card */}
       <div
-        className="w-full max-w-md rounded-lg bg-white bg-opacity-30 p-6 shadow-md lg:max-w-sm backdrop-blur-3xl"
+        className="w-full max-w-md rounded-lg bg-gray-500 p-6 shadow-md lg:max-w-sm backdrop-blur-3xl"
         style={{
           backdropFilter: "blur(1px)",
           WebkitBackdropFilter: "blur(20px)",

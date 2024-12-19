@@ -7,7 +7,7 @@ const AboutStats = () => {
       <div className="flex items-center justify-center px-4 lg:px-16">
         <div className="flex flex-col justify-between gap-6 p-2 lg:flex-row">
           {/* Students Card */}
-          <div className="relative z-50 flex h-64 w-64 flex-col items-center justify-center rounded-2xl bg-gradient-to-br from-amber-300 to-yellow-200 p-4 transition-transform duration-200 hover:scale-110 hover:shadow-lg">
+          <div className="relative z-50 flex h-64 w-64 flex-col items-center justify-center rounded-2xl bg-gradient-to-br from-amber-300 to-yellow-300 p-4 transition-transform duration-200 hover:scale-110 hover:shadow-lg">
             <UserGroupIcon className="h-16 w-16 text-gray-800 mb-4" />
             <h1 className="text-center text-2xl font-semibold text-gray-800">
               75+
@@ -19,7 +19,7 @@ const AboutStats = () => {
           </div>
 
           {/* Teachers Card */}
-          <div className="relative z-50 flex h-64 w-64 flex-col items-center justify-center rounded-2xl bg-gradient-to-br from-amber-300 to-yellow-200 p-4 transition-transform duration-200 hover:scale-110 hover:shadow-lg">
+          <div className="relative z-50 flex h-64 w-64 flex-col items-center justify-center rounded-2xl bg-gradient-to-br from-amber-300 to-yellow-300 p-4 transition-transform duration-200 hover:scale-110 hover:shadow-lg">
             <AcademicCapIcon className="h-16 w-16 text-gray-800 mb-4" />
             <h1 className="text-center text-2xl font-semibold text-gray-800">
               100+
@@ -29,7 +29,7 @@ const AboutStats = () => {
           </div>
 
           {/* Schools Card */}
-          <div className="relative z-50 flex h-64 w-64 flex-col items-center justify-center rounded-2xl bg-gradient-to-br from-amber-300 to-yellow-200 p-4 transition-transform duration-200 hover:scale-110 hover:shadow-lg">
+          <div className="relative z-50 flex h-64 w-64 flex-col items-center justify-center rounded-2xl bg-gradient-to-br from-amber-300 to-yellow-300 p-4 transition-transform duration-200 hover:scale-110 hover:shadow-lg">
             <BuildingLibraryIcon className="h-16 w-16 text-gray-800 mb-4" />
             <h1 className="text-center text-2xl font-semibold text-gray-800">
               50+
@@ -41,7 +41,7 @@ const AboutStats = () => {
           </div>
 
           {/* Courses Card */}
-          <div className="relative z-50 flex h-64 w-64 flex-col items-center justify-center rounded-2xl bg-gradient-to-br from-amber-300 to-yellow-200 p-4 transition-transform duration-200 hover:scale-110 hover:shadow-lg">
+          <div className="relative z-50 flex h-64 w-64 flex-col items-center justify-center rounded-2xl bg-gradient-to-br from-amber-300 to-yellow-300 p-4 transition-transform duration-200 hover:scale-110 hover:shadow-lg">
             <BookOpenIcon className="h-16 w-16 text-gray-800 mb-4" />
             <h1 className="text-center text-2xl font-semibold text-gray-800">
               30+

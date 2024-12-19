@@ -11,28 +11,49 @@ interface Question {
 const questions: Question[] = [
   {
     id: 1,
-    question: "The capital of France is _____",
-    answer: "Paris",
+    question:
+      "The Arduino IDE stands for __________ Integrated Development Environment",
+    answer: "Arduino",
   },
   {
     id: 2,
-    question: "The chemical symbol for water is _____",
-    answer: "H2O",
+    question:
+      "The most commonly used Arduino board for beginners is the __________",
+    answer: "UNO",
   },
   {
     id: 3,
-    question: "The largest planet in our solar system is _____",
-    answer: "Jupiter",
+    question:
+      "Arduino is an open-source __________ platform used for building electronic projects",
+    answer: "Electronics",
   },
   {
     id: 4,
-    question: "Photosynthesis occurs in the _____ of a plant cell.",
-    answer: "chloroplast",
+    question:
+      "To upload a program to an Arduino board, you must first click the __________ button in the IDE",
+    answer: "Upload",
   },
   {
     id: 5,
-    question: "_____ wrote the play 'Romeo and Juliet.'",
-    answer: "Shakespeare",
+    question:
+      "To connect the Arduino to the computer, we use a __________ cable",
+    answer: "USB",
+  },
+  {
+    id: 6,
+    question: "The Arduino IDE uses the __________ language to write programs",
+    answer: "C/C++",
+  },
+  {
+    id: 7,
+    question:
+      "Once you select the correct __________ in the IDE, you can upload your code to the Arduino",
+    answer: "Port",
+  },
+  {
+    id: 8,
+    question: "The Arduino board is powered through the __________ cable",
+    answer: "USB",
   },
 ];
 

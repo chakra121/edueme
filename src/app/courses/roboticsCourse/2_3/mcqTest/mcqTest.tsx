@@ -12,43 +12,54 @@ interface Question {
 const questions: Question[] = [
   {
     id: 1,
-    question: "What is the capital of France?",
-    options: ["Paris", "Berlin", "Madrid", "Rome"],
-    answer: 0,
-  },
-  {
-    id: 2,
-    question: "Which is the smallest planet in our solar system?",
-    options: ["Earth", "Mars", "Mercury", "Venus"],
+    question: "Which of the following is NOT a type of electricity?",
+    options: [
+      "Static Electricity",
+      "Alternating Electricity",
+      "Magnetic Electricity",
+    ],
     answer: 2,
   },
   {
-    id: 3,
-    question: "What is the square root of 64?",
-    options: ["6", "8", "7", "9"],
-    answer: 1,
-  },
-  {
-    id: 4,
-    question: "Which gas do plants absorb during photosynthesis?",
-    options: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"],
-    answer: 1,
-  },
-  {
-    id: 5,
-    question: "Who wrote 'Romeo and Juliet'?",
+    id: 2,
+    question: "What happens when a circuit is open?",
     options: [
-      "William Shakespeare",
-      "Charles Dickens",
-      "Mark Twain",
-      "Jane Austen",
+      "Current flows continuously",
+      "Current stops flowing",
+      "Voltage increases indefinitely",
+    ],
+    answer: 1,
+  },
+  {
+    id: 3,
+    question: "What is the main function of a capacitor in a circuit?",
+    options: [
+      "To store electrical energy and release it when needed",
+      "To convert electrical energy into heat energy",
+      "To control the flow of electrons",
     ],
     answer: 0,
   },
   {
+    id: 4,
+    question: "What is the SI unit of electrical resistance?",
+    options: ["Ampere", "Volt", "Ohm"],
+    answer: 2,
+  },
+  {
+    id: 5,
+    question: "Which of the following is an electrical device?",
+    options: ["Bulb", "Smartphone", "Remote control"],
+    answer: 0,
+  },
+  {
     id: 6,
-    question: "What is the chemical symbol for water?",
-    options: ["O", "H2O", "CO2", "NaCl"],
+    question: "Why is a resistor used in a circuit with an LED?",
+    options: [
+      "To increase current flow",
+      "To decrease voltage to protect the LED",
+      "To store energy",
+    ],
     answer: 1,
   },
 ];

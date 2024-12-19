@@ -17,12 +17,12 @@ const GalleryPage = () => {
             Upgrading Education with Forward-Thinking Initiatives
           </h1>
           <p className="text-gray-300 leading-relaxed">
-            EdueMe has tailored its products, curricula, and services to meet
+            EdueMe has tailored its products, curriculam, and services to meet
             the needs of the general public through its innovative initiatives
             in <strong>schools</strong>, {" "}
             and{" "}
             <strong>impact programs</strong>. These programs are designed to
-            achieve desired outcomes and adhere to the educational standards
+            achieve desired outcomes and here to the educational standards
             established by modern policies around the world.
           </p>
         </div>
