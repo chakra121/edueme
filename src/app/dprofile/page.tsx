@@ -7,7 +7,7 @@ const page = () => {
     
     <div className="flex min-h-screen pt-16">
       {/* Sidepanel */}
-      <aside className="  w-1/4 bg-blue-100 p-6 rounded-lg shadow-sm text-black shadow-md h-screen mt-10 ml-5">
+      <aside className="  w-1/4 bg-blue-100 p-6 rounded-lg text-black shadow-md h-screen mt-10 ml-5">
         <Sidepanel />
       </aside>
 
