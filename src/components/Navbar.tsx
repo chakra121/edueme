@@ -55,12 +55,12 @@ const Navbar = () => {
           Courses
         </Link>
         {/*button for temp dashboard */}
-        <Link
+        {/* <Link
           href="/dashboard"
           className="rounded-md px-[1rem] py-2 transition duration-300 ease-in-out hover:scale-105 hover:bg-yellow-500 hover:text-black"
         >
           Dashboard
-        </Link>
+        </Link> */}
       </div>
 
       {/* Book Demo Button */}
