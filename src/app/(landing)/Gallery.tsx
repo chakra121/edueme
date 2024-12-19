@@ -10,10 +10,10 @@ const GalleryPage = () => {
       </div>
 
       {/* Main Container Card */}
-      <div className="bg-gray-800 shadow-lg rounded-lg overflow-hidden container mx-auto px-6 max-w-5xl">
+      <div className="bg-black shadow-lg rounded-lg overflow-hidden container mx-auto px-6 max-w-5xl">
         {/* Top Section: Heading */}
         <div className="text-center px-4 py-6">
-          <h1 className="text-3xl font-bold text-indigo-500 mb-4">
+          <h1 className="text-3xl font-bold text-yellow-500 mb-4">
             Upgrading Education with Forward-Thinking Initiatives
           </h1>
           <p className="text-gray-300 leading-relaxed">
@@ -31,9 +31,9 @@ const GalleryPage = () => {
         <div className="flex flex-col md:flex-row items-stretch mb-6">
           <div className="image-section group w-full md:w-1/3 relative">
             <div className="card relative">
-              <div className="absolute top-0 left-0 w-full h-full bg-indigo-600 opacity-0 group-hover:opacity-100 transition duration-500"></div>
-              <div className="absolute top-0 left-0 w-full h-full bg-indigo-500 opacity-0 group-hover:opacity-100 group-hover:rotate-6 transition duration-500"></div>
-              <div className="absolute top-0 left-0 w-full h-full bg-indigo-400 opacity-0 group-hover:opacity-100 group-hover:-rotate-6 transition duration-500"></div>
+              <div className="absolute top-0 left-0 w-full h-full bg-yellow-600 opacity-0 group-hover:opacity-100 transition duration-500"></div>
+              <div className="absolute top-0 left-0 w-full h-full bg-yellow-500 opacity-0 group-hover:opacity-100 group-hover:rotate-6 transition duration-500"></div>
+              <div className="absolute top-0 left-0 w-full h-full bg-yellow-400 opacity-0 group-hover:opacity-100 group-hover:-rotate-6 transition duration-500"></div>
               <img
                 src="/g1.jpeg"
                 alt="AI & Robotics Lab"
@@ -42,7 +42,7 @@ const GalleryPage = () => {
             </div>
           </div>
           <div className="content p-6 md:w-2/3">
-            <h2 className="text-2xl font-bold text-indigo-500 mb-2">
+            <h2 className="text-2xl font-bold text-yellow-500 mb-2">
               AI & Robotics Lab for Schools
             </h2>
             <p className="text-gray-300 font-semibold mb-1">
@@ -56,7 +56,7 @@ const GalleryPage = () => {
             <div>
               <Link href="/gall/class">
                 <button
-                  className="bg-indigo-500 text-white px-6 py-2 rounded hover:bg-indigo-600 transition mr-4 hover:shadow-lg hover:scale-105"
+                  className="bg-yellow-500 text-white px-6 py-2 rounded hover:bg-yellow-600 transition mr-4 hover:shadow-lg hover:scale-105"
                 >
                   Explore More
                 </button>
@@ -74,9 +74,9 @@ const GalleryPage = () => {
         <div className="flex flex-col md:flex-row-reverse items-stretch mb-6">
           <div className="image-section group w-full md:w-1/3 relative">
             <div className="card relative">
-              <div className="absolute top-0 left-0 w-full h-full bg-indigo-600 opacity-0 group-hover:opacity-100 transition duration-500"></div>
-              <div className="absolute top-0 left-0 w-full h-full bg-indigo-500 opacity-0 group-hover:opacity-100 group-hover:rotate-6 transition duration-500"></div>
-              <div className="absolute top-0 left-0 w-full h-full bg-indigo-400 opacity-0 group-hover:opacity-100 group-hover:-rotate-6 transition duration-500"></div>
+              <div className="absolute top-0 left-0 w-full h-full bg-yellow-600 opacity-0 group-hover:opacity-100 transition duration-500"></div>
+              <div className="absolute top-0 left-0 w-full h-full bg-yellow-500 opacity-0 group-hover:opacity-100 group-hover:rotate-6 transition duration-500"></div>
+              <div className="absolute top-0 left-0 w-full h-full bg-yellow-400 opacity-0 group-hover:opacity-100 group-hover:-rotate-6 transition duration-500"></div>
               <img
                 src="/g2.jpeg"
                 alt="Atal Tinkering Lab"
@@ -85,7 +85,7 @@ const GalleryPage = () => {
             </div>
           </div>
           <div className="content p-6 md:w-2/3">
-            <h2 className="text-2xl font-bold text-indigo-500 mb-2">
+            <h2 className="text-2xl font-bold text-yellow-500 mb-2">
               Atal Tinkering Lab in Schools
             </h2>
             <p className="text-gray-300 font-semibold mb-1">
@@ -98,7 +98,7 @@ const GalleryPage = () => {
             <div>
               <Link href="/gall/expo">
                 <button
-                  className="bg-indigo-500 text-white px-6 py-2 rounded hover:bg-indigo-600 transition mr-4 hover:shadow-lg hover:scale-105"
+                  className="bg-yellow-500 text-white px-6 py-2 rounded hover:bg-yellow-600 transition mr-4 hover:shadow-lg hover:scale-105"
                 >
                   Explore More
                 </button>
@@ -116,9 +116,9 @@ const GalleryPage = () => {
         <div className="flex flex-col md:flex-row items-stretch mb-6">
           <div className="image-section group w-full md:w-1/3 relative">
             <div className="card relative">
-              <div className="absolute top-0 left-0 w-full h-full bg-indigo-600 opacity-0 group-hover:opacity-100 transition duration-500"></div>
-              <div className="absolute top-0 left-0 w-full h-full bg-indigo-500 opacity-0 group-hover:opacity-100 group-hover:rotate-6 transition duration-500"></div>
-              <div className="absolute top-0 left-0 w-full h-full bg-indigo-400 opacity-0 group-hover:opacity-100 group-hover:-rotate-6 transition duration-500"></div>
+              <div className="absolute top-0 left-0 w-full h-full bg-yellow-600 opacity-0 group-hover:opacity-100 transition duration-500"></div>
+              <div className="absolute top-0 left-0 w-full h-full bg-yellow-500 opacity-0 group-hover:opacity-100 group-hover:rotate-6 transition duration-500"></div>
+              <div className="absolute top-0 left-0 w-full h-full bg-yellow-400 opacity-0 group-hover:opacity-100 group-hover:-rotate-6 transition duration-500"></div>
               <img
                 src="/g3.jpeg"
                 alt="Impact Programs"
@@ -127,7 +127,7 @@ const GalleryPage = () => {
             </div>
           </div>
           <div className="content p-6 md:w-2/3">
-            <h2 className="text-2xl font-bold text-indigo-500 mb-2">
+            <h2 className="text-2xl font-bold text-yellow-500 mb-2">
               Impact Programs
             </h2>
             <p className="text-gray-300 font-semibold mb-1">
@@ -141,7 +141,7 @@ const GalleryPage = () => {
             <div>
               <Link href="/gall/tech">
                 <button
-                  className="bg-indigo-500 text-white px-6 py-2 rounded hover:bg-indigo-600 transition mr-4 hover:shadow-lg hover:scale-105"
+                  className="bg-yellow-500 text-white px-6 py-2 rounded hover:bg-yellow-600 transition mr-4 hover:shadow-lg hover:scale-105"
                 >
                   Explore More
                 </button>

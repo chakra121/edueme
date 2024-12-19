@@ -36,186 +36,212 @@ const courseSections: CourseSection[] = [
     title: "Chapter 1 : Introduction to Robotics",
     content: [
       "1.1 : What is Robotics",
-      "1.2 : Parts of a Robot",
-      "1.3 : How Robots Work",
-      "1.4 : Uses of Robotics",
-      "1.5 : Types of Robots",
+      "1.2 : How Robots Work",
+      "1.3 : Uses of robotics",
+      "1.4 : Types of robots",
     ],
     subsections: [
       {
         subheading: "Prayog",
-        details: ["Unboxing Astra Kit"],
+        details: ["1 : Unboxing Astra Kit"],
       },
       {
         subheading: "Abhyas",
-        details: ["Identify the components in the Astra Kit"],
+        details: ["1 : Identify the components in the Astra Kit"],
       },
     ],
   },
   {
-    title: "Chapter 2 : Basic Electronic Components and Sensors",
+    title: "Chapter 2 : Basic Electronic Components",
     content: [
       "2.1 : Introduction to electronic components",
       "2.2 : Basic electronic components",
-      "2.3 : Electronic devices",
-      "2.4 : Introduction to sensors",
-      "2.5 : Types of sensors",
-      "2.6 : Applications of Electronic Components and Sensors",
+      "2.3 : Daily life uses ",
     ],
     subsections: [
       {
         subheading: "Prayog",
         details: [
-          "Basic circuit",
-          "Different types of circuit (Series and Parallel)",
+          "1 : Basic circuit",
+          "2 : Different types of circuit (Series and Parallel)",
         ],
       },
       {
         subheading: "Abhyas",
-        details: ["Fill in the Blanks/Matching"],
+        details: ["Name the components Fill in the blanks/Matching"],
       },
     ],
   },
   {
-    title: "Chapter 3 : Introduction to TinkerCad",
+    title: "Chapter 3 : Sensors - we sense the world",
     content: [
-      "3.1 : Getting Started with TinkerCad",
-      "3.2 : Basics of Circuit Simulation",
-      "3.3 Login to TinkerCad",
+      "3.1 : What is a sensor?",
+      "3.2 : Types of sensors",
+      "3.3 : Applications of sensors",
+      "3.4 : Future of sensors",
     ],
     subsections: [
       {
         subheading: "Prayog",
         details: [
-          "Open Tinkercad in browser",
-          "Problems with TinkerCad with (Basic circuit with different batteries)",
+          "1 : Blinking of LED using IR sensor",
+          "2 : Buzzer using IR sensor",
+          "3 : Distance calculation using ultrasonic sensor",
+          "4 : IR sensor controlled servo motor",
+          "5 : LDR Controlled Servo Motor",
+          "6 : Test for conductance",
         ],
       },
       {
         subheading: "Abhyas",
-        details: ["Choose the Correct Answers"],
+        details: [
+          "1 : Choose the Correct Answers",
+          "2 : Match the following",
+          "3 : Fill in the blanks",
+        ],
       },
     ],
   },
   {
-    title: "Chapter 4 : Introduction to Arduino",
+    title: "Chapter 4 : Introduction to tinker cad",
     content: [
-      "4.1 : What is an arduino?",
-      "4.2 : Types of arduino",
-      "4.3 : Parts of arduino",
-      "4.4 : Uses of arduino with realtime examples",
-      "4.5 : Installation of IDE Software",
+      "4.1 : Simulation software intro",
+      "4.2 : Why do we use tinkercad",
+      "4.3 : Login to Tinker CAD",
     ],
     subsections: [
       {
         subheading: "Prayog",
         details: [
-          "Activity installing arduino IDE",
-          "Connecting an arduino to a computer",
+          "1 : open Tinkercad in browser",
+          "2 : Problems with tinkercad with (basic circuit with different batteries)",
         ],
       },
       {
         subheading: "Abhyas",
-        details: ["Exercises on Arduino overview"],
+        details: ["1 : Choose the correct answers"],
       },
     ],
   },
   {
-    title: "Chapter 5 : Sensors - We sense the world",
-    content: ["We are working on it"],
+    title: "Chapter 5 : Introduction to Arduino",
+    content: [
+      "5.1 : What is an arduino",
+      "5.2 : Types of arduino",
+      "5.3 : Parts of Arduino",
+      "5.4 : Uses of Arduino with realtime examples",
+      "5.5 : Installation of ide software",
+    ],
     subsections: [
       {
         subheading: "Prayog",
-        details: [],
+        details: [
+          "1 : Activity installing arduino IDE",
+          "2 : How to connect arduino to a computer",
+        ],
       },
       {
         subheading: "Abhyas",
-        details: [],
+        details: ["1 : Exercises on Arduino overview"],
       },
     ],
   },
   {
     title:
       "Chapter 6 : M-Block a world of block programming / Creative coding software",
-    content: ["We are working on it"],
+    content: [
+      "6.1 : Introduction to Block coding",
+      "6.2 : M - Block APP ",
+      "6.3 : Key features of M - Block",
+      "6.4 : Uses of M block",
+      "6.5 : Process to install M - Block",
+      "6.6 : Get started with M - Block (Your first code!)",
+    ],
     subsections: [
       {
         subheading: "Prayog",
-        details: [],
+        details: ["1 : Create a block code"],
       },
       {
         subheading: "Abhyas",
-        details: [],
+        details: ["Working..."],
       },
     ],
   },
   {
     title: "Chapter 7 : Robot Design and Construction",
-    content: ["We are working on it"],
+    content: [
+      "7.1 : Basics of Robotics",
+      "7.2 : Choose a Simple Robot Kit or Platform",
+      "7.3 : Basic Components for Building a Simple Robot",
+      "7.4 : Assemble the Robot",
+      "7.5 : Programming the robot",
+      "7.6 : Testing the robot",
+    ],
     subsections: [
       {
         subheading: "Prayog",
-        details: [],
+        details: ["Working..."],
       },
       {
         subheading: "Abhyas",
-        details: [],
+        details: ["Working..."],
       },
     ],
   },
   {
     title: "Chapter 8 : IoT (Internet of Things)",
-    content: ["We are working on it"],
+    content: ["Working..."],
     subsections: [
       {
         subheading: "Prayog",
-        details: [],
+        details: ["Working..."],
       },
       {
         subheading: "Abhyas",
-        details: [],
+        details: ["Working..."],
       },
     ],
   },
   {
     title: "Chapter 9 : Projects",
-    content: ["We are working on it"],
+    content: ["Working..."],
     subsections: [
       {
         subheading: "Prayog",
-        details: [],
+        details: ["Working..."],
       },
       {
         subheading: "Abhyas",
-        details: [],
+        details: ["Working..."],
       },
     ],
   },
   {
     title: "Chapter 10 : Ethics and Social Implications of Robotics",
-    content: ["We are working on it"],
+    content: ["Working..."],
     subsections: [
       {
         subheading: "Prayog",
-        details: [],
+        details: ["Working..."],
       },
       {
         subheading: "Abhyas",
-        details: [],
+        details: ["Working..."],
       },
     ],
   },
   {
     title: "Chapter 11 : Summary",
-    content: ["We are working on it"],
+    content: ["Working..."],
     subsections: [
       {
         subheading: "Prayog",
-        details: [],
+        details: ["Working..."],
       },
       {
         subheading: "Abhyas",
-        details: [],
+        details: ["Working..."],
       },
     ],
   },
@@ -246,7 +272,7 @@ const courseSections: CourseSection[] = [
             {/* Dropdown Button */}
             <button
               onClick={() => toggleDropdown(index)}
-              className="flex w-full items-center justify-between bg-gray-800 p-4 text-left text-white focus:outline-none"
+              className="flex w-full items-center justify-between bg-gray-800 rounded-lg p-4 text-left text-white focus:outline-none"
             >
               <span className="font-semibold">{section.title}</span>
               <svg
@@ -269,7 +295,7 @@ const courseSections: CourseSection[] = [
 
             {/* Dropdown Content */}
             {expanded[index] && (
-              <div className="bg-gray-900 p-4 font-sans text-gray-300">
+              <div className="bg-gray-900 p-4 font-sans rounded-b-lg text-gray-300">
                 <ul className="mb-4 pl-5 text-lg">
                   {section.content.map((item, i) => (
                     <li key={i} className="mb-2">

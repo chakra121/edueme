@@ -1,5 +1,6 @@
 import React from "react";
 import Brief from "./brief";
+import StickyCard from "./stickyCard";
 import CourseContent from "./courseContent";
 
 const page = () => {
@@ -7,6 +8,7 @@ const page = () => {
     <div>
         <Brief />
         <CourseContent />
+        <StickyCard />
     </div>
   );
 };
