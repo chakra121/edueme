@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const GalleryPage = () => {
   return (
@@ -34,7 +35,7 @@ const GalleryPage = () => {
               <div className="absolute top-0 left-0 w-full h-full bg-yellow-600 opacity-0 group-hover:opacity-100 transition duration-500"></div>
               <div className="absolute top-0 left-0 w-full h-full bg-yellow-500 opacity-0 group-hover:opacity-100 group-hover:rotate-6 transition duration-500"></div>
               <div className="absolute top-0 left-0 w-full h-full bg-yellow-400 opacity-0 group-hover:opacity-100 group-hover:-rotate-6 transition duration-500"></div>
-              <img
+              <Image
                 src="/g1.jpeg"
                 alt="AI & Robotics Lab"
                 className="object-cover h-64 w-full relative group-hover:rotate-6 transition duration-500"
@@ -77,7 +78,7 @@ const GalleryPage = () => {
               <div className="absolute top-0 left-0 w-full h-full bg-yellow-600 opacity-0 group-hover:opacity-100 transition duration-500"></div>
               <div className="absolute top-0 left-0 w-full h-full bg-yellow-500 opacity-0 group-hover:opacity-100 group-hover:rotate-6 transition duration-500"></div>
               <div className="absolute top-0 left-0 w-full h-full bg-yellow-400 opacity-0 group-hover:opacity-100 group-hover:-rotate-6 transition duration-500"></div>
-              <img
+              <Image
                 src="/g2.jpeg"
                 alt="Atal Tinkering Lab"
                 className="object-cover h-64 w-full relative group-hover:rotate-6 transition duration-500"
@@ -120,7 +121,7 @@ const GalleryPage = () => {
               <div className="absolute top-0 left-0 w-full h-full bg-yellow-600 opacity-0 group-hover:opacity-100 transition duration-500"></div>
               <div className="absolute top-0 left-0 w-full h-full bg-yellow-500 opacity-0 group-hover:opacity-100 group-hover:rotate-6 transition duration-500"></div>
               <div className="absolute top-0 left-0 w-full h-full bg-yellow-400 opacity-0 group-hover:opacity-100 group-hover:-rotate-6 transition duration-500"></div>
-              <img
+              <Image
                 src="/g3.jpeg"
                 alt="Impact Programs"
                 className="object-cover h-64 w-full relative group-hover:rotate-6 transition duration-500"
