@@ -1,6 +1,7 @@
 import React from 'react';
 import EnrolledCourses from './denrolled';
-import Sidepanel from '@/components/Sidepanel';
+import Sidepanel from "../../components/Sidepanel";
+
 
 const Enrolled = () => {
   return (

@@ -1,6 +1,7 @@
 import React from 'react'
 import Profile from './dprofile'
-import Sidepanel from '@/components/Sidepanel'
+import Sidepanel from "../../components/Sidepanel";
+
 
 const page = () => {
   return (
