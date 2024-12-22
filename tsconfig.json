@@ -26,6 +26,7 @@
     /* Path Aliases */
     "baseUrl": ".",
     "paths": {
+      "@/components/*": ["components/*"],
       "@/*": ["./src/*"]
     },
     /* Added TypeRoots */
