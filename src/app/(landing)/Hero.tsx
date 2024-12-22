@@ -21,7 +21,7 @@ const Hero = () => {
       {/* Content */}
       <div className="relative flex h-full flex-col items-center justify-center gap-6 px-6 text-center lg:items-start lg:px-20 lg:text-left">
         <h1 className="text-4xl font-bold leading-tight text-white sm:text-5xl lg:max-w-[60%] lg:text-7xl">
-          Welcome to EdueMe Online
+          Welcome to edueMe Online
         </h1>
         <p className="mt-4 text-lg text-gray-200 sm:text-xl lg:max-w-[50%] lg:text-2xl">
           Robotics and AI Curriculum for the Future Innovators
