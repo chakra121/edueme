@@ -1,8 +1,8 @@
 // /src/App.tsx
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Page from './gallery/page';  // Main page with cards
-import GalleryPage from './gallery/gallery';  // Gallery page showing images
+import Page from './app/gallery/page';  // Main page with cards
+import GalleryPage from './app/(landing)/Gallery'; // Gallery page showing images
 
 function App() {
   return (
