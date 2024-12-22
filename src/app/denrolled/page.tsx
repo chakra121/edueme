@@ -6,8 +6,8 @@ const Enrolled = () => {
   return (
     <div className="flex flex-row">
       {/* Sidepanel */}
-        <Sidepanel />
- 
+        {/* <Sidepanel />
+  */}
       {/* Enrolled Courses */}
 
         <EnrolledCourses />
