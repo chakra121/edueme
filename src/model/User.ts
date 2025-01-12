@@ -18,6 +18,7 @@ const DemoFormSchema: Schema = new Schema<DemoFormDocument>({
     match: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
   },
   grade: { type: String, required: true },
+  userRole: { type: String, required: false },
   password: { type: String, required: true, minlength: 6 }, // Add password
 });
 

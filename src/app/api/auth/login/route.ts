@@ -4,8 +4,8 @@ import DemoFormModel from "@/model/User";
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
 
-const SECRET_KEY = process.env.JWT_SECRET ?? "your_secret_key"; // Replace in .env
 
+const SECRET_KEY = process.env.JWT_SECRET ?? "your_secret_key"; // Replace in .env
 interface LoginRequestBody {
   email: string;
   password: string;
@@ -46,7 +46,7 @@ export async function POST(request: Request) {
 
     // Generate JWT token
     const token = jwt.sign(
-      { id: user._id, email: user.email },
+      { id: user._id, email: user.email, role: user.userRole, name:user.name },
       SECRET_KEY,
       { expiresIn: "1h" }
     );

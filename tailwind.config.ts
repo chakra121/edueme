@@ -69,7 +69,8 @@ export default {
         rainbow: 'rainbow var(--speed, 2s) infinite linear',
         marquee: 'marquee var(--duration) infinite linear',
         'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
-        popIn: 'popIn 1s ease-in-out', // Add the popIn animation
+        popIn: 'popIn 1s ease-in-out',
+        scroll: 'scroll 10s linear infinite', // Added scrolling animation
       },
       keyframes: {
         rainbow: {
@@ -105,6 +106,10 @@ export default {
             opacity: '1',
             transform: 'scale(1)',
           },
+        },
+        scroll: {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(-100%)' },
         },
       },
     },

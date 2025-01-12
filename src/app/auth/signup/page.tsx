@@ -8,6 +8,7 @@ interface FormData {
   password: string;
   confirmPassword: string;
   phoneNumber: string;
+  userRole: string;
   course: string;
 }
 
@@ -34,6 +35,7 @@ const Signup: React.FC = () => {
     confirmPassword: "",
     phoneNumber: "",
     course: "",
+    userRole: "",
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -68,7 +70,7 @@ const Signup: React.FC = () => {
 
   // Handle Input Change
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     setFormData({
       ...formData,
@@ -113,7 +115,7 @@ const Signup: React.FC = () => {
 
   return (
     <div
-      className="flex min-h-screen items-center bg-gray-100 bg-cover bg-center justify-center"
+      className="flex min-h-screen items-center justify-center bg-gray-100 bg-cover bg-center"
       style={{
         backgroundImage: "url('/registerbg.jpg')",
         backgroundPosition: "center 30%",
@@ -121,7 +123,7 @@ const Signup: React.FC = () => {
     >
       <form
         onSubmit={handleSubmit}
-        className=" mx-[1rem] w-full max-w-md rounded-lg bg-white bg-opacity-90 p-6 shadow-md text-black"
+        className="mx-[1rem] w-full max-w-md rounded-lg bg-white bg-opacity-90 p-6 text-black shadow-md"
       >
         <h2 className="mb-6 text-center text-2xl font-bold text-gray-800">
           Register for a Course
@@ -134,7 +136,7 @@ const Signup: React.FC = () => {
             name="fullName"
             value={formData.fullName}
             onChange={handleChange}
-            className="w-full rounded border border-gray-300 p-4 focus:ring-2 focus:ring-blue-500 text-black"
+            className="w-full rounded border border-gray-300 p-4 text-black focus:ring-2 focus:ring-blue-500"
           />
           {errors.fullName && (
             <p className="text-sm text-red-500">{errors.fullName}</p>
@@ -227,7 +229,7 @@ const Signup: React.FC = () => {
         <button
           type="submit"
           className={`w-full rounded-md bg-blue-500 py-2 text-white ${
-            loading ? "opacity-70 cursor-not-allowed" : "hover:bg-blue-600"
+            loading ? "cursor-not-allowed opacity-70" : "hover:bg-blue-600"
           }`}
           disabled={loading}
         >

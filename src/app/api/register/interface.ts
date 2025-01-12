@@ -3,4 +3,5 @@ export interface DemoForm {
   phoneNumber: string;
   email: string;
   grade: string;
+  userRole: string;
 }
