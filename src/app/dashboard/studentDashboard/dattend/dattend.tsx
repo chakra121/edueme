@@ -23,7 +23,7 @@ const Attendance = () => {
     {/* Content Container */}
   <div className="flex gap-6 min-w-full min-h-screen p-8 mt-16">
   {/* Sidebar */}
-  <aside className="w-64  ml-8 rounded-lg bg-blue-100 p-6 text-black shadow-sm">
+  <aside className="w-64 rounded-lg bg-blue-100 p-6 text-black shadow-sm  h-screen fixed">
         <h2 className="mb-8 text-2xl font-bold"></h2>
         <ul className="space-y-6">
           <li className="active flex items-center">
@@ -93,7 +93,7 @@ const Attendance = () => {
       </aside>
 
 {/* Attendance Section */}
-<main className="flex-1 p-0 w-full mr-14">
+<main className="flex-1 w-full ml-72 mr-14">
         <div className="w-full mx-auto space-y-8">
           {/* Welcome Section */}
           <div className="rounded-lg bg-blue-100 p-6 shadow">

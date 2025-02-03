@@ -81,7 +81,7 @@ const Dashboard = () => {
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <aside className="w-64 rounded-lg bg-blue-100 p-6 text-black shadow-sm">
+      <aside className="w-64 rounded-lg bg-blue-100 p-6 text-black shadow-sm  h-screen fixed">
         <h2 className="mb-8 text-2xl font-bold"></h2>
         <ul className="space-y-6">
           <li className="active flex items-center">
@@ -151,7 +151,7 @@ const Dashboard = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="-mt-6 flex-1 p-6">
+      <main className="flex-1 w-full ml-72 mr-14">
         {/* Welcome Section */}
         <section className="rounded-lg bg-blue-100 p-6 shadow-sm">
           <h2 className="text-3xl font-bold text-black">Welcome back {userData?.name}!</h2>

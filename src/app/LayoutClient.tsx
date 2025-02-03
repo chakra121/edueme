@@ -16,12 +16,30 @@ export default function LayoutClient({
     pathname === "/courses/roboticsCourse/2_3/mcqTest" ||
     pathname === "/courses/roboticsCourse/2_3/blanksTest";
 
+const isDashboard =
+     pathname === "/dashboard/studentDashboard/dhome" ||
+     pathname === "/dashboard/studentDashboard/dprofile" ||
+     pathname === "/dashboard/studentDashboard/denrolled"||
+     pathname === "/dashboard/studentDashboard/dannounce"||
+     pathname === "/dashboard/studentDashboard/dattend"||
+     pathname === "/dashboard/studentDashboard/dhelp"||
+     pathname === "/dashboard/studentDashboard/dupsessions"||
+     
+     pathname === "/dashboard/teacherDashboard/dhome"||
+     pathname === "/dashboard/teacherDashboard/dprofile"||
+     pathname === "/dashboard/teacherDashboard/dannounce"||
+     pathname === "/dashboard/teacherDashboard/dhelp"||
+     pathname === "/dashboard/teacherDashboard/dattend"||
+     pathname === "/dashboard/teacherDashboard/dprofile"||
+     pathname === "/dashboard/teacherDashboard/dstudentanalysis";
+
   return (
     <div>
       {/* Only render Navbar and Footer if not on a test page */}
       {!isTestPage && <Navbar />}
       {children}
-      {!isTestPage && <Footer />}
+      {!isTestPage && !isDashboard && <Footer />}
+
     </div>
   );
 }
