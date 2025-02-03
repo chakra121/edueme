@@ -28,9 +28,9 @@ const isDashboard =
      pathname === "/dashboard/teacherDashboard/dhome"||
      pathname === "/dashboard/teacherDashboard/dprofile"||
      pathname === "/dashboard/teacherDashboard/dannounce"||
-     pathname === "/dashboard/teacherDashboard/dhelp"||
-     pathname === "/dashboard/teacherDashboard/dattend"||
-     pathname === "/dashboard/teacherDashboard/dprofile"||
+     pathname === "/dashboard/teacherDashboard/dcleardoubts"||
+     pathname === "/dashboard/teacherDashboard/dcourseprogress"||
+     pathname === "/dashboard/teacherDashboard/dclassdetails"||
      pathname === "/dashboard/teacherDashboard/dstudentanalysis";
 
   return (

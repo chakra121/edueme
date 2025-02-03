@@ -1,19 +1,11 @@
-import React from 'react';
-import Announcements from './dannounce';
-// import Sidepanel from '@/components/Sidepanel';
+import React from 'react'
+import Announcements from './dannounce'
+// import Sidepanel from "@/components/Sidepanel";
 
-const Announcement = () => {
+const page = () => {
   return (
-    <div className="flex flex-row">
-      {/* Sidepanel */}
-        {/* <Sidepanel />
-  */}
-      {/* Enrolled Courses */}
+    <div className='px-[4rem] py-[6rem]'><Announcements/></div>
+  )
+}
 
-        <Announcements />
-
-    </div>
-  );
-};
-
-export default Announcement;
+export default page

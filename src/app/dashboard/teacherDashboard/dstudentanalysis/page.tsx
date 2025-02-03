@@ -1,19 +1,12 @@
 import React from 'react';
-import EnrolledCourses from './denrolled';
+import Dashboard from './dstudentanalysis';
 // import Sidepanel from '@/components/Sidepanel';
 
-const Enrolled = () => {
+const page = () => {
   return (
-    <div className="flex flex-row">
-      {/* Sidepanel */}
-        {/* <Sidepanel />
-  */}
-      {/* Enrolled Courses */}
+    <div className='px-[4rem] py-[6rem]'><Dashboard/></div>
 
-        <EnrolledCourses />
-
-    </div>
   );
 };
 
-export default Enrolled;
+export default page;

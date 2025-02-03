@@ -20,15 +20,15 @@ const Announcements = () => {
   return (
     <>
     {/* Content Container */}
-  <div className="flex gap-6 min-w-full min-h-screen p-8 mt-16">
-  {/* Sidebar */}
-  <aside className="w-64  ml-8 rounded-lg bg-blue-100 p-6 text-black shadow-sm">
+  <div className="flex gap-6 min-w-full min-h-screen">
+      {/* Sidebar */}
+      <aside className="w-64 rounded-lg bg-blue-100 p-6 text-black shadow-sm  h-screen fixed ">
         <h2 className="mb-8 text-2xl font-bold"></h2>
         <ul className="space-y-6">
           <li className="active flex items-center">
             <HomeIcon className="h-6 w-6 text-gray-400" />
             <Link
-              href="/dashboard/studentDashboard/dhome"
+              href="/dashboard/teacherDashboard/dhome"
               className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
             >
               Home
@@ -37,7 +37,7 @@ const Announcements = () => {
           <li className="active flex items-center">
             <UserIcon className="h-6 w-6 text-gray-400" />
             <Link
-              href="/dashboard/studentDashboard/dprofile"
+              href="/dashboard/teacherDashboard/dprofile"
               className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
             >
               Profile
@@ -46,16 +46,16 @@ const Announcements = () => {
           <li className="active flex items-center">
             <BookOpenIcon className="h-6 w-6 text-gray-400" />
             <Link
-              href="/dashboard/studentDashboard/denrolled"
+              href="/dashboard/teacherDashboard/dcourseprogress"
               className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
             >
-              Enrolled Courses
+              Course Progress
             </Link>
           </li>
           <li className="active flex items-center">
             <ClipboardDocumentIcon className="h-6 w-6 text-gray-400" />
             <Link
-              href="/dashboard/studentDashboard/dannounce"
+              href="/dashboard/teacherDashboard/dannounce"
               className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
             >
               Announcements
@@ -64,28 +64,28 @@ const Announcements = () => {
           <li className="active flex items-center">
             <Cog6ToothIcon className="h-6 w-6 text-gray-400" />
             <Link
-              href="/dashboard/studentDashboard/dattend"
+              href="/dashboard/teacherDashboard/dstudentanalysis"
               className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
             >
-              Attendance
+              Student Analysis
             </Link>
           </li>
           <li className="active flex items-center">
             <ClockIcon className="h-6 w-6 text-gray-400" />
             <Link
-              href="/dashboard/studentDashboard/dupsessions"
+              href="/dashboard/teacherDashboard/dclassdetails"
               className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
             >
-              Upcoming Sessions
+              Class Details
             </Link>
           </li>
           <li className="active flex items-center">
             <QuestionMarkCircleIcon className="h-6 w-6 text-gray-400" />
             <Link
-              href="/dashboard/studentDashboard/dhelp"
+              href="/dashboard/teacherDashboard/dcleardoubts"
               className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
             >
-              Any Doubts?
+              Clear Doubts
             </Link>
           </li>
         </ul>
@@ -93,7 +93,7 @@ const Announcements = () => {
 
     {/* main announcement content */}
 
-    <div className="flex-1 p-0 w-full mr-14">
+    <div className="flex-1 p-0 w-full ml-72">
       {/* Page Title */}
       <div className="rounded-lg bg-blue-100 p-6 shadow">
         <h2 className="text-3xl font-bold text-black">Announcements</h2>

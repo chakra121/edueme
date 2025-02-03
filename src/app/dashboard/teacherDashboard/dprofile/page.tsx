@@ -4,17 +4,8 @@ import Profile from './dprofile'
 
 const page = () => {
   return (
-    
-    <div className="flex flex-row">
-      {/* Sidepanel */}
-{/* 
-        <Sidepanel /> */}
-   
+    <div className='px-[4rem] py-[6rem]'><Profile/></div>
 
-      {/* Enrolled Courses */}
-  
-        <Profile />
-    </div>
   )
 }
 

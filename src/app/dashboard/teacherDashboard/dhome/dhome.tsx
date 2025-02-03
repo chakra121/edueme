@@ -87,7 +87,7 @@ const Dashboard = () => {
           <li className="active flex items-center">
             <HomeIcon className="h-6 w-6 text-gray-400" />
             <Link
-              href="/dashboard/studentDashboard/dhome"
+              href="/dashboard/teacherDashboard/dhome"
               className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
             >
               Home
@@ -96,7 +96,7 @@ const Dashboard = () => {
           <li className="active flex items-center">
             <UserIcon className="h-6 w-6 text-gray-400" />
             <Link
-              href="/dashboard/studentDashboard/dprofile"
+              href="/dashboard/teacherDashboard/dprofile"
               className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
             >
               Profile
@@ -105,7 +105,7 @@ const Dashboard = () => {
           <li className="active flex items-center">
             <BookOpenIcon className="h-6 w-6 text-gray-400" />
             <Link
-              href="/dashboard/studentDashboard/denrolled"
+              href="/dashboard/teacherDashboard/dcourseprogress"
               className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
             >
               Course Progress
@@ -114,7 +114,7 @@ const Dashboard = () => {
           <li className="active flex items-center">
             <ClipboardDocumentIcon className="h-6 w-6 text-gray-400" />
             <Link
-              href="/dashboard/studentDashboard/dannounce"
+              href="/dashboard/teacherDashboard/dannounce"
               className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
             >
               Announcements
@@ -123,7 +123,7 @@ const Dashboard = () => {
           <li className="active flex items-center">
             <Cog6ToothIcon className="h-6 w-6 text-gray-400" />
             <Link
-              href="/dashboard/studentDashboard/dattend"
+              href="/dashboard/teacherDashboard/dstudentanalysis"
               className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
             >
               Student Analysis
@@ -132,7 +132,7 @@ const Dashboard = () => {
           <li className="active flex items-center">
             <ClockIcon className="h-6 w-6 text-gray-400" />
             <Link
-              href="/dashboard/studentDashboard/dupsessions"
+              href="/dashboard/teacherDashboard/dclassdetails"
               className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
             >
               Class Details
@@ -141,7 +141,7 @@ const Dashboard = () => {
           <li className="active flex items-center">
             <QuestionMarkCircleIcon className="h-6 w-6 text-gray-400" />
             <Link
-              href="/dashboard/studentDashboard/dhelp"
+              href="/dashboard/teacherDashboard/dcleardoubts"
               className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
             >
               Clear Doubts
