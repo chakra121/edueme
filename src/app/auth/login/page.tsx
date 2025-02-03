@@ -74,7 +74,7 @@ const Login: React.FC = () => {
         if (response.ok && result.success) {
           setSubmitted(true);
           localStorage.setItem("token", result.token); // Store JWT Token
-          router.push("/dashboard");
+          router.push("/dashboard/studentDashboard/dhome");
         } else {
           setApiError(result.message ?? "Login failed");
         }
