@@ -108,7 +108,7 @@ const Dashboard = () => {
               href="/dashboard/studentDashboard/denrolled"
               className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
             >
-              Enrolled Courses
+              Course Progress
             </Link>
           </li>
           <li className="active flex items-center">
@@ -126,7 +126,7 @@ const Dashboard = () => {
               href="/dashboard/studentDashboard/dattend"
               className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
             >
-              Attendance
+              Student Analysis
             </Link>
           </li>
           <li className="active flex items-center">
@@ -135,7 +135,7 @@ const Dashboard = () => {
               href="/dashboard/studentDashboard/dupsessions"
               className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
             >
-              Upcoming Sessions
+              Class Details
             </Link>
           </li>
           <li className="active flex items-center">
@@ -144,7 +144,7 @@ const Dashboard = () => {
               href="/dashboard/studentDashboard/dhelp"
               className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
             >
-              Any Doubts?
+              Clear Doubts
             </Link>
           </li>
         </ul>
