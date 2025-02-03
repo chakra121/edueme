@@ -1,5 +1,5 @@
 import React from 'react'
-import Dashboard from './dashboard'
+import Dashboard from './dhome'
 // import Sidepanel from "@/components/Sidepanel";
 
 const page = () => {

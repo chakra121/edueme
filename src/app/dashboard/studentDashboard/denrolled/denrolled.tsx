@@ -1,4 +1,6 @@
 "use client";
+import Link from "next/link";
+
 import React, { useState } from "react";
 import {
   HomeIcon,
@@ -45,56 +47,83 @@ const EnrolledCourses = () => {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Main Wrapper */}
-      <div className="flex flex-1">
-        {/* Sidebar */}
-        {/* <aside className="w-64 bg-blue-100 p-6 rounded-lg shadow-sm text-black">
-          <h2 className="mb-8 text-2xl font-bold">ACE</h2>
-          <ul className="space-y-6">
-            <li className="flex items-center">
-              <HomeIcon className="h-6 w-6 text-gray-400" />
-              <span className="ml-2 hover:font-bold cursor-pointer">Home</span>
-            </li>
-            <li className="flex items-center">
-              <UserIcon className="h-6 w-6 text-gray-400" />
-              <span className="ml-2 hover:font-bold cursor-pointer">Profile</span>
-            </li>
-            <li className="active flex items-center">
-              <BookOpenIcon className="h-6 w-6 text-blue-600" />
-              <span className="ml-2 font-bold cursor-pointer text-blue-600">
-                Enrolled Courses
-              </span>
-            </li>
-            <li className="flex items-center">
-              <ClipboardDocumentIcon className="h-6 w-6 text-gray-400" />
-              <span className="ml-2 hover:font-bold cursor-pointer">
-                Assessments
-              </span>
-            </li>
-            <li className="flex items-center">
-              <Cog6ToothIcon className="h-6 w-6 text-gray-400" />
-              <span className="ml-2 hover:font-bold cursor-pointer">
-                Course Progress
-              </span>
-            </li>
-            <li className="flex items-center">
-              <ClockIcon className="h-6 w-6 text-gray-400" />
-              <span className="ml-2 hover:font-bold cursor-pointer">
-                Upcoming Sessions
-              </span>
-            </li>
-            <li className="flex items-center">
-              <QuestionMarkCircleIcon className="h-6 w-6 text-gray-400" />
-              <span className="ml-2 hover:font-bold cursor-pointer">Help</span>
-            </li>
-          </ul>
-        </aside> */}
+    <>
+    {/* Content Container */}
+  <div className="flex gap-6 min-w-full min-h-screen p-8 mt-16">
+  {/* Sidebar */}
+  <aside className="w-64  ml-8 rounded-lg bg-blue-100 p-6 text-black shadow-sm">
+        <h2 className="mb-8 text-2xl font-bold"></h2>
+        <ul className="space-y-6">
+          <li className="active flex items-center">
+            <HomeIcon className="h-6 w-6 text-gray-400" />
+            <Link
+              href="/dashboard/studentDashboard/dhome"
+              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
+            >
+              Home
+            </Link>
+          </li>
+          <li className="active flex items-center">
+            <UserIcon className="h-6 w-6 text-gray-400" />
+            <Link
+              href="/dashboard/studentDashboard/dprofile"
+              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
+            >
+              Profile
+            </Link>
+          </li>
+          <li className="active flex items-center">
+            <BookOpenIcon className="h-6 w-6 text-gray-400" />
+            <Link
+              href="/dashboard/studentDashboard/denrolled"
+              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
+            >
+              Enrolled Courses
+            </Link>
+          </li>
+          <li className="active flex items-center">
+            <ClipboardDocumentIcon className="h-6 w-6 text-gray-400" />
+            <Link
+              href="/dashboard/studentDashboard/dannounce"
+              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
+            >
+              Announcements
+            </Link>
+          </li>
+          <li className="active flex items-center">
+            <Cog6ToothIcon className="h-6 w-6 text-gray-400" />
+            <Link
+              href="/dashboard/studentDashboard/dattend"
+              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
+            >
+              Attendance
+            </Link>
+          </li>
+          <li className="active flex items-center">
+            <ClockIcon className="h-6 w-6 text-gray-400" />
+            <Link
+              href="/dashboard/studentDashboard/dupsessions"
+              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
+            >
+              Upcoming Sessions
+            </Link>
+          </li>
+          <li className="active flex items-center">
+            <QuestionMarkCircleIcon className="h-6 w-6 text-gray-400" />
+            <Link
+              href="/dashboard/studentDashboard/dhelp"
+              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
+            >
+              Any Doubts?
+            </Link>
+          </li>
+        </ul>
+      </aside>
 
-        {/* Main Content */}
-        <main className="flex-3 p-6">
+{/* Main Content */}
+<main className="flex-1 p-0 w-full mr-14 ">
           {/* Header Section */}
-          <section className="bg-blue-100 p-6 rounded-lg shadow-sm">
+          <section className="bg-blue-100 p-6 rounded-lg max-w-full shadow-sm">
             <h2 className="text-3xl font-bold text-black">
               Enrolled Courses 📚
             </h2>
@@ -167,8 +196,9 @@ const EnrolledCourses = () => {
             </div>
           </section>
         </main>
-      </div>
-    </div>
+
+</div>
+</>
   );
 };
 

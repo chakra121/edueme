@@ -14,6 +14,7 @@ import {
 } from "@heroicons/react/24/outline"; // Correct import for v2
 import exp from "constants";
 const SECRET_KEY = process.env.JWT_SECRET ?? "your_secret_key"; // Replace in .env
+
 const Dashboard = () => {
   const [upcomingCourses, setUpcomingCourses] = useState([]);
   const [studentInfo, setStudentInfo] = useState(null);
@@ -86,7 +87,7 @@ const Dashboard = () => {
           <li className="active flex items-center">
             <HomeIcon className="h-6 w-6 text-gray-400" />
             <Link
-              href="/dashboard"
+              href="/dashboard/studentDashboard/dhome"
               className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
             >
               Home
@@ -95,7 +96,7 @@ const Dashboard = () => {
           <li className="active flex items-center">
             <UserIcon className="h-6 w-6 text-gray-400" />
             <Link
-              href="/dprofile"
+              href="/dashboard/studentDashboard/dprofile"
               className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
             >
               Profile
@@ -104,7 +105,7 @@ const Dashboard = () => {
           <li className="active flex items-center">
             <BookOpenIcon className="h-6 w-6 text-gray-400" />
             <Link
-              href="/denrolled"
+              href="/dashboard/studentDashboard/denrolled"
               className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
             >
               Enrolled Courses
@@ -113,25 +114,25 @@ const Dashboard = () => {
           <li className="active flex items-center">
             <ClipboardDocumentIcon className="h-6 w-6 text-gray-400" />
             <Link
-              href="dassesments"
+              href="/dashboard/studentDashboard/dannounce"
               className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
             >
-              Assessments
+              Announcements
             </Link>
           </li>
           <li className="active flex items-center">
             <Cog6ToothIcon className="h-6 w-6 text-gray-400" />
             <Link
-              href="dprogress"
+              href="/dashboard/studentDashboard/dattend"
               className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
             >
-              Course Progress
+              Attendance
             </Link>
           </li>
           <li className="active flex items-center">
             <ClockIcon className="h-6 w-6 text-gray-400" />
             <Link
-              href="dupsessions"
+              href="/dashboard/studentDashboard/dupsessions"
               className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
             >
               Upcoming Sessions
@@ -140,10 +141,10 @@ const Dashboard = () => {
           <li className="active flex items-center">
             <QuestionMarkCircleIcon className="h-6 w-6 text-gray-400" />
             <Link
-              href="dhelp"
+              href="/dashboard/studentDashboard/dhelp"
               className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
             >
-              Help
+              Any Doubts?
             </Link>
           </li>
         </ul>
