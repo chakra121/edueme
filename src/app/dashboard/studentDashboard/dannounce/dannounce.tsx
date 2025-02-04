@@ -99,31 +99,7 @@ const Announcements = () => {
         <p className="text-gray-500 mt-2">Stay updated with the latest news and updates.</p>
       </div>
 
-      {/* Create New Announcement */}
-      <div className="rounded-lg mt-8 bg-white text-black p-6 shadow">
-        <h3 className="text-lg font-bold text-gray-700 mb-4">Create a New Announcement</h3>
-        <form className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Title</label>
-            <input
-              type="text"
-              placeholder="Enter announcement title"
-              className="w-full rounded-md border px-4 py-2 text-sm"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Description</label>
-            <textarea
-              placeholder="Enter announcement details"
-              className="w-full rounded-md border px-4 py-2 text-sm"
-            ></textarea>
-          </div>
-          <button type="submit" className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
-            Post Announcement
-          </button>
-        </form>
-      </div>
-
+      
       {/* Recent Announcements */}
       <div className="space-y-4 mt-8">
         <div className="rounded-lg bg-white p-6 shadow">

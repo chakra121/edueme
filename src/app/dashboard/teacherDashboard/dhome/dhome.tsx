@@ -53,8 +53,8 @@ const Dashboard = () => {
   const attendanceChartData = {
     series: [
       {
-        name: "Sales",
-        data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
+        name: "No of days present",
+        data: [25,20,15, 30, 23, 25, 10, 25, 24],
       },
     ],
     chart: {
@@ -129,7 +129,7 @@ const Dashboard = () => {
   return (
     <div className="flex min-h-screen">
       <aside className="w-64 h-screen fixed rounded-lg bg-blue-100 p-6 text-black shadow-sm">
-        <h2 className="mb-8 text-2xl font-bold">Dashboard</h2>
+        <h2 className="mb-8 text-2xl font-bold"></h2>
         <ul className="space-y-6">
           {[{ href: '/dashboard/teacherDashboard/dhome', icon: HomeIcon, label: 'Home' },
             { href: '/dashboard/teacherDashboard/dprofile', icon: UserIcon, label: 'Profile' },

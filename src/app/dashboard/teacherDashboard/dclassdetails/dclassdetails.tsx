@@ -2,7 +2,6 @@
 "use client";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import jwt from "jsonwebtoken";
 import {
   HomeIcon,
   UserIcon,
@@ -12,245 +11,285 @@ import {
   QuestionMarkCircleIcon,
   ClockIcon,
 } from "@heroicons/react/24/outline"; // Correct import for v2
-import exp from "constants";
-const SECRET_KEY = process.env.JWT_SECRET ?? "your_secret_key"; // Replace in .env
+
+interface Session {
+  id: string;
+  title: string;
+  course: string;
+  date: string;
+  time: string;
+  duration: string;
+  description: string;
+  meetingLink: string;
+  status: 'scheduled' | 'ongoing' | 'completed';
+}
 
 const Dashboard = () => {
-  const [upcomingCourses, setUpcomingCourses] = useState([]);
-  const [studentInfo, setStudentInfo] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [userData, setUserData] = useState<{
-    id: string;
-    name: string;
-    email: string;
-    role: string;
-  } | null>(null);
+  const [sessions, setSessions] = useState<Session[]>([
+    {
+      id: "1",
+      title: "React Advanced Patterns",
+      course: "CS-401",
+      date: "2023-11-05",
+      time: "14:00",
+      duration: "90",
+      description: "Exploring advanced React component patterns and state management strategies.",
+      meetingLink: "#",
+      status: "scheduled"
+    },
+    // Add more mock data as needed
+  ]);
 
-  useEffect(() => {
-    // Retrieve the global variable
-    const token = localStorage.getItem("token");
+  const [editingSession, setEditingSession] = useState<Session | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState<Partial<Session>>({
+    status: 'scheduled'
+  });
 
-    if (token) {
-      try {
-        // Verify and decode the token
-      const decoded = jwt.decode(token) as {
-        id: string;
-        name: string;
-        email: string;
-        role: string;
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (editingSession) {
+      setSessions(sessions.map(s => s.id === editingSession.id ? { ...formData, id: s.id } as Session : s));
+    } else {
+      const newSession: Session = {
+        id: Date.now().toString(),
+        ...formData as Session
       };
-      console.log("Decoded token:", decoded);
-
-        setUserData(decoded); // Save user data in the state
-      } catch (error) {
-        console.error("Error verifying token:", (error as Error).message);
-        // Optionally: Handle invalid/expired token
-      }
+      setSessions([...sessions, newSession]);
     }
-  }, []);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       // Fetch upcoming courses and student information from your API
-  //       const coursesResponse = await fetch('/api/courses'); // Replace with your API endpoint
-  //       const studentResponse = await fetch('/api/student'); // Replace with your API endpoint
+    setIsModalOpen(false);
+    setEditingSession(null);
+    setFormData({ status: 'scheduled' });
+  };
 
-  //       if (!coursesResponse.ok || !studentResponse.ok) {
-  //         throw new Error('Failed to fetch data');
-  //       }
+  const handleEdit = (session: Session) => {
+    setEditingSession(session);
+    setFormData(session);
+    setIsModalOpen(true);
+  };
 
-  //       const coursesData = await coursesResponse.json();
-  //       const studentData = await studentResponse.json();
-
-  //       setUpcomingCourses(coursesData);
-  //       setStudentInfo(studentData);
-  //     } catch (err) {
-  //       setError(err.message);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
-
-  // if (loading) return <p>Loading...</p>;
-  // if (error) return <p>Error: {error}</p>;
+  const handleDelete = (id: string) => {
+    setSessions(sessions.filter(s => s.id !== id));
+  };
 
   return (
     <div className="flex min-h-screen ">
       {/* Sidebar */}
-      <aside className="w-64 rounded-lg bg-blue-100 p-6 text-black shadow-sm  h-screen fixed ">
-        <h2 className="mb-8 text-2xl font-bold"></h2>
+      <aside className="w-64 h-screen fixed rounded-lg bg-blue-100 p-6 text-black shadow-sm">
+      <h2 className="mb-8 text-2xl font-bold"></h2>
         <ul className="space-y-6">
-          <li className="active flex items-center">
-            <HomeIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dhome"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Home
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <UserIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dprofile"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Profile
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <BookOpenIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dcourseprogress"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Course Progress
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <ClipboardDocumentIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dannounce"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Announcements
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <Cog6ToothIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dstudentanalysis"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Student Analysis
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <ClockIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dclassdetails"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Class Details
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <QuestionMarkCircleIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dcleardoubts"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Clear Doubts
-            </Link>
-          </li>
+          {[{ href: '/dashboard/teacherDashboard/dhome', icon: HomeIcon, label: 'Home' },
+            { href: '/dashboard/teacherDashboard/dprofile', icon: UserIcon, label: 'Profile' },
+            { href: '/dashboard/teacherDashboard/dcourseprogress', icon: BookOpenIcon, label: 'Course Progress' },
+            { href: '/dashboard/teacherDashboard/dannounce', icon: ClipboardDocumentIcon, label: 'Announcements' },
+            { href: '/dashboard/teacherDashboard/dstudentanalysis', icon: Cog6ToothIcon, label: 'Student Analysis' },
+            { href: '/dashboard/teacherDashboard/dclassdetails', icon: ClockIcon, label: 'Class Details' },
+            { href: '/dashboard/teacherDashboard/dcleardoubts', icon: QuestionMarkCircleIcon, label: 'Clear Doubts' }].map(({ href, icon: Icon, label }) => (
+            <li key={href} className="flex items-center">
+              <Icon className="h-6 w-6 text-gray-400" />
+              <Link href={href} className="ml-2 text-lg font-sans hover:cursor-pointer hover:font-bold">{label}</Link>
+            </li>
+          ))}
         </ul>
       </aside>
 
-      {/* Main Content */}
-      <main className="flex-1 w-full ml-72 mr-14">
-        {/* Welcome Section */}
-        <section className="rounded-lg bg-blue-100 p-6 shadow-sm">
-          <h2 className="text-3xl font-bold text-black">Welcome back {userData?.name}!</h2>
-          <p className="mt-2 text-gray-600">
-            Ready to continue your learning journey? You're making great
-            progress!
-          </p>
-          <button className="mt-4 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
-            Resume Journey →
+      <main className="flex-1 w-full ml-72 mr-14 ">
+
+      <div className="p-8 bg-gray-50 min-h-screen text-black rounded-lg">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-800">Class Management</h1>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition-colors"
+          >
+            + Schedule New Class
           </button>
-        </section>
-
-        {/* Assessment Section */}
-        <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
-          {/* Assessment Activity */}
-          <section className="rounded-lg bg-white p-6 shadow-md">
-            <h3 className="mb-4 text-xl font-bold text-black">
-              Assessment Activity
-            </h3>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="text-blue-600">
-                <p className="text-3xl font-bold">10</p>
-                <p>Tests Assigned</p>
-              </div>
-              <div className="text-green-600">
-                <p className="text-3xl font-bold">2</p>
-                <p>Tests Completed</p>
-              </div>
-              <div className="text-purple-600">
-                <p className="text-3xl font-bold">35</p>
-                <p>Questions Attempted</p>
-              </div>
-              <div className="text-orange-600">
-                <p className="text-3xl font-bold">12 mins</p>
-                <p>Total Time Spent</p>
-              </div>
-            </div>
-            <p className="mt-4 text-sm text-gray-500">
-              Please visit the{" "}
-              <span className="font-bold">Assessments page</span> for all active
-              assignments.
-            </p>
-          </section>
-
-          {/* Announcements */}
-          <section className="rounded-lg bg-white p-6 text-center shadow-md">
-            <h3 className="text-xl font-bold text-gray-700">Announcements</h3>
-            <div className="mt-6 text-6xl text-pink-400">💬</div>
-            <p className="mt-4 text-gray-500">No Announcements</p>
-            <p className="text-sm text-gray-400">
-              Check back later for important updates and news!
-            </p>
-          </section>
         </div>
 
-        {/* Upcoming Live Classes */}
-        <section className="mt-6 rounded-lg bg-white p-6 text-black shadow-md">
-          <h3 className="mb-4 text-xl font-bold">Upcoming Live Classes</h3>
-          <div className="rounded-md bg-blue-50 p-4">
-            <h4 className="text-lg font-semibold">
-              AI on Fingertips | 2024 | BATCH 1
-            </h4>
-            <p className="mt-1 text-gray-600">
-              📅 Dec 11, 2024 - Dec 31, 2024 &nbsp;&nbsp; 🕒 02:30 PM - 04:30 PM
-            </p>
-            <div className="mt-4 flex items-center justify-between">
-              <Link
-                href="/classdetail"
-                className="rounded bg-blue-500 px-3 py-2 text-white hover:bg-blue-600"
-              >
-                JOIN CLASS
-              </Link>
-              <div className="space-x-2">
-                <button className="rounded bg-blue-200 px-3 py-1 text-sm hover:bg-blue-300">
-                  Mark Attendance for 2024-12-18
-                </button>
-                <button className="rounded bg-blue-200 px-3 py-1 text-sm hover:bg-blue-300">
-                  Give Session Feedback
-                </button>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {sessions.map(session => (
+            <div key={session.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-4">
+                  <span className={`px-3 py-1 rounded-full text-sm ${
+                    session.status === 'scheduled' ? 'bg-blue-100 text-blue-800' :
+                    session.status === 'ongoing' ? 'bg-green-100 text-green-800' :
+                    'bg-gray-100 text-gray-800'
+                  }`}>
+                    {session.status}
+                  </span>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleEdit(session)}
+                      className="text-indigo-600 hover:text-indigo-900"
+                    >
+                      ✏️
+                    </button>
+                    <button
+                      onClick={() => handleDelete(session.id)}
+                      className="text-red-600 hover:text-red-900"
+                    >
+                      🗑️
+                    </button>
+                  </div>
+                </div>
+                
+                <h3 className="text-xl font-semibold mb-2">{session.title}</h3>
+                <p className="text-gray-600 mb-4">{session.description}</p>
+                
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-500">📅</span>
+                    <span>{new Date(session.date).toLocaleDateString()} | {session.time}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-500">⏳</span>
+                    <span>{session.duration} minutes</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-500">📚</span>
+                    <span>{session.course}</span>
+                  </div>
+                </div>
+
+                <a
+                  href={session.meetingLink}
+                  className="mt-4 inline-block w-full text-center bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors"
+                >
+                  Start Class
+                </a>
               </div>
             </div>
-          </div>
-        </section>
+          ))}
+        </div>
 
-        {/* Overall Performance */}
-        <section className="mt-6 rounded-lg bg-white p-6 text-center text-black shadow-md">
-          <h3 className="text-xl font-bold text-gray-700">
-            Overall Performance
-          </h3>
-          <p className="mt-2 text-gray-500">
-            No test attempts found. Please take an assessment to view your
-            results.
-          </p>
-          <p className="mt-4 text-3xl font-bold text-blue-600">
-            Overall Mastery
-          </p>
-          <p className="mt-2 text-5xl font-bold text-gray-400">0.0%</p>
-        </section>
+        {isModalOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+            <div className="bg-white rounded-xl p-6 w-full max-w-md">
+              <h2 className="text-2xl font-bold mb-4">
+                {editingSession ? 'Edit Class' : 'New Class'}
+              </h2>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                  <input
+                    type="text"
+                    name="title"
+                    value={formData.title || ''}
+                    onChange={handleInputChange}
+                    className="w-full p-2 border rounded-lg"
+                    required
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Course Code</label>
+                  <input
+                    type="text"
+                    name="course"
+                    value={formData.course || ''}
+                    onChange={handleInputChange}
+                    className="w-full p-2 border rounded-lg"
+                    required
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                    <input
+                      type="date"
+                      name="date"
+                      value={formData.date || ''}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border rounded-lg"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Time</label>
+                    <input
+                      type="time"
+                      name="time"
+                      value={formData.time || ''}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border rounded-lg"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Duration (minutes)</label>
+                  <input
+                    type="number"
+                    name="duration"
+                    value={formData.duration || ''}
+                    onChange={handleInputChange}
+                    className="w-full p-2 border rounded-lg"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                  <select
+                    name="status"
+                    value={formData.status}
+                    onChange={handleInputChange}
+                    className="w-full p-2 border rounded-lg"
+                  >
+                    <option value="scheduled">Scheduled</option>
+                    <option value="ongoing">Ongoing</option>
+                    <option value="completed">Completed</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                  <textarea
+                    name="description"
+                    value={formData.description || ''}
+                    onChange={handleInputChange}
+                    className="w-full p-2 border rounded-lg"
+                    rows={3}
+                  />
+                </div>
+
+                <div className="flex justify-end gap-3 mt-6">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsModalOpen(false);
+                      setEditingSession(null);
+                      setFormData({ status: 'scheduled' });
+                    }}
+                    className="px-4 py-2 text-gray-600 hover:text-gray-800"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+                  >
+                    {editingSession ? 'Update' : 'Create'} Class
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+
       </main>
+
     </div>
   );
 };
