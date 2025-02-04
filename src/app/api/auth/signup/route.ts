@@ -1,81 +1,58 @@
 import { connectDb } from "@/lib/connectDB";
 import { NextResponse } from "next/server";
-import DemoFormModel from "@/model/User";
-import bcrypt from "bcrypt";
-
-// Interface for request body
-interface SignupRequestBody {
-  name: string;
-  phoneNumber: string;
-  email: string;
-  grade: string;
-  password: string;
-}
+import StudentModel from "@/model/User";
 
 export async function POST(request: Request) {
-  await connectDb(); // Connect to MongoDB
-
+  await connectDb();
   try {
-    // Parse and validate the incoming request body
-    const body = await request.json() as SignupRequestBody;
-    const { name, phoneNumber, email, grade, password } = body;
-
-    // Input validation
-    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    const phoneRegex = /^[0-9]{10}$/;
-
-    if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { message: "Invalid email format", success: false },
-        { status: 400 }
-      );
-    }
-
-    if (!phoneRegex.test(phoneNumber)) {
-      return NextResponse.json(
-        { message: "Phone number must be 10 digits", success: false },
-        { status: 400 }
-      );
-    }
-
-    if (!password || password.length < 6) {
-      return NextResponse.json(
-        { message: "Password must be at least 6 characters long", success: false },
-        { status: 400 }
-      );
-    }
-
-    // Check if the user already exists
-    const existingUser = await DemoFormModel.findOne({ email });
-    if (existingUser) {
-      return NextResponse.json(
-        { message: "User already exists with this email", success: false },
-        { status: 400 }
-      );
-    }
-
-    // Hash the password before saving
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Save the user data into the database
-    const newUser = await DemoFormModel.create({
-      name,
+    const body = await request.json();
+    const { 
+      firstName,
+      lastName,
+      gender,
+      grade,
+      schoolName,
       phoneNumber,
       email,
+      parentEmail,
+      password,
+      userRole
+    } = body;
+
+    // Create new student document
+    const newStudent = await StudentModel.create({
+      firstName,
+      lastName,
+      gender,
       grade,
-      password: hashedPassword,
+      schoolName,
+      phoneNumber,
+      email,
+      parentEmail,
+      password, // The password will be automatically hashed by the model
+      userRole
     });
 
-    // Respond with success
+    console.log("Registration successful:", newStudent);
+
     return NextResponse.json(
-      { message: "User registered successfully", success: true, user: newUser._id },
-      { status: 201 }
+      { message: "Registration saved successfully", success: true },
+      { status: 200 },
     );
-  } catch (error) {
-    console.error("Error during signup:", error);
+  } catch (error: any) {
+    console.error("Error registering:", error);
+    
+    // Handle duplicate key error
+    if (error.code === 11000) {
+      return NextResponse.json(
+        { message: "Email already exists", success: false },
+        { status: 409 },
+      );
+    }
+    
     return NextResponse.json(
-      { message: "Internal server error", success: false },
-      { status: 500 }
+      { message: "Failed to save registration", success: false },
+      { status: 500 },
     );
   }
 }

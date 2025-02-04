@@ -105,7 +105,7 @@ const Signup: React.FC = () => {
     e.preventDefault();
     if (validateStep(2)) {
       try {
-        const response = await fetch("/api/register", {
+        const response = await fetch("api/auth/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

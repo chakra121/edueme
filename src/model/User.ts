@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt"; // Import bcrypt
 import type { Document, Model } from "mongoose";
-import type { StudentRegisterForm } from "../app/api/register/interface";
+import type { StudentRegisterForm } from "../app/api/auth/signup/interface";
 
 export interface StudentDocument extends Document, Omit<StudentRegisterForm, "confirmPassword"> {}
 
