@@ -414,7 +414,7 @@ const Signup: React.FC = () => {
                       Register
                     </button>
                   </div>
-                  <p className="mt-3 text-center text-sm text-gray-600">
+                  <p className="mt-3 text-center text-sm text-base-content">
                     Already have an account?{" "}
                     <a
                       href="/auth/login"
