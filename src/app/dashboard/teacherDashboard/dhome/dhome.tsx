@@ -1,4 +1,3 @@
-// src/app/dashboard/page.tsx
 "use client";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -11,247 +10,228 @@ import {
   Cog6ToothIcon,
   QuestionMarkCircleIcon,
   ClockIcon,
-} from "@heroicons/react/24/outline"; // Correct import for v2
-import exp from "constants";
-const SECRET_KEY = process.env.JWT_SECRET ?? "your_secret_key"; // Replace in .env
+} from "@heroicons/react/24/outline";
+import ReactApexChart from "react-apexcharts"; // Import ApexCharts component
+
+const SECRET_KEY = process.env.JWT_SECRET ?? "your_secret_key";
 
 const Dashboard = () => {
-  const [upcomingCourses, setUpcomingCourses] = useState([]);
-  const [studentInfo, setStudentInfo] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [userData, setUserData] = useState<{
-    id: string;
-    name: string;
-    email: string;
-    role: string;
-  } | null>(null);
+  const [userData, setUserData] = useState(null);
+  const [doubts, setDoubts] = useState(3); // Example of unresolved doubts
+  const [assignedClass, setAssignedClass] = useState({
+    name: "AI on Fingertips | 2024 | BATCH 1",
+    startDate: "Dec 11, 2024",
+    endDate: "Dec 31, 2024",
+    time: "02:30 PM - 04:30 PM",
+    teacher: "Professor John Doe",
+    attendanceMarked: false,
+  });
 
   useEffect(() => {
-    // Retrieve the global variable
     const token = localStorage.getItem("token");
-
     if (token) {
       try {
-        // Verify and decode the token
-      const decoded = jwt.decode(token) as {
-        id: string;
-        name: string;
-        email: string;
-        role: string;
-      };
-      console.log("Decoded token:", decoded);
-
-        setUserData(decoded); // Save user data in the state
+        const decoded = jwt.decode(token);
+        if (decoded) {
+          setUserData(decoded); // Set user data after decoding JWT
+        }
       } catch (error) {
-        console.error("Error verifying token:", (error as Error).message);
-        // Optionally: Handle invalid/expired token
+        console.error("Error decoding token:", error.message);
       }
     }
   }, []);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       // Fetch upcoming courses and student information from your API
-  //       const coursesResponse = await fetch('/api/courses'); // Replace with your API endpoint
-  //       const studentResponse = await fetch('/api/student'); // Replace with your API endpoint
 
-  //       if (!coursesResponse.ok || !studentResponse.ok) {
-  //         throw new Error('Failed to fetch data');
-  //       }
+  if (!userData) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-lg text-gray-700">Loading user data...</p>
+      </div>
+    );
+  }
 
-  //       const coursesData = await coursesResponse.json();
-  //       const studentData = await studentResponse.json();
-
-  //       setUpcomingCourses(coursesData);
-  //       setStudentInfo(studentData);
-  //     } catch (err) {
-  //       setError(err.message);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
-
-  // if (loading) return <p>Loading...</p>;
-  // if (error) return <p>Error: {error}</p>;
+  // Attendance Chart Data Example
+  const attendanceChartData = {
+    series: [
+      {
+        name: "Sales",
+        data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
+      },
+    ],
+    chart: {
+      type: "bar",
+      height: 240,
+      toolbar: {
+        show: false,
+      },
+    },
+    title: {
+      show: "",
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    colors: ["#020617"],
+    plotOptions: {
+      bar: {
+        columnWidth: "40%",
+        borderRadius: 2,
+      },
+    },
+    xaxis: {
+      axisTicks: {
+        show: false,
+      },
+      axisBorder: {
+        show: false,
+      },
+      labels: {
+        style: {
+          colors: "#616161",
+          fontSize: "12px",
+          fontFamily: "inherit",
+          fontWeight: 400,
+        },
+      },
+      categories: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    },
+    yaxis: {
+      labels: {
+        style: {
+          colors: "#616161",
+          fontSize: "12px",
+          fontFamily: "inherit",
+          fontWeight: 400,
+        },
+      },
+    },
+    grid: {
+      show: true,
+      borderColor: "#dddddd",
+      strokeDashArray: 5,
+      xaxis: {
+        lines: {
+          show: true,
+        },
+      },
+      padding: {
+        top: 5,
+        right: 20,
+      },
+    },
+    fill: {
+      opacity: 0.8,
+    },
+    tooltip: {
+      theme: "dark",
+    },
+  };
 
   return (
-    <div className="flex min-h-screen ">
-      {/* Sidebar */}
-      <aside className="w-64 rounded-lg bg-blue-100 p-6 text-black shadow-sm  h-screen fixed ">
-        <h2 className="mb-8 text-2xl font-bold"></h2>
+    <div className="flex min-h-screen">
+      <aside className="w-64 h-screen fixed rounded-lg bg-blue-100 p-6 text-black shadow-sm">
+        <h2 className="mb-8 text-2xl font-bold">Dashboard</h2>
         <ul className="space-y-6">
-          <li className="active flex items-center">
-            <HomeIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dhome"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Home
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <UserIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dprofile"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Profile
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <BookOpenIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dcourseprogress"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Course Progress
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <ClipboardDocumentIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dannounce"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Announcements
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <Cog6ToothIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dstudentanalysis"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Student Analysis
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <ClockIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dclassdetails"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Class Details
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <QuestionMarkCircleIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dcleardoubts"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Clear Doubts
-            </Link>
-          </li>
+          {[{ href: '/dashboard/teacherDashboard/dhome', icon: HomeIcon, label: 'Home' },
+            { href: '/dashboard/teacherDashboard/dprofile', icon: UserIcon, label: 'Profile' },
+            { href: '/dashboard/teacherDashboard/dcourseprogress', icon: BookOpenIcon, label: 'Course Progress' },
+            { href: '/dashboard/teacherDashboard/dannounce', icon: ClipboardDocumentIcon, label: 'Announcements' },
+            { href: '/dashboard/teacherDashboard/dstudentanalysis', icon: Cog6ToothIcon, label: 'Student Analysis' },
+            { href: '/dashboard/teacherDashboard/dclassdetails', icon: ClockIcon, label: 'Class Details' },
+            { href: '/dashboard/teacherDashboard/dcleardoubts', icon: QuestionMarkCircleIcon, label: 'Clear Doubts' }].map(({ href, icon: Icon, label }) => (
+            <li key={href} className="flex items-center">
+              <Icon className="h-6 w-6 text-gray-400" />
+              <Link href={href} className="ml-2 text-lg font-sans hover:cursor-pointer hover:font-bold">{label}</Link>
+            </li>
+          ))}
         </ul>
       </aside>
 
-      {/* Main Content */}
       <main className="flex-1 w-full ml-72 mr-14">
-        {/* Welcome Section */}
         <section className="rounded-lg bg-blue-100 p-6 shadow-sm">
-          <h2 className="text-3xl font-bold text-black">Welcome back {userData?.name}!</h2>
-          <p className="mt-2 text-gray-600">
-            Ready to continue your learning journey? You're making great
-            progress!
+          <h2 className="text-3xl font-bold text-black">Welcome back, {userData?.name}!</h2>
+          <p className="mt-2 text-gray-600">You're doing an amazing job guiding your students!</p>
+          <p className="mt-4 text-gray-600">
+            You currently have <strong>{assignedClass.name}</strong> with {assignedClass.teacher}.
+            Your next class is on <strong>{assignedClass.startDate}</strong> at <strong>{assignedClass.time}</strong>.
           </p>
-          <button className="mt-4 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
-            Resume Journey →
-          </button>
+          <div className="mt-4">
+            <Link
+              href="/dashboard/teacherDashboard/dclassdetails"
+              className="btn btn-primary"
+            >
+              View Class Details
+            </Link>
+          </div>
         </section>
 
-        {/* Assessment Section */}
-        <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
-          {/* Assessment Activity */}
+       
+        <div className="mt-6 grid grid-cols-2 gap-6">
+          {/* Courses Section */}
           <section className="rounded-lg bg-white p-6 shadow-md">
-            <h3 className="mb-4 text-xl font-bold text-black">
-              Assessment Activity
-            </h3>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="text-blue-600">
-                <p className="text-3xl font-bold">10</p>
-                <p>Tests Assigned</p>
-              </div>
-              <div className="text-green-600">
-                <p className="text-3xl font-bold">2</p>
-                <p>Tests Completed</p>
-              </div>
-              <div className="text-purple-600">
-                <p className="text-3xl font-bold">35</p>
-                <p>Questions Attempted</p>
-              </div>
-              <div className="text-orange-600">
-                <p className="text-3xl font-bold">12 mins</p>
-                <p>Total Time Spent</p>
-              </div>
-            </div>
-            <p className="mt-4 text-sm text-gray-500">
-              Please visit the{" "}
-              <span className="font-bold">Assessments page</span> for all active
-              assignments.
-            </p>
+            <h3 className="mb-4 text-xl font-bold text-black">Your Courses</h3>
+            <ul className="list-disc pl-5 text-gray-700">
+              <li>Robotics Grade 4-5</li>
+              <li>Robotics with AI Grade 2-3</li>
+            </ul>
           </section>
 
-          {/* Announcements */}
+          {/* Announcements Section */}
           <section className="rounded-lg bg-white p-6 text-center shadow-md">
             <h3 className="text-xl font-bold text-gray-700">Announcements</h3>
             <div className="mt-6 text-6xl text-pink-400">💬</div>
             <p className="mt-4 text-gray-500">No Announcements</p>
-            <p className="text-sm text-gray-400">
-              Check back later for important updates and news!
-            </p>
+            <p className="text-sm text-gray-400">Check back later for important updates and news!</p>
           </section>
         </div>
 
-        {/* Upcoming Live Classes */}
+        {/* Live Classes Section */}
         <section className="mt-6 rounded-lg bg-white p-6 text-black shadow-md">
-          <h3 className="mb-4 text-xl font-bold">Upcoming Live Classes</h3>
+          <h3 className="mb-4 text-xl font-bold">Live Classes</h3>
           <div className="rounded-md bg-blue-50 p-4">
             <h4 className="text-lg font-semibold">
-              AI on Fingertips | 2024 | BATCH 1
+              {assignedClass.name}
             </h4>
-            <p className="mt-1 text-gray-600">
-              📅 Dec 11, 2024 - Dec 31, 2024 &nbsp;&nbsp; 🕒 02:30 PM - 04:30 PM
+            <p className="mt-2 text-gray-600">
+              📚 <a href="https://yourclasslink.com" className="text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">
+                Class Link
+              </a>
             </p>
-            <div className="mt-4 flex items-center justify-between">
+            <div className="mt-4 text-center">
               <Link
-                href="/classdetail"
-                className="rounded bg-blue-500 px-3 py-2 text-white hover:bg-blue-600"
+                href="/dashboard/teacherDashboard/dclassdetails"
+                className="btn btn-warning btn-sm"
               >
-                JOIN CLASS
+                Update Class
               </Link>
-              <div className="space-x-2">
-                <button className="rounded bg-blue-200 px-3 py-1 text-sm hover:bg-blue-300">
-                  Mark Attendance for 2024-12-18
-                </button>
-                <button className="rounded bg-blue-200 px-3 py-1 text-sm hover:bg-blue-300">
-                  Give Session Feedback
-                </button>
-              </div>
             </div>
           </div>
         </section>
 
-        {/* Overall Performance */}
-        <section className="mt-6 rounded-lg bg-white p-6 text-center text-black shadow-md">
-          <h3 className="text-xl font-bold text-gray-700">
-            Overall Performance
-          </h3>
-          <p className="mt-2 text-gray-500">
-            No test attempts found. Please take an assessment to view your
-            results.
-          </p>
-          <p className="mt-4 text-3xl font-bold text-blue-600">
-            Overall Mastery
-          </p>
-          <p className="mt-2 text-5xl font-bold text-gray-400">0.0%</p>
+        {/* Doubts Section */}
+        <section className="mt-6 rounded-lg bg-yellow-50 p-6 shadow-md">
+          <h4 className="text-lg font-semibold flex items-center justify-center text-black">
+            Doubts
+            <span className="ml-2 text-red-500 text-xs font-semibold bg-red-100 rounded-full px-2 py-1">
+              {doubts}
+            </span>
+          </h4>
+          <p className="mt-1 text-gray-600 text-center">💬 Students have raised {doubts} unresolved doubts for this session. Click to view.</p>
+          <div className="mt-4 text-center">
+            <Link href="/dashboard/teacherDashboard/dcleardoubts" className="btn btn-warning">
+              View Doubts
+            </Link>
+          </div>
         </section>
+
+         {/* Bar Chart Section */}
+         <section className="mt-6 rounded-lg bg-white p-6 shadow-md">
+          <h3 className="text-xl font-bold text-black mb-4">Attendance</h3>
+          <ReactApexChart options={attendanceChartData} series={attendanceChartData.series} type="bar" height={240} />
+        </section>
+
       </main>
     </div>
   );
 };
+
 export default Dashboard;
