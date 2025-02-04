@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import { Input } from "@/components/ui/input";
 
 
 import React, { useState } from "react";
@@ -20,7 +19,7 @@ const Announcements = () => {
   return (
     <>
     {/* Content Container */}
-  <div className="flex gap-6 min-w-full min-h-screen p-8 mt-16">
+  <div className="flex  min-h-screen ">
   {/* Sidebar */}
   <aside className="w-64 rounded-lg bg-blue-100 p-6 text-black shadow-sm  h-screen fixed">
         <h2 className="mb-8 text-2xl font-bold"></h2>
@@ -101,7 +100,7 @@ const Announcements = () => {
       </div>
 
       {/* Create New Announcement */}
-      <div className="rounded-lg mt-8 bg-white p-6 shadow">
+      <div className="rounded-lg mt-8 bg-white text-black p-6 shadow">
         <h3 className="text-lg font-bold text-gray-700 mb-4">Create a New Announcement</h3>
         <form className="space-y-4">
           <div>

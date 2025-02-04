@@ -49,7 +49,7 @@ const EnrolledCourses = () => {
   return (
     <>
     {/* Content Container */}
-  <div className="flex gap-6 min-w-full min-h-screen p-8 mt-16">
+  <div className="flex  min-h-screen ">
   {/* Sidebar */}
   <aside className="w-64 rounded-lg bg-blue-100 p-6 text-black shadow-sm  h-screen fixed">
         <h2 className="mb-8 text-2xl font-bold"></h2>

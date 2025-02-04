@@ -4,15 +4,8 @@ import Announcements from './dannounce';
 
 const Announcement = () => {
   return (
-    <div className="flex flex-row">
-      {/* Sidepanel */}
-        {/* <Sidepanel />
-  */}
-      {/* Enrolled Courses */}
+    <div className='px-[4rem] py-[6rem]'><Announcements/></div>
 
-        <Announcements />
-
-    </div>
   );
 };
 

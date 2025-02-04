@@ -4,15 +4,8 @@ import EnrolledCourses from './denrolled';
 
 const Enrolled = () => {
   return (
-    <div className="flex flex-row">
-      {/* Sidepanel */}
-        {/* <Sidepanel />
-  */}
-      {/* Enrolled Courses */}
+    <div className='px-[4rem] py-[6rem]'><EnrolledCourses/></div>
 
-        <EnrolledCourses />
-
-    </div>
   );
 };
 

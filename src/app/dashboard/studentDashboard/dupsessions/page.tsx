@@ -1,8 +1,10 @@
 import React from 'react'
+import Upcoming from './dupsessions'
+// import Sidepanel from "@/components/Sidepanel";
 
 const page = () => {
   return (
-    <div>page</div>
+    <div className='px-[4rem] py-[6rem]'><Upcoming/></div>
   )
 }
 

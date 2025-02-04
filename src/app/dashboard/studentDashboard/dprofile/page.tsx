@@ -3,19 +3,12 @@ import Profile from './dprofile'
 // import Sidepanel from '@/components/Sidepanel'
 
 const page = () => {
-  return (
-    
-    <div className="flex flex-row">
-      {/* Sidepanel */}
-{/* 
-        <Sidepanel /> */}
-   
-
-      {/* Enrolled Courses */}
   
-        <Profile />
-    </div>
-  )
+    
+    return (
+      <div className='px-[4rem] py-[6rem]'><Profile/></div>
+    )
+  
 }
 
 export default page
