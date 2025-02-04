@@ -37,6 +37,8 @@ const Signup: React.FC = () => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
   const [step, setStep] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const validateStep = (stepNumber: number): boolean => {
     const newErrors: FormErrors = {};
@@ -98,14 +100,17 @@ const Signup: React.FC = () => {
   };
 
   const handleBack = () => {
+    setErrorMessage("");
     setStep(1);
   };
   // ------------------------------------------------------------
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setErrorMessage("");
     if (validateStep(2)) {
       try {
-        const response = await fetch("api/auth/signup", {
+        setIsSubmitting(true);
+        const response = await fetch("/api/auth/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -119,11 +124,15 @@ const Signup: React.FC = () => {
           console.log("Registration successful:", result);
           setSubmitted(true);
         } else {
-          console.error("Registration failed:", result.message);
-          // Handle error display
+          setErrorMessage(
+            result.message || "Registration failed. Please try again.",
+          );
         }
       } catch (error) {
         console.error("Network error:", error);
+        setErrorMessage("Network error. Please try again.");
+      } finally {
+        setIsSubmitting(false);
       }
     }
   };
@@ -304,6 +313,25 @@ const Signup: React.FC = () => {
                   <h2 className="card-title mb-4 text-2xl font-bold text-base-content">
                     Register to Edueme
                   </h2>
+                  {errorMessage && (
+                    <div className="alert alert-error mb-4">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6 shrink-0 stroke-current"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                      <span>{errorMessage}</span>
+                    </div>
+                  )}
+
                   <div className="form-control">
                     <label className="label">
                       <span className="label-text text-base-content">
@@ -407,11 +435,24 @@ const Signup: React.FC = () => {
                       type="button"
                       onClick={handleBack}
                       className="btn btn-neutral"
+                      disabled={isSubmitting}
                     >
                       Back
                     </button>
-                    <button type="submit" className="btn btn-primary">
-                      Register
+
+                    <button
+                      type="submit"
+                      className="btn btn-primary"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <span className="loading loading-infinity loading-md"></span>
+                          Registering...
+                        </>
+                      ) : (
+                        "Register"
+                      )}
                     </button>
                   </div>
                   <p className="mt-3 text-center text-sm text-base-content">
