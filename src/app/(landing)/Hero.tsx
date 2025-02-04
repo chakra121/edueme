@@ -19,9 +19,15 @@ const Hero = () => {
       <div className="flex h-full">
         {/* Left Content (2/3 of the width) */}
         <div className="flex w-full flex-col items-center justify-center gap-6 pl-[60px] text-center lg:w-[63.6%] lg:items-start lg:text-left">
-          <h1 className="text-4xl font-bold leading-tight text-white sm:text-5xl lg:max-w-[60%] lg:text-7xl">
-            Welcome to EdueMe Online
+          <h1 className="text-5xl font-bold text-white">
+            Welcome to <br />
+            <span className="relative bg-gradient-to-r from-purple-600 via-orange-500 to-green-500 bg-clip-text text-6xl text-transparent">
+              EduMe
+              <span className="absolute inset-0 -z-10 bg-gradient-to-r from-purple-600 via-orange-500 to-green-500 opacity-75 blur-[8px]"></span>
+            </span>{" "}
+            Online
           </h1>
+
           <p className="mt-4 text-lg text-gray-200 sm:text-xl lg:max-w-[50%] lg:text-2xl">
             Robotics and AI Curriculum for the Future Innovators
           </p>

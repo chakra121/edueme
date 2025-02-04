@@ -1,7 +1,13 @@
-export interface DemoForm {
-  name: string;
+export interface StudentRegisterForm {
+  firstName: string;
+  lastName: string;
+  gender: string;
+  grade: string;
+  schoolName: string;
   phoneNumber: string;
   email: string;
-  grade: string;
+  parentEmail: string;
+  password: string;
+  confirmPassword: string;
   userRole: string;
 }

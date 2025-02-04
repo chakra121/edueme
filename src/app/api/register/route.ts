@@ -1,49 +1,55 @@
 import { connectDb } from "@/lib/connectDB";
 import { NextResponse } from "next/server";
-import type { DemoForm } from "./interface";
-import DemoFormModel from "@/model/User";
+import StudentModel from "@/model/User";
 
 export async function POST(request: Request) {
   await connectDb();
   try {
-    const body: DemoForm = (await request.json()) as DemoForm;
-    const { name, phoneNumber, email, grade } = body;
+    const body = await request.json();
+    const { 
+      firstName,
+      lastName,
+      gender,
+      grade,
+      schoolName,
+      phoneNumber,
+      email,
+      parentEmail,
+      password,
+      userRole
+    } = body;
 
-    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    const phoneRegex = /^[0-9]{10}$/;
+    // Create new student document
+    const newStudent = await StudentModel.create({
+      firstName,
+      lastName,
+      gender,
+      grade,
+      schoolName,
+      phoneNumber,
+      email,
+      parentEmail,
+      password, // The password will be automatically hashed by the model
+      userRole
+    });
 
-    if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { message: "Invalid email format for lead.", success: false },
-        { status: 400 },
-      );
-    }
-    if (!phoneRegex.test(phoneNumber)) {
-      return NextResponse.json(
-        {
-          message: "Invalid phone number format for lead. Must be 10 digits.",
-          success: false,
-        },
-        { status: 400 },
-      );
-    }
-
-    // Explicitly type the input for `create`
-    await DemoFormModel.create({
-      name: name,
-      phoneNumber: phoneNumber,
-      email: email,
-      grade: grade,
-    } as DemoForm);
-
-    console.log({ name, phoneNumber, email, grade });
+    console.log("Registration successful:", newStudent);
 
     return NextResponse.json(
       { message: "Registration saved successfully", success: true },
       { status: 200 },
     );
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error registering:", error);
+    
+    // Handle duplicate key error
+    if (error.code === 11000) {
+      return NextResponse.json(
+        { message: "Email already exists", success: false },
+        { status: 409 },
+      );
+    }
+    
     return NextResponse.json(
       { message: "Failed to save registration", success: false },
       { status: 500 },

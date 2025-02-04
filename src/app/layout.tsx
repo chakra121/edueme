@@ -19,7 +19,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable}`}data-theme="light">
+    <html lang="en" className={`${GeistSans.variable}`} data-theme="bumblebee">
       <head>
         {/* SEO Meta Tags */}
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -32,7 +32,9 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <LayoutClient>{children}</LayoutClient>
+        <main>
+          <LayoutClient>{children}</LayoutClient>
+        </main>
       </body>
     </html>
   );

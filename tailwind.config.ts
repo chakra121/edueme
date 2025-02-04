@@ -2,6 +2,7 @@ import { type Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme";
 
 export default {
+  mode: "jit", // ✅ Explicitly enable JIT mode
   darkMode: ["class"],
   content: ["./src/**/*.tsx"],
   theme: {
@@ -70,7 +71,7 @@ export default {
         marquee: 'marquee var(--duration) infinite linear',
         'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
         popIn: 'popIn 1s ease-in-out',
-        scroll: 'scroll 10s linear infinite', // Added scrolling animation
+        scroll: 'scroll 10s linear infinite',
       },
       keyframes: {
         rainbow: {
@@ -114,8 +115,9 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"),require('daisyui'),],
+
+  plugins: [require("tailwindcss-animate"), require("daisyui")],
   daisyui: {
-    themes: ["light", "dark", "cupcake"],
+    themes: ["bumblebee", "dracula"],
   },
 } satisfies Config;
