@@ -102,6 +102,7 @@ const Profile = () => {
     <>
       <div className="flex gap-6 w-full min-h-screen">
         <aside className="w-64 rounded-lg bg-blue-100 p-6 text-black shadow-sm h-screen fixed">
+          <h2 className="mb-8"></h2>
           <ul className="space-y-6">
           <li className="active flex items-center">
             <HomeIcon className="h-6 w-6 text-gray-400" />
