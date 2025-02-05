@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import React, { useEffect, useState } from "react";
 import jwt from "jsonwebtoken";
+import StudentSideBar from "../sideBar";
 import { PencilIcon, SaveIcon } from "@heroicons/react/24/outline";
 import {
   HomeIcon,
@@ -89,203 +90,152 @@ const Profile = () => {
 
   return (
     <>
-    {/* Content Container */}
-  <div className="flex min-h-screen ">
-  {/* Sidebar */}
-  <aside className="w-64 rounded-lg bg-blue-100 p-6 text-black shadow-sm  h-screen fixed">
-        <h2 className="mb-8 text-2xl font-bold"></h2>
-        <ul className="space-y-6">
-          <li className="active flex items-center">
-            <HomeIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/studentDashboard/dhome"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Home
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <UserIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/studentDashboard/dprofile"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Profile
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <BookOpenIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/studentDashboard/denrolled"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Enrolled Courses
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <ClipboardDocumentIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/studentDashboard/dannounce"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Announcements
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <Cog6ToothIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/studentDashboard/dattend"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Attendance
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <ClockIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/studentDashboard/dupsessions"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Upcoming Sessions
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <QuestionMarkCircleIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/studentDashboard/dhelp"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Any Doubts?
-            </Link>
-          </li>
-        </ul>
-      </aside>
+      {/* Content Container */}
+      <div className="flex min-h-screen">
+        {/* Sidebar */}
+        <aside className="card fixed w-64 bg-base-100 p-4">
+          <StudentSideBar />
+        </aside>
 
-  {/* Profile Section */}
-  <main className="flex-1 w-full ml-72 mr-14">
-    <div className="max-w-full mx-auto space-y-8">
-      {/* Welcome Section */}
-      <div className="rounded-lg bg-blue-100 p-6 shadow-sm">
-        <h2 className="text-3xl font-bold text-black">Welcome Back!</h2>
-        <p className="mt-3 text-gray-500">
-          Ready to update your profile? You're making great progress!
-        </p>
-      </div>
-      {/* Profile Content */}
-      <section className="mx-auto max-w-full rounded-lg bg-white p-8 shadow-lg">
-        <h2 className="text-4xl font-bold text-gray-800 text-center">Profile</h2>
-        <div className="mt-6 flex items-center justify-center space-x-6">
-          {profilePhotoPreview ? (
-            <img
-              src={profilePhotoPreview}
-              alt="Profile"
-              className="h-32 w-32 rounded-full object-cover shadow-md"
-            />
-          ) : (
-            <div className="flex h-32 w-32 items-center justify-center rounded-full bg-gray-200 shadow-md">
-              <span className="text-gray-500">No Photo</span>
+        {/* Profile Section */}
+        <main className="ml-72 mr-14 w-full flex-1">
+          <div className="mx-auto max-w-full space-y-8">
+            {/* Welcome Section */}
+            <div className="rounded-lg bg-blue-100 p-6 shadow-sm">
+              <h2 className="text-3xl font-bold text-black">Welcome Back!</h2>
+              <p className="mt-3 text-gray-500">
+                Ready to update your profile? You're making great progress!
+              </p>
             </div>
-          )}
-          {isEditing && (
-            <div className="flex flex-col">
-              <label className="mb-2 text-sm font-medium text-gray-600">Upload Photo</label>
-              <input
-                type="file"
-                name="profilePhoto"
-                accept="image/*"
-                className="rounded border px-3 py-2 text-sm"
-                onChange={handleProfilePhotoChange}
-              />
-            </div>
-          )}
-        </div>
-        <div className="mt-8 grid grid-cols-1 border-black text-black gap-6 sm:grid-cols-2">
-          {[
-            { label: "First Name", name: "firstName" },
-            { label: "Last Name", name: "lastName" },
-            { label: "Phone Number", name: "phoneNumber" },
-            { label: "Email", name: "email" },
-            { label: "Gender", name: "gender", type: "select", options: ["", "Male", "Female", "Other"] },
-            { label: "Date of Birth", name: "dob", type: "date" },
-            // { label: "City", name: "city" },
-            // { label: "State", name: "state" },
-            // { label: "Country", name: "country" },
-          ].map((field) => (
-            <div key={field.name}>
-              <label className="block font-medium text-gray-800">{field.label}</label>
-              {isEditing ? (
-                field.type === "select" ? (
-                  <select
-                    name={field.name}
-                    value={(formData as any)[field.name]}
-                    onChange={handleInputChange}
-                    className="mt-1 w-full rounded border px-3 py-2"
-                  >
-                    {field.options?.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                ) : (
-                  <input
-                    type={field.type || "text"}
-                    name={field.name}
-                    value={(formData as any)[field.name]}
-                    onChange={handleInputChange}
-                    className="mt-1 w-full rounded border px-3 py-2"
+            {/* Profile Content */}
+            <section className="mx-auto max-w-full rounded-lg bg-white p-8 shadow-lg">
+              <h2 className="text-center text-4xl font-bold text-gray-800">
+                Profile
+              </h2>
+              <div className="mt-6 flex items-center justify-center space-x-6">
+                {profilePhotoPreview ? (
+                  <img
+                    src={profilePhotoPreview}
+                    alt="Profile"
+                    className="h-32 w-32 rounded-full object-cover shadow-md"
                   />
-                )
-              ) : (
-                <p className="mt-1 text-gray-800">{(profileData as any)?.[field.name]}</p>
-              )}
-            </div>
-          ))}
-          <div className="col-span-2">
-            <label className="block font-medium text-gray-600">Bio</label>
-            {isEditing ? (
-              <textarea
-                name="bio"
-                value={formData.bio}
-                onChange={handleInputChange}
-                className="mt-1 w-full rounded border px-3 py-2"
-              ></textarea>
-            ) : (
-              <p className="mt-1 text-gray-800">{profileData?.bio || "N/A"}</p>
-            )}
+                ) : (
+                  <div className="flex h-32 w-32 items-center justify-center rounded-full bg-gray-200 shadow-md">
+                    <span className="text-gray-500">No Photo</span>
+                  </div>
+                )}
+                {isEditing && (
+                  <div className="flex flex-col">
+                    <label className="mb-2 text-sm font-medium text-gray-600">
+                      Upload Photo
+                    </label>
+                    <input
+                      type="file"
+                      name="profilePhoto"
+                      accept="image/*"
+                      className="rounded border px-3 py-2 text-sm"
+                      onChange={handleProfilePhotoChange}
+                    />
+                  </div>
+                )}
+              </div>
+              <div className="mt-8 grid grid-cols-1 gap-6 border-black text-black sm:grid-cols-2">
+                {[
+                  { label: "First Name", name: "firstName" },
+                  { label: "Last Name", name: "lastName" },
+                  { label: "Phone Number", name: "phoneNumber" },
+                  { label: "Email", name: "email" },
+                  {
+                    label: "Gender",
+                    name: "gender",
+                    type: "select",
+                    options: ["", "Male", "Female", "Other"],
+                  },
+                  { label: "Date of Birth", name: "dob", type: "date" },
+                  // { label: "City", name: "city" },
+                  // { label: "State", name: "state" },
+                  // { label: "Country", name: "country" },
+                ].map((field) => (
+                  <div key={field.name}>
+                    <label className="block font-medium text-gray-800">
+                      {field.label}
+                    </label>
+                    {isEditing ? (
+                      field.type === "select" ? (
+                        <select
+                          name={field.name}
+                          value={(formData as any)[field.name]}
+                          onChange={handleInputChange}
+                          className="mt-1 w-full rounded border px-3 py-2"
+                        >
+                          {field.options?.map((option) => (
+                            <option key={option} value={option}>
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                      ) : (
+                        <input
+                          type={field.type || "text"}
+                          name={field.name}
+                          value={(formData as any)[field.name]}
+                          onChange={handleInputChange}
+                          className="mt-1 w-full rounded border px-3 py-2"
+                        />
+                      )
+                    ) : (
+                      <p className="mt-1 text-gray-800">
+                        {(profileData as any)?.[field.name]}
+                      </p>
+                    )}
+                  </div>
+                ))}
+                <div className="col-span-2">
+                  <label className="block font-medium text-gray-600">Bio</label>
+                  {isEditing ? (
+                    <textarea
+                      name="bio"
+                      value={formData.bio}
+                      onChange={handleInputChange}
+                      className="mt-1 w-full rounded border px-3 py-2"
+                    ></textarea>
+                  ) : (
+                    <p className="mt-1 text-gray-800">
+                      {profileData?.bio || "N/A"}
+                    </p>
+                  )}
+                </div>
+              </div>
+              <div className="mt-6 flex justify-end space-x-4">
+                {isEditing ? (
+                  <>
+                    <button
+                      className="rounded bg-gray-300 px-4 py-2 text-gray-800 hover:bg-gray-400"
+                      onClick={() => setIsEditing(false)}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+                      onClick={handleSave}
+                    >
+                      Save
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+                    onClick={() => setIsEditing(true)}
+                  >
+                    Edit Profile
+                  </button>
+                )}
+              </div>
+            </section>
           </div>
-        </div>
-        <div className="mt-6 flex justify-end space-x-4">
-          {isEditing ? (
-            <>
-              <button
-                className="rounded bg-gray-300 px-4 py-2 text-gray-800 hover:bg-gray-400"
-                onClick={() => setIsEditing(false)}
-              >
-                Cancel
-              </button>
-              <button
-                className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-                onClick={handleSave}
-              >
-                Save
-              </button>
-            </>
-          ) : (
-            <button
-              className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-              onClick={() => setIsEditing(true)}
-            >
-              Edit Profile
-            </button>
-          )}
-        </div>
-      </section>
-
-    </div>
-  </main>
-</div>
-</>
+        </main>
+      </div>
+    </>
   );
 };
 

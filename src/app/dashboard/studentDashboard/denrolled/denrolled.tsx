@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import StudentSideBar from "../sideBar";
 
 import React, { useState } from "react";
 import {
@@ -48,118 +49,51 @@ const EnrolledCourses = () => {
 
   return (
     <>
-    {/* Content Container */}
-  <div className="flex  min-h-screen ">
-  {/* Sidebar */}
-  <aside className="w-64 rounded-lg bg-blue-100 p-6 text-black shadow-sm  h-screen fixed">
-        <h2 className="mb-8 text-2xl font-bold"></h2>
-        <ul className="space-y-6">
-          <li className="active flex items-center">
-            <HomeIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/studentDashboard/dhome"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Home
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <UserIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/studentDashboard/dprofile"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Profile
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <BookOpenIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/studentDashboard/denrolled"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Enrolled Courses
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <ClipboardDocumentIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/studentDashboard/dannounce"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Announcements
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <Cog6ToothIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/studentDashboard/dattend"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Attendance
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <ClockIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/studentDashboard/dupsessions"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Upcoming Sessions
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <QuestionMarkCircleIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/studentDashboard/dhelp"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Any Doubts?
-            </Link>
-          </li>
-        </ul>
-      </aside>
+      {/* Content Container */}
+      <div className="flex min-h-screen">
+        {/* Sidebar */}
+        <aside className="card fixed w-64 bg-base-100 p-4">
+          <StudentSideBar />
+        </aside>
 
-{/* Main Content */}
-<main className="flex-1 w-full ml-72 mr-14 ">
+        {/* Main Content */}
+        <main className="ml-72 mr-14 w-full flex-1">
           {/* Header Section */}
-          <section className="bg-blue-100 p-6 rounded-lg max-w-full shadow-sm">
+          <section className="max-w-full rounded-lg bg-blue-100 p-6 shadow-sm">
             <h2 className="text-3xl font-bold text-black">
               Enrolled Courses 📚
             </h2>
-            <p className="text-gray-600 mt-2">
+            <p className="mt-2 text-gray-600">
               Here are the courses you're currently enrolled in.
             </p>
           </section>
 
           {/* Enrolled Courses */}
           <section className="mt-6">
-            <h3 className="text-2xl font-bold mb-4 text-white">
-              Your Courses
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <h3 className="mb-4 text-2xl font-bold text-white">Your Courses</h3>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               {enrolledCourses.map((course) => (
                 <div
                   key={course.id}
-                  className="bg-white p-4 rounded-lg shadow-md"
+                  className="rounded-lg bg-white p-4 shadow-md"
                 >
                   <h4 className="text-lg font-bold text-blue-600">
                     {course.title}
                   </h4>
-                  <p className="text-gray-600 mt-1">
+                  <p className="mt-1 text-gray-600">
                     Instructor: {course.instructor}
                   </p>
-                  <p className="text-gray-500 text-sm mt-1">
+                  <p className="mt-1 text-sm text-gray-500">
                     Duration: {course.duration}
                   </p>
                   <div className="mt-4">
-                    <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div className="h-2.5 w-full rounded-full bg-gray-200">
                       <div
-                        className="bg-blue-500 h-2.5 rounded-full"
+                        className="h-2.5 rounded-full bg-blue-500"
                         style={{ width: `${course.progress}%` }}
                       ></div>
                     </div>
-                    <p className="text-sm mt-2 text-gray-500">
+                    <p className="mt-2 text-sm text-gray-500">
                       Progress: {course.progress}%
                     </p>
                   </div>
@@ -170,25 +104,25 @@ const EnrolledCourses = () => {
 
           {/* Recommended Courses */}
           <section className="mt-8">
-            <h3 className="text-2xl font-bold mb-4 text-white">
+            <h3 className="mb-4 text-2xl font-bold text-white">
               Recommended Courses
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               {recommendedCourses.map((course) => (
                 <div
                   key={course.id}
-                  className="bg-blue-50 p-4 rounded-lg shadow-md"
+                  className="rounded-lg bg-blue-50 p-4 shadow-md"
                 >
                   <h4 className="text-lg font-bold text-gray-700">
                     {course.title}
                   </h4>
-                  <p className="text-gray-600 mt-1">
+                  <p className="mt-1 text-gray-600">
                     Instructor: {course.instructor}
                   </p>
-                  <p className="text-gray-500 text-sm mt-1">
+                  <p className="mt-1 text-sm text-gray-500">
                     Duration: {course.duration}
                   </p>
-                  <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                  <button className="mt-4 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
                     Enroll Now →
                   </button>
                 </div>
@@ -196,9 +130,8 @@ const EnrolledCourses = () => {
             </div>
           </section>
         </main>
-
-</div>
-</>
+      </div>
+    </>
   );
 };
 

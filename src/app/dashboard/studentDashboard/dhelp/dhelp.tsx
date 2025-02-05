@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { PaperAirplaneIcon, CameraIcon, XCircleIcon } from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import StudentSideBar from "../sideBar";
 
 import {
   HomeIcon,
@@ -102,183 +103,127 @@ const Help = () => {
 
   return (
     <>
-    {/* Content Container */}
-  <div className="flex gap-6 min-w-full min-h-screen">
-  {/* Sidebar */}
-  <aside className="w-64 rounded-lg bg-blue-100 p-6 text-black shadow-sm  h-screen fixed">
-        <h2 className="mb-8 text-2xl font-bold"></h2>
-        <ul className="space-y-6">
-          <li className="active flex items-center">
-            <HomeIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/studentDashboard/dhome"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Home
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <UserIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/studentDashboard/dprofile"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Profile
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <BookOpenIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/studentDashboard/denrolled"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Enrolled Courses
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <ClipboardDocumentIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/studentDashboard/dannounce"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Announcements
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <Cog6ToothIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/studentDashboard/dattend"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Attendance
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <ClockIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/studentDashboard/dupsessions"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Upcoming Sessions
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <QuestionMarkCircleIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/studentDashboard/dhelp"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Any Doubts?
-            </Link>
-          </li>
-        </ul>
-      </aside>
+      {/* Content Container */}
+      <div className="flex min-h-screen min-w-full gap-6">
+        {/* Sidebar */}
+        <aside className="card fixed w-64 bg-base-100 p-4">
+          <StudentSideBar />
+        </aside>
+        {/* main announcement content */}
 
-    {/* main announcement content */}
+        <div className="ml-72 mr-14 w-full flex-1">
+          <div className="rounded-lg bg-blue-100 p-6 shadow-sm">
+            <h2 className="mb-6 text-3xl font-bold text-black dark:text-blue-400">
+              Need HELP? Ask Your Doubts!
+            </h2>
+          </div>
 
-    <div className="flex-1 w-full ml-72 mr-14">
-
-    <div className="rounded-lg bg-blue-100 p-6 shadow-sm">
-    <h2 className="text-3xl font-bold text-black dark:text-blue-400 mb-6">
-        Need HELP? Ask Your Doubts!
-      </h2>
-      </div>
-      
-    <div className=" mx-auto p-6 mt-4 bg-white text-black dark:bg-gray-900 shadow-lg rounded-xl">
-      
-      {/* Doubt Input Section */}
-      <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow">
-        <input
-          type="text"
-          value={newDoubt}
-          onChange={(e) => setNewDoubt(e.target.value)}
-          placeholder="Type your question..."
-          className="w-full p-2 bg-transparent focus:outline-none dark:text-white mb-3"
-        />
-
-        {/* Image Upload Section */}
-        <div className="flex items-center gap-3">
-          <label className="cursor-pointer flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-all">
-            <CameraIcon className="h-5 w-5" />
-            Add Image
-            <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
-          </label>
-
-          {selectedImage && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="relative"
-            >
-              <img
-                src={URL.createObjectURL(selectedImage)}
-                alt="Selected"
-                className="h-20 w-20 object-cover rounded-lg border border-gray-300"
+          <div className="mx-auto mt-4 rounded-xl bg-white p-6 text-black shadow-lg dark:bg-gray-900">
+            {/* Doubt Input Section */}
+            <div className="rounded-lg bg-gray-100 p-4 shadow dark:bg-gray-800">
+              <input
+                type="text"
+                value={newDoubt}
+                onChange={(e) => setNewDoubt(e.target.value)}
+                placeholder="Type your question..."
+                className="mb-3 w-full bg-transparent p-2 focus:outline-none dark:text-white"
               />
+
+              {/* Image Upload Section */}
+              <div className="flex items-center gap-3">
+                <label className="flex cursor-pointer items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-white transition-all hover:bg-blue-700">
+                  <CameraIcon className="h-5 w-5" />
+                  Add Image
+                  <input
+                    type="file"
+                    className="hidden"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                  />
+                </label>
+
+                {selectedImage && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="relative"
+                  >
+                    <img
+                      src={URL.createObjectURL(selectedImage)}
+                      alt="Selected"
+                      className="h-20 w-20 rounded-lg border border-gray-300 object-cover"
+                    />
+                    <button
+                      className="absolute -right-2 -top-2 rounded-full bg-red-600 p-1 text-white"
+                      onClick={() => setSelectedImage(null)}
+                    >
+                      <XCircleIcon className="h-5 w-5" />
+                    </button>
+                  </motion.div>
+                )}
+              </div>
+
               <button
-                className="absolute -top-2 -right-2 bg-red-600 text-white rounded-full p-1"
-                onClick={() => setSelectedImage(null)}
+                onClick={submitDoubt}
+                className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-white transition-all hover:bg-blue-700"
               >
-                <XCircleIcon className="h-5 w-5" />
+                {loading ? "Submitting..." : "Ask"}
+                <PaperAirplaneIcon className="h-5 w-5" />
               </button>
-            </motion.div>
-          )}
-        </div>
+            </div>
 
-        <button
-          onClick={submitDoubt}
-          className="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-all flex items-center justify-center gap-2"
-        >
-          {loading ? "Submitting..." : "Ask"}
-          <PaperAirplaneIcon className="h-5 w-5" />
-        </button>
-      </div>
+            {/* Success Message */}
+            {message && (
+              <motion.p
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="mt-2 font-semibold text-green-600"
+              >
+                {message}
+              </motion.p>
+            )}
 
-      {/* Success Message */}
-      {message && (
-        <motion.p
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          className="mt-2 text-green-600 font-semibold"
-        >
-          {message}
-        </motion.p>
-      )}
-
-      {/* List of Doubts */}
-      <h3 className="mt-6 text-xl font-semibold text-gray-800 dark:text-white">
-        Your Questions
-      </h3>
-      <div className="mt-3 space-y-4">
-        {doubts.length === 0 ? (
-          <p className="text-gray-500">No doubts asked yet.</p>
-        ) : (
-          doubts.map((doubt) => (
-            <motion.div
-              key={doubt.id}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="p-4 border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg bg-gray-50 dark:bg-gray-800"
-            >
-              <p className="font-medium text-gray-900 dark:text-white">{doubt.question}</p>
-              {doubt.image && (
-                <img src={doubt.image} alt="Doubt" className="mt-2 h-32 w-auto rounded-lg border" />
-              )}
-              {doubt.answer? (
-                <p className="text-green-600 dark:text-green-400 mt-2">Teacher: {doubt.answer}</p>
+            {/* List of Doubts */}
+            <h3 className="mt-6 text-xl font-semibold text-gray-800 dark:text-white">
+              Your Questions
+            </h3>
+            <div className="mt-3 space-y-4">
+              {doubts.length === 0 ? (
+                <p className="text-gray-500">No doubts asked yet.</p>
               ) : (
-                <p className="text-gray-500 mt-2">Awaiting response...</p>
+                doubts.map((doubt) => (
+                  <motion.div
+                    key={doubt.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="rounded-lg border border-gray-300 bg-gray-50 p-4 shadow-lg dark:border-gray-700 dark:bg-gray-800"
+                  >
+                    <p className="font-medium text-gray-900 dark:text-white">
+                      {doubt.question}
+                    </p>
+                    {doubt.image && (
+                      <img
+                        src={doubt.image}
+                        alt="Doubt"
+                        className="mt-2 h-32 w-auto rounded-lg border"
+                      />
+                    )}
+                    {doubt.answer ? (
+                      <p className="mt-2 text-green-600 dark:text-green-400">
+                        Teacher: {doubt.answer}
+                      </p>
+                    ) : (
+                      <p className="mt-2 text-gray-500">Awaiting response...</p>
+                    )}
+                  </motion.div>
+                ))
               )}
-            </motion.div>
-          ))
-        )}
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-
-    </div>
-</div>
-</>
+    </>
   );
 };
 

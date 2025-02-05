@@ -4,7 +4,7 @@ import Attendance from './dattend';
 
 const Attend = () => {
   return (
-    <div className='px-[4rem] py-[6rem]'><Attendance/></div>
+    <div className='px-[4rem] py-[5rem]'><Attendance/></div>
 
   );
 };

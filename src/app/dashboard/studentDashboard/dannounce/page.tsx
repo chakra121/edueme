@@ -4,7 +4,7 @@ import Announcements from './dannounce';
 
 const Announcement = () => {
   return (
-    <div className='px-[4rem] py-[6rem]'><Announcements/></div>
+    <div className='px-[4rem] py-[5rem]'><Announcements/></div>
 
   );
 };

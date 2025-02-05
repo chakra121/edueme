@@ -6,7 +6,7 @@ const page = () => {
   
     
     return (
-      <div className='px-[4rem] py-[6rem]'><Profile/></div>
+      <div className='px-[4rem] py-[5rem]'><Profile/></div>
     )
   
 }
