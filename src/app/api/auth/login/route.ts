@@ -1,21 +1,21 @@
 import { connectDb } from "@/lib/connectDB";
 import { NextResponse } from "next/server";
-import DemoFormModel from "@/model/User";
+import StudentModel from "@/model/User";
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
+import mongoose from 'mongoose'; // Added import
 
+const SECRET_KEY = process.env.JWT_SECRET ?? "your_secret_key";
 
-const SECRET_KEY = process.env.JWT_SECRET ?? "your_secret_key"; // Replace in .env
 interface LoginRequestBody {
   email: string;
   password: string;
 }
 
 export async function POST(request: Request) {
-  await connectDb(); // Connect to MongoDB
-
   try {
-    // Parse and validate the incoming request body
+    await connectDb();
+
     const body = await request.json() as LoginRequestBody;
     const { email, password } = body;
 
@@ -26,40 +26,56 @@ export async function POST(request: Request) {
       );
     }
 
-    // Find the user with the given email
-    const user = await DemoFormModel.findOne({ email });
+    const user = await StudentModel.findOne({ email });
     if (!user) {
       return NextResponse.json(
-        { message: "User not found", success: false },
+        { message: "Invalid email address", success: false },
         { status: 404 }
       );
     }
 
-    // Compare the password using bcrypt
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return NextResponse.json(
-        { message: "Invalid email or password", success: false },
+        { message: "Incorrect password", success: false },
         { status: 401 }
       );
     }
 
-    // Generate JWT token
     const token = jwt.sign(
-      { id: user._id, email: user.email, role: user.userRole, name:user.name },
+      { 
+        id: user._id, 
+        email: user.email, 
+        role: user.userRole, 
+        name: `${user.firstName}`
+      },
       SECRET_KEY,
       { expiresIn: "1h" }
     );
 
-    // Respond with success and token
     return NextResponse.json(
-      { message: "Login successful", success: true, token },
+      { 
+        message: "Login successful", 
+        success: true, 
+        token,
+        role: user.userRole 
+      },
       { status: 200 }
     );
+
   } catch (error) {
     console.error("Error during login:", error);
+    
+    // Fixed error checking
+    if (error instanceof Error && error.name === 'MongooseServerSelectionError') {
+      return NextResponse.json(
+        { message: "Database connection failed", success: false },
+        { status: 500 }
+      );
+    }
+
     return NextResponse.json(
-      { message: "Internal Server Error", success: false },
+      { message: "Server is busy. Please try again.", success: false },
       { status: 500 }
     );
   }

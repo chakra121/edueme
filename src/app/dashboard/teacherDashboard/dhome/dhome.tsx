@@ -16,7 +16,12 @@ import ReactApexChart from "react-apexcharts"; // Import ApexCharts component
 const SECRET_KEY = process.env.JWT_SECRET ?? "your_secret_key";
 
 const Dashboard = () => {
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState<{
+      id: string;
+      name: string;
+      email: string;
+      role: string;
+    } | null>(null);
   const [doubts, setDoubts] = useState(3); // Example of unresolved doubts
   const [assignedClass, setAssignedClass] = useState({
     name: "AI on Fingertips | 2024 | BATCH 1",
@@ -27,19 +32,24 @@ const Dashboard = () => {
     attendanceMarked: false,
   });
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      try {
-        const decoded = jwt.decode(token);
-        if (decoded) {
-          setUserData(decoded); // Set user data after decoding JWT
-        }
-      } catch (error) {
-        console.error("Error decoding token:", error.message);
+useEffect(() => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    try {
+      const decoded = jwt.decode(token) as {
+        id: string;
+        name: string;
+        email: string;
+        role: string;
+      } | null;
+      if (decoded) {
+        setUserData(decoded);
       }
+    } catch (error) {
+      console.error("Error decoding token:", error);
     }
-  }, []);
+  }
+}, []);
 
   if (!userData) {
     return (
@@ -226,7 +236,7 @@ const Dashboard = () => {
          {/* Bar Chart Section */}
          <section className="mt-6 rounded-lg bg-white p-6 shadow-md">
           <h3 className="text-xl font-bold text-black mb-4">Attendance</h3>
-          <ReactApexChart options={attendanceChartData} series={attendanceChartData.series} type="bar" height={240} />
+          {/* <ReactApexChart options={attendanceChartData} series={attendanceChartData.series} type="bar" height={240} /> */}
         </section>
 
       </main>

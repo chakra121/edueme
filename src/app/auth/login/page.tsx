@@ -2,7 +2,6 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 
-// Define interfaces for form data and errors
 interface FormData {
   email: string;
   password: string;
@@ -13,12 +12,6 @@ interface FormErrors {
   password?: string;
 }
 
-interface LoginResponse {
-  success: boolean;
-  token: string;
-  message?: string;
-}
-
 const Login: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     email: "",
@@ -26,19 +19,16 @@ const Login: React.FC = () => {
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
-  const [submitted, setSubmitted] = useState<boolean>(false);
   const [apiError, setApiError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
-  // Validation Function
   const validate = (): boolean => {
     const tempErrors: FormErrors = {};
     if (!formData.email) {
       tempErrors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      tempErrors.email = "Email address is invalid";
+      tempErrors.email = "Invalid email format";
     }
     if (!formData.password) {
       tempErrors.password = "Password is required";
@@ -47,115 +37,156 @@ const Login: React.FC = () => {
     return Object.keys(tempErrors).length === 0;
   };
 
-  // Handle Input Change
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+ const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+   const { name, value } = e.target;
 
-  // Handle Form Submission
+   // Type-safe way to update form data
+   setFormData((prev) => ({
+     ...prev,
+     [name]: value,
+   }));
+
+   // Type-safe way to clear errors
+   if (errors[name as keyof FormErrors]) {
+     setErrors((prev) => ({
+       ...prev,
+       [name]: "",
+     }));
+   }
+ };
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (validate()) {
-      setLoading(true);
-      setApiError(null);
+    setApiError(null);
 
-      try {
-        const response = await fetch("/api/auth/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        });
+    if (!validate()) return;
 
-        const result = (await response.json()) as LoginResponse;
+    try {
+      setIsSubmitting(true);
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-        if (response.ok && result.success) {
-          setSubmitted(true);
-          localStorage.setItem("token", result.token); // Store JWT Token
-          router.push("/dashboard/studentDashboard/dhome");
-        } else {
-          setApiError(result.message ?? "Login failed");
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        localStorage.setItem("token", result.token);
+
+        // Role-based routing
+        switch (result.role) {
+          case "teacher":
+            router.push("/dashboard/teacherDashboard/dhome");
+            break;
+          case "superadmin":
+            router.push("/dashboard/adminDashboard/dhome");
+            break;
+          default: // student
+            router.push("/dashboard/studentDashboard/dhome");
         }
-      } catch (error) {
-        console.error("Error:", error);
-        setApiError("Something went wrong. Please try again.");
-      } finally {
-        setLoading(false);
+      } else {
+        setApiError(result.message || "Login failed. Please try again.");
       }
+    } catch (error) {
+      console.error("Error:", error);
+      setApiError("Server is busy. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
     <div
-      className="flex min-h-screen justify-center items-center bg-cover bg-center"
-      style={{ backgroundImage: "url('/loginbg.jpeg')" }}
+      className="flex min-h-screen items-center justify-center bg-cover bg-center pb-[5rem] pt-[6rem]"
+      style={{
+        backgroundImage: "url('/loginbg.jpeg')",
+        backgroundPosition: "center 30%",
+      }}
     >
-      <div className="px-[1rem] py-[2rem] mx-[1rem] w-full max-w-md rounded-lg bg-white bg-opacity-90 shadow-md">
-        <h2 className="mb-4 text-center text-2xl font-bold text-gray-800">
-          Login
-        </h2>
-
-        <form onSubmit={handleSubmit} className="text-black flex flex-col">
-          <label className="mb-2 block">
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter Email"
-              value={formData.email}
-              onChange={handleChange}
-              className="mt-1 w-full rounded-md border p-2"
-            />
-            {errors.email && (
-              <p className="text-sm text-red-500">{errors.email}</p>
-            )}
-          </label>
-
-          <label className="mb-4 block">
-            <input
-              type="password"
-              name="password"
-              placeholder="Enter password"
-              value={formData.password}
-              onChange={handleChange}
-              className="mt-1 w-full rounded-md border p-2"
-            />
-            {errors.password && (
-              <p className="text-sm text-red-500">{errors.password}</p>
-            )}
-          </label>
-
-          <p className="text-center text-sm text-gray-600">
-          Dont have an account?{" "}
-          <a
-            href="/auth/signup"
-            className="font-medium text-blue-500 hover:underline"
-          >
-            Signup
-          </a>
-        </p>
-
-          <button
-            type="submit"
-            className={`w-full rounded-md bg-blue-500 py-2 text-white ${
-              loading ? "cursor-not-allowed opacity-70" : "hover:bg-blue-600"
-            }`}
-            disabled={loading}
-          >
-            {loading ? "Logging in..." : "Login"}
-          </button>
+      <div className="card w-96 bg-base-100 shadow-xl">
+        <div className="card-body">
+          <h2 className="card-title mb-4 text-2xl font-bold text-base-content">
+            Login to Edueme
+          </h2>
 
           {apiError && (
-            <p className="mt-4 text-center text-red-500">{apiError}</p>
+            <div className="alert alert-error mb-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 shrink-0 stroke-current"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span>{apiError}</span>
+            </div>
           )}
 
-          {submitted && (
-            <p className="mt-4 text-center text-green-500">
-              Login successful! Redirecting...
-            </p>
-          )}
-        </form>
+          <form onSubmit={handleSubmit}>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text text-base-content">Email:</span>
+              </label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className={`input input-bordered text-base-content ${errors.email ? "input-error" : ""}`}
+              />
+              {errors.email && (
+                <span className="text-sm text-error">{errors.email}</span>
+              )}
+            </div>
+
+            <div className="form-control mt-4">
+              <label className="label">
+                <span className="label-text text-base-content">Password:</span>
+              </label>
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                className={`input input-bordered text-base-content ${errors.password ? "input-error" : ""}`}
+              />
+              {errors.password && (
+                <span className="text-sm text-error">{errors.password}</span>
+              )}
+            </div>
+
+            <div className="card-actions mt-6">
+              <button
+                type="submit"
+                className="btn btn-primary w-full"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <>
+                    <span className="loading loading-infinity loading-md"></span>
+                    Logging in...
+                  </>
+                ) : (
+                  "Login"
+                )}
+              </button>
+            </div>
+          </form>
+
+          <p className="mt-3 text-center text-sm text-base-content">
+            Don't have an account?{" "}
+            <a href="/auth/signup" className="link link-info font-medium">
+              Signup
+            </a>
+          </p>
+        </div>
       </div>
     </div>
   );
