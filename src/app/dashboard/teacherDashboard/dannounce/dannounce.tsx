@@ -109,14 +109,14 @@ const Announcements = () => {
             <input
               type="text"
               placeholder="Enter announcement title"
-              className="w-full rounded-md border px-4 py-2 text-sm"
+              className="w-full rounded-md border px-4 py-2 text-sm text-black focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
             />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">Description</label>
             <textarea
               placeholder="Enter announcement details"
-              className="w-full rounded-md border px-4 py-2 text-sm"
+              className="w-full rounded-md border px-4 py-2 text-sm text-black focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
             ></textarea>
           </div>
           <button type="submit" className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">

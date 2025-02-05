@@ -1,8 +1,29 @@
-import React from "react";
+"use client";
+import React, { useEffect, useRef } from "react";
 import Link from "next/link";
+import Typed from "typed.js";
 import { RainbowButton } from "@/components/ui/rainbow-button";
 import LaunchIcon from "@mui/icons-material/Launch";
+
 const Hero = () => {
+  const typedElement = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const typed = new Typed(typedElement.current, {
+      strings: ["Welcome to"],
+      typeSpeed: 60,
+      backSpeed: 40,
+      backDelay: 2000,
+      startDelay: 500,
+      loop: true,
+      showCursor: false,
+    });
+
+    return () => {
+      typed.destroy();
+    };
+  }, []);
+
   return (
     <div className="relative h-screen w-full overflow-hidden bg-gradient-to-r">
       {/* Background Video */}
@@ -16,11 +37,13 @@ const Hero = () => {
       >
         Your browser does not support the video tag.
       </video>
+
       <div className="flex h-full">
         {/* Left Content (2/3 of the width) */}
         <div className="flex w-full flex-col items-center justify-center gap-6 pl-[60px] text-center lg:w-[63.6%] lg:items-start lg:text-left">
           <h1 className="text-5xl font-bold text-white">
-            Welcome to <br />
+            <span ref={typedElement} className="text-white"></span>
+            <br />
             <span className="relative bg-gradient-to-r from-purple-600 via-orange-500 to-green-500 bg-clip-text text-6xl text-transparent">
               EduMe
               <span className="absolute inset-0 -z-10 bg-gradient-to-r from-purple-600 via-orange-500 to-green-500 opacity-75 blur-[8px]"></span>
@@ -31,6 +54,7 @@ const Hero = () => {
           <p className="mt-4 text-lg text-gray-200 sm:text-xl lg:max-w-[50%] lg:text-2xl">
             Robotics and AI Curriculum for the Future Innovators
           </p>
+
           <div className="mt-6 flex flex-col items-center gap-4 sm:flex-row">
             <Link href="/demoFrom">
               <RainbowButton className="w-fit px-6 py-3 text-lg">
@@ -49,9 +73,7 @@ const Hero = () => {
         {/* Right Content (1/3 of the width) */}
         <div className="flex w-full items-center justify-center lg:w-[34.3%]">
           <div className="flex w-full max-w-[90%] flex-col rounded-lg bg-white p-6 text-center shadow-lg">
-            <h2 className="text-3xl font-bold text-black">
-              Upcoming Events...
-            </h2>
+            <h2 className="text-3xl font-bold text-black">Upcoming Events...</h2>
             <p className="mt-4 text-gray-600">
               Stay tuned for our upcoming events and webinars. We have exciting
               sessions planned to help you dive deeper into Robotics and AI.
