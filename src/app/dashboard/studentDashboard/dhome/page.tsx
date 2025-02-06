@@ -4,7 +4,7 @@ import Dashboard from './dhome'
 
 const page = () => {
   return (
-    <div className='px-[4rem] py-[6rem]'><Dashboard/></div>
+    <div className='px-[4rem] pt-[5rem]'><Dashboard/></div>
   )
 }
 

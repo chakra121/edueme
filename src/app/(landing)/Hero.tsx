@@ -15,7 +15,7 @@ const Hero = () => {
       backSpeed: 40,
       backDelay: 2000,
       startDelay: 500,
-      loop: true,
+      loop: false,
       showCursor: false,
     });
 
@@ -28,7 +28,7 @@ const Hero = () => {
     <div className="relative h-screen w-full overflow-hidden bg-gradient-to-r">
       {/* Background Video */}
       <video
-        className="absolute left-0 top-0 -z-50 h-full w-full object-cover opacity-20"
+        className="absolute left-0 top-0 z-40 h-full w-full object-cover opacity-20"
         src="/bgVideo.mp4"
         autoPlay
         loop
@@ -41,12 +41,11 @@ const Hero = () => {
       <div className="flex h-full">
         {/* Left Content (2/3 of the width) */}
         <div className="flex w-full flex-col items-center justify-center gap-6 pl-[60px] text-center lg:w-[63.6%] lg:items-start lg:text-left">
-          <h1 className="text-5xl font-bold text-white">
-            <span ref={typedElement} className="text-white"></span>
-            <br />
-            <span className="relative bg-gradient-to-r from-purple-600 via-orange-500 to-green-500 bg-clip-text text-6xl text-transparent">
-              EduMe
-              <span className="absolute inset-0 -z-10 bg-gradient-to-r from-purple-600 via-orange-500 to-green-500 opacity-75 blur-[8px]"></span>
+          <h1 className="text-6xl font-bold text-white">
+            <span ref={typedElement} className="text-white"></span>{" "}
+            <span className="relative bg-gradient-to-r from-yellow-400 via-orange-500 to-orange-400 bg-clip-text text-7xl text-transparent drop-shadow-[0_0_15px_rgba(249,115,22,0.6)]">
+              EdueMe
+              <span className="from-yellow-40 absolute inset-0 -z-10 bg-gradient-to-r via-orange-500 to-orange-400 opacity-50 blur-[24px]"></span>
             </span>{" "}
             Online
           </h1>
@@ -70,8 +69,8 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Right Content (1/3 of the width) */}
-        <div className="flex w-full items-center justify-center lg:w-[34.3%]">
+        {/* Right Content (1/3 of the width)
+        <div className="flex w-full bg- items-center justify-center lg:w-[34.3%]">
           <div className="flex w-full max-w-[90%] flex-col rounded-lg bg-white p-6 text-center shadow-lg">
             <h2 className="text-3xl font-bold text-black">Upcoming Events...</h2>
             <p className="mt-4 text-gray-600">
@@ -87,7 +86,7 @@ const Hero = () => {
               </Link>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

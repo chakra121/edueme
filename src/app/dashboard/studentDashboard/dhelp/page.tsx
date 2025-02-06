@@ -4,7 +4,7 @@ import Help from './dhelp'
 
 const page = () => {
   return (
-    <div className='px-[4rem] py-[6rem]'><Help/></div>
+    <div className='px-[4rem] py-[5rem]'><Help/></div>
   )
 }
 

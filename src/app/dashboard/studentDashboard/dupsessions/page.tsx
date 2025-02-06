@@ -4,7 +4,7 @@ import Upcoming from './dupsessions'
 
 const page = () => {
   return (
-    <div className='px-[4rem] py-[6rem]'><Upcoming/></div>
+    <div className='px-[4rem] py-[5rem]'><Upcoming/></div>
   )
 }
 
