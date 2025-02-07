@@ -87,7 +87,7 @@ function ContactForm() {
     <div
       className="flex min-h-screen flex-col items-center gap-[1rem] bg-cover bg-center px-[1rem] pt-[6rem] lg:flex-row lg:justify-between lg:px-[20%]"
       style={{
-        backgroundImage: "url('/contactbgg.png')",
+        backgroundImage: "url('/contactbg.png')",
       }}
     >
       {/* Form Card */}

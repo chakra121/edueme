@@ -11,3 +11,8 @@ export interface StudentRegisterForm {
   confirmPassword: string;
   userRole: string;
 }
+
+export interface TeacherRegisterForm {
+  firstName: string;
+  lastName: string;
+}

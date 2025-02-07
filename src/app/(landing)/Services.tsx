@@ -1,6 +1,40 @@
 import React from "react";
 
 const AiRoboticsPage: React.FC = () => {
+  const cardsData = [
+    {
+      id: 1,
+      imageSrc: "/servic/lab_setups.jpeg",
+      title: "Lab Setup",
+    },
+    {
+      id: 2,
+      imageSrc: "/servic/online_learning.jpeg",
+      title: "Online Learning",
+    },
+    {
+      id: 3,
+      imageSrc: "/servic/s3.jpeg",
+      title: "Curriculum",
+    },
+    {
+      id: 4,
+      imageSrc: "/servic/skilled_trinners.jpeg",
+      title: "Skilled Trainers",
+    },
+    {
+      id: 5,
+      imageSrc: "/servic/classrooom.jpeg",
+      title: "In-class Learning",
+    },
+    {
+      id: 6,
+      imageSrc: "/servic/tech_tours.jpeg",
+  
+      title: "Tech Tours",
+    },
+  ];
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-black px-6 py-10">
       {/* Title Section */}
@@ -15,88 +49,21 @@ const AiRoboticsPage: React.FC = () => {
 
       {/* Cards Section */}
       <div className="grid grid-cols-1 gap-8 px-10 sm:grid-cols-2 lg:grid-cols-3">
-        {/* Card 1 */}
-        <div className="group relative flex flex-col items-center overflow-hidden rounded-[30px] bg-white shadow-md">
-          <div className="relative h-48 w-full overflow-hidden rounded-t-[30px]">
-            <img
-              src="/servic/s1.jpeg"
-              alt="Educational Kits"
-              className="h-full w-full transform object-cover transition-transform duration-300 group-hover:scale-105"
-            />
+        {cardsData.map((card) => (
+          <div
+            key={card.id}
+            className="card card-compact items-center w-96 h-64 bg-base-300 shadow-xl"
+          >
+            <figure>
+              <img src={card.imageSrc} alt="Image not found" className="border-b-orange-950 border-b-2" />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title text-base-content">
+              {card.title}
+              </h2>
+            </div>
           </div>
-          <div className="w-full bg-blue-500 py-4 text-center">
-            <h2 className="text-2xl font-bold text-white">STEM Lab Setups</h2>
-          </div>
-        </div>
-
-        {/* Card 2 */}
-        <div className="group relative flex flex-col items-center overflow-hidden rounded-[30px] bg-white shadow-md">
-          <div className="relative h-48 w-full overflow-hidden rounded-t-[30px]">
-            <img
-              src="/servic/s2.jpeg"
-              alt="PictoBlox"
-              className="h-full w-full transform object-cover transition-transform duration-300 group-hover:scale-105"
-            />
-          </div>
-          <div className="w-full bg-blue-500 py-4 text-center">
-            <h2 className="text-2xl font-bold text-white">Online Learning</h2>
-          </div>
-        </div>
-
-        {/* Card 3 */}
-        <div className="group relative flex flex-col items-center overflow-hidden rounded-[30px] bg-white shadow-md">
-          <div className="relative h-48 w-full overflow-hidden rounded-t-[30px]">
-            <img
-              src="/servic/s3.jpeg"
-              alt="Curriculum"
-              className="h-full w-full transform object-cover transition-transform duration-300 group-hover:scale-105"
-            />
-          </div>
-          <div className="w-full bg-blue-500 py-4 text-center">
-            <h2 className="text-2xl font-bold text-white">Curriculum</h2>
-          </div>
-        </div>
-
-        {/* Card 4 */}
-        <div className="group relative flex flex-col items-center overflow-hidden rounded-[30px] bg-white shadow-md">
-          <div className="relative h-48 w-full overflow-hidden rounded-t-[30px]">
-            <img
-              src="/servic/s4.jpeg"
-              alt="Teacher Development Program"
-              className="h-full w-full transform object-cover transition-transform duration-300 group-hover:scale-105"
-            />
-          </div>
-          <div className="w-full bg-blue-500 py-4 text-center">
-            <h2 className="text-2xl font-bold text-white">Skilled Trainers</h2>
-          </div>
-        </div>
-
-        {/* Card 5 */}
-        <div className="group relative flex flex-col items-center overflow-hidden rounded-[30px] bg-white shadow-md">
-          <div className="relative h-48 w-full overflow-hidden rounded-t-[30px]">
-            <img
-              src="/servic/s5.png"
-              alt="Codeavour"
-              className="h-full w-full transform object-cover transition-transform duration-300 group-hover:scale-105"
-            />
-          </div>
-          <div className="w-full bg-blue-500 py-4 text-center">
-            <h2 className="text-2xl font-bold text-white">In-class Learning</h2>
-          </div>
-        </div>
-        {/* Card 6 */}
-        <div className="group relative flex flex-col items-center overflow-hidden rounded-[30px] bg-white shadow-md">
-          <div className="relative h-48 w-full overflow-hidden rounded-t-[30px]">
-            <img
-              src="/servic/s5.png"
-              alt="Codeavour"
-              className="h-full w-full transform object-cover transition-transform duration-300 group-hover:scale-105"
-            />
-          </div>
-          <div className="w-full bg-blue-500 py-4 text-center">
-            <h2 className="text-2xl font-bold text-white">Tech Tours</h2>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );

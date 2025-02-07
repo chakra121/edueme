@@ -13,7 +13,8 @@ export default function HomePage() {
   return (
     <div>
       <Hero />
-      <AnnouncementScroller announcements={announcements} /> <Services />
+      <AnnouncementScroller announcements={announcements} /> 
+      <Services />
       <Schools />
       <Products />
       <Gallery />
