@@ -17,7 +17,7 @@ model Admin {
   id             String           @id @default(auto()) @map("_id") @db.ObjectId
   email          String           @unique
   password       String
-announcements  AdminAnnouncement[] @relation("AdminToAnnouncement")
+  announcements  AdminAnnouncement[] @relation("AdminToAnnouncement")
 }
 
 model AdminAnnouncement {
@@ -25,6 +25,6 @@ model AdminAnnouncement {
   title          String
   description    String
   date           DateTime
-adminId        String?        @db.ObjectId
+  adminId        String?        @db.ObjectId
   admin          Admin?         @relation(fields: [adminId], references: [id], name: "AdminToAnnouncement")
   }
