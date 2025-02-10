@@ -9,9 +9,17 @@ const events = [
   { id: 3, title: "Autonomous Machines", category: "Robotics", image: "/robotics-events3.jpg", description: "Discover the future of autonomous machines." },
 ];
 
+type Event = {
+  id: number;
+  title: string;
+  category: string;
+  image: string;
+  description: string;
+};
+
 export default function EventsPage() {
-  const [filter, setFilter] = useState("All");
-  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [filter, setFilter] = useState<string>("All");
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const router = useRouter();
 
   const filteredEvents = filter === "All" ? events : events.filter(event => event.category === filter);
