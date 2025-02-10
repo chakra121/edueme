@@ -9,11 +9,11 @@ const Slider = dynamic(() => import("react-slick"), { ssr: false });
 
 const reviews = [
   {
-    name: "Usha Ramaswamy",
-    position: "Vice Principal",
-    institution: "The Shri Ram Universal School, Hyderabad",
+    name: "Name of Principal",
+    position: "Principal",
+    institution: "Arka International School, Hyderabad",
     review:
-      "We are delighted that the CognoSpace Science curriculum for middle school enables teachers to deliver activity-based modules. The hands-on science experiments have ensured that students love their classes and look forward to them. The modules have helped to consolidate concepts while igniting curiosity among students. Thank you Team CognoSpace!",
+      "We are delighted that the Edueme curriculum for middle school enables teachers to deliver activity-based modules. The hands-on science experiments have ensured that students love their classes and look forward to them. The modules have helped to consolidate concepts while igniting curiosity among students. Thank you Team CognoSpace!",
     rating: 5,
     image: "/profile-image.avif", // Replace with actual image URL
   },

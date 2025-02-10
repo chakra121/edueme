@@ -18,9 +18,7 @@ const MOFC = () => {
                   className="absolute inset-0 bg-cover bg-center rounded-lg [backface-visibility:hidden]"
                   style={{ backgroundImage: `url('${image}')` }}
                 >
-                  <div className="flex flex-col items-center justify-center h-full">
-                    <img src="https://s25.postimg.cc/65hsttv9b/cta-arrow.png" alt="Arrow" className="mt-6" />
-                  </div>
+                
                 </div>
                 {/* Back Side */}
                 <div className="absolute inset-0 bg-[#373737] rounded-lg flex flex-col items-center justify-center [transform:rotateY(180deg)] [backface-visibility:hidden]">
