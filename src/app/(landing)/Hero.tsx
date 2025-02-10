@@ -28,7 +28,7 @@ const Hero = () => {
     <div className="relative h-screen w-full overflow-hidden bg-gradient-to-r">
       {/* Background Video */}
       <video
-        className="absolute left-0 top-0 z-40 h-full w-full object-cover opacity-20"
+        className="absolute left-0 top-0 z-30 h-full w-full object-cover opacity-20"
         src="/bgVideo.mp4"
         autoPlay
         loop
@@ -69,8 +69,8 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Right Content (1/3 of the width)
-        <div className="flex w-full bg- items-center justify-center lg:w-[34.3%]">
+        {/* Right Content (1/3 of the width) */}
+        <div className="flex w-full items-center z-40 justify-center lg:w-[34.3%]">
           <div className="flex w-full max-w-[90%] flex-col rounded-lg bg-white p-6 text-center shadow-lg">
             <h2 className="text-3xl font-bold text-black">Upcoming Events...</h2>
             <p className="mt-4 text-gray-600">
@@ -86,7 +86,7 @@ const Hero = () => {
               </Link>
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );
