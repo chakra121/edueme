@@ -7,6 +7,7 @@ import Gallery from "./Gallery";
 import AnnouncementScroller from "./AnnouncementScroller";
 import MOFC from './Mofc';
 import CH from './curriculumh';
+import ICL from './Iclearning';
 
 export default function HomePage() {
    const announcements = [
@@ -21,6 +22,7 @@ export default function HomePage() {
       <Products />
       <MOFC/>
       <CH/>
+      <ICL/>
       <Gallery />
     </div>
   );
