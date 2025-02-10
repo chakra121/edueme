@@ -6,6 +6,7 @@ import Services from "./Services";
 import Gallery from "./Gallery";
 import AnnouncementScroller from "./AnnouncementScroller";
 import MOFC from './Mofc';
+import CH from './curriculumh';
 
 export default function HomePage() {
    const announcements = [
@@ -19,6 +20,7 @@ export default function HomePage() {
       <Services />
       <Products />
       <MOFC/>
+      <CH/>
       <Gallery />
     </div>
   );
