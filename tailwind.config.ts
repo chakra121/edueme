@@ -2,7 +2,7 @@ import { type Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme";
 
 export default {
-  mode: "jit", // ✅ Explicitly enable JIT mode
+  mode: "jit",
   darkMode: ["class"],
   content: ["./src/**/*.tsx"],
   theme: {
@@ -72,6 +72,7 @@ export default {
         'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
         popIn: 'popIn 1s ease-in-out',
         scroll: 'scroll 10s linear infinite',
+        flip: 'flip 0.7s ease-in-out forwards',
       },
       keyframes: {
         rainbow: {
@@ -112,10 +113,13 @@ export default {
           '0%': { transform: 'translateX(100%)' },
           '100%': { transform: 'translateX(-100%)' },
         },
+        flip: {
+          '0%': { transform: 'rotateY(0deg)' },
+          '100%': { transform: 'rotateY(180deg)' },
+        },
       },
     },
   },
-
   plugins: [require("tailwindcss-animate"), require("daisyui")],
   daisyui: {
     themes: ["bumblebee", "dracula"],
