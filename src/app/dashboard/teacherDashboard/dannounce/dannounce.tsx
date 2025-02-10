@@ -1,144 +1,180 @@
+// src/app/dashboard/teacherDashboard/dannounce/Dannounce.tsx
 "use client";
 import Link from "next/link";
-import { Input } from "@/components/ui/input";
-
-
-import React, { useState } from "react";
+import { useState } from "react";
+import TeacherSideBar from "../sideBar";
 import {
-  HomeIcon,
-  UserIcon,
-  ClipboardDocumentIcon,
-  BookOpenIcon,
-  Cog6ToothIcon,
-  QuestionMarkCircleIcon,
-  ClockIcon,
+  PaperClipIcon,
+  PencilIcon,
+  TrashIcon,
+  StarIcon,
 } from "@heroicons/react/24/outline";
 
-const Announcements = () => {
- 
+const Announcements = ({ userData }: { userData: { id: string; name: string; email: string; role: string } | null }) => {
+  const [announcements, setAnnouncements] = useState([
+    {
+      id: 1,
+      title: "Class Update",
+      description: "Your upcoming session on AI is rescheduled to 3 PM.",
+      date: new Date().toLocaleString(),
+      pinned: false,
+      attachment: null,
+    },
+    {
+      id: 2,
+      title: "New Course Announcement",
+      description: "Enroll in the new Blockchain Technology course starting next week.",
+      date: new Date().toLocaleString(),
+      pinned: false,
+      attachment: null,
+    },
+  ]);
+
+  const [newTitle, setNewTitle] = useState("");
+  const [newDescription, setNewDescription] = useState("");
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newTitle.trim() || !newDescription.trim()) return;
+
+    const newAnnouncement = {
+      id: announcements.length + 1,
+      title: newTitle,
+      description: newDescription,
+      date: new Date().toLocaleString(),
+      pinned: false,
+      attachment: selectedFile ? selectedFile.name : null,
+    };
+
+    setAnnouncements([newAnnouncement, ...announcements]);
+    setNewTitle("");
+    setNewDescription("");
+    setSelectedFile(null);
+  };
+
+  const handleDelete = (id: number) => {
+    setAnnouncements(announcements.filter((ann) => ann.id !== id));
+  };
+
+  const handlePin = (id: number) => {
+    setAnnouncements(
+      announcements.map((ann) =>
+        ann.id === id ? { ...ann, pinned: !ann.pinned } : ann
+      )
+    );
+  };
 
   return (
-    <>
-    {/* Content Container */}
-  <div className="flex gap-6 min-w-full min-h-screen">
+    <div className="flex min-h-screen">
       {/* Sidebar */}
-      <aside className="w-64 rounded-lg bg-blue-100 p-6 text-black shadow-sm  h-screen fixed ">
-        <h2 className="mb-8 text-2xl font-bold"></h2>
-        <ul className="space-y-6">
-          <li className="active flex items-center">
-            <HomeIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dhome"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Home
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <UserIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dprofile"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Profile
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <BookOpenIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dcourseprogress"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Course Progress
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <ClipboardDocumentIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dannounce"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Announcements
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <Cog6ToothIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dstudentanalysis"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Student Analysis
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <ClockIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dclassdetails"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Class Details
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <QuestionMarkCircleIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dcleardoubts"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Clear Doubts
-            </Link>
-          </li>
-        </ul>
+      <aside className="card fixed w-64 bg-base-100 p-4">
+        <TeacherSideBar />
       </aside>
 
-    {/* main announcement content */}
-
-    <div className="flex-1 p-0 w-full ml-72">
-      {/* Page Title */}
-      <div className="rounded-lg bg-blue-100 p-6 shadow">
-        <h2 className="text-3xl font-bold text-black">Announcements</h2>
-        <p className="text-gray-500 mt-2">Stay updated with the latest news and updates.</p>
-      </div>
-
-      {/* Create New Announcement */}
-      <div className="rounded-lg mt-8 bg-white p-6 shadow">
-        <h3 className="text-lg font-bold text-gray-700 mb-4">Create a New Announcement</h3>
-        <form className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Title</label>
-            <input
-              type="text"
-              placeholder="Enter announcement title"
-              className="w-full rounded-md border px-4 py-2 text-sm text-black focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Description</label>
-            <textarea
-              placeholder="Enter announcement details"
-              className="w-full rounded-md border px-4 py-2 text-sm text-black focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-            ></textarea>
-          </div>
-          <button type="submit" className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
-            Post Announcement
-          </button>
-        </form>
-      </div>
-
-      {/* Recent Announcements */}
-      <div className="space-y-4 mt-8">
-        <div className="rounded-lg bg-white p-6 shadow">
-          <h3 className="text-lg font-bold text-gray-700">Class Update</h3>
-          <p className="text-gray-500">Your upcoming session on AI is rescheduled to 3 PM.</p>
+      {/* Main Content */}
+      <div className="flex-1 w-full ml-72 px-4">
+        {/* Page Title */}
+        <div className="card bg-base-100 p-6 shadow">
+          <h2 className="text-3xl font-bold text-base-content">
+            Announcements 📢
+          </h2>
+          <p className="text-black mt-2">
+            Stay updated with the latest news and updates.
+          </p>
         </div>
-        <div className="rounded-lg bg-white p-6 shadow">
-          <h3 className="text-lg font-bold text-gray-700">New Course Announcement</h3>
-          <p className="text-gray-500">Enroll in the new Blockchain Technology course starting next week.</p>
+
+        {/* Create New Announcement */}
+        <div className="card bg-base-100 mt-6 p-6 text-black shadow">
+          <h3 className="text-lg font-bold text-black mb-4">
+            Create a New Announcement
+          </h3>
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Title
+              </label>
+              <input
+                type="text"
+                value={newTitle}
+                onChange={(e) => setNewTitle(e.target.value)}
+                placeholder="Enter announcement title"
+                className="input input-bordered w-full"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Description
+              </label>
+              <textarea
+                value={newDescription}
+                onChange={(e) => setNewDescription(e.target.value)}
+                placeholder="Enter announcement details"
+                className="textarea textarea-bordered w-full"
+              ></textarea>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 flex items-center gap-2">
+                <PaperClipIcon className="h-5 w-5 text-gray-500" /> Attach File
+              </label>
+              <input
+                type="file"
+                className="file-input file-input-bordered w-full"
+                onChange={(e) => setSelectedFile(e.target.files?.[0] || null)}
+              />
+            </div>
+            <button type="submit" className="btn btn-primary">
+              Post Announcement
+            </button>
+          </form>
+        </div>
+
+        {/* List of Announcements */}
+        <div className="mt-6 space-y-4">
+          {announcements
+            .sort((a, b) => (a.pinned === b.pinned ? 0 : a.pinned ? -1 : 1))
+            .map((ann) => (
+              <div
+                key={ann.id}
+                className={`card p-6 shadow flex justify-between items-start ${
+                  ann.pinned ? "bg-yellow-50 border border-yellow-400" : "bg-white"
+                }`}
+              >
+                <div>
+                  <h3 className="text-lg font-bold text-gray-700">
+                    {ann.title}
+                  </h3>
+                  <p className="text-gray-500">{ann.description}</p>
+                  <p className="mt-1 text-sm text-gray-400">{ann.date}</p>
+                  {ann.attachment && (
+                    <a href="#" className="text-blue-500 hover:underline">
+                      📎 {ann.attachment}
+                    </a>
+                  )}
+                </div>
+                <div className="flex space-x-3">
+                  <button
+                    className="btn btn-sm btn-warning"
+                    onClick={() => handlePin(ann.id)}
+                  >
+                    <StarIcon
+                      className={`h-5 w-5 ${
+                        ann.pinned ? "text-yellow-600" : "text-gray-400"
+                      }`}
+                    />
+                  </button>
+                  <button
+                    className="btn btn-sm btn-error"
+                    onClick={() => handleDelete(ann.id)}
+                  >
+                    <TrashIcon className="h-5 w-5" />
+                  </button>
+                </div>
+              </div>
+            ))}
         </div>
       </div>
-</div>
-</div>
-</>
+    </div>
   );
 };
 

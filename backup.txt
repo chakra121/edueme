@@ -1,216 +1,7 @@
-<div className="min-h-screen flex ">
-
- {/* Sidebar */}
- <aside className="w-64 rounded-lg bg-blue-100 p-6 ml-10 text-black shadow-sm">
-        <h2 className="mb-8 text-2xl font-bold"></h2>
-        <ul className="space-y-6">
-          <li className="active flex items-center">
-            <HomeIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Home
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <UserIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dprofile"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Profile
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <BookOpenIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/denrolled"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Enrolled Courses
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <ClipboardDocumentIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="dassesments"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Announcements
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <Cog6ToothIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="dprogress"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Attendance
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <ClockIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="dupsessions"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Upcoming Sessions
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <QuestionMarkCircleIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="dhelp"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Any Doubts?
-            </Link>
-          </li>
-        </ul>
-      </aside>
-
-      {/* Main Content */}
-      <section className="mx-auto max-w-4xl rounded-lg bg-white p-8 ml-6 shadow-lg">
-        <h2 className="text-4xl font-bold text-gray-800 text-center">Profile</h2>
-        <div className="mt-6 flex items-center justify-center space-x-6">
-          {profilePhotoPreview ? (
-            <img
-              src={profilePhotoPreview}
-              alt="Profile"
-              className="h-32 w-32 rounded-full object-cover shadow-md"
-            />
-          ) : (
-            <div className="flex h-32 w-32 items-center justify-center rounded-full bg-gray-200 shadow-md">
-              <span className="text-gray-500">No Photo</span>
-            </div>
-          )}
-          {isEditing && (
-            <div className="flex flex-col">
-              <label className="mb-2 text-sm font-medium text-gray-600">Upload Photo</label>
-              <input
-                type="file"
-                name="profilePhoto"
-                accept="image/*"
-                className="rounded border px-3 py-2 text-sm"
-                onChange={handleProfilePhotoChange}
-              />
-            </div>
-          )}
-        </div>
-        <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
-          {[
-            { label: "First Name", name: "firstName" },
-            { label: "Last Name", name: "lastName" },
-            { label: "Phone Number", name: "phoneNumber" },
-            { label: "Email", name: "email" },
-            { label: "Gender", name: "gender", type: "select", options: ["", "Male", "Female", "Other"] },
-            { label: "Date of Birth", name: "dob", type: "date" },
-            { label: "City", name: "city" },
-            { label: "State", name: "state" },
-            { label: "Country", name: "country" },
-          ].map((field) => (
-            <div key={field.name}>
-              <label className="block font-medium text-gray-600">{field.label}</label>
-              {isEditing ? (
-                field.type === "select" ? (
-                  <select
-                    name={field.name}
-                    value={(formData as any)[field.name]}
-                    onChange={handleInputChange}
-                    className="mt-1 w-full rounded border px-3 py-2"
-                  >
-                    {field.options?.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                ) : (
-                  <input
-                    type={field.type || "text"}
-                    name={field.name}
-                    value={(formData as any)[field.name]}
-                    onChange={handleInputChange}
-                    className="mt-1 w-full rounded border px-3 py-2"
-                  />
-                )
-              ) : (
-                <p className="mt-1 text-gray-800">{(profileData as any)?.[field.name]}</p>
-              )}
-            </div>
-          ))}
-          <div className="col-span-2">
-            <label className="block font-medium text-gray-600">Bio</label>
-            {isEditing ? (
-              <textarea
-                name="bio"
-                value={formData.bio}
-                onChange={handleInputChange}
-                className="mt-1 w-full rounded border px-3 py-2"
-              ></textarea>
-            ) : (
-              <p className="mt-1 text-gray-800">{profileData?.bio || "N/A"}</p>
-            )}
-          </div>
-        </div>
-        <div className="mt-6 flex justify-end space-x-4">
-          {isEditing ? (
-            <>
-              <button
-                className="rounded bg-gray-300 px-4 py-2 text-gray-800 hover:bg-gray-400"
-                onClick={() => setIsEditing(false)}
-              >
-                Cancel
-              </button>
-              <button
-                className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-                onClick={handleSave}
-              >
-                Save
-              </button>
-            </>
-          ) : (
-            <button
-              className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-              onClick={() => setIsEditing(true)}
-            >
-              Edit Profile
-            </button>
-          )}
-        </div>
-      </section>
-    </div>
-
-
-
-
-
-
-
-
-
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-default for any dashboard page
-####
-
 "use client";
 import Link from "next/link";
-
 import React, { useEffect, useState } from "react";
 import jwt from "jsonwebtoken";
-import { PencilIcon, SaveIcon } from "@heroicons/react/24/outline";
 import {
   HomeIcon,
   UserIcon,
@@ -219,311 +10,213 @@ import {
   Cog6ToothIcon,
   QuestionMarkCircleIcon,
   ClockIcon,
-} from "@heroicons/react/24/outline"; // Correct import for v2
+} from "@heroicons/react/24/outline";
+import {
+  Card,
+  CardBody,
+  CardHeader,
+  Typography,
+} from "@material-tailwind/react";
+import Chart from "react-apexcharts";
 
-const Profile = () => {
-  const [profileData, setProfileData] = useState<{
-    firstName: string;
-    lastName: string;
-    phoneNumber: string;
-    email: string;
-    gender: string;
-    dob: string;
-    address: string;
-    city: string;
-    state: string;
-    country: string;
-    bio?: string;
-    profilePhoto?: string;
-  } | null>(null);
+const SECRET_KEY = process.env.JWT_SECRET ?? "your_secret_key";
 
-  const [isEditing, setIsEditing] = useState(false);
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
-    email: "",
-    gender: "",
-    dob: "",
-    address: "",
-    city: "",
-    state: "",
-    country: "",
-    bio: "",
-    profilePhoto: "",
+const Dashboard = () => {
+  const [userData, setUserData] = useState<{
+      id: string;
+      name: string;
+      email: string;
+      role: string;
+    } | null>(null);
+  const [doubts, setDoubts] = useState(3); // Example of unresolved doubts
+  const [assignedClass, setAssignedClass] = useState({
+    name: "AI on Fingertips | 2024 | BATCH 1",
+    startDate: "Dec 11, 2024",
+    endDate: "Dec 31, 2024",
+    time: "02:30 PM - 04:30 PM",
+    teacher: "Professor John Doe",
+    attendanceMarked: false,
   });
-  const [profilePhotoPreview, setProfilePhotoPreview] = useState<string | null>(null);
 
-  useEffect(() => {
-    // Fetch user data or decode JWT
-    const token = localStorage.getItem("token");
-    if (token) {
-      try {
-        const decoded = jwt.decode(token) as typeof formData;
-        setProfileData(decoded);
-        setFormData(decoded); // Pre-fill the form
-        setProfilePhotoPreview(decoded.profilePhoto || null);
-      } catch (error) {
-        console.error("Error decoding token:", error);
+useEffect(() => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    try {
+      const decoded = jwt.decode(token) as {
+        id: string;
+        name: string;
+        email: string;
+        role: string;
+      } | null;
+      if (decoded) {
+        setUserData(decoded);
       }
+    } catch (error) {
+      console.error("Error decoding token:", error);
     }
-  }, []);
+  }
+}, []);
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleProfilePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setProfilePhotoPreview(reader.result as string); // Update live preview
-      };
-      reader.readAsDataURL(file);
-      setFormData({ ...formData, profilePhoto: file.name }); // Save file name
-    }
-  };
-
-  const handleSave = () => {
-    // Save updated data
-    setProfileData(formData);
-    setIsEditing(false);
-  };
+  if (!userData) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-lg text-gray-700">Loading user data...</p>
+      </div>
+    );
+  }
 
   return (
-    <>
-    {/* Content Container */}
-  <div className="flex gap-5 w-full min-h-screen p-8 mt-16">
-  {/* Sidebar */}
-  <aside className="w-64  ml-8 rounded-lg bg-blue-100 p-6 text-black shadow-sm">
+    <div className="flex min-h-screen">
+      <aside className="fixed h-screen w-64 rounded-lg bg-blue-100 p-6 text-black shadow-sm">
         <h2 className="mb-8 text-2xl font-bold"></h2>
         <ul className="space-y-6">
-          <li className="active flex items-center">
-            <HomeIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Home
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <UserIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dprofile"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Profile
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <BookOpenIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/denrolled"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Enrolled Courses
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <ClipboardDocumentIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="dassesments"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Announcements
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <Cog6ToothIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="dprogress"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Attendance
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <ClockIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="dupsessions"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Upcoming Sessions
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <QuestionMarkCircleIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="dhelp"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Any Doubts?
-            </Link>
-          </li>
+          {[
+            {
+              href: "/dashboard/teacherDashboard/dhome",
+              icon: HomeIcon,
+              label: "Home",
+            },
+            {
+              href: "/dashboard/teacherDashboard/dprofile",
+              icon: UserIcon,
+              label: "Profile",
+            },
+            {
+              href: "/dashboard/teacherDashboard/dcourseprogress",
+              icon: BookOpenIcon,
+              label: "Course Progress",
+            },
+            {
+              href: "/dashboard/teacherDashboard/dannounce",
+              icon: ClipboardDocumentIcon,
+              label: "Announcements",
+            },
+            {
+              href: "/dashboard/teacherDashboard/dstudentanalysis",
+              icon: Cog6ToothIcon,
+              label: "Student Analysis",
+            },
+            {
+              href: "/dashboard/teacherDashboard/dclassdetails",
+              icon: ClockIcon,
+              label: "Class Details",
+            },
+            {
+              href: "/dashboard/teacherDashboard/dcleardoubts",
+              icon: QuestionMarkCircleIcon,
+              label: "Clear Doubts",
+            },
+          ].map(({ href, icon: Icon, label }) => (
+            <li key={href} className="flex items-center">
+              <Icon className="h-6 w-6 text-gray-400" />
+              <Link
+                href={href}
+                className="ml-2 font-sans text-lg hover:cursor-pointer hover:font-bold"
+              >
+                {label}
+              </Link>
+            </li>
+          ))}
         </ul>
       </aside>
 
-  {/* Profile Section */}
-  <main className="flex-1 w-full mr-28">
-    <div className="max-w-full mx-auto space-y-8">
-      {/* Welcome Section */}
-      <div className="rounded-lg bg-blue-100 p-6 shadow-sm">
-        <h2 className="text-3xl font-bold text-black">Welcome Back!</h2>
-        <p className="mt-3 text-gray-500">
-          Ready to update your profile? You're making great progress!
-        </p>
-      </div>
-      {/* <section className="rounded-lg bg-blue-100 p-6 shadow-sm">
-          <h2 className="text-3xl font-bold text-black">Welcome back </h2>
+      <main className="ml-72 mr-14 w-full flex-1">
+        <section className="rounded-lg bg-blue-100 p-6 shadow-sm">
+          <h2 className="text-3xl font-bold text-black">
+            Welcome back, {userData?.name}!
+          </h2>
           <p className="mt-2 text-gray-600">
-            Ready to continue your learning journey? You're making great
-            progress!
+            You're doing an amazing job guiding your students!
           </p>
-          <button className="mt-4 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
-            Resume Journey →
-          </button>
-        </section> */}
+          <p className="mt-4 text-gray-600">
+            You currently have <strong>{assignedClass.name}</strong> with{" "}
+            {assignedClass.teacher}. Your next class is on{" "}
+            <strong>{assignedClass.startDate}</strong> at{" "}
+            <strong>{assignedClass.time}</strong>.
+          </p>
+          <div className="mt-4">
+            <Link
+              href="/dashboard/teacherDashboard/dclassdetails"
+              className="btn btn-primary"
+            >
+              View Class Details
+            </Link>
+          </div>
+        </section>
 
-      {/* Profile Content */}
-      <div className="grid gap-6 md:grid-cols-2">
-        {/* Profile Photo */}
-        <div className="flex flex-col items-center rounded-lg bg-white p-6 shadow">
-          {profilePhotoPreview ? (
-            <img
-              src={profilePhotoPreview}
-              alt="Profile"
-              className="h-32 w-32 rounded-full shadow-md"
-            />
-          ) : (
-            <div className="flex h-32 w-32 items-center justify-center rounded-full bg-gray-200 shadow">
-              <span className="text-gray-500">No Photo</span>
-            </div>
-          )}
-          {isEditing && (
-            <div className="mt-4">
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleProfilePhotoChange}
-                className="rounded border px-3 py-2"
-              />
-            </div>
-          )}
+        <div className="mt-6 grid grid-cols-2 gap-6">
+          {/* Courses Section */}
+          <section className="rounded-lg bg-white p-6 shadow-md">
+            <h3 className="mb-4 text-xl font-bold text-black">Your Courses</h3>
+            <ul className="list-disc pl-5 text-gray-700">
+              <li>Robotics Grade 4-5</li>
+              <li>Robotics with AI Grade 2-3</li>
+            </ul>
+          </section>
+
+          {/* Announcements Section */}
+          <section className="rounded-lg bg-white p-6 text-center shadow-md">
+            <h3 className="text-xl font-bold text-gray-700">Announcements</h3>
+            <div className="mt-6 text-6xl text-pink-400">💬</div>
+            <p className="mt-4 text-gray-500">No Announcements</p>
+            <p className="text-sm text-gray-400">
+              Check back later for important updates and news!
+            </p>
+          </section>
         </div>
 
-        {/* User Details */}
-        <div className="rounded-lg bg-white p-6 shadow">
-          <h3 className="text-lg font-bold text-gray-700">Personal Information</h3>
-          <div className="mt-4 space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-500">First Name</label>
-              {isEditing ? (
-                <input
-                  type="text"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleInputChange}
-                  className="mt-1 w-full rounded border px-3 py-2"
-                />
-              ) : (
-                <p className="mt-1 text-gray-700"></p>
-              )}
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-500">Last Name</label>
-              {isEditing ? (
-                <input
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleInputChange}
-                  className="mt-1 w-full rounded border px-3 py-2"
-                />
-              ) : (
-                <p className="mt-1 text-gray-700"></p>
-              )}
+        {/* Live Classes Section */}
+        <section className="mt-6 rounded-lg bg-white p-6 text-black shadow-md">
+          <h3 className="mb-4 text-xl font-bold">Live Classes</h3>
+          <div className="rounded-md bg-blue-50 p-4">
+            <h4 className="text-lg font-semibold">{assignedClass.name}</h4>
+            <p className="mt-2 text-gray-600">
+              📚{" "}
+              <a
+                href="https://yourclasslink.com"
+                className="text-blue-500 hover:underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Class Link
+              </a>
+            </p>
+            <div className="mt-4 text-center">
+              <Link
+                href="/dashboard/teacherDashboard/dclassdetails"
+                className="btn btn-warning btn-sm"
+              >
+                Update Class
+              </Link>
             </div>
           </div>
-        </div>
-      </div>
+        </section>
+
+        {/* Doubts Section */}
+        <section className="mt-6 rounded-lg bg-yellow-50 p-6 shadow-md">
+          <h4 className="flex items-center justify-center text-lg font-semibold text-black">
+            Doubts
+            <span className="ml-2 rounded-full bg-red-100 px-2 py-1 text-xs font-semibold text-red-500">
+              {doubts}
+            </span>
+          </h4>
+          <p className="mt-1 text-center text-gray-600">
+            💬 Students have raised {doubts} unresolved doubts for this session.
+            Click to view.
+          </p>
+          <div className="mt-4 text-center">
+            <Link
+              href="/dashboard/teacherDashboard/dcleardoubts"
+              className="btn btn-warning"
+            >
+              View Doubts
+            </Link>
+          </div>
+        </section>
+
+      </main>
     </div>
-  </main>
-</div>
-</>
   );
 };
 
-export default Profile;
-
-
-
-
-
-
-
-      <div className="grid gap-6 md:grid-cols-2">
-        {/* Profile Photo */}
-        <div className="flex flex-col items-center rounded-lg bg-white p-6 shadow">
-          {profilePhotoPreview ? (
-            <img
-              src={profilePhotoPreview}
-              alt="Profile"
-              className="h-32 w-32 rounded-full shadow-md"
-            />
-          ) : (
-            <div className="flex h-32 w-32 items-center justify-center rounded-full bg-gray-200 shadow">
-              <span className="text-gray-500">No Photo</span>
-            </div>
-          )}
-          {isEditing && (
-            <div className="mt-4">
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleProfilePhotoChange}
-                className="rounded border px-3 py-2"
-              />
-            </div>
-          )}
-        </div>
-
-        {/* User Details */}
-        <div className="rounded-lg bg-white p-6 shadow">
-          <h3 className="text-lg font-bold text-gray-700">Personal Information</h3>
-          <div className="mt-4 space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-500">First Name</label>
-              {isEditing ? (
-                <input
-                  type="text"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleInputChange}
-                  className="mt-1 w-full rounded border px-3 py-2"
-                />
-              ) : (
-                <p className="mt-1 text-gray-700"></p>
-              )}
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-500">Last Name</label>
-              {isEditing ? (
-                <input
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleInputChange}
-                  className="mt-1 w-full rounded border px-3 py-2"
-                />
-              ) : (
-                <p className="mt-1 text-gray-700"></p>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
+export default Dashboard;
