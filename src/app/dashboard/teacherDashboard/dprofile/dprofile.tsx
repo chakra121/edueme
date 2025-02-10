@@ -1,212 +1,152 @@
 "use client";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-
-import React, { useEffect, useState } from "react";
 import jwt from "jsonwebtoken";
-import { PencilIcon, SaveIcon } from "@heroicons/react/24/outline";
-import {
-  HomeIcon,
-  UserIcon,
-  ClipboardDocumentIcon,
-  BookOpenIcon,
-  Cog6ToothIcon,
-  QuestionMarkCircleIcon,
-  ClockIcon,
-} from "@heroicons/react/24/outline";
+import { cookies } from "next/headers";
+
+import TeacherSideBar from "../sideBar";
+
+const SECRET_KEY = process.env.JWT_SECRET ?? "your_secret_key";
 
 const Profile = () => {
-  const [profileData, setProfileData] = useState<{
-    firstName: string;
-    lastName: string;
-    phoneNumber: string;
-    email: string;
-    gender: string;
-    dob: string;
-    address: string;
-    city: string;
-    state: string;
-    country: string;
-    bio?: string;
-    profilePhoto?: string;
-    skills?: string;
-    experience?: string;
-    resume?: string;
-  } | null>(null);
-
+  // Initialize states
   const [isEditing, setIsEditing] = useState(false);
+  const [profilePhotoPreview, setProfilePhotoPreview] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
+    designation: "",
     phoneNumber: "",
     email: "",
-    gender: "",
     dob: "",
-    address: "",
-    city: "",
-    state: "",
-    country: "",
-    bio: "",
-    profilePhoto: "",
+    gender: "",
     skills: "",
     experience: "",
+    bio: "",
     resume: "",
   });
-  const [profilePhotoPreview, setProfilePhotoPreview] = useState<string | null>(null);
 
+  // Fetch user token from cookies
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("token="))
+      ?.split("=")[1];
+
     if (token) {
       try {
-        const decoded = jwt.decode(token) as typeof formData;
-        setProfileData(decoded);
-        setFormData(decoded); // Pre-fill the form
-        setProfilePhotoPreview(decoded.profilePhoto || null);
+        const decoded = jwt.decode(token) as {
+          id: string;
+          name: string;
+          email: string;
+          role: string;
+        };
+
+        if (decoded) {
+          // Simulating fetched data from backend
+          setFormData({
+            firstName: "John",
+            lastName: "Doe",
+            designation: "AI Instructor",
+            phoneNumber: "9876543210",
+            email: decoded.email,
+            dob: "1990-05-10",
+            gender: "Male",
+            skills: "Python, AI, ML",
+            experience: "5 years",
+            bio: "Passionate about AI and teaching.",
+            resume: "john_doe_resume.pdf",
+          });
+
+          setProfilePhotoPreview("/default-profile.png"); // Default profile image
+        }
       } catch (error) {
         console.error("Error decoding token:", error);
       }
     }
   }, []);
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
+  // Handle Input Changes
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  // Handle Profile Photo Change
   const handleProfilePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        setProfilePhotoPreview(reader.result as string); // Update live preview
+        setProfilePhotoPreview(reader.result as string);
       };
       reader.readAsDataURL(file);
-      setFormData({ ...formData, profilePhoto: file.name }); // Save file name
     }
   };
 
+  // Handle Resume Upload
   const handleResumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setFormData({ ...formData, resume: file.name });
+      setFormData((prevData) => ({ ...prevData, resume: file.name }));
     }
   };
 
+  // Save Edited Data
   const handleSave = () => {
-    setProfileData(formData);
+    // Here, you'd send `formData` to the backend API
+    console.log("Updated Profile Data:", formData);
     setIsEditing(false);
   };
 
   return (
-    <>
-      <div className="flex gap-6 w-full min-h-screen">
-        <aside className="w-64 rounded-lg bg-blue-100 p-6 text-black shadow-sm h-screen fixed">
-          <h2 className="mb-8"></h2>
-          <ul className="space-y-6">
-          <li className="active flex items-center">
-            <HomeIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dhome"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Home
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <UserIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dprofile"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Profile
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <BookOpenIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dcourseprogress"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Course Progress
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <ClipboardDocumentIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dannounce"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Announcements
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <Cog6ToothIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dstudentanalysis"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Student Analysis
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <ClockIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dclassdetails"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Class Details
-            </Link>
-          </li>
-          <li className="active flex items-center">
-            <QuestionMarkCircleIcon className="h-6 w-6 text-gray-400" />
-            <Link
-              href="/dashboard/teacherDashboard/dcleardoubts"
-              className="ml-2 text-left font-sans text-lg hover:cursor-pointer hover:font-bold"
-            >
-              Clear Doubts
-            </Link>
-          </li>
-        </ul>
+    <div className="flex min-h-screen">
+      {/* Sidebar */}
+      <aside className="card fixed w-64 bg-base-100 p-4">
+        <TeacherSideBar />
       </aside>
 
-
-        <main className="flex-1 w-full ml-72 mr-14">
-          <div className="max-w-full mx-auto space-y-8">
-            <div className="rounded-lg bg-blue-100 p-6 shadow-sm">
-              <h2 className="text-3xl font-bold text-black">Welcome Back!</h2>
-              <p className="mt-3 text-gray-500">Ready to update your profile? You're making great progress!</p>
+      {/* Main Content */}
+      <main className="flex-1 w-full ml-72 mr-14 px-4">
+        <div className="max-w-full mx-auto space-y-8">
+          {/* Welcome Section */}
+          <div className="card bg-base-100 shadow-xl">
+            <div className="card-body">
+              <h2 className="card-title text-4xl text-base-content">Welcome Back!</h2>
+              <p className="mt-3 text-lg text-base-content">
+                Ready to update your profile? You're making great progress!
+              </p>
             </div>
+          </div>
 
-            <section className="mx-auto max-w-full rounded-lg bg-white p-8 shadow-lg">
-              <h2 className="text-4xl font-bold text-gray-800 text-center">Profile</h2>
+          {/* Profile Section */}
+          <div className="card bg-base-100 shadow-xl p-8">
+            <div className="card-body">
+              <h2 className="text-4xl font-bold text-center text-base-content">Profile</h2>
 
+              {/* Profile Image Upload */}
               <div className="mt-6 flex items-center justify-center space-x-6">
-                {profilePhotoPreview ? (
-                  <img
-                    src={profilePhotoPreview}
-                    alt="Profile"
-                    className="h-32 w-32 rounded-full object-cover shadow-md"
-                  />
-                ) : (
-                  <div className="flex h-32 w-32 items-center justify-center rounded-full bg-gray-200 shadow-md">
-                    <span className="text-gray-500">No Photo</span>
+                <div className="avatar">
+                  <div className="w-32 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                    <img src={profilePhotoPreview || "/default-profile.png"} alt="Profile" />
                   </div>
-                )}
+                </div>
                 {isEditing && (
-                  <div className="flex flex-col">
-                    <label className="mb-2 text-sm font-medium text-gray-600">Upload Photo</label>
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text text-base-content">Upload Photo</span>
+                    </label>
                     <input
                       type="file"
-                      name="profilePhoto"
                       accept="image/*"
-                      className="rounded border px-3 py-2 text-sm"
+                      className="file-input file-input-bordered w-full max-w-xs"
                       onChange={handleProfilePhotoChange}
                     />
                   </div>
                 )}
               </div>
 
+              {/* Profile Details */}
               <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
                 {[
                   { label: "First Name", name: "firstName" },
@@ -214,110 +154,61 @@ const Profile = () => {
                   { label: "Designation", name: "designation" },
                   { label: "Phone Number", name: "phoneNumber" },
                   { label: "Email", name: "email" },
-                  { label: "Gender", name: "gender", type: "select", options: ["", "Male", "Female", "Other"] },
                   { label: "Date of Birth", name: "dob", type: "date" },
                   { label: "Skills", name: "skills" },
                   { label: "Experience", name: "experience" },
                 ].map((field) => (
-                  <div key={field.name}>
-                    <label className="block font-medium text-gray-800">{field.label}</label>
+                  <div key={field.name} className="form-control">
+                    <label className="label">
+                      <span className="label-text text-base-content">{field.label}</span>
+                    </label>
                     {isEditing ? (
-                      field.type === "select" ? (
-                        <select
-                          name={field.name}
-                          value={formData[field.name as keyof typeof formData]}
-                          onChange={handleInputChange}
-                          className="mt-1 w-full rounded border px-3 py-2"
-                        >
-                          {field.options?.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
-                            </option>
-                          ))}
-                        </select>
-                      ) : (
-                        <input
-                          type={field.type || "text"}
-                          name={field.name}
-                          value={formData[field.name as keyof typeof formData]}
-                          onChange={handleInputChange}
-                          className="mt-1 w-full rounded border px-3 py-2"
-                        />
-                      )
+                      <input
+                        type={field.type || "text"}
+                        name={field.name}
+                        value={formData[field.name as keyof typeof formData]}
+                        onChange={handleInputChange}
+                        className="input input-bordered w-full"
+                      />
                     ) : (
-                      <p className="mt-1 text-gray-800">{profileData?.[field.name as keyof typeof profileData]}</p>
+                      <p className="mt-1 text-base-content">{formData[field.name as keyof typeof formData] || "N/A"}</p>
                     )}
                   </div>
                 ))}
-
-                <div className="col-span-2">
-                  <label className="block font-medium text-gray-600">Bio</label>
-                  {isEditing ? (
-                    <textarea
-                      name="bio"
-                      value={formData.bio}
-                      onChange={handleInputChange}
-                      className="mt-1 w-full rounded border px-3 py-2"
-                    ></textarea>
-                  ) : (
-                    <p className="mt-1 text-gray-800">{profileData?.bio || "N/A"}</p>
-                  )}
-                </div>
               </div>
 
-              <div className="mt-6 grid grid-cols-1 gap-6">
-                <div>
-                  <label className="block font-medium text-gray-600">Upload Resume</label>
-                  {isEditing && (
-                    <input
-                      type="file"
-                      name="resume"
-                      className="mt-1 w-full rounded border px-3 py-2"
-                      onChange={handleResumeChange}
-                    />
-                  )}
-                  {!isEditing && profileData?.resume && (
-                    <a
-                      href={`/path/to/resume/${profileData.resume}`}
-                      className="mt-1 text-blue-500 hover:underline"
-                      target="_blank"
-                    >
+              {/* Resume Upload */}
+              <div className="form-control mt-6">
+                <label className="label">
+                  <span className="label-text text-base-content">Upload Resume</span>
+                </label>
+                {isEditing ? (
+                  <input type="file" className="file-input file-input-bordered w-full" onChange={handleResumeChange} />
+                ) : (
+                  formData.resume && (
+                    <a href={`/path/to/resume/${formData.resume}`} className="mt-1 text-blue-500 hover:underline">
                       View Resume
                     </a>
-                  )}
-                </div>
+                  )
+                )}
               </div>
 
+              {/* Buttons */}
               <div className="mt-6 flex justify-end space-x-4">
                 {isEditing ? (
                   <>
-                    <button
-                      className="rounded bg-gray-300 px-4 py-2 text-gray-800 hover:bg-gray-400"
-                      onClick={() => setIsEditing(false)}
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-                      onClick={handleSave}
-                    >
-                      Save
-                    </button>
+                    <button className="btn btn-neutral" onClick={() => setIsEditing(false)}>Cancel</button>
+                    <button className="btn btn-primary" onClick={handleSave}>Save</button>
                   </>
                 ) : (
-                  <button
-                    className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-                    onClick={() => setIsEditing(true)}
-                  >
-                    Edit Profile
-                  </button>
+                  <button className="btn btn-primary" onClick={() => setIsEditing(true)}>Edit Profile</button>
                 )}
               </div>
-            </section>
+            </div>
           </div>
-        </main>
-      </div>
-    </>
+        </div>
+      </main>
+    </div>
   );
 };
 

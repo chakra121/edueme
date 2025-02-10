@@ -1,296 +1,144 @@
-// src/app/dashboard/page.tsx
 "use client";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import {
-  HomeIcon,
-  UserIcon,
-  ClipboardDocumentIcon,
-  BookOpenIcon,
-  Cog6ToothIcon,
-  QuestionMarkCircleIcon,
-  ClockIcon,
-} from "@heroicons/react/24/outline"; // Correct import for v2
+import { useState } from "react";
+import TeacherSideBar from "../sideBar";
+import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 
-interface Session {
-  id: string;
-  title: string;
-  course: string;
-  date: string;
-  time: string;
-  duration: string;
-  description: string;
-  meetingLink: string;
-  status: 'scheduled' | 'ongoing' | 'completed';
-}
+// Sample Class Data
+const generateClasses = () => [
+  { id: 1, title: "AI Basics", course: "AI101", date: "2025-02-15", time: "10:00 AM", duration: 60, status: "scheduled", description: "Introduction to AI", meetingLink: "#" },
+  { id: 2, title: "Neural Networks", course: "ML202", date: "2025-02-20", time: "02:30 PM", duration: 90, status: "ongoing", description: "Understanding deep learning", meetingLink: "#" },
+  { id: 3, title: "Cybersecurity Fundamentals", course: "CYB301", date: "2025-02-25", time: "04:00 PM", duration: 75, status: "completed", description: "Basics of cybersecurity", meetingLink: "#" },
+];
 
-const Dashboard = () => {
-  const [sessions, setSessions] = useState<Session[]>([
-    {
-      id: "1",
-      title: "React Advanced Patterns",
-      course: "CS-401",
-      date: "2023-11-05",
-      time: "14:00",
-      duration: "90",
-      description: "Exploring advanced React component patterns and state management strategies.",
-      meetingLink: "#",
-      status: "scheduled"
-    },
-    // Add more mock data as needed
-  ]);
-
-  const [editingSession, setEditingSession] = useState<Session | null>(null);
+const ClassManagement = () => {
+  const [classes, setClasses] = useState(generateClasses());
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData, setFormData] = useState<Partial<Session>>({
-    status: 'scheduled'
-  });
+  const [editingClass, setEditingClass] = useState(null);
+  const [formData, setFormData] = useState({ id: 0, title: "", course: "", date: "", time: "", duration: "", status: "scheduled", description: "" });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+  // Handle Input Change
+  const handleInputChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Handle Class Submission (Create or Update)
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (editingSession) {
-      setSessions(sessions.map(s => s.id === editingSession.id ? { ...formData, id: s.id } as Session : s));
+    if (editingClass) {
+      setClasses(classes.map(cls => (cls.id === editingClass.id ? { ...formData, id: cls.id } : cls)));
     } else {
-      const newSession: Session = {
-        id: Date.now().toString(),
-        ...formData as Session
-      };
-      setSessions([...sessions, newSession]);
+      setClasses([...classes, { ...formData, id: classes.length + 1 }]);
     }
     setIsModalOpen(false);
-    setEditingSession(null);
-    setFormData({ status: 'scheduled' });
+    setEditingClass(null);
+    setFormData({id:0, title: "", course: "", date: "", time: "", duration: "", status: "scheduled", description: "" });
   };
 
-  const handleEdit = (session: Session) => {
-    setEditingSession(session);
-    setFormData(session);
+  // Handle Edit Class
+  const handleEdit = (cls) => {
+    setEditingClass(cls);
+    setFormData({
+      id: cls.id,
+      title: cls.title,
+      course: cls.course,
+      date: cls.date,
+      time: cls.time,
+      duration: cls.duration,
+      status: cls.status,
+      description: cls.description,
+      meetingLink: cls.meetingLink,
+    });
     setIsModalOpen(true);
   };
 
-  const handleDelete = (id: string) => {
-    setSessions(sessions.filter(s => s.id !== id));
-  };
+  // Handle Delete Class
+  const handleDelete = (id) => setClasses(classes.filter(cls => cls.id !== id));
 
   return (
-    <div className="flex min-h-screen ">
+    <div className="flex min-h-screen">
       {/* Sidebar */}
-      <aside className="w-64 h-screen fixed rounded-lg bg-blue-100 p-6 text-black shadow-sm">
-      <h2 className="mb-8 text-2xl font-bold"></h2>
-        <ul className="space-y-6">
-          {[{ href: '/dashboard/teacherDashboard/dhome', icon: HomeIcon, label: 'Home' },
-            { href: '/dashboard/teacherDashboard/dprofile', icon: UserIcon, label: 'Profile' },
-            { href: '/dashboard/teacherDashboard/dcourseprogress', icon: BookOpenIcon, label: 'Course Progress' },
-            { href: '/dashboard/teacherDashboard/dannounce', icon: ClipboardDocumentIcon, label: 'Announcements' },
-            { href: '/dashboard/teacherDashboard/dstudentanalysis', icon: Cog6ToothIcon, label: 'Student Analysis' },
-            { href: '/dashboard/teacherDashboard/dclassdetails', icon: ClockIcon, label: 'Class Details' },
-            { href: '/dashboard/teacherDashboard/dcleardoubts', icon: QuestionMarkCircleIcon, label: 'Clear Doubts' }].map(({ href, icon: Icon, label }) => (
-            <li key={href} className="flex items-center">
-              <Icon className="h-6 w-6 text-gray-400" />
-              <Link href={href} className="ml-2 text-lg font-sans hover:cursor-pointer hover:font-bold">{label}</Link>
-            </li>
-          ))}
-        </ul>
+      <aside className="card fixed w-64 bg-base-100 p-4">
+        <TeacherSideBar />
       </aside>
 
-      <main className="flex-1 w-full ml-72 mr-14 ">
-
-      <div className="p-8 bg-gray-50 min-h-screen text-black rounded-lg">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">Class Management</h1>
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition-colors"
-          >
-            + Schedule New Class
-          </button>
+      {/* Main Content */}
+      <main className="flex-1 w-full ml-72 mr-14 px-4">
+        <div className="card bg-base-100 p-6 shadow-lg">
+          <h2 className="text-3xl font-bold text-primary">Class Management</h2>
+          <p className="text-gray-500 mt-2">Manage, schedule, and edit your classes seamlessly.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {sessions.map(session => (
-            <div key={session.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-              <div className="p-6">
-                <div className="flex justify-between items-start mb-4">
-                  <span className={`px-3 py-1 rounded-full text-sm ${
-                    session.status === 'scheduled' ? 'bg-blue-100 text-blue-800' :
-                    session.status === 'ongoing' ? 'bg-green-100 text-green-800' :
-                    'bg-gray-100 text-gray-800'
-                  }`}>
-                    {session.status}
-                  </span>
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => handleEdit(session)}
-                      className="text-indigo-600 hover:text-indigo-900"
-                    >
-                      ✏️
-                    </button>
-                    <button
-                      onClick={() => handleDelete(session.id)}
-                      className="text-red-600 hover:text-red-900"
-                    >
-                      🗑️
-                    </button>
-                  </div>
-                </div>
-                
-                <h3 className="text-xl font-semibold mb-2">{session.title}</h3>
-                <p className="text-gray-600 mb-4">{session.description}</p>
-                
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center gap-2">
-                    <span className="text-gray-500">📅</span>
-                    <span>{new Date(session.date).toLocaleDateString()} | {session.time}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-gray-500">⏳</span>
-                    <span>{session.duration} minutes</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-gray-500">📚</span>
-                    <span>{session.course}</span>
-                  </div>
-                </div>
+        {/* Add New Class Button */}
+        <div className="flex justify-end mt-6">
+          <button onClick={() => setIsModalOpen(true)} className="btn btn-primary">+ Schedule New Class</button>
+        </div>
 
-                <a
-                  href={session.meetingLink}
-                  className="mt-4 inline-block w-full text-center bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors"
-                >
-                  Start Class
-                </a>
+        {/* Class Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 text-black gap-6 mt-6">
+          {classes.map(cls => (
+            <div key={cls.id} className="card bg-base-100 shadow-lg p-4">
+              <div className="flex justify-between">
+                <span className={`badge ${cls.status === "scheduled" ? "badge-primary" : cls.status === "ongoing" ? "badge-success" : "badge-neutral"}`}>
+                  {cls.status}
+                </span>
+                <div className="flex gap-2">
+                  <button onClick={() => handleEdit(cls)} className="btn btn-sm btn-outline">
+                    <PencilIcon className="h-5 w-5" />
+                  </button>
+                  <button onClick={() => handleDelete(cls.id)} className="btn btn-sm btn-error">
+                    <TrashIcon className="h-5 w-5" />
+                  </button>
+                </div>
               </div>
+
+              <h3 className="text-xl font-semibold mt-2">{cls.title}</h3>
+              <p className="text-gray-600">{cls.description}</p>
+
+              <div className="mt-3 text-sm">
+                <p>📅 {cls.date} | {cls.time}</p>
+                <p>⏳ {cls.duration} minutes</p>
+                <p>📚 {cls.course}</p>
+              </div>
+
+              <a href={cls.meetingLink} className="btn btn-success mt-4 w-full">Start Class</a>
             </div>
           ))}
         </div>
 
+        {/* Class Modal */}
         {isModalOpen && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 ">
-            <div className="bg-white rounded-xl p-6 w-full max-w-md">
-              <h2 className="text-2xl font-bold mb-4">
-                {editingSession ? 'Edit Class' : 'New Class'}
-              </h2>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
-                  <input
-                    type="text"
-                    name="title"
-                    value={formData.title || ''}
-                    onChange={handleInputChange}
-                    className="w-full p-2 border rounded-lg"
-                    required
-                  />
-                </div>
+          <div className="fixed inset-0 text-black bg-black bg-opacity-50 flex items-center justify-center p-4">
+            <div className="card bg-base-100 p-6 w-full max-w-md">
+              <h2 className="text-2xl font-bold">{editingClass ? "Edit Class" : "New Class"}</h2>
+
+              <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+                <input type="text" name="title" placeholder="Class Title" value={formData.title} onChange={handleInputChange} className="input input-bordered w-full" required />
+                <input type="text" name="course" placeholder="Course Code" value={formData.course} onChange={handleInputChange} className="input input-bordered w-full" required />
                 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Course Code</label>
-                  <input
-                    type="text"
-                    name="course"
-                    value={formData.course || ''}
-                    onChange={handleInputChange}
-                    className="w-full p-2 border rounded-lg"
-                    required
-                  />
+                <div className="flex gap-2">
+                  <input type="date" name="date" value={formData.date} onChange={handleInputChange} className="input input-bordered w-full" required />
+                  <input type="time" name="time" value={formData.time} onChange={handleInputChange} className="input input-bordered w-full" required />
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
-                    <input
-                      type="date"
-                      name="date"
-                      value={formData.date || ''}
-                      onChange={handleInputChange}
-                      className="w-full p-2 border rounded-lg"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Time</label>
-                    <input
-                      type="time"
-                      name="time"
-                      value={formData.time || ''}
-                      onChange={handleInputChange}
-                      className="w-full p-2 border rounded-lg"
-                      required
-                    />
-                  </div>
-                </div>
+                <input type="number" name="duration" placeholder="Duration (minutes)" value={formData.duration} onChange={handleInputChange} className="input input-bordered w-full" required />
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Duration (minutes)</label>
-                  <input
-                    type="number"
-                    name="duration"
-                    value={formData.duration || ''}
-                    onChange={handleInputChange}
-                    className="w-full p-2 border rounded-lg"
-                    required
-                  />
-                </div>
+                <select name="status" value={formData.status} onChange={handleInputChange} className="select select-bordered w-full">
+                  <option value="scheduled">Scheduled</option>
+                  <option value="ongoing">Ongoing</option>
+                  <option value="completed">Completed</option>
+                </select>
+                <input type="text" name="meetingLink" placeholder="Meeting Link" value={formData.meetingLink} onChange={handleInputChange} className="input input-bordered w-full" required/>
+                <textarea name="description" placeholder="Class Description" value={formData.description} onChange={handleInputChange} className="textarea textarea-bordered w-full"></textarea>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
-                  <select
-                    name="status"
-                    value={formData.status}
-                    onChange={handleInputChange}
-                    className="w-full p-2 border rounded-lg"
-                  >
-                    <option value="scheduled">Scheduled</option>
-                    <option value="ongoing">Ongoing</option>
-                    <option value="completed">Completed</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                  <textarea
-                    name="description"
-                    value={formData.description || ''}
-                    onChange={handleInputChange}
-                    className="w-full p-2 border rounded-lg"
-                    rows={3}
-                  />
-                </div>
-
-                <div className="flex justify-end gap-3 mt-6">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsModalOpen(false);
-                      setEditingSession(null);
-                      setFormData({ status: 'scheduled' });
-                    }}
-                    className="px-4 py-2 text-gray-600 hover:text-gray-800"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
-                  >
-                    {editingSession ? 'Update' : 'Create'} Class
-                  </button>
+                <div className="flex justify-end gap-3 mt-4">
+                  <button type="button" onClick={() => setIsModalOpen(false)} className="btn btn-outline">Cancel</button>
+                  <button type="submit" className="btn btn-primary">{editingClass ? "Update" : "Create"} Class</button>
                 </div>
               </form>
             </div>
           </div>
         )}
-      </div>
-    </div>
-
       </main>
-
     </div>
   );
 };
-export default Dashboard;
+
+export default ClassManagement;
