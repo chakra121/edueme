@@ -1,9 +1,9 @@
 const MOFC = () => {
     const images = [
-      "mofc.png",
-      "mofc.png",
-      "mofc.png",
-      "mofc.png"
+      "mofc1.jpg",
+      "mofc2.jpg",
+      "mofc3.jpg",
+      "mofc4.jpg"
     ];
   
     return (
@@ -23,7 +23,7 @@ const MOFC = () => {
                   </div>
                 </div>
                 {/* Back Side */}
-                <div className="absolute inset-0 bg-[#e3b6b5] rounded-lg flex flex-col items-center justify-center [transform:rotateY(180deg)] [backface-visibility:hidden]">
+                <div className="absolute inset-0 bg-[#373737] rounded-lg flex flex-col items-center justify-center [transform:rotateY(180deg)] [backface-visibility:hidden]">
                   <h3 className="text-2xl font-bold font-impact">Lorem Ipsum</h3>
                   <p className="text-lg text-center">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad labore autem illum, saepe vero non nemo dolorem
