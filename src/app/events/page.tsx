@@ -1,125 +1,85 @@
-import React from "react";
+'use client';
+
+import { motion, useScroll, useTransform } from "framer-motion";
+import { RiRobot2Fill } from "react-icons/ri";
+import { FaCalendarAlt, FaMapMarkerAlt, FaTrophy, FaUserGraduate, FaMicrochip } from "react-icons/fa";
 import Link from "next/link";
+import Image from "next/image";
+import { ReactNode } from "react";
+
+function FloatingRobot({ children, delay = 0 }: { children: ReactNode; delay?: number }) {
+    return (
+        <motion.div
+            initial={{ y: 0 }}
+            animate={{ y: [0, -20, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay }}
+        >
+            {children}
+        </motion.div>
+    );
+}
+
+function AnimatedCard({ title, content, Icon, delay }: { title: string; content: string; Icon: ReactNode; delay: number }) {
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay }}
+            className="bg-white p-6 rounded-lg shadow-lg mb-6 flex items-center space-x-4"
+        >
+            <div className="text-purple-600 text-3xl">{Icon}</div>
+            <div>
+                <h3 className="text-xl font-bold text-purple-600">{title}</h3>
+                <p className="text-gray-700 mt-2">{content}</p>
+            </div>
+        </motion.div>
+    );
+}
 
 export default function RoboticsEvent() {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black pt-24 pb-12">
-      {/* Hero Section */}
-      <div className="px-4 sm:px-8 lg:px-16 animate-fade-in">
-        <h1 className="text-center text-5xl font-bold bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
-          Navikarana 1.0
-        </h1>
-        <h2 className="mt-3 text-center text-2xl font-semibold text-gray-300">
-          Empowering Intelligence
-        </h2>
-      </div>
-
-      {/* Main Content */}
-      <div className="mt-12 px-4 sm:px-8 lg:px-16 space-y-8">
-        {/* Event Description */}
-        <div className="bg-gradient-to-r from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 shadow-lg animate-slide-up">
-          <p className="text-lg text-gray-300 leading-relaxed">
-            Mechatronites Club Jointly Ventured with International school to
-            conduct national level fest where workshops, seminars and competitions
-            are held challenging the young & sharpest minds, adding the intellects
-            of different schools, colleges and engineers.
-          </p>
-        </div>
-
-        {/* Key Information Grid */}
-        <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 animate-slide-up">
-          {[
-            {
-              title: "Venue",
-              content: "Arka International School, Hyderabad, Telangana 500112",
-              icon: "📍"
-            },
-            {
-              title: "Date",
-              content: "3rd & 4th January 2025",
-              icon: "📅"
-            },
-            {
-              title: "Contact Us",
-              content: (
-                <>
-                  <p>Call us: 9059508050, 70759976623</p>
-                  <a
-                    href="https://wa.me/+919059508050"
-                    className="text-blue-400 hover:text-blue-300 transition-colors duration-200"
-                  >
-                    Chat on WhatsApp
-                  </a>
-                </>
-              ),
-              icon: "📞"
-            }
-          ].map((item, index) => (
-            <div key={index} className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:border-yellow-400 transition-all duration-300">
-              <div className="flex items-center space-x-3 mb-4">
-                <span className="text-2xl">{item.icon}</span>
-                <h2 className="text-2xl font-bold text-yellow-400">{item.title}</h2>
-              </div>
-              <div className="text-gray-300">{item.content}</div>
+    return (
+        <div className="min-h-screen bg-gradient-to-b p-20 from-indigo-50 to-purple-50">
+            <div className="mx-auto max-w-6xl px-4 pt-8 sm:px-6 lg:px-8 text-center">
+                <FloatingRobot>
+                    <RiRobot2Fill className="mx-auto h-24 w-24 text-purple-600" />
+                </FloatingRobot>
+                <h1 className="mt-6 bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-5xl font-extrabold text-transparent">
+                    Navikarana 1.0
+                </h1>
+                <h2 className="mt-4 text-2xl font-bold text-indigo-600">Empowering Intelligence</h2>
             </div>
-          ))}
-        </div>
-
-        {/* Events and Prizes Section */}
-        <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-2 animate-slide-up">
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700">
-            <h2 className="text-2xl font-bold text-yellow-400 mb-4">Events</h2>
-            <ul className="space-y-3 text-gray-300">
-              {[
-                "Robotics & AI Expo",
-                "Open Mic",
-                "Guest Talk and Interview",
-                "Show (Entertainment)",
-                "Workshops"
-              ].map((event, index) => (
-                <li key={index} className="flex items-center space-x-2">
-                  <span className="text-yellow-400">•</span>
-                  <span>{event}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700">
-            <h2 className="text-2xl font-bold text-yellow-400 mb-4">Category</h2>
-            <p className="text-gray-300 mb-6">Grade 5 to 12</p>
-            <h2 className="text-2xl font-bold text-yellow-400 mb-4">Price Reward</h2>
-            <div className="space-y-3 text-gray-300">
-              <p>1st Prize: ₹20,000/-</p>
-              <p>2nd Prize: ₹15,000/-</p>
-              <p>3rd Prize: ₹10,000/-</p>
+            <div className="mt-12 text-center">
+                <p className="text-lg text-gray-700">Join us at Mechatronites Club's national level fest with workshops, seminars, and competitions!</p>
             </div>
-          </div>
+            <div className="mt-12 text-center relative">
+                <p className="text-3xl font-bold text-gray-800">Registration Fee: ₹500/-</p>
+                <motion.div
+                    initial={{ x: 0, y: 10, opacity: 1, scale: 1 }}
+                    animate={{ x: [0, -5, 0], y: [15, 20, 15], scale: [1, 0.9, 1], opacity: [1, 1, 1] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute left-[52%] top-[52%] transform -translate-x-1/2 -translate-y-1/2 w-12 h-12"
+                >
+                    <Image src="/cursor-click.svg" alt="Mouse Cursor" width={50} height={50} />
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} className="inline-block mt-6">
+                    <Link
+                        href="https://forms.gle/7RbpBT6USpgXoqot8"
+                        className="rounded-full bg-white px-8 py-4 text-xl font-semibold text-purple-600 shadow-lg transition-transform hover:shadow-xl cursor-pointer"
+                    >
+                        Register Now!
+                    </Link>
+                </motion.div>
+            </div>
+            <div className="mt-12 max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+                <AnimatedCard title="Date" content="01st & 02nd March 2025" Icon={<FaCalendarAlt />} delay={0} />
+                <AnimatedCard title="Venue" content="Arka International School, Hyderabad" Icon={<FaMapMarkerAlt />} delay={2} />
+                <AnimatedCard title="Events" content="Robotics & AI Expo, Open Mic, Guest Talk, Workshops" Icon={<FaMicrochip />} delay={3} />
+            </div>
+            <div className="mt-12 max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                <AnimatedCard title="Junior Category" content="Grade 5 to 12" Icon={<FaUserGraduate />} delay={4} />
+                <AnimatedCard title="Prize Rewards" content="1st Prize: ₹10,000 | Runners-up: ₹7,000 & ₹3,000" Icon={<FaTrophy />} delay={5} />
+            </div>
         </div>
-
-        {/* Registration Section */}
-        <div className="bg-gradient-to-r from-yellow-400 to-orange-500 p-6 rounded-xl text-center animate-slide-up">
-          <p className="text-2xl font-bold text-gray-900 mb-4">
-            Registration Fee: ₹300/-
-          </p>
-          <Link
-            href="https://forms.gle/7RbpBT6USpgXoqot8"
-            className="inline-block bg-gray-900 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-gray-800 transition-colors duration-200"
-          >
-            Register Now!
-          </Link>
-        </div>
-
-        {/* Footer */}
-        <div className="mt-12 text-center text-gray-400 animate-fade-in">
-          <p className="text-xl">
-            Powered by{" "}
-            <span className="font-bold text-yellow-400">
-              Arka International School
-            </span>
-          </p>
-        </div>
-      </div>
-    </div>
-  );
+    );
 }

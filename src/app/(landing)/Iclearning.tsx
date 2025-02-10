@@ -11,7 +11,7 @@ const ICLearning = () => {
         { 
             title: "Collaborative Environment", 
             description: "Work together with peers, share ideas, and improve teamwork skills through group activities and projects.",
-            icon: <FaUsers className="text-5xl text-secondary" />,
+            icon: <FaUsers className="text-5xl text-secondary" />,  
             image: "collaborative_learning.jpg"
         },
         { 

@@ -8,6 +8,7 @@ import AnnouncementScroller from "./AnnouncementScroller";
 import MOFC from './Mofc';
 import CH from './curriculumh';
 import ICL from './Iclearning';
+import Reviews from './reviews';
 
 export default function HomePage() {
    const announcements = [
@@ -23,6 +24,7 @@ export default function HomePage() {
       <MOFC/>
       <CH/>
       <ICL/>
+      <Reviews/>
       <Gallery />
     </div>
   );

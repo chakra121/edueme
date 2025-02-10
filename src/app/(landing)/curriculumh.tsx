@@ -1,11 +1,11 @@
 const CurriculumHighlights = () => {
     const highlights = [
-      { name: "Innovation", image: "mofc.png" },
-      { name: "Technology", image: "mofc.png" },
-      { name: "Research", image: "mofc.png" },
-      { name: "Development", image: "mofc.png" },
-      { name: "Collaboration", image: "mofc.png" },
-      { name: "Growth", image: "mofc.png" }
+      { name: "Innovation", image: "unused.jpg" },
+      { name: "Technology", image: "unused.jpg" },
+      { name: "Research", image: "unused.jpg" },
+      { name: "Development", image: "unused.jpg" },
+      { name: "Collaboration", image: "unused.jpg" },
+      { name: "Growth", image: "unused.jpg" }
     ];
   
     return (
