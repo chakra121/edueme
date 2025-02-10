@@ -19,8 +19,8 @@ const Navbar = () => {
     { label: "Research", href: "/research" },
     { label: "Contact Us", href: "/contact" },
     { label: "Why Us", href: "/whyus" },
-    // { label: "How", href: "/whyus" },
-    // { label: "Blogs", href: "/whyus" },
+    // { label: "How", href: "/how" },
+    // { label: "Blogs", href: "/blogs" },
 
   ];
 
