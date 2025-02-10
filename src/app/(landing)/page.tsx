@@ -5,7 +5,7 @@ import Products from "./Products";
 import Services from "./Services";
 import Gallery from "./Gallery";
 import AnnouncementScroller from "./AnnouncementScroller";
-import MOFC from "./mofc";
+import MOFC from './Mofc';
 
 export default function HomePage() {
    const announcements = [
