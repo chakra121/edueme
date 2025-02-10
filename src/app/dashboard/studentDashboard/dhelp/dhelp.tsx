@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { PaperAirplaneIcon, CameraIcon, XCircleIcon } from "@heroicons/react/24/outline";
-import { motion } from "framer-motion";
+
 import Link from "next/link";
 import StudentSideBar from "../sideBar";
 
@@ -45,11 +45,7 @@ const Help = () => {
   return () => clearInterval(interval);
   }, []);
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setSelectedImage(e.target.files[0]);
-    }
-  };
+ 
 
   const submitDoubt = async () => {
     if (!newDoubt.trim()) return;

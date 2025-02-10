@@ -40,7 +40,8 @@
     "**/*.js",
     ".next/types/**/*.ts",
     "src/components/about_para",
-    "types" /* Added */
+    "types" /* Added */,
+    "src/app/dashboard/adminDashboard/dAnnounce"
   ],
   "exclude": ["node_modules"]
 }
