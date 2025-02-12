@@ -76,12 +76,12 @@ function ContactForm() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const feather = require("feather-icons");
-      feather.replace();
-    }
-  }, [showIcons]);
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     const feather = require("feather-icons");
+  //     feather.replace();
+  //   }
+  // }, [showIcons]);
 
   return (
     <div

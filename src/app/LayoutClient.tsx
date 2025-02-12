@@ -14,6 +14,7 @@ export default function LayoutClient({
   // Check if the current page is any test page where Navbar and Footer should not be shown
   const isTestPage =
     pathname === "/courses/roboticsCourse/2_3/mcqTest" ||
+    pathname === "/unauthorized" ||
     pathname === "/courses/roboticsCourse/2_3/blanksTest";
 
 const isDashboard =

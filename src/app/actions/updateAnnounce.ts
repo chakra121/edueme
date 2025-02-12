@@ -1,5 +1,5 @@
 "use server";
-import prisma from "@/lib/connectPrisma";
+import prisma from "@/lib/globalPrisma";
 import { revalidatePath } from "next/cache";
 
 export default async function updateCommonAnnounce(formData: FormData) {
@@ -7,11 +7,11 @@ export default async function updateCommonAnnounce(formData: FormData) {
         where: {
             id: "67a9d9e0464d7d6136fa3928",
         },
-data: {
-title: formData.get("title") as string,
-description: formData.get("description") as string,
-date: new Date(),
+        data: {
+            title: formData.get("title") as string,
+            description: formData.get("description") as string,
+            date: new Date(),
 }});
 
-revalidatePath('./dashboard/adminDashboard/dAnnounce');
+    revalidatePath('./dashboard/adminDashboard/dAnnounce');
 }

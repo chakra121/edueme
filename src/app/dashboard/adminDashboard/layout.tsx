@@ -7,11 +7,11 @@ interface PageProps {
 
 export default function Page({ children }: PageProps) {
   return (
-    <div className="px-[4rem] pt-[5rem] flex space-x-4">
-      <div className="card w-64 bg-base-100 p-4">
-      <AdminSideBar />
+    <div className="px-[4rem] pt-[5rem]">
+      <div className="card fixed w-64 bg-base-100 p-4">
+        <AdminSideBar />
       </div>
-      <main className="w-full">{children}</main>
+      <main className="ml-64 mb-5 px-4 w-full">{children}</main>
     </div>
   );
 }

@@ -1,12 +1,8 @@
 import updateCommonAnnounce from "@/app/actions/updateAnnounce";
-import React from "react";
-import prisma from "@/lib/connectPrisma";
+import prisma from "@/lib/globalPrisma";
 
 export default async function dAnnounce() {
-    const currentAnnouncement = await prisma.adminAnnouncement.findUnique({
-    where: {
-      id: "67a9d9e0464d7d6136fa3928",
-    },
+    const currentAnnouncement = await prisma.adminAnnouncement.findFirst({
     select: {
       title: true,
       description: true,
@@ -68,27 +64,24 @@ export default async function dAnnounce() {
               </h2>
               <label
                 className="block text-lg font-medium text-base-content"
-                htmlFor="title"
               >
                 Title
               </label>
               <input
                 type="text"
-                id="title"
                 name="title"
                 className="input input-bordered w-full"
                 placeholder="Enter title"
               />
               <label
                 className="block text-lg font-medium text-base-content"
-                htmlFor="description"
               >
                 Description
               </label>
               <textarea
-                id="description"
                 name="description"
-                className="textarea textarea-bordered h-24 w-full"
+                rows={5}
+                className="textarea textarea-bordered"
                 placeholder="Enter description"
               ></textarea>
               <div>

@@ -104,38 +104,41 @@ const Signup: React.FC = () => {
     setStep(1);
   };
   // ------------------------------------------------------------
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setErrorMessage("");
-    if (validateStep(2)) {
-      try {
-        setIsSubmitting(true);
-        const response = await fetch("/api/auth/signup", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
+ const handleSubmit = async (e: FormEvent) => {
+   e.preventDefault();
+   setErrorMessage("");
+   if (validateStep(2)) {
+     try {
+       setIsSubmitting(true);
+       const response = await fetch("/api/auth/register", {
+         method: "POST",
+         headers: {
+           "Content-Type": "application/json",
+         },
+         body: JSON.stringify({
+           ...formData,
+           userRole: "student", // Ensuring userRole is included as 'student'
+         }),
+       });
 
-        const result = await response.json();
+       const result = await response.json();
 
-        if (response.ok) {
-          console.log("Registration successful:", result);
-          setSubmitted(true);
-        } else {
-          setErrorMessage(
-            result.message || "Registration failed. Please try again.",
-          );
-        }
-      } catch (error) {
-        console.error("Network error:", error);
-        setErrorMessage("Network error. Please try again.");
-      } finally {
-        setIsSubmitting(false);
-      }
-    }
-  };
+       if (response.ok) {
+         console.log("Registration successful:", result);
+         setSubmitted(true);
+       } else {
+         setErrorMessage(
+           result.message || "Registration failed. Please try again.",
+         );
+       }
+     } catch (error) {
+       console.error("Network error:", error);
+       setErrorMessage("Network error. Please try again.");
+     } finally {
+       setIsSubmitting(false);
+     }
+   }
+ };
   // ------------------------------------------------------------
   return (
     <div

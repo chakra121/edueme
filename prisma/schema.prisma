@@ -28,3 +28,18 @@ model AdminAnnouncement {
   adminId        String?        @db.ObjectId
   admin          Admin?         @relation(fields: [adminId], references: [id], name: "AdminToAnnouncement")
   }
+
+model User {
+  id             String           @id @default(auto()) @map("_id") @db.ObjectId
+  firstName String
+  lastName String
+  gender String
+  grade String
+  schoolName String
+  phoneNumber String
+  email String @unique
+  parentEmail String
+  userRole String
+  hashedPassword String
+
+}

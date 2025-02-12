@@ -5,6 +5,7 @@ import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import Script from "next/script";
 import LayoutClient from "./LayoutClient";
+import AuthProvider from "@/components/AuthProvider";
 
 export const metadata: Metadata = {
   title: "Edueme Research Lab",
@@ -17,10 +18,26 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en" className={`${GeistSans.variable}`} data-theme="bumblebee">
+    <html
+      lang="en"
+      className={`${GeistSans.variable}`}
+      suppressHydrationWarning
+    >
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            (function() {
+              const theme = localStorage.getItem("theme") || "bumblebee";
+              document.documentElement.setAttribute("data-theme", theme);
+            })();
+          `,
+          }}
+        />
         {/* SEO Meta Tags */}
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="keywords" content="Education, Research, Learning" />
@@ -33,7 +50,9 @@ export default function RootLayout({
       </head>
       <body>
         <main>
-          <LayoutClient>{children}</LayoutClient>
+          <AuthProvider>
+            <LayoutClient>{children}</LayoutClient>
+          </AuthProvider>
         </main>
       </body>
     </html>

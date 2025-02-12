@@ -1,17 +1,11 @@
-import mongoose from "mongoose";
+import prisma from "./globalPrisma";
 
-export const connectDb = async () => {
-  if (mongoose.connections[0]?.readyState) {
-    return true;
-  }
+export const connectToDatabase = async () => {
+
   try {
-    await mongoose.connect(process.env.MONGO_URI!, {
-      dbName: "authentication" // Explicit database name
-    });
-    console.log("MongoDB connected to authentication database");
-    console.log("MongoDB connected");
+        await prisma.$connect();
   } catch (error) {
-    console.log("DB Connection Failed", error);
-    process.exit(1);
+    console.log(error);
+    throw new Error("Unable to connect to Database");
   }
 };

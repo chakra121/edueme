@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from "react";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 interface FormData {
@@ -17,7 +18,6 @@ const Login: React.FC = () => {
     email: "",
     password: "",
   });
-
   const [errors, setErrors] = useState<FormErrors>({});
   const [apiError, setApiError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -25,35 +25,22 @@ const Login: React.FC = () => {
 
   const validate = (): boolean => {
     const tempErrors: FormErrors = {};
-    if (!formData.email) {
-      tempErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+    if (!formData.email) tempErrors.email = "Email is required";
+    else if (!/\S+@\S+\.\S+/.test(formData.email))
       tempErrors.email = "Invalid email format";
-    }
-    if (!formData.password) {
-      tempErrors.password = "Password is required";
-    }
+
+    if (!formData.password) tempErrors.password = "Password is required";
+
     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;
   };
 
- const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-   const { name, value } = e.target;
-
-   // Type-safe way to update form data
-   setFormData((prev) => ({
-     ...prev,
-     [name]: value,
-   }));
-
-   // Type-safe way to clear errors
-   if (errors[name as keyof FormErrors]) {
-     setErrors((prev) => ({
-       ...prev,
-       [name]: "",
-     }));
-   }
- };
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name as keyof FormErrors])
+      setErrors((prev) => ({ ...prev, [name]: "" }));
+  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -61,38 +48,32 @@ const Login: React.FC = () => {
 
     if (!validate()) return;
 
-    try {
-      setIsSubmitting(true);
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+    setIsSubmitting(true);
+    const result = await signIn("credentials", {
+      email: formData.email,
+      password: formData.password,
+      redirect: false,
+    });
 
-      const result = await response.json();
-
-      if (response.ok && result.success) {
-        localStorage.setItem("token", result.token);
-
-        // Role-based routing
-        switch (result.role) {
-          case "teacher":
-            router.push("/dashboard/teacherDashboard/dhome");
-            break;
-          case "superadmin":
-            router.push("/dashboard/adminDashboard/dhome");
-            break;
-          default: // student
-            router.push("/dashboard/studentDashboard/dhome");
-        }
-      } else {
-        setApiError(result.message || "Login failed. Please try again.");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      setApiError("Server is busy. Please try again.");
-    } finally {
+    if (result?.error) {
+      setApiError(result.error || "Login failed. Please try again.");
       setIsSubmitting(false);
+      return;
+    }
+
+    // Fetch session to get user role
+    const res = await fetch("/api/auth/session");
+    const session = await res.json();
+
+    switch (session?.user?.role) {
+      case "teacher":
+        router.push("/dashboard/teacherDashboard/dhome");
+        break;
+      case "superadmin":
+        router.push("/dashboard/adminDashboard/dhome");
+        break;
+      default: // student
+        router.push("/dashboard/studentDashboard/dhome");
     }
   };
 
@@ -112,19 +93,6 @@ const Login: React.FC = () => {
 
           {apiError && (
             <div className="alert alert-error mb-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 shrink-0 stroke-current"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
               <span>{apiError}</span>
             </div>
           )}
@@ -168,14 +136,7 @@ const Login: React.FC = () => {
                 className="btn btn-primary w-full"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? (
-                  <>
-                    <span className="loading loading-infinity loading-md"></span>
-                    Logging in...
-                  </>
-                ) : (
-                  "Login"
-                )}
+                {isSubmitting ? "Logging in..." : "Login"}
               </button>
             </div>
           </form>

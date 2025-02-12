@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import jwt from "jsonwebtoken";
 import StudentSideBar from "../sideBar";
-import { PencilIcon, SaveIcon } from "@heroicons/react/24/outline";
+
 import {
   HomeIcon,
   UserIcon,
