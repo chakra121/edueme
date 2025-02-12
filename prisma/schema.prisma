@@ -14,8 +14,8 @@ datasource db {
 }
 
 model Admin {
-  id             String           @id @default(auto()) @map("_id") @db.ObjectId
-  email          String           @unique
+  id             String          @id @default(auto()) @map("_id") @db.ObjectId
+  email          String          @unique
   password       String
   announcements  AdminAnnouncement[] @relation("AdminToAnnouncement")
 }
@@ -29,22 +29,33 @@ model AdminAnnouncement {
   title          String
   description    String
   date           DateTime
-  role            UserRole
+  role           UserRole
   adminId        String?        @db.ObjectId
-  admin          Admin?        @relation(fields: [adminId], references: [id], name: "AdminToAnnouncement")
+  admin          Admin?         @relation(fields: [adminId], references: [id], name: "AdminToAnnouncement")
   }
 
 model User {
-  id             String           @id @default(auto()) @map("_id") @db.ObjectId
-  firstName String
-  lastName String
-  gender String
-  grade String
-  schoolName String
-  phoneNumber String
-  email String @unique
-  parentEmail String
-  userRole String
-  hashedPassword String
-
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  firstName       String
+  lastName        String
+  gender          String
+  grade           String
+  schoolName      String
+  phoneNumber     String
+  email           String        @unique
+  parentEmail     String
+  userRole        String
+  hashedPassword  String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+model Teacher {
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  teacherName     String
+  phoneNumber     String
+  email           String        @unique
+  hashedPassword  String
+  userRole        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

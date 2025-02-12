@@ -2,13 +2,8 @@
 import React from "react";
 import Link from "next/link";
 import {
-  HomeIcon,
-  UserCircleIcon,
+  UsersIcon,
   MegaphoneIcon,
-  ChartBarIcon,
-  CalendarIcon,
-  QuestionMarkCircleIcon,
-  AcademicCapIcon,
 } from "@heroicons/react/24/outline";
 import { usePathname } from "next/navigation";
 import classname from "classnames";
@@ -22,7 +17,11 @@ const AdminSideBar = () => {
       href: "/dashboard/adminDashboard/dAnnounce",
       icon: MegaphoneIcon,
     },
-
+    {
+      label: "Teacher's Catalog",
+      href: "/dashboard/adminDashboard/dTeacherCatalog",
+      icon: UsersIcon,
+    },
   ];
   return (
     <div className="space-y-4">

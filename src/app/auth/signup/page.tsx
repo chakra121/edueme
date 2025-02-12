@@ -110,7 +110,7 @@ const Signup: React.FC = () => {
    if (validateStep(2)) {
      try {
        setIsSubmitting(true);
-       const response = await fetch("/api/auth/register", {
+       const response = await fetch("/api/auth/registerStudent", {
          method: "POST",
          headers: {
            "Content-Type": "application/json",
