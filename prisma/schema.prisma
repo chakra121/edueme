@@ -19,14 +19,19 @@ model Admin {
   password       String
   announcements  AdminAnnouncement[] @relation("AdminToAnnouncement")
 }
+enum UserRole {
+  common
+  student
+}
 
 model AdminAnnouncement {
   id             String         @id @default(auto()) @map("_id") @db.ObjectId
   title          String
   description    String
   date           DateTime
+  role            UserRole
   adminId        String?        @db.ObjectId
-  admin          Admin?         @relation(fields: [adminId], references: [id], name: "AdminToAnnouncement")
+  admin          Admin?        @relation(fields: [adminId], references: [id], name: "AdminToAnnouncement")
   }
 
 model User {
