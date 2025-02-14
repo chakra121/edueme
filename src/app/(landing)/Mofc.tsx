@@ -1,39 +1,32 @@
 const MOFC = () => {
-    const images = [
-      "mofc1.jpg",
-      "mofc2.jpg",
-      "mofc3.jpg",
-      "mofc4.jpg"
-    ];
-  
-    return (
-      <section className="flex flex-col items-center justify-center py-16 bg-black text-white">
-        <h2 className="text-4xl font-bold text-center mb-10">Mission of Curriculum</h2>
-        <div className="grid grid-cols-4 gap-4">
-          {images.map((image, index) => (
-            <div key={index} className="relative w-[8cm] h-[8cm] [perspective:1000px]">
-              <div className="relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d] hover:[transform:rotateY(180deg)]">
-                {/* Front Side */}
-                <div
-                  className="absolute inset-0 bg-cover bg-center rounded-lg [backface-visibility:hidden]"
-                  style={{ backgroundImage: `url('${image}')` }}
-                >
-                
-                </div>
-                {/* Back Side */}
-                <div className="absolute inset-0 bg-[#373737] rounded-lg flex flex-col items-center justify-center [transform:rotateY(180deg)] [backface-visibility:hidden]">
-                  <h3 className="text-2xl font-bold font-impact">Lorem Ipsum</h3>
-                  <p className="text-lg text-center">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad labore autem illum, saepe vero non nemo dolorem
-                  </p>
-                </div>
+  const images = [
+    "mofc1.jpg",
+    "mofc2.jpg",
+    "mofc3.jpg",
+    "mofc4.jpg"
+  ];
+
+  return (
+    <section className="flex flex-col items-center justify-center py-16 bg-white text-black">
+      <h2 className="text-4xl font-bold text-center mb-10">Mission of Curriculum</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4 md:px-8">
+        {images.map((image, index) => (
+          <div key={index} className="relative w-full max-w-[300px] h-[300px] aspect-square [perspective:1000px]">
+            <div className="relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d] hover:[transform:rotateY(180deg)]">
+              <div
+                className="absolute inset-0 bg-cover bg-center rounded-lg [backface-visibility:hidden] shadow-lg"
+                style={{ backgroundImage: `url('${image}')` }}
+              ></div>
+              <div className="absolute inset-0 bg-gray-200 rounded-lg flex flex-col items-center justify-center p-4 text-center [transform:rotateY(180deg)] [backface-visibility:hidden] shadow-lg">
+                <h3 className="text-2xl font-bold">Lorem Ipsum</h3>
+                <p className="text-lg">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad labore autem illum, saepe vero non nemo dolorem.</p>
               </div>
             </div>
-          ))}
-        </div>
-      </section>
-    );
-  };
-  
-  export default MOFC;
-  
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+export default MOFC;
