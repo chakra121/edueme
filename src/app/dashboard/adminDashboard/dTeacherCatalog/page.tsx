@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function DTeacherCatalogPage() {
   const [loading, setLoading] = useState(false);
@@ -94,6 +94,35 @@ export default function DTeacherCatalogPage() {
       setLoading(false);
     }
   };
+  // <<<<<<<<<Get teacher for table>>>>>>>>>
+interface Teacher {
+  teacherName: string;
+  phoneNumber: string;
+  email: string;
+  createdAt: string;
+}
+
+  const [teachers, setTeachers] = useState<Teacher[]>([]);
+  const [total, setTotal] = useState(0);
+  const [Tloading, setTLoading] = useState(false);
+
+  const fetchTeachers = async () => {
+    setTLoading(true);
+    try {
+      const res = await fetch("/api/teachers");
+      const data = await res.json();
+      setTeachers(data.teachers);
+      setTotal(data.total);
+    } catch (error) {
+      console.error("Error fetching teachers:", error);
+    } finally {
+      setTLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTeachers();
+  }, []);  
 
   return (
     <div className="card bg-base-100 p-4 shadow-lg">
@@ -212,42 +241,47 @@ export default function DTeacherCatalogPage() {
           role="tabpanel"
           className="tab-content rounded-box border-base-300 bg-base-100 p-5 text-base-content"
         >
-          <div className="overflow-x-auto">
-            <table className="table">
-              {/* head */}
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Name</th>
-                  <th>Job</th>
-                  <th>Favorite Color</th>
-                </tr>
-              </thead>
-              <tbody>
-                {/* row 1 */}
-                <tr>
-                  <th>1</th>
-                  <td>Cy Ganderton</td>
-                  <td>Quality Control Specialist</td>
-                  <td>Blue</td>
-                </tr>
-                {/* row 2 */}
-                <tr>
-                  <th>2</th>
-                  <td>Hart Hagerty</td>
-                  <td>Desktop Support Technician</td>
-                  <td>Purple</td>
-                </tr>
-                {/* row 3 */}
-                <tr>
-                  <th>3</th>
-                  <td>Brice Swyre</td>
-                  <td>Tax Accountant</td>
-                  <td>Red</td>
-                </tr>
-              </tbody>
-            </table>
+          {/* <<<<<<<<<>>>>>>>>> */}
+          <div className="p-6">
+            <div className="mb-4 flex items-center justify-between">
+              <h2 className="text-2xl font-bold">Total Teachers: {total}</h2>
+              <button
+                className="btn btn-primary"
+                onClick={fetchTeachers}
+                disabled={Tloading}
+              >
+                {loading ? "Refreshing..." : "Refresh"}
+              </button>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="table w-full">
+                <thead>
+                  <tr className="bg-base-200">
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Created At</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {teachers.map((teacher, index) => (
+                    <tr key={index} className="hover">
+                      <td>{index + 1}</td>
+                      <td>{teacher.teacherName}</td>
+                      <td>{teacher.phoneNumber}</td>
+                      <td>{teacher.email}</td>
+                      <td>
+                        {new Date(teacher.createdAt).toLocaleDateString()}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
+          {/* <<<<<<<<<>>>>>>>>> */}
         </div>
       </div>
     </div>
