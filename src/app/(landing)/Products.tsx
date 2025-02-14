@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 const Products = () => {
+  const [theme, setTheme] = useState("bumblebee");
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") || "bumblebee";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+    setTheme(savedTheme);
+  }, []);
+
   return (
-    <div className="flex flex-col items-center justify-center px-4 py-10 lg:px-20">
+    <div className="flex flex-col items-center justify-center px-4 py-10 lg:px-20 bg-base-100 text-base-content">
       {/* Title Section */}
       <div className="mb-8 text-center">
-        <h1 className="text-3xl font-bold text-white sm:text-4xl">
-          Our Products:
-        </h1>
+        <h1 className="text-3xl font-bold sm:text-4xl">Our Products:</h1>
       </div>
 
       {/* Products Section */}
@@ -17,7 +23,7 @@ const Products = () => {
         <Image
           width={300}
           height={300}
-          className="h-[10rem] w-[10rem] rounded-full border border-gray-200 p-[1rem] md:h-[12rem] md:w-[12rem] lg:h-[15rem] lg:w-[15rem]"
+          className="h-[10rem] w-[10rem] rounded-full border border-base-content p-[1rem] md:h-[12rem] md:w-[12rem] lg:h-[15rem] lg:w-[15rem]"
           alt="Product - Neuroscience"
           src="/nuroscience.jpg"
         />
@@ -26,7 +32,7 @@ const Products = () => {
         <Image
           width={300}
           height={300}
-          className="h-[10rem] w-[10rem] rounded-full border border-gray-200 p-[1rem] md:h-[12rem] md:w-[12rem] lg:h-[15rem] lg:w-[15rem]"
+          className="h-[10rem] w-[10rem] rounded-full border border-base-content p-[1rem] md:h-[12rem] md:w-[12rem] lg:h-[15rem] lg:w-[15rem]"
           alt="Product - AI Robotics"
           src="/ai_robotics.jpg"
         />
@@ -35,15 +41,16 @@ const Products = () => {
         <Image
           width={300}
           height={300}
-          className="h-[10rem] w-[10rem] rounded-full border border-gray-200 p-[1rem] md:h-[12rem] md:w-[12rem] lg:h-[15rem] lg:w-[15rem]"
+          className="h-[10rem] w-[10rem] rounded-full border border-base-content p-[1rem] md:h-[12rem] md:w-[12rem] lg:h-[15rem] lg:w-[15rem]"
           alt="Product - Young Innovators"
           src="/young_innovators.jpg"
         />
+        
         {/* Product 4 */}
         <Image
           width={300}
           height={300}
-          className="h-[10rem] w-[10rem] rounded-full border border-gray-200 p-[1rem] md:h-[12rem] md:w-[12rem] lg:h-[15rem] lg:w-[15rem]"
+          className="h-[10rem] w-[10rem] rounded-full border border-base-content p-[1rem] md:h-[12rem] md:w-[12rem] lg:h-[15rem] lg:w-[15rem]"
           alt="Mechatronites_Club"
           src="/mech_logo.jpg"
         />
