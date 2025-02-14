@@ -1,6 +1,8 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
 import Marquee from "@/components/ui/marquee";
 import { cn } from "@/lib/utils";
-import React from "react";
 
 const schoolsList = [
   { img: "/schools/logo1.png" },
@@ -22,34 +24,32 @@ const ReviewCard = ({ img }: { img: string }) => {
     <figure
       className={cn(
         "relative cursor-pointer overflow-hidden rounded-xl border px-[2rem] py-[1rem]",
-        // light styles
         "border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]",
-        // dark styles
-        "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]",
+        "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]"
       )}
     >
-      <img
-        width="120"
-        height="120"
-        alt={img}
-        src={img}
-        className="rounded-md"
-      />
+      <img width="120" height="120" alt={img} src={img} className="rounded-md" />
     </figure>
   );
 };
 
 export default function Schools() {
+  const [theme, setTheme] = useState("bumblebee");
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") || "bumblebee";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+    setTheme(savedTheme);
+  }, []);
+
   return (
-    <div className="relative flex flex-col items-center justify-center overflow-hidden bg-black px-4 py-10 lg:py-16">
-      {/* Title Section */}
+    <div className="relative flex flex-col items-center justify-center overflow-hidden bg-base-100 px-4 py-10 lg:py-16">
       <div className="text-center">
-        <h1 className="text-balance text-2xl font-bold text-gray-50 sm:text-3xl lg:text-4xl">
+        <h1 className="text-balance text-2xl font-bold text-base-content sm:text-3xl lg:text-4xl">
           Schools in Collaboration:
         </h1>
       </div>
 
-      {/* Marquee Section */}
       <div className="mt-8 w-full">
         <Marquee reverse pauseOnHover className="[--duration:20s]">
           {schoolsList.map((review) => (
@@ -60,9 +60,8 @@ export default function Schools() {
         </Marquee>
       </div>
 
-      {/* Gradient Overlay for Better Focus */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-black"></div>
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-black"></div>
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-base-100"></div>
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-base-100"></div>
     </div>
   );
 }
