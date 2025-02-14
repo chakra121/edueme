@@ -1,42 +1,47 @@
-import React from "react";
+"use client"
+import React, { useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link"; // Import Link from Next.js
 
 export default function StickyCard() {
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/payment-button.js";
+    script.setAttribute("data-payment_button_id", "pl_PvewnwvDLFZQm3");
+    script.async = true;
+
+    const form = document.getElementById("razorpay-form");
+    if (form) {
+      form.innerHTML = ""; // Clear any previous content to avoid duplicate buttons
+      form.appendChild(script);
+    }
+  }, []);
+
   return (
     <div className="flex items-center justify-center sm:pb-16 md:items-center md:justify-center md:pb-8">
       <div className="top-20 z-50 w-full rounded-lg border border-gray-300 bg-white p-4 shadow-lg sm:w-[60%] md:w-[50%] lg:fixed lg:right-28 lg:top-24 lg:w-[23%] lg:items-start lg:justify-start">
         <Image
           src="/aboutimg.png"
           className="rounded-lg border py-8"
-          alt="Image not found"
+          alt="Course Image"
           width={450}
           height={450}
         />
-        <h3 className="my-3 text-2xl font-semibold text-black">
-          Course Include:
-        </h3>
-        <div className="pl-3">
+        <h3 className="my-3 text-2xl font-semibold text-black">Course Include:</h3>
+        <ul className="pl-3">
           <li className="text-lg font-semibold text-black">Certification</li>
           <li className="text-lg font-semibold text-black">Online Classes</li>
           <li className="text-lg font-semibold text-black">Practical Sessions</li>
-        </div>
+        </ul>
         <p className="mt-2 text-gray-600">Price: ₹3999</p>
 
-        {/* Responsive Buttons and Centered "Or" */}
-        <div className="mt-4 flex flex-col gap-3">
-          <Link href="/courses/roboticsCourse/2_3/paypage">
-            <button className="w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 sm:px-6 md:px-8">
-              Enroll Now
-            </button>
-          </Link>
+        {/* Razorpay Payment Button */}
+        <form id="razorpay-form"></form>
 
-          <p className="text-center font-semibold text-black">Or</p>
+        <p className="text-center font-semibold text-black mt-3">Or</p>
 
-          <button className="w-full rounded-md bg-green-600 px-4 py-2 text-white hover:bg-green-700 sm:px-6 md:px-8">
-            Book a demo!
-          </button>
-        </div>
+        <button className="w-full rounded-md bg-green-600 px-4 py-2 text-white hover:bg-green-700 sm:px-6 md:px-8">
+          Book a demo!
+        </button>
       </div>
     </div>
   );
