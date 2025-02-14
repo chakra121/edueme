@@ -25,7 +25,7 @@ const reviews = [
     review:
       "The collaboration with EduMe has been incredible. Our students are gaining real-world skills and experience.",
     rating: 4.8,
-    image: "/placeholder.jpg",
+    image: "/profile-image.avif",
   },
   {
     name: "Prof. Anita Sharma",
@@ -34,7 +34,7 @@ const reviews = [
     review:
       "EduMe's research-driven approach is outstanding. Faculty and students benefit immensely from their programs.",
     rating: 5,
-    image: "/placeholder.jpg",
+    image: "/profile-image.avif",
   },
 ];
 
