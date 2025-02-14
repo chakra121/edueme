@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -13,9 +14,9 @@ const reviews = [
     position: "Principal",
     institution: "Arka International School, Hyderabad",
     review:
-      "We are delighted that the Edueme curriculum for middle school enables teachers to deliver activity-based modules. The hands-on science experiments have ensured that students love their classes and look forward to them. The modules have helped to consolidate concepts while igniting curiosity among students. Thank you Team CognoSpace!",
+      "We are delighted that the Edueme curriculum for middle school enables teachers to deliver activity-based modules...",
     rating: 5,
-    image: "/profile-image.avif", // Replace with actual image URL
+    image: "/profile-image.avif",
   },
   {
     name: "Dr. Madhuri",
@@ -35,27 +36,17 @@ const reviews = [
     rating: 5,
     image: "/placeholder.jpg",
   },
-  {
-    name: "Dean Rajesh Verma",
-    position: "Dean",
-    institution: "PQR College",
-    review:
-      "EduMe has created a space for knowledge exchange that truly benefits both educators and learners.",
-    rating: 4.7,
-    image: "/placeholder.jpg",
-  },
-  {
-    name: "Principal Arjun Rao",
-    position: "Principal",
-    institution: "Arka International School",
-    review:
-      "EduMe Research Labs has transformed the way we approach education. Their resources and expertise are invaluable.",
-    rating: 5,
-    image: "/placeholder.jpg",
-  },
 ];
 
 const ReviewCarousel = () => {
+  const [theme, setTheme] = useState("bumblebee");
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") || "bumblebee";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+    setTheme(savedTheme);
+  }, []);
+
   const settings = {
     dots: true,
     infinite: true,
@@ -70,28 +61,28 @@ const ReviewCarousel = () => {
   };
 
   return (
-    <section className="bg-black py-16 flex flex-col items-center text-white">
+    <section className="bg-base-100 py-16 flex flex-col items-center text-base-content transition-all duration-500">
       <h2 className="text-4xl font-bold text-center mb-10">Listen to our Clients</h2>
       <div className="w-full max-w-3xl">
         <Slider {...settings}>
           {reviews.map((review, index) => (
-            <div key={index} className="bg-gray-900 shadow-lg rounded-3xl p-8 text-center">
+            <div key={index} className="bg-base-200 shadow-lg rounded-3xl p-8 text-center">
               <div className="flex justify-center mb-4">
                 <img
                   src={review.image}
                   alt={review.name}
-                  className="w-16 h-16 rounded-full border-4 border-white shadow-md"
+                  className="w-16 h-16 rounded-full border-4 border-base-content shadow-md"
                 />
               </div>
-              <p className="text-gray-300 text-lg italic">"{review.review}"</p>
+              <p className="text-base-content text-lg italic">"{review.review}"</p>
               <div className="flex justify-center mt-4">
                 {[...Array(Math.floor(review.rating))].map((_, i) => (
                   <FaStar key={i} className="text-yellow-500" />
                 ))}
               </div>
-              <p className="mt-4 text-lg font-semibold text-yellow-400">{review.name}</p>
-              <p className="text-gray-400 font-medium">{review.position}</p>
-              <p className="text-gray-500">{review.institution}</p>
+              <p className="mt-4 text-lg font-semibold text-primary">{review.name}</p>
+              <p className="text-base-content font-medium">{review.position}</p>
+              <p className="text-base-content">{review.institution}</p>
             </div>
           ))}
         </Slider>
