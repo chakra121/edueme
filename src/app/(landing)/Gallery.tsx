@@ -70,7 +70,7 @@ const GalleryPage = () => {
               "EduME's AI and Robotics Lab is upgrading ICT labs in schools by integrating modern ICT, coding, AI, and robotics education into the curriculum for classes 3-12.",
             stats: "500+ hours classroom teaching",
             link: "/gall/class",
-            image: "/g1.jpeg",
+            image: "/g1.jpg",
           },
           {
             title: "Expos",
@@ -78,7 +78,7 @@ const GalleryPage = () => {
               "EduME offers comprehensive end-to-end assistance in establishing and running expos in various schools to promote talent in young minds.",
             stats: "500+ expo visits",
             link: "/gall/expo",
-            image: "/g2.jpeg",
+            image: "/g2.jpg",
             reverse: true,
           },
           {
@@ -87,7 +87,7 @@ const GalleryPage = () => {
               "EduME organizes multiple tech tours throughout the academic year to promote knowledge expansion in real-world situations and industry-ready projects to develop students' interests.",
             stats: "50+ Tech tour visits",
             link: "/gall/tech",
-            image: "/g3.jpeg",
+            image: "/g3.jpg",
           },
         ].map((section, index) => (
           <motion.div
