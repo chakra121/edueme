@@ -1,14 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 
 const AiRoboticsPage: React.FC = () => {
-  const [theme, setTheme] = useState("bumblebee");
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") || "bumblebee";
-    document.documentElement.setAttribute("data-theme", savedTheme);
-    setTheme(savedTheme);
-  }, []);
 
   // Variants for text animations
   const textVariants = {

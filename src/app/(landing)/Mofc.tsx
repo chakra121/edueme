@@ -1,20 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 const MOFC = () => {
-  const [theme, setTheme] = useState("bumblebee");
 
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") || "bumblebee";
-    document.documentElement.setAttribute("data-theme", savedTheme);
-    setTheme(savedTheme);
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = theme === "bumblebee" ? "dark" : "bumblebee";
-    document.documentElement.setAttribute("data-theme", newTheme);
-    localStorage.setItem("theme", newTheme);
-    setTheme(newTheme);
-  };
 
   const images = ["/mofc1.jpg", "/mofc2.jpg", "/mofc3.jpg", "/mofc4.jpg"];
 
@@ -23,7 +10,7 @@ const MOFC = () => {
       <h2 className="text-4xl font-bold text-center mb-10">Mission of Curriculum</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4 md:px-8">
         {images.map((image, index) => (
-          <div key={index} className="relative w-full max-w-[300px] h-[300px] aspect-square [perspective:1000px]">
+          <div key={index} className="relative w-full max-w-[250px] h-[300px] aspect-square [perspective:1000px]">
             <div className="relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d] hover:[transform:rotateY(180deg)]">
               {/* Front Side */}
               <div

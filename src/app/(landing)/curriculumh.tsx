@@ -1,16 +1,9 @@
-"use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 
 const CurriculumHighlights = () => {
-  const [theme, setTheme] = useState("bumblebee");
 
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") || "bumblebee";
-    document.documentElement.setAttribute("data-theme", savedTheme);
-    setTheme(savedTheme);
-  }, []);
 
   const highlights = [
     { name: "Innovation", image: "unused.jpg" },
