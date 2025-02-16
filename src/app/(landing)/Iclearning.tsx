@@ -6,8 +6,10 @@ import {
   FaChalkboardTeacher,
   FaUsers,
   FaLaptopCode,
-  FaCertificate,
 } from "react-icons/fa";
+
+import { PiCertificateFill } from "react-icons/pi";
+
 
 const ICLearning = () => {
   const [theme, setTheme] = useState("bumblebee");
@@ -23,28 +25,28 @@ const ICLearning = () => {
       title: "Interactive Learning",
       description:
         "Engage with instructors in real-time, ask questions, and participate in discussions for a better understanding.",
-      icon: <FaChalkboardTeacher className="text-5xl text-primary" />,
+      icon: <FaChalkboardTeacher className="text-5xl text-base-content" />,
       image: "interactive_learning.jpg",
     },
     {
       title: "Collaborative Environment",
       description:
         "Work together with peers, share ideas, and improve teamwork skills through group activities and projects.",
-      icon: <FaUsers className="text-5xl text-secondary" />,
+      icon: <FaUsers className="text-5xl text-base-content" />,
       image: "collaborative_learning.jpg",
     },
     {
       title: "Hands-On Practical Sessions",
       description:
         "Gain real-world experience with lab exercises, coding sessions, and live demonstrations.",
-      icon: <FaLaptopCode className="text-5xl text-accent" />,
+      icon: <FaLaptopCode className="text-5xl text-base-content" />,
       image: "hands_on_learning.jpg",
     },
     {
       title: "Certified Courses",
       description:
         "Complete instructor-led courses and earn industry-recognized certifications to boost your career.",
-      icon: <FaCertificate className="text-5xl text-warning" />,
+      icon: <PiCertificateFill className="text-5xl text-base-content" />,
       image: "certification.jpg",
     },
   ];
