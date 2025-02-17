@@ -30,9 +30,9 @@ const Dashboard = async () => {
       </aside>
 
       {/* Main Content */}
-      <main className="ml-64 flex-1 px-4">
+      <main className="ml-72 mr-14 w-full flex-1 ">
         {/* Welcome Section */}
-        <div className="card mb-4 bg-base-100">
+        <div className="card mb-4 bg-base-100  shadow-xl">
           <div className="card-body">
             <h2 className="card-title text-4xl text-base-content">
               Welcome {userData?.name} 👋
@@ -44,7 +44,7 @@ const Dashboard = async () => {
         </div>
 
         {/* Assessment Section */}
-        <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="mb-4 grid grid-cols-1 gap-4  md:grid-cols-2">
           <div className="card card-compact bg-base-100 p-6">
             <div className="py-2 text-center text-2xl font-semibold text-base-content">
               Course Progress
@@ -87,7 +87,7 @@ const Dashboard = async () => {
                 <p className="text-base-content">
                   Stay tuned for upcoming classes!
                 </p>
-                <Link href="/dupsessions">
+                <Link href="/dashboard/studentDashboard/dupsessions">
                   <button className="btn btn-primary mt-2">
                     View All Sessions
                   </button>

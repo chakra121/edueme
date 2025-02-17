@@ -1,63 +1,48 @@
 "use client";
-import Link from "next/link";
 import StudentSideBar from "../sideBar";
-
-
-import React, { useState } from "react";
-import {
-  HomeIcon,
-  UserIcon,
-  ClipboardDocumentIcon,
-  BookOpenIcon,
-  Cog6ToothIcon,
-  QuestionMarkCircleIcon,
-  ClockIcon,
-} from "@heroicons/react/24/outline";
+import React from "react";
 
 const Announcements = () => {
- 
-
   return (
-    <>
-      {/* Content Container */}
-      <div className="flex min-h-screen">
-        {/* Sidebar */}
-        <aside className="card fixed w-64 bg-base-100 p-4">
-          <StudentSideBar />
-        </aside>
+    <div className="flex min-h-screen">
+      {/* Sidebar */}
+      <aside className="card fixed w-64 bg-base-100 p-4">
+        <StudentSideBar />
+      </aside>
 
-        {/* main announcement content */}
-
-        <div className="ml-72 mr-14 w-full flex-1">
-          {/* Page Title */}
-          <div className="rounded-lg bg-blue-100 p-6 shadow">
-            <h2 className="text-3xl font-bold text-black">Announcements</h2>
-            <p className="mt-2 text-gray-500">
-              Stay updated with the latest news and updates.
-            </p>
-          </div>
-
-          {/* Recent Announcements */}
-          <div className="mt-8 space-y-4">
-            <div className="rounded-lg bg-white p-6 shadow">
-              <h3 className="text-lg font-bold text-gray-700">Class Update</h3>
-              <p className="text-gray-500">
-                Your upcoming session on AI is rescheduled to 3 PM.
-              </p>
-            </div>
-            <div className="rounded-lg bg-white p-6 shadow">
-              <h3 className="text-lg font-bold text-gray-700">
-                New Course Announcement
-              </h3>
-              <p className="text-gray-500">
-                Enroll in the new Blockchain Technology course starting next
-                week.
-              </p>
-            </div>
+      {/* Main Announcement Content */}
+      <main className="ml-72 mr-14 w-full flex-1 ">
+        {/* Page Title */}
+        <div className="card mb-4 bg-base-100  shadow-xl">
+          <div className="card-body">
+            <h2 className="card-title text-4xl text-base-content">
+            Announcements 📢
+            </h2>
+            <p className="text-lg text-base-content">
+            Stay updated with the latest news.            </p>
           </div>
         </div>
-      </div>
-    </>
+        
+        {/* Recent Announcements */}
+        <section className="mt-6 space-y-4">
+          {/* Announcement Card 1 */}
+          <div className="alert alert-info shadow-md">
+            <div>
+              <h3 className="font-bold text-lg">📅 Class Update</h3>
+              <p>Your upcoming session on AI is rescheduled to **3 PM**.</p>
+            </div>
+          </div>
+
+          {/* Announcement Card 2 */}
+          <div className="alert alert-success shadow-md">
+            <div>
+              <h3 className="font-bold text-lg">📢 New Course Announcement</h3>
+              <p>Enroll in the new **Blockchain Technology** course starting next week.</p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
   );
 };
 

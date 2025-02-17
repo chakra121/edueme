@@ -4,7 +4,7 @@ import EnrolledCourses from './denrolled';
 
 const Enrolled = () => {
   return (
-    <div className='px-[4rem] py-[5rem]'><EnrolledCourses/></div>
+    <div className='px-[4rem] bg-base-content pt-[5rem]'><EnrolledCourses/></div>
 
   );
 };

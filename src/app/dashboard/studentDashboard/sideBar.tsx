@@ -57,10 +57,11 @@ return (
   <div className="space-y-4">
     <div className="flex flex-col items-center space-y-2">
       <div className="avatar">
-        <div className="w-16 rounded-full ring ring-base-content">
+        <div className="w-16 rounded-full ring ring-base-primary">
           <img
-            className="object-full"
+            className="object-cover"
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn-ucft4USNcEFqghK_s5NvcjRVJr_cfHN9w&s"
+            alt="Teacher Avatar"
           />
         </div>
       </div>

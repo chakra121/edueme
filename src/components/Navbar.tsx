@@ -42,7 +42,7 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="navbar fixed z-[99] mb-4 flex h-16 w-full items-center justify-center space-x-28 rounded-b-xl bg-base-100 px-5 py-[0.5rem] shadow-md">
+    <div className="navbar fixed z-[99] mb-4 flex h-16 w-full items-center justify-center space-x-28  bg-base-100 px-5 py-[0.5rem] shadow-md">
       {/* Logo Section */}
       <Link href="/">
         <Image

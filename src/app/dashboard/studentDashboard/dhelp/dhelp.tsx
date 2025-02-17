@@ -1,19 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import { PaperAirplaneIcon, CameraIcon, XCircleIcon } from "@heroicons/react/24/outline";
-
 import Link from "next/link";
 import StudentSideBar from "../sideBar";
-
-import {
-  HomeIcon,
-  UserIcon,
-  ClipboardDocumentIcon,
-  BookOpenIcon,
-  Cog6ToothIcon,
-  QuestionMarkCircleIcon,
-  ClockIcon,
-} from "@heroicons/react/24/outline";
+import { motion } from "framer-motion"; // Ensure you have this library
 
 interface Doubt {
   id: number;
@@ -31,21 +21,22 @@ const Help = () => {
 
   useEffect(() => {
     const fetchDoubts = async () => {
-      // try {
-        const response = await fetch("/api/doubts"); // Mock API call
-        const data = await response.json();
-        setDoubts(data);
-      // } catch (error) {
-      //   console.error("Error fetching doubts:", error);
-      // }
+      const response = await fetch("/api/doubts"); // Mock API call
+      const data = await response.json();
+      setDoubts(data);
     };
     fetchDoubts();
     const interval = setInterval(fetchDoubts, 5000); // Refresh every 5 seconds
 
-  return () => clearInterval(interval);
+    return () => clearInterval(interval);
   }, []);
 
- 
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setSelectedImage(file);
+    }
+  };
 
   const submitDoubt = async () => {
     if (!newDoubt.trim()) return;
@@ -66,7 +57,7 @@ const Help = () => {
       imageUrl = result.url;
     }
 
-    const newEntry = { id: Date.now(), question: newDoubt, image: imageUrl , answer :""};
+    const newEntry = { id: Date.now(), question: newDoubt, image: imageUrl, answer: "" };
     setDoubts([...doubts, newEntry]);
     setNewDoubt("");
     setSelectedImage(null);
@@ -82,21 +73,6 @@ const Help = () => {
     setLoading(false);
   };
 
-  const fetchDoubts = async () => {
-    try {
-      const response = await fetch("/api/doubts"); // Fetch updated doubts
-      const data = await response.json();
-      setDoubts(data);
-    } catch (error) {
-      console.error("Error fetching doubts:", error);
-    }
-  };
-  
-  // Call the fetchDoubts function when the component is mounted or updated
-  useEffect(() => {
-    fetchDoubts();
-  }, [message]); // Re-fetch doubts when a message is displayed (answer is posted)
-
   return (
     <>
       {/* Content Container */}
@@ -105,8 +81,7 @@ const Help = () => {
         <aside className="card fixed w-64 bg-base-100 p-4">
           <StudentSideBar />
         </aside>
-        {/* main announcement content */}
-
+        {/* Main content */}
         <div className="ml-72 mr-14 w-full flex-1">
           <div className="rounded-lg bg-blue-100 p-6 shadow-sm">
             <h2 className="mb-6 text-3xl font-bold text-black dark:text-blue-400">
@@ -127,7 +102,7 @@ const Help = () => {
 
               {/* Image Upload Section */}
               <div className="flex items-center gap-3">
-                <label className="flex cursor-pointer items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-white transition-all hover:bg-blue-700">
+                <label className="flex cursor-pointer items-center gap-2 rounded-lg bg-primary px-4 py-2 text-white transition-all hover:bg-primary-focus">
                   <CameraIcon className="h-5 w-5" />
                   Add Image
                   <input
@@ -161,7 +136,7 @@ const Help = () => {
 
               <button
                 onClick={submitDoubt}
-                className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-white transition-all hover:bg-blue-700"
+                className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-white transition-all hover:bg-primary-focus"
               >
                 {loading ? "Submitting..." : "Ask"}
                 <PaperAirplaneIcon className="h-5 w-5" />

@@ -1,18 +1,6 @@
 "use client";
-import Link from "next/link";
 import StudentSideBar from "../sideBar";
-
-
-import React, { useState } from "react";
-import {
-  HomeIcon,
-  UserIcon,
-  ClipboardDocumentIcon,
-  BookOpenIcon,
-  Cog6ToothIcon,
-  QuestionMarkCircleIcon,
-  ClockIcon,
-} from "@heroicons/react/24/outline";
+import React from "react";
 
 const Upcoming = () => {
   interface Session {
@@ -25,7 +13,7 @@ const Upcoming = () => {
     description: string;
     joinLink: string;
   }
-  
+
   const upcomingSessions: Session[] = [
     {
       id: "1",
@@ -60,67 +48,54 @@ const Upcoming = () => {
   ];
 
   return (
-    <>
-      {/* Content Container */}
-      <div className="flex min-h-screen min-w-full gap-6">
-        {/* Sidebar */}
-        <aside className="card fixed w-64 bg-base-100 p-4">
-          <StudentSideBar />
-        </aside>
+    <div className="flex min-h-screen gap-6">
+      {/* Sidebar */}
+      <aside className="card fixed w-64 bg-base-100 p-4">
+        <StudentSideBar />
+      </aside>
 
-        {/* main announcement content */}
-
-        <div className="ml-72 mr-14 w-full flex-1">
-          <div className="rounded-lg bg-blue-100 p-6 shadow-sm">
-            <h1 className="mb-6 text-3xl font-bold text-gray-900">
-              Upcoming Sessions
-            </h1>
-          </div>
-
-          <div className="-ml-6 mt-4 min-h-screen rounded-xl p-6">
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {upcomingSessions.map((session) => (
-                <div
-                  key={session.id}
-                  className="overflow-hidden rounded-lg bg-white shadow-lg transition-shadow duration-300 hover:shadow-xl"
-                >
-                  <div className="p-6">
-                    <h2 className="mb-2 text-xl font-semibold text-gray-800">
-                      {session.title}
-                    </h2>
-                    <p className="mb-4 text-gray-600">{session.description}</p>
-                    <div className="space-y-2">
-                      <p className="text-sm text-gray-500">
-                        <span className="font-medium">Instructor:</span>{" "}
-                        {session.instructor}
-                      </p>
-                      <p className="text-sm text-gray-500">
-                        <span className="font-medium">Date:</span>{" "}
-                        {session.date}
-                      </p>
-                      <p className="text-sm text-gray-500">
-                        <span className="font-medium">Time:</span>{" "}
-                        {session.time}
-                      </p>
-                      <p className="text-sm text-gray-500">
-                        <span className="font-medium">Duration:</span>{" "}
-                        {session.duration}
-                      </p>
-                    </div>
-                    <a
-                      href={session.joinLink}
-                      className="mt-4 inline-block rounded-lg bg-blue-600 px-4 py-2 text-white transition-colors duration-300 hover:bg-blue-700"
-                    >
-                      Join Session
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
+      {/* Main Content */}
+      <div className="ml-72 mr-14 w-full flex-1">
+        {/* Header Section */}
+        <div className="card mb-4 bg-base-100  shadow-xl">
+          <div className="card-body">
+            <h2 className="card-title text-4xl text-base-content">
+            📅 Upcoming Sessions           </h2>
+            <p className="text-lg text-base-content">
+            Manage and track upcoming sessions            </p>
           </div>
         </div>
+
+        {/* Sessions Grid */}
+        <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {upcomingSessions.map((session) => (
+            <div
+              key={session.id}
+              className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300"
+            >
+              <div className="card-body p-6">
+                <h2 className="card-title text-xl font-semibold text-gray-800">{session.title}</h2>
+                <p className="text-gray-600">{session.description}</p>
+
+                <div className="mt-4 space-y-2 text-sm text-gray-500">
+                  <p><span className="font-medium">Instructor:</span> {session.instructor}</p>
+                  <p><span className="font-medium">Date:</span> {session.date}</p>
+                  <p><span className="font-medium">Time:</span> {session.time}</p>
+                  <p><span className="font-medium">Duration:</span> {session.duration}</p>
+                </div>
+
+                <a
+                  href={session.joinLink}
+                  className="mt-6 btn btn-primary text-white"
+                >
+                  Join Session
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 
