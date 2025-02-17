@@ -5,11 +5,13 @@ const prisma = new PrismaClient();
 
 export async function GET() {
   try {
+    await prisma.$connect();
     const teachers = await prisma.teacher.findMany({
       select: {
         teacherName: true,
         phoneNumber: true,
         email: true,
+        employeeID: true,
         createdAt: true,
       },
     });
@@ -20,5 +22,7 @@ export async function GET() {
       { message: "Error fetching teachers" },
       { status: 500 },
     );
+  } finally{
+    await prisma.$disconnect();
   }
 }

@@ -1,6 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useTransition } from "react";
+import { deleteTeacher } from "@/app/actions/deleteTeacher";
+import { updateTeacher } from "@/app/actions/updateTeacher";
 
 export default function DTeacherCatalogPage() {
   const [loading, setLoading] = useState(false);
@@ -11,6 +13,7 @@ export default function DTeacherCatalogPage() {
     phoneNumber: "",
     email: "",
     password: "",
+    employeeID: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,6 +53,8 @@ export default function DTeacherCatalogPage() {
     if (teacherData.phoneNumber.length !== 10) {
       errors.phoneNumber = "Phone number must be 10 digits.";
     }
+    if (!teacherData.employeeID)
+      errors.employeeID = "employee ID is required.";
 
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -86,6 +91,7 @@ export default function DTeacherCatalogPage() {
         phoneNumber: "",
         email: "",
         password: "",
+        employeeID: "",
       }); // Reset form fields
     } catch (error: any) {
       console.error("Error registering teacher:", error);
@@ -94,11 +100,12 @@ export default function DTeacherCatalogPage() {
       setLoading(false);
     }
   };
-  // <<<<<<<<<Get teacher for table>>>>>>>>>
+  // <<<<<<<<<Get teacher for table>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 interface Teacher {
   teacherName: string;
   phoneNumber: string;
   email: string;
+  employeeID: string;
   createdAt: string;
 }
 
@@ -124,6 +131,74 @@ interface Teacher {
     fetchTeachers();
   }, []);  
 
+  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+  const [deleting, setDeleting] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
+
+   const handleDelete = (email: string) => {
+     if (!confirm("Are you sure you want to delete this teacher?")) return;
+
+     setDeleting(email);
+     startTransition(async () => {
+       const result = await deleteTeacher(email);
+       if (result.success) {
+         setTeachers((prev) =>
+           prev.filter((teacher) => teacher.email !== email),
+         );
+       } else {
+         alert(result.message);
+       }
+       setDeleting(null);
+     });
+   };
+
+  //  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
+  const [updateData, setUpdateData] = useState({ teacherName: "", phoneNumber: "", employeeID: "" });
+  const [updating, setUpdating] = useState(false);
+
+ const handleSelectTeacher = (e: React.ChangeEvent<HTMLSelectElement>) => {
+   if (!e.target || !e.target.value) return; // Prevent undefined errors
+
+   const teacher = teachers.find((t) => t.email === e.target.value);
+
+   if (teacher) {
+     setSelectedTeacher(teacher);
+     setUpdateData({
+       teacherName: teacher.teacherName || "",
+       phoneNumber: teacher.phoneNumber || "",
+       employeeID: teacher.employeeID || "",
+     });
+   }
+ };
+
+
+  const handleUpdateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUpdateData({ ...updateData, [e.target.name]: e.target.value });
+  };
+
+  const handleUpdateSubmit = () => {
+    if (!selectedTeacher) return;
+
+    setUpdating(true);
+    startTransition(async () => {
+      const result = await updateTeacher(selectedTeacher.email, updateData);
+      if (result.success) {
+        setTeachers((prev) =>
+          prev.map((t) =>
+            t.email === selectedTeacher.email ? { ...t, ...updateData } : t,
+          ),
+        );
+        alert("Teacher updated successfully!");
+        setSelectedTeacher(null);
+      } else {
+        alert(result.message);
+      }
+      setUpdating(false);
+    });
+  };
+
   return (
     <div className="card bg-base-100 p-4 shadow-lg">
       <h1 className="card-title p-3 text-3xl font-semibold text-base-content">
@@ -133,7 +208,7 @@ interface Teacher {
       <div role="tablist" className="tabs-boxed tabs mt-3">
         <input
           type="radio"
-          name="my_tabs_2"
+          name="my_tabs_3"
           role="tab"
           className="tab text-lg font-medium text-base-content"
           aria-label="Create"
@@ -196,6 +271,23 @@ interface Teacher {
                 <span className="text-error">{formErrors.password}</span>
               )}
             </div>
+            <div className="w-full p-2 md:w-1/2">
+              <label className="mb-1 block">Employee ID:</label>
+              <input
+                type="text"
+                name="employeeID"
+                value={formData.employeeID}
+                onChange={handleChange}
+                className="input input-bordered w-full"
+              />
+              {formErrors.employeeID && (
+                <span className="text-error">{formErrors.employeeID}</span>
+              )}
+            </div>
+            <div className="w-full p-2 md:w-1/2">            
+            <label className="mb-1 block">Select Course:</label>
+            <option></option>
+            </div>
 
             <div className="w-full p-2">
               <button
@@ -232,7 +324,7 @@ interface Teacher {
 
         <input
           type="radio"
-          name="my_tabs_2"
+          name="my_tabs_3"
           role="tab"
           className="tab text-lg font-medium text-base-content"
           aria-label="View"
@@ -262,6 +354,7 @@ interface Teacher {
                     <th>Name</th>
                     <th>Phone</th>
                     <th>Email</th>
+                    <th>EmployeeID</th>
                     <th>Created At</th>
                   </tr>
                 </thead>
@@ -272,6 +365,7 @@ interface Teacher {
                       <td>{teacher.teacherName}</td>
                       <td>{teacher.phoneNumber}</td>
                       <td>{teacher.email}</td>
+                      <td>{teacher.employeeID}</td>
                       <td>
                         {new Date(teacher.createdAt).toLocaleDateString()}
                       </td>
@@ -282,6 +376,119 @@ interface Teacher {
             </div>
           </div>
           {/* <<<<<<<<<>>>>>>>>> */}
+        </div>
+
+        <input
+          type="radio"
+          name="my_tabs_3"
+          role="tab"
+          className="tab text-lg font-medium text-base-content"
+          aria-label="Delete"
+        />
+        <div
+          role="tabpanel"
+          className="tab-content rounded-box border-base-300 bg-base-100 p-5 text-base-content"
+        >
+          <h2 className="mb-4 text-2xl font-bold">Delete Teacher</h2>
+          {Tloading ? <p>Loading...</p> : null}
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {teachers.map((teacher) => (
+              <div
+                key={teacher.email}
+                className="card border bg-base-100 p-4 shadow-xl"
+              >
+                <h3 className="text-lg font-semibold">{teacher.teacherName}</h3>
+                <p className="text-base">🪪 {teacher.employeeID}</p>
+                <p className="text-base">📧 {teacher.email}</p>
+                <p className="text-base">📞 {teacher.phoneNumber}</p>
+                <p className="text-base text-gray-500">
+                  Created: {new Date(teacher.createdAt).toLocaleDateString()}
+                </p>
+                <button
+                  className="btn btn-error btn-sm mt-3"
+                  onClick={() => handleDelete(teacher.email)}
+                  disabled={isPending || deleting === teacher.email}
+                >
+                  {deleting === teacher.email ? "Deleting..." : "Delete"}
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+        <input
+          type="radio"
+          name="my_tabs_3"
+          role="tab"
+          className="tab text-lg font-medium text-base-content"
+          aria-label="Update"
+        />
+        <div
+          role="tabpanel"
+          className="tab-content rounded-box border-base-300 bg-base-100 p-5 text-base-content"
+        >
+          <h2 className="mb-4 text-2xl font-bold">Update Teacher</h2>
+
+          {/* Teacher Selection */}
+          <div className="mb-4">
+            <label className="block font-semibold">Select Teacher:</label>
+            <select
+              className="select select-bordered w-full"
+              onChange={(e) => handleSelectTeacher(e)} // Ensure event is passed
+            >
+              <option value="">-- Select a Teacher --</option>
+              {teachers.map((teacher) => (
+                <option key={teacher.email} value={teacher.email}>
+                  {teacher.teacherName} - {teacher.email}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Update Form */}
+          {selectedTeacher && (
+            <div className="card bg-base-100 p-4 shadow-xl">
+              <h3 className="text-lg font-semibold">
+                Updating: {selectedTeacher.teacherName}
+              </h3>
+
+              <div className="mt-4 space-y-3">
+                <label className="block">Teacher Name:</label>
+                <input
+                  type="text"
+                  name="teacherName"
+                  value={updateData.teacherName}
+                  onChange={handleUpdateChange}
+                  className="input input-bordered w-full"
+                />
+
+                <label className="block">Phone Number:</label>
+                <input
+                  type="text"
+                  name="phoneNumber"
+                  value={updateData.phoneNumber}
+                  onChange={handleUpdateChange}
+                  className="input input-bordered w-full"
+                />
+
+                <label className="block">Employee ID:</label>
+                <input
+                  type="text"
+                  name="employeeID"
+                  value={updateData.employeeID}
+                  onChange={handleUpdateChange}
+                  className="input input-bordered w-full"
+                />
+              </div>
+
+              <button
+                className="btn btn-primary mt-4"
+                onClick={handleUpdateSubmit}
+                disabled={isPending || updating}
+              >
+                {updating ? "Updating..." : "Update Teacher"}
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
