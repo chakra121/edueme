@@ -14,50 +14,91 @@ datasource db {
 }
 
 model Admin {
-  id             String          @id @default(auto()) @map("_id") @db.ObjectId
-  email          String          @unique
-  password       String
-  announcements  AdminAnnouncement[] @relation("AdminToAnnouncement")
+  id            String              @id @default(auto()) @map("_id") @db.ObjectId
+  email         String              @unique
+  password      String
+  announcements AdminAnnouncement[] @relation("AdminToAnnouncement")
 }
+
 enum UserRole {
   common
   student
 }
 
 model AdminAnnouncement {
-  id             String         @id @default(auto()) @map("_id") @db.ObjectId
-  title          String
-  description    String
-  date           DateTime
-  role           UserRole
-  adminId        String?        @db.ObjectId
-  admin          Admin?         @relation(fields: [adminId], references: [id], name: "AdminToAnnouncement")
-  }
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  date        DateTime
+  role        UserRole
+  adminId     String?  @db.ObjectId
+  admin       Admin?   @relation(fields: [adminId], references: [id], name: "AdminToAnnouncement")
+}
 
 model User {
-  id              String        @id @default(auto()) @map("_id") @db.ObjectId
-  firstName       String
-  lastName        String
-  gender          String
-  grade           String
-  schoolName      String
-  phoneNumber     String
-  email           String        @unique
-  parentEmail     String
-  userRole        String
-  hashedPassword  String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  firstName      String
+  lastName       String
+  gender         String
+  grade          String
+  schoolName     String
+  phoneNumber    String
+  email          String   @unique
+  parentEmail    String
+  userRole       String
+  hashedPassword String
+  photoLink      String?
+  courseID       String?  @db.ObjectId // Each user has one course
+  teacherID      String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  course Courses? @relation(fields: [courseID], references: [id]) // Relates user to a course
 }
+
 model Teacher {
-  id              String        @id @default(auto()) @map("_id") @db.ObjectId
-  teacherName     String
-  phoneNumber     String
-  email           String        @unique
-  hashedPassword  String
-  employeeID      String
-  photoLink       String?
-  userRole        String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  teacherName    String
+  phoneNumber    String
+  email          String   @unique
+  hashedPassword String
+  employeeID     String
+  photoLink      String?
+  userRole       String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
+
+model Courses {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  courseID   String   @unique
+  courseName String
+  teacherID  String
+  chapterID  String[] @unique
+  chapter    Chapter  @relation(fields: [chapterID], references: [chapterID])
+  User       User[]
+}
+
+model Chapter {
+  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+  chapterID          String   @unique
+  chapterName        String
+  chapterDescription String
+  courses            Courses?
+  notesLink          String?
+  classLinks         Class[]
+}
+
+model Class {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  classTitle  String?
+  isCompleted Boolean? @default(false)
+  youTubeLink String?
+  chapter     Chapter? @relation(fields: [chapterId], references: [id])
+  chapterId   String?  @db.ObjectId
+}
+
+// model ClassLink{
+//   id              String        @id @default(auto()) @map("_id") @db.ObjectId
+//   className
+// }

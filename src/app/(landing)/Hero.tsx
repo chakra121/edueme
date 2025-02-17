@@ -8,7 +8,7 @@ import LaunchIcon from "@mui/icons-material/Launch";
 const Hero = () => {
   const typedElement1 = useRef<HTMLSpanElement>(null);
   const typedElement2 = useRef<HTMLSpanElement>(null);
-  const typedElement3 = useRef<HTMLSpanElement>(null);
+ 
 
   useEffect(() => {
     const typed1 = new Typed(typedElement1.current, {
@@ -29,20 +29,12 @@ const Hero = () => {
       loop: false,
       showCursor: false,
     });
-    const typed3 = new Typed(typedElement3.current, {
-      strings: ["Online"],
-      typeSpeed: 60,
-      backSpeed: 40,
-      backDelay: 2000,
-      startDelay: 500,
-      loop: false,
-      showCursor: false,
-    });
+    
 
     return () => {
       typed1.destroy();
       typed2.destroy();
-      typed3.destroy();
+   
     };
   }, []);
 
@@ -73,8 +65,7 @@ const Hero = () => {
                 ref={typedElement2}
                 className="from-yellow-500 absolute inset-0 -z-10 bg-gradient-to-r via-orange-500 to-orange-400 opacity-100 blur-[24px]"
               ></span>
-            </span>{" "}
-            <span ref={typedElement3}></span>
+            </span>
           </h1>
 
           <p className="mb-4 text-lg text-base-content sm:text-xl lg:max-w-[50%] lg:text-2xl">
