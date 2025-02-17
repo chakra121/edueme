@@ -83,12 +83,17 @@ const Help = () => {
         </aside>
         {/* Main content */}
         <div className="ml-72 mr-14 w-full flex-1">
-          <div className="rounded-lg bg-base-100 p-6 shadow-sm">
-            <h2 className="mb-6 text-3xl font-bold text-white dark:text-blue-400">
-              Need HELP? Ask Your Doubts!
-            </h2>
+          {/* Header Section */}
+          <div className="card mb-4 bg-base-100  shadow-xl">
+          <div className="card-body">
+            <h2 className="card-title text-4xl text-base-content">
+            Need HELP?           </h2>
+            <p className="text-lg text-base-content">
+            Ask Out Your Doubts!
+          </p>
           </div>
-
+        </div>
+        
           <div className="mx-auto mt-4 rounded-xl bg-white p-6 text-black shadow-lg dark:bg-gray-900">
             {/* Doubt Input Section */}
             <div className="rounded-lg bg-gray-100 p-4 shadow dark:bg-gray-800">
