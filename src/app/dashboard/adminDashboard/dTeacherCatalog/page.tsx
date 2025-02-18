@@ -14,98 +14,96 @@ export default function DTeacherCatalogPage() {
     email: "",
     password: "",
     employeeID: "",
+    courseID :""
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    setFormErrors({ ...formErrors, [e.target.name]: "" });
+const handleChange = (
+  e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+) => {
+  setFormData({ ...formData, [e.target.name]: e.target.value });
+  setFormErrors({ ...formErrors, [e.target.name]: "" });
+};
+
+const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+  setLoading(true);
+  setFormErrors({});
+  setSuccessMessage("");
+
+  const teacherData = {
+    ...formData,
+    userRole: "teacher",
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setLoading(true);
-    setFormErrors({});
-    setSuccessMessage("");
+  let errors: Record<string, string> = {};
 
-    const teacherData = {
-      ...formData,
-      userRole: "teacher",
-    };
+  // Validate required fields
+  if (!teacherData.teacherName)
+    errors.teacherName = "Teacher name is required.";
+  if (!teacherData.phoneNumber)
+    errors.phoneNumber = "Phone number is required.";
+  else if (!/^\d{10}$/.test(teacherData.phoneNumber)) {
+    errors.phoneNumber = "Invalid phone number (10 digits required)";
+  }
+  if (!teacherData.email) errors.email = "Email is required.";
+  if (!teacherData.password) errors.password = "Password is required.";
+  else if (teacherData.password.length < 8)
+    errors.password = "Password must be at least 8 characters";
+  if (!teacherData.employeeID) errors.employeeID = "Employee ID is required.";
+  if (!teacherData.courseID) errors.courseID = "Course selection is required."; // Add this line
 
-    let errors: Record<string, string> = {};
+  // Validate email format
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(teacherData.email)) {
+    errors.email = "Invalid email format.";
+  }
 
-    // Validate required fields
-    if (!teacherData.teacherName)
-      errors.teacherName = "Teacher name is required.";
-    if (!teacherData.phoneNumber)
-      errors.phoneNumber = "Phone number is required.";
-    else if (!/^\d{10}$/.test(teacherData.phoneNumber)) {
-      errors.phoneNumber = "Invalid phone number (10 digits required)";
-    }
-    if (!teacherData.email) 
-      errors.email = "Email is required.";
-    if (!teacherData.password) 
-      errors.password = "Password is required.";
-    else if(teacherData.password.length < 8) 
-      errors.password = "Password must be at least 8 characters";
+  if (Object.keys(errors).length > 0) {
+    setFormErrors(errors);
+    setLoading(false);
+    return;
+  }
 
-    // Validate phone number length
-    if (teacherData.phoneNumber.length !== 10) {
-      errors.phoneNumber = "Phone number must be 10 digits.";
-    }
-    if (!teacherData.employeeID)
-      errors.employeeID = "employee ID is required.";
+  try {
+    const response = await fetch("/api/auth/registerTeacher", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(teacherData),
+    });
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(teacherData.email)) {
-      errors.email = "Invalid email format.";
-    }
+    const result = await response.json();
 
-    if (Object.keys(errors).length > 0) {
-      setFormErrors(errors);
-      setLoading(false);
-      return;
+    if (!response.ok) {
+      throw new Error(result.message || "Something went wrong!");
     }
 
-    try {
-      const response = await fetch("/api/auth/registerTeacher", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(teacherData),
-      });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        throw new Error(result.message || "Something went wrong!");
-      }
-
-      setSuccessMessage(
-        `Teacher: "${teacherData.teacherName}" is successfully created!`,
-      );
-      setFormData({
-        teacherName: "",
-        phoneNumber: "",
-        email: "",
-        password: "",
-        employeeID: "",
-      }); // Reset form fields
-    } catch (error: any) {
-      console.error("Error registering teacher:", error);
-      setFormErrors({ server: error.message || "Failed to register teacher." });
-    } finally {
-      setLoading(false);
-    }
-  };
+    setSuccessMessage(
+      `Teacher: "${teacherData.teacherName}" is successfully created!`,
+    );
+    setFormData({
+      teacherName: "",
+      phoneNumber: "",
+      email: "",
+      password: "",
+      employeeID: "",
+      courseID: "", // Reset courseID
+    });
+  } catch (error: any) {
+    console.error("Error registering teacher:", error);
+    setFormErrors({ server: error.message || "Failed to register teacher." });
+  } finally {
+    setLoading(false);
+  }
+};
   // <<<<<<<<<Get teacher for table>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 interface Teacher {
   teacherName: string;
   phoneNumber: string;
   email: string;
   employeeID: string;
+  courseID:String;
   createdAt: string;
 }
 
@@ -284,9 +282,23 @@ const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
                 <span className="text-error">{formErrors.employeeID}</span>
               )}
             </div>
-            <div className="w-full p-2 md:w-1/2">            
-            <label className="mb-1 block">Select Course:</label>
-            <option></option>
+            <div className="w-full p-2 md:w-1/2">
+              <label className="mb-1 block">Select Course:</label>
+              <select
+                name="courseID" // Ensure this matches the key in formData
+                className="select select-bordered w-full"
+                value={formData.courseID}
+                onChange={handleChange} // Use the updated handleChange function
+              >
+                <option value="">-- Select a Course --</option>
+                <option value="R2-3">Robotics 2-3</option>
+                <option value="R4-5">Robotics 4-5</option>
+                <option value="R6-7">Robotics 6-7</option>
+                {/* Add more courses as needed */}
+              </select>
+              {formErrors.courseID && (
+                <span className="text-error">{formErrors.courseID}</span>
+              )}
             </div>
 
             <div className="w-full p-2">
@@ -355,6 +367,7 @@ const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
                     <th>Phone</th>
                     <th>Email</th>
                     <th>EmployeeID</th>
+                    <th>CourseID</th>
                     <th>Created At</th>
                   </tr>
                 </thead>
@@ -366,6 +379,7 @@ const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
                       <td>{teacher.phoneNumber}</td>
                       <td>{teacher.email}</td>
                       <td>{teacher.employeeID}</td>
+                      <td>{teacher.courseID}</td>
                       <td>
                         {new Date(teacher.createdAt).toLocaleDateString()}
                       </td>
@@ -401,6 +415,7 @@ const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
                 <p className="text-base">🪪 {teacher.employeeID}</p>
                 <p className="text-base">📧 {teacher.email}</p>
                 <p className="text-base">📞 {teacher.phoneNumber}</p>
+                <p className="text-base">📖 {teacher.courseID}</p>
                 <p className="text-base text-gray-500">
                   Created: {new Date(teacher.createdAt).toLocaleDateString()}
                 </p>

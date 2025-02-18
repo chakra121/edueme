@@ -12,17 +12,25 @@ export async function GET() {
         phoneNumber: true,
         email: true,
         employeeID: true,
+        courseID: true,
         createdAt: true,
       },
     });
 
     return NextResponse.json({ teachers, total: teachers.length });
   } catch (error) {
+    // Log the error for debugging
+    console.error("Error fetching teachers:", error);
+
+    // Return an error response
     return NextResponse.json(
-      { message: "Error fetching teachers" },
+      {
+        message: "Error fetching teachers",
+        error: error instanceof Error ? error.message : "Unknown error",
+      },
       { status: 500 },
     );
-  } finally{
+  } finally {
     await prisma.$disconnect();
   }
 }

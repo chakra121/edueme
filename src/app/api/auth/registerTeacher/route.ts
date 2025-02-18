@@ -6,8 +6,15 @@ import bcrypt from "bcrypt";
 
 export const POST = async (req: Request) => {
   try {
-    const { teacherName, phoneNumber, email, password, employeeID, userRole } =
-      await req.json();
+    const {
+      teacherName,
+      phoneNumber,
+      email,
+      password,
+      employeeID,
+      courseID,
+      userRole,
+    } = await req.json();
 
     if (
       !teacherName ||
@@ -15,6 +22,7 @@ export const POST = async (req: Request) => {
       !email ||
       !password ||
       !employeeID ||
+      !courseID ||
       !userRole
     ) {
       return NextResponse.json({ message: "Invalid Data" }, { status: 422 });
@@ -31,6 +39,7 @@ export const POST = async (req: Request) => {
         email,
         hashedPassword,
         employeeID,
+        courseID,
         userRole,
       },
     });
