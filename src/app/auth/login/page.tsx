@@ -62,18 +62,19 @@ const Login: React.FC = () => {
     }
 
     // Fetch session to get user role
-    const res = await fetch("/api/auth/session");
+ const res = await fetch("/api/auth/session");
     const session = await res.json();
 
     switch (session?.user?.role) {
       case "teacher":
         router.push("/dashboard/teacherDashboard/dhome");
         break;
-      case "superadmin":
-        router.push("/dashboard/adminDashboard/dhome");
+      case "superadmin": // ✅ Corrected typo
+        router.push("/dashboard/adminDashboard/dAnnounce");
         break;
-      default: // student
-        router.push("/dashboard/studentDashboard/dhome");
+      case "student":
+      default:
+        router.push("/dashboard/studentDashboard/dHome");
     }
   };
 

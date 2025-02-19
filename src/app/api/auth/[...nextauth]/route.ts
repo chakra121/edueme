@@ -1,86 +1,131 @@
-import NextAuth, { NextAuthOptions, User } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import prisma from '@/lib/globalPrisma';
-import { connectToDatabase } from '@/lib/connectDB';
-import bcrypt from 'bcrypt';
+import NextAuth, { NextAuthOptions, User } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import prisma from "@/lib/globalPrisma";
+import { connectToDatabase } from "@/lib/connectDB";
+import bcrypt from "bcrypt";
 
 export const authOptions: NextAuthOptions = {
-    session: {
-        strategy: "jwt",
-        maxAge: 60 * 60 * 24, // ✅ Session expires in 24 hours
-    },
-    jwt: {
-        maxAge: 60 * 60 * 24, // ✅ JWT expires in 24 hours
-    },
-    providers: [
-        CredentialsProvider({
-            name: 'creds',
-            credentials: {
-                email: { label: "Email", placeholder: "Enter email" },
-                password: { label: "Password", placeholder: "Enter password" },
-            },
-            async authorize(credentials) {
-                if (!credentials || !credentials.email || !credentials.password) return null;
+  session: {
+    strategy: "jwt",
+    maxAge: 60 * 60 * 24, // Session expires in 24 hours
+  },
+  jwt: {
+    maxAge: 60 * 60 * 24, // JWT expires in 24 hours
+  },
+  providers: [
+    CredentialsProvider({
+      name: "credentials",
+      credentials: {
+        email: { label: "Email", placeholder: "Enter email" },
+        password: { label: "Password", placeholder: "Enter password" },
+      },
+      async authorize(credentials) {
+        if (!credentials || !credentials.email || !credentials.password)
+          return null;
 
-                try {
-                    await connectToDatabase();
+        try {
+          await connectToDatabase();
 
-                    const user = await prisma.user.findFirst({
-                        where: { email: credentials.email },
-                    });
+          // Check in User model
+          let user = await prisma.user.findFirst({
+            where: { email: credentials.email },
+          });
 
-                    if (!user?.hashedPassword || !user?.userRole) return null; // Ensure role exists
+          if (user && user.hashedPassword) {
+            const isValid = await bcrypt.compare(
+              credentials.password,
+              user.hashedPassword,
+            );
+            if (isValid) {
+              return {
+                id: user.id,
+                name: user.firstName + " " + user.lastName,
+                email: user.email,
+                role: "student",
 
-                    const isPasswordCorrect = await bcrypt.compare(
-                        credentials.password,
-                        user.hashedPassword
-                    );
-
-                    if (isPasswordCorrect) {
-                        const loggedInUser: User = {
-                            id: user.id,
-                            name: user.firstName,
-                            email: user.email,
-                            role: user.userRole as "student" | "teacher" | "superadmin", // ✅ Ensure role type
-                        };
-
-                        return loggedInUser;
-                    }
-
-                    return null;
-                } catch (error) {
-                    console.error(error);
-                    return null;
-                } finally {
-                    await prisma.$disconnect();
-                }
+              };
             }
-        }),
-    ],
-    callbacks: {
-        async jwt({ token, user }) {
-            if (user) {
-                token.id = user.id;
-                token.role = user.role;
-                token.exp = Math.floor(Date.now() / 1000) + 60 * 60 * 24; // ✅ Expire in 24 hours
+          }
+
+          // Check in Teacher model
+          let teacher = await prisma.teacher.findFirst({
+            where: { email: credentials.email },
+          });
+
+          if (teacher && teacher.hashedPassword) {
+            const isValid = await bcrypt.compare(
+              credentials.password,
+              teacher.hashedPassword,
+            );
+            if (isValid) {
+              return {
+                id: teacher.id,
+                name: teacher.teacherName,
+                email: teacher.email,
+                role: "teacher",
+              };
             }
-            return token;
-        },
-        async session({ session, token }) {
-            if (session.user) {
-                session.user.id = token.id as string;
-                session.user.role = token.role as "student" | "teacher" | "superadmin"; // ✅ Assign role
-                session.expires = new Date(token.exp * 1000).toISOString(); // ✅ Sync expiry time
+          }
+
+          // Check in Admin model
+          let admin = await prisma.admin.findFirst({
+            where: { email: credentials.email },
+          });
+
+          if (admin && admin.password) {
+            const isValid = await bcrypt.compare(
+              credentials.password,
+              admin.password,
+            );
+            if (isValid) {
+              return {
+                id: admin.id,
+                name: "Admin",
+                email: admin.email,
+                role: "superadmin",
+              };
             }
-            return session;
-        },
+          }
+
+          // If no match found
+          return null;
+        } catch (error) {
+          console.error(error);
+          return null;
+        } finally {
+          await prisma.$disconnect();
+        }
+      },
+    }),
+  ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.role = user.role;
+        token.name = user.name;
+        token.email = user.email;
+ 
+        token.exp = Math.floor(Date.now() / 1000) + 60 * 60 * 24; // Expire in 24 hours
+      }
+      return token;
     },
-    pages: {
-        signIn: '/auth/login',
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.id as string;
+        session.user.role = token.role as "student" | "teacher" | "superadmin";
+        session.user.name = token.name;
+        session.user.email = token.email;
+        session.expires = new Date(token.exp * 1000).toISOString();
+      }
+      return session;
     },
-    secret: process.env.NEXTAUTH_SECRET,
+  },
+  pages: {
+    signIn: "/auth/login",
+  },
+  secret: process.env.NEXTAUTH_SECRET,
 };
 
 const handler = NextAuth(authOptions);
-
 export { handler as GET, handler as POST };
