@@ -69,7 +69,7 @@ const Hero = () => {
           </h1>
 
           <p className="mb-4 text-lg text-base-content sm:text-xl lg:max-w-[50%] lg:text-2xl">
-            Robotics and AI Curriculum for the Future Innovators
+          "Robotics, AI, and IoT – The RA(I)oT Curriculum for Future Innovators."
           </p>
 
           <div className="flex flex-col items-center gap-4 sm:flex-row">

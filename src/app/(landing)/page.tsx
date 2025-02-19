@@ -9,7 +9,7 @@ import Gallery from "./Gallery";
 import AnnouncementScroller from "./AnnouncementScroller";
 import MOFC from "./Mofc";
 import CH from "./curriculumh";
-import ICL from "./Iclearning";
+import ICT from "./Ictraining";
 import Reviews from "./reviews";
 import { useSession, signOut } from "next-auth/react";
 
@@ -67,7 +67,7 @@ export default function HomePage() {
       </motion.div>
 
       {/* Sections with Bidirectional Scroll Animation */}
-      {[Schools, Services, Products, MOFC, CH, ICL, Reviews, Gallery].map(
+      {[Schools, Services, Products, MOFC, CH, ICT, Reviews, Gallery].map(
         (Component, index) => (
           <motion.div
             key={index}

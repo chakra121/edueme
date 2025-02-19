@@ -45,7 +45,7 @@ const AiRoboticsPage: React.FC = () => {
           {
             id: 2,
             imageSrc: "/servic/online_learning.jpeg",
-            title: "Online Learning",
+            title: "Online Training",
           },
           { id: 3, imageSrc: "/servic/s3.jpeg", title: "Curriculum" },
           {
@@ -56,9 +56,24 @@ const AiRoboticsPage: React.FC = () => {
           {
             id: 5,
             imageSrc: "/servic/classrooom.jpeg",
-            title: "In-class Learning",
+            title: "Offline Training",
           },
           { id: 6, imageSrc: "/servic/tech_tours.jpeg", title: "Tech Tours" },
+          {
+            id: 7,
+            imageSrc: "/servic/competition.jpg",
+            title: "Inter School Competition",
+          },
+          {
+            id: 8,
+            imageSrc: "/servic/tech_summit.webp",
+            title: "Tech Summit",
+          },
+          {
+            id: 9,
+            imageSrc: "/servic/robot_exhibition.webp",
+            title: "Robot Exhibition",
+          },
         ].map((card, index) => (
           <motion.div
             key={card.id}

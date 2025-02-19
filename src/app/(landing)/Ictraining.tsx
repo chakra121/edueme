@@ -1,4 +1,3 @@
-
 import React from "react";
 import { motion } from "framer-motion";
 import {
@@ -10,7 +9,7 @@ import {
 import { PiCertificateFill } from "react-icons/pi";
 
 
-const ICLearning = () => {
+const ICTraining = () => {
 
   const points = [
     {
@@ -53,7 +52,7 @@ const ICLearning = () => {
         transition={{ duration: 1 }}
         viewport={{ once: true }}
       >
-        In-Classroom Learning
+        In-Classroom Training
       </motion.h2>
 
       {/* Animated Grid */}
@@ -111,4 +110,4 @@ const ICLearning = () => {
   );
 };
 
-export default ICLearning;
+export default ICTraining;
