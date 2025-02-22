@@ -1,18 +1,47 @@
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import prisma from "@/lib/globalPrisma";
 import CourseCard from "../components/CourseCard";
 
-const courses = [
-  { id: "course-1", name: "React Basics" },
-  { id: "course-2", name: "Next.js Advanced" },
-];
+export default async function CoursesPage() {
+  const session = await getServerSession(authOptions);
 
-export default function CoursesPage() {
+  if (!session?.user?.email) {
+    return (
+      <p className="text-center text-xl text-error">
+        Please log in to view your courses.
+      </p>
+    );
+  }
+
+  // Fetch user with course details
+  const user = await prisma.user.findUnique({
+    where: { email: session.user.email },
+    include: { course: { include: { chapters: true } } }, // Fix: Include chapters properly
+  });
+
+  if (!user || !user.course) {
+    return (
+      <p className="text-center text-xl text-warning">
+        You haven't purchased any course.
+      </p>
+    );
+  }
+
   return (
-    <div className="p-6 card bg-base-100">
-      <h1 className="text-3xl font-bold card-title text-base-content">Enrolled Courses</h1>
-      <div className="mt-4 space-y-4">
-        {courses.map((course) => (
-          <CourseCard key={course.id} id={course.id} name={course.name} />
-        ))}
+    <div className="card bg-base-100">
+      <div className="card-body">
+        <h1 className="card-title text-3xl font-bold text-base-content">
+          Your Enrolled Courses
+        </h1>
+        <div className="mt-4 w-[50%] space-y-4">
+          <CourseCard
+            courseId={user.course.id}
+            courseCode={user.course.courseCode}
+            courseName={user.course.courseName}
+            chapterCount={user.course.chapters.length} // Fix: Use correct relation
+          />
+        </div>
       </div>
     </div>
   );

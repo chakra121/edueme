@@ -1,10 +1,9 @@
-import { connectToDatabase } from "@/lib/connectDB"
 import prisma from "@/lib/globalPrisma";
 import { NextResponse } from "next/server";
 
 export const GET = async () =>{
     try {
-        await connectToDatabase();
+        await prisma.$connect();
         const users = await prisma.user.findMany();
         return NextResponse.json({users},{status:200});
     } catch (error) {

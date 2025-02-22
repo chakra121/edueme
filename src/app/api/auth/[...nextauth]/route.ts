@@ -39,7 +39,6 @@ export const authOptions: NextAuthOptions = {
             if (isValid) {
               return {
                 id: user.id,
-                name: user.firstName + " " + user.lastName,
                 email: user.email,
                 role: "student",
 
@@ -103,7 +102,6 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.id = user.id;
         token.role = user.role;
-        token.name = user.name;
         token.email = user.email;
  
         token.exp = Math.floor(Date.now() / 1000) + 60 * 60 * 24; // Expire in 24 hours
@@ -114,7 +112,6 @@ export const authOptions: NextAuthOptions = {
       if (session.user) {
         session.user.id = token.id as string;
         session.user.role = token.role as "student" | "teacher" | "superadmin";
-        session.user.name = token.name;
         session.user.email = token.email;
         session.expires = new Date(token.exp * 1000).toISOString();
       }
