@@ -19,13 +19,17 @@ function FloatingRobot({ children, delay = 0 }: { children: ReactNode; delay?: n
     );
 }
 
-function AnimatedCard({ title, content, Icon, delay }: { title: string; content: string; Icon: ReactNode; delay: number }) {
+function AnimatedCard({ title, content, Icon }: { title: string; content: string; Icon: ReactNode }) {
+    const { scrollY } = useScroll();
+    const y = useTransform(scrollY, [0, 300], [50, 0]); // Adjust the range as needed
+
     return (
         <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            style={{ y }} // Animate based on scroll position
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay }}
+            transition={{ duration: 0.8 }}
             className="bg-white p-6 rounded-lg shadow-lg mb-6 flex items-center space-x-4"
         >
             <div className="text-purple-600 text-3xl">{Icon}</div>
@@ -72,13 +76,13 @@ export default function RoboticsEvent() {
                 </motion.div>
             </div>
             <div className="mt-12 max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-                <AnimatedCard title="Date" content="01st & 02nd March 2025" Icon={<FaCalendarAlt />} delay={0} />
-                <AnimatedCard title="Venue" content="Arka International School, Hyderabad" Icon={<FaMapMarkerAlt />} delay={2} />
-                <AnimatedCard title="Events" content="Robotics & AI Expo, Open Mic, Guest Talk, Workshops" Icon={<FaMicrochip />} delay={3} />
+                <AnimatedCard title="Date" content="01st & 02nd March 2025" Icon={<FaCalendarAlt />} />
+                <AnimatedCard title="Venue" content="Arka International School, Hyderabad" Icon={<FaMapMarkerAlt />} />
+                <AnimatedCard title="Events" content="Robotics & AI Expo, Open Mic, Guest Talk, Workshops" Icon={<FaMicrochip />} />
             </div>
             <div className="mt-12 max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-                <AnimatedCard title="Junior Category" content="Grade 5 to 12" Icon={<FaUserGraduate />} delay={4} />
-                <AnimatedCard title="Prize Rewards" content="1st Prize: ₹10,000 | Runners-up: ₹7,000 & ₹3,000" Icon={<FaTrophy />} delay={5} />
+                <AnimatedCard title="Junior Category" content="Grade 5 to 12" Icon={<FaUserGraduate />} />
+                <AnimatedCard title="Prize Rewards" content="1st Prize: ₹10,000 | Runners-up: ₹7,000 & ₹3,000" Icon={<FaTrophy />} />
             </div>
         </div>
     );
