@@ -6,6 +6,7 @@ import { type Metadata } from "next";
 import Script from "next/script";
 import LayoutClient from "./LayoutClient";
 import AuthProvider from "@/components/AuthProvider";
+// import CustomCursor from '../components/CustomCursor';
 
 export const metadata: Metadata = {
   title: "Edueme Research Lab",
@@ -51,6 +52,7 @@ export default function RootLayout({
       <body>
         <main>
           <AuthProvider>
+            {/* <CustomCursor /> */}
             <LayoutClient>{children}</LayoutClient>
           </AuthProvider>
         </main>
