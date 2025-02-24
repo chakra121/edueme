@@ -10,7 +10,7 @@ const BlogHomepage = () => {
       <p className="mt-4 text-lg max-w-2xl">
         EduMe provides an intuitive platform to share insights on Robotics and AI, connecting enthusiasts and professionals to foster knowledge and innovation.
       </p>
-      <Link href="/write-blog">
+      <Link href="/blogs/blogpage">
         <button className="mt-6 px-6 py-3 bg-white text-blue-900 font-bold rounded-lg shadow-md hover:bg-gray-300 transition">
           Start Blogging
         </button>
