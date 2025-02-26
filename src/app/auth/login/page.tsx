@@ -67,7 +67,7 @@ const Login: React.FC = () => {
 
     switch (session?.user?.role) {
       case "teacher":
-        router.push("/dashboard/teacherDashboard/dhome");
+        router.push("/dashboard/teacherDashboard/dHome");
         break;
       case "superadmin": // ✅ Corrected typo
         router.push("/dashboard/adminDashboard/dAnnounce");

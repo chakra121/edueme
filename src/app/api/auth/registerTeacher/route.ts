@@ -12,7 +12,6 @@ export const POST = async (req: Request) => {
       email,
       password,
       employeeID,
-      courseID,
       userRole,
     } = await req.json();
 
@@ -22,7 +21,6 @@ export const POST = async (req: Request) => {
       !email ||
       !password ||
       !employeeID ||
-      !courseID ||
       !userRole
     ) {
       return NextResponse.json({ message: "Invalid Data" }, { status: 422 });
@@ -39,7 +37,6 @@ export const POST = async (req: Request) => {
         email,
         hashedPassword,
         employeeID,
-        courseID,
         userRole,
       },
     });

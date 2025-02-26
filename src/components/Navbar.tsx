@@ -33,7 +33,7 @@ const Navbar = () => {
   // Determine the dashboard link based on user role
   const dashboardLink =
     session?.user?.role === "teacher"
-      ? "/dashboard/teacherDashboard/dhome"
+      ? "/dashboard/teacherDashboard/dHome"
       : session?.user?.role === "superadmin"
         ? "/dashboard/adminDashboard/dAnnounce"
         : "/dashboard/studentDashboard/dHome";
