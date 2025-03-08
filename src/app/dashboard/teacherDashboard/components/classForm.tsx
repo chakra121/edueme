@@ -63,7 +63,9 @@ export default function ClassForm({
         Submit
       </button>
       {message && (
-        <div className={`alert-${messageType} alert mb-2`}>
+        <div
+          className={`alert ${messageType === "success" ? "alert-success" : "alert-error"} mb-2 text-lg`}
+        >
           <span>{message}</span>
         </div>
       )}

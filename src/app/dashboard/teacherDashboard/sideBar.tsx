@@ -26,12 +26,17 @@ const TeacherSideBar = () => {
       href: "/dashboard/teacherDashboard/dCourseCatalog",
       icon: AcademicCapIcon,
     },
+    {
+      label:"Class Link",
+      href:"/dashboard/teacherDashboard/dClassLink",
+      icon:UsersIcon,
+    }
   ];
   return (
     <div className="space-y-4">
       <div className="flex flex-col items-center space-y-2">
         <h2 className="text-center text-lg font-bold text-base-content">
-          Tecaher Dashboard
+          Teacher Dashboard
         </h2>
       </div>
       <ul className="relative flex w-full flex-col space-y-5 font-semibold text-base-content">

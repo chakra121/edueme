@@ -32,6 +32,11 @@ const StudentSideBar = () => {
       href: "/dashboard/studentDashboard/dCourse",
       icon: AcademicCapIcon,
     },
+    {
+      label:"Join Live Class",
+      href:"/dashboard/studentDashboard/dLiveClass",
+      icon:MegaphoneIcon  
+    }
   ];
   return (
     <div className="space-y-4">
