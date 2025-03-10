@@ -19,7 +19,7 @@ const BlogPage: React.FC = () => {
     { title: 'The Future of AI in Healthcare', date: 'March 10, 2025', img: '/blogs/img1.webp' },
     { title: 'The Impact of Quantum Computing on AI', date: 'March 10, 2025', img: '/blogs/img3.jpg' },
     { title: 'Will Artificial Intelligence Be 100% Equal to Human Intelligence?', date: 'February 10, 2021', img: '/blogs/img1.webp' },
-    { title: 'The Role of Blockchain in Education', date: 'March 10, 2025', img: '/blogs/img4.jpg' }, // New blog post
+    { title: 'The Role of Blockchain in Education', date: 'March 10, 2025', img: '/blogs/img1.webp' }, // New blog post
   ];
 
   const blogsToDisplay = selectedTab === 'featured' ? featuredBlogs : recentBlogs;
@@ -105,7 +105,7 @@ const BlogPage: React.FC = () => {
           </div>
           <div className="w-1/4">
             <section className="mb-8 p-6 border rounded shadow-sm text-center"> {/* New card */}
-              <img src="/logo_white.png" alt="Edueme logo" className="w-16 h-16 object-cover rounded mx-auto mb-4" />
+              <img src="/logo_icon.png" alt="Edueme logo" className="w-16 h-16 object-cover rounded mx-auto mb-4" />
               <h3 className="text-xl font-bold">Edueme Research Labs</h3>
               <p className="text-gray-600 mb-4">Lorem ipsum dolor sit amet, conse tfctetur adipiscing elit. Vel in in donec iaculis tempasus odio nunc laoreet. Libero ullam rgscorper.</p>
               <div className="flex justify-center space-x-4">
