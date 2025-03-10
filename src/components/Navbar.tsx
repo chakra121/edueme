@@ -46,6 +46,7 @@ const Navbar = () => {
     { label: "Research", href: "/research" },
     { label: "Contact Us", href: "/contact" },
     { label: "Why Us", href: "/whyus" },
+    {label: "Blogs", href: "/blogs"},
   ];
 
   // Check if the user is on a student or teacher dashboard
