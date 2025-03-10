@@ -1,12 +1,13 @@
 "use client"
 import React, { useState } from 'react';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const blogContent = {
   title: "EduMe Blogs",
   description: "Explore insightful articles, expert opinions, and the latest trends in education, technology, and beyond. Stay informed and inspired with EduMe Blogs."
 };
 
-const BlogPage: React.FC = () => {
+export default function BlogPage() {
   const [selectedTab, setSelectedTab] = useState<'featured' | 'recent'>('featured');
 
   const featuredBlogs = [
@@ -53,15 +54,50 @@ const BlogPage: React.FC = () => {
           <div className="w-3/4">
             <section className="mb-8 p-6 border rounded shadow-sm">
               <h2 className="text-4xl font-bold mb-4">Featured Post</h2>
-              <div className="flex flex-col md:flex-row">
-                <img src="/blogs/img1.webp" alt="Featured Post" className="w-full md:w-1/4 object-cover rounded mb-4 md:mb-0 md:mr-4" />
-                <div className="w-full">
+              <div className="grid grid-cols-3 gap-4">
+                <img src="/blogs/img1.webp" alt="Featured Post" className="col-span-1 w-full h-64 object-cover rounded" />
+                <div className="col-span-1">
                   <h3 className="text-2xl font-bold">Future of Robotics: All You Need to Know in 2025</h3>
                   <p className="text-gray-600">by Arka on March 15, 2025</p>
-                  <p className="mt-2">Future of Robotics: All You Need to Know in 2023 In recent years, the field of robotics has seen remarkable advancements and breakthroughs, revolutionized various industries and transformed the way we live and work. As we enter the year 2023, the future of robotics holds even more exciting possibilities. In this blog, we will explore the latest trends, innovations, and developments shaping the world of robotics in 2023 and beyond. 1.Artificial Intelligence and Robotics Integration Artificial Intelligence (AI) has been instrumental in enhancing the capabilities of robots, and this trend continues to accelerate in 2023. With the advancements in machine [...]</p>
+                  <p className="mt-2">Future of Robotics: All You Need to Know in 2023 In recent years, the field of robotics has seen remarkable advancements and breakthroughs, revolutionized various industries and transformed the way we live and work.</p>
                   <button className="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition-colors">Read More</button>
                 </div>
+                <div className="col-span-1 border-l pl-4">
+                  <h4 className="text-xl font-bold mb-4">Featured Posts</h4>
+                  <div className="space-y-4 h-64 overflow-y-auto pr-2"> {/* Added height and scroll */}
+                    <div className="flex items-center">
+                      <img src="/blogs/img1.webp" alt="Post Image" className="w-16 h-16 object-cover rounded mr-4" />
+                      <div>
+                        <h5 className="font-bold">My work from home workstation</h5>
+                        <p className="text-gray-600 text-sm">January 24, 2021</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center">
+                      <img src="/blogs/img1.webp" alt="Post Image" className="w-16 h-16 object-cover rounded mr-4" />
+                      <div>
+                        <h5 className="font-bold">What is a Virtual Assistant</h5>
+                        <p className="text-gray-600 text-sm">January 24, 2021</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center">
+                      <img src="/blogs/img3.jpg" alt="Post Image" className="w-16 h-16 object-cover rounded mr-4" />
+                      <div>
+                        <h5 className="font-bold">The Impact of Quantum Computing</h5>
+                        <p className="text-gray-600 text-sm">March 10, 2025</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center">
+                      <img src="/blogs/img1.webp" alt="Post Image" className="w-16 h-16 object-cover rounded mr-4" />
+                      <div>
+                        <h5 className="font-bold">Future of AI in Healthcare</h5>
+                        <p className="text-gray-600 text-sm">March 10, 2025</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
+            </section>
+            <section className="mb-8 p-6 border rounded shadow-sm">
               <h2 className="text-4xl font-bold mt-8 mb-4">Recent Posts</h2>
               <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex flex-col items-center p-6 border rounded shadow-sm">
@@ -220,8 +256,6 @@ const BlogPage: React.FC = () => {
     </div>
   );
 };
-
-export default BlogPage;
 
 
 
