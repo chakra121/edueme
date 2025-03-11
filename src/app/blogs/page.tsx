@@ -37,6 +37,20 @@ const recentBlogs = [
     excerpt: 'Can AI ever match human intelligence? Explore the differences between machine learning, deep learning, and human cognition in this thought-provoking discussion.' 
   },
   { 
+    title: 'The Future of Humanoid Robots: How Close Are We?', 
+    date: 'March 10, 2025', 
+    img: '/blogs/img2.jpg', 
+    author: 'Michael Lee', 
+    excerpt: 'Humanoid robots are evolving rapidly, with advancements in AI and machine learning pushing them closer to human-like behavior. But how far are we from full autonomy?' 
+  },
+  { 
+    title: 'AI-Powered Robotics: Transforming Industries in 2025',       
+    date: 'March 05, 2025', 
+    img: '/blogs/img1.webp', 
+    author: 'Sophia Martinez', 
+    excerpt: 'From healthcare to manufacturing, AI-powered robots are revolutionizing industries. Explore the latest breakthroughs and how they’re shaping the future.' 
+  },
+  { 
     title: 'How Robots Are Becoming More Human with AI', 
     date: 'February 14, 2025', 
     img: '/blogs/img1.webp', 
