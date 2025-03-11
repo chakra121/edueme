@@ -1,4 +1,5 @@
-import NextAuth, { NextAuthOptions, User } from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
+import { NextRequest, NextResponse } from "next/server"; // Import Next.js request/response types
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@/lib/globalPrisma";
 import { connectToDatabase } from "@/lib/connectDB";
@@ -27,7 +28,6 @@ export const authOptions: NextAuthOptions = {
         try {
           await connectToDatabase();
 
-          // Check in User model
           let user = await prisma.user.findFirst({
             where: { email: credentials.email },
           });
@@ -38,15 +38,10 @@ export const authOptions: NextAuthOptions = {
               user.hashedPassword,
             );
             if (isValid) {
-              return {
-                id: user.id,
-                email: user.email,
-                role: "student",
-              };
+              return { id: user.id, email: user.email, role: "student" };
             }
           }
 
-          // Check in Teacher model
           let teacher = await prisma.teacher.findFirst({
             where: { email: credentials.email },
           });
@@ -66,7 +61,6 @@ export const authOptions: NextAuthOptions = {
             }
           }
 
-          // Check in Admin model
           let admin = await prisma.admin.findFirst({
             where: { email: credentials.email },
           });
@@ -86,7 +80,6 @@ export const authOptions: NextAuthOptions = {
             }
           }
 
-          // If no match found
           throw new Error("Invalid credentials!");
         } catch (error) {
           console.error("Authorization Error:", error);
@@ -103,7 +96,6 @@ export const authOptions: NextAuthOptions = {
         token.id = user.id;
         token.role = user.role;
         token.email = user.email;
-
         token.exp = Math.floor(Date.now() / 1000) + 60 * 60 * 24; // Expire in 24 hours
       }
       return token;
@@ -125,5 +117,6 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 };
 
-const handler = NextAuth(authOptions);
-export { handler as GET, handler as POST };
+// ✅ Correct Next.js API handlers for the App Router
+export const GET = (req: NextRequest) => NextAuth(authOptions);
+export const POST = (req: NextRequest) => NextAuth(authOptions);
