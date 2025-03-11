@@ -3,17 +3,12 @@ import { connectToDatabase } from "@/lib/connectDB";
 import prisma from "@/lib/globalPrisma";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
+import { ObjectId } from "mongodb"; // Import ObjectId for dummy value
 
 export const POST = async (req: Request) => {
   try {
-    const {
-      teacherName,
-      phoneNumber,
-      email,
-      password,
-      employeeID,
-      userRole,
-    } = await req.json();
+    const { teacherName, phoneNumber, email, password, employeeID, userRole } =
+      await req.json();
 
     if (
       !teacherName ||
@@ -30,7 +25,8 @@ export const POST = async (req: Request) => {
 
     await connectToDatabase();
 
-    const user = await prisma.teacher.create({
+    // Create Teacher
+    const teacher = await prisma.teacher.create({
       data: {
         teacherName,
         phoneNumber,
@@ -41,7 +37,19 @@ export const POST = async (req: Request) => {
       },
     });
 
-    return NextResponse.json({ user }, { status: 201 });
+    // Create ClassLink with a Dummy `courseID` for compatibility
+    const classLinkData = {
+      classLink: "",
+      topics: [],
+      description: "",
+      teacherID: teacher.id,
+      courseID: new ObjectId().toString(), // Proper dummy ObjectID value
+      DateAndTime: new Date().toISOString(),
+    };
+
+    await prisma.classLink.create({ data: classLinkData });
+
+    return NextResponse.json({ teacher }, { status: 201 });
   } catch (error: any) {
     console.error("Error registering teacher:", error);
 
