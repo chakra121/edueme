@@ -20,8 +20,9 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", placeholder: "Enter password" },
       },
       async authorize(credentials) {
-        if (!credentials || !credentials.email || !credentials.password)
-          return null;
+        if (!credentials || !credentials.email || !credentials.password) {
+          throw new Error("Invalid credentials!");
+        }
 
         try {
           await connectToDatabase();
@@ -41,7 +42,6 @@ export const authOptions: NextAuthOptions = {
                 id: user.id,
                 email: user.email,
                 role: "student",
-
               };
             }
           }
@@ -87,10 +87,10 @@ export const authOptions: NextAuthOptions = {
           }
 
           // If no match found
-          return null;
+          throw new Error("Invalid credentials!");
         } catch (error) {
-          console.error(error);
-          return null;
+          console.error("Authorization Error:", error);
+          throw new Error("Invalid credentials!");
         } finally {
           await prisma.$disconnect();
         }
@@ -103,7 +103,7 @@ export const authOptions: NextAuthOptions = {
         token.id = user.id;
         token.role = user.role;
         token.email = user.email;
- 
+
         token.exp = Math.floor(Date.now() / 1000) + 60 * 60 * 24; // Expire in 24 hours
       }
       return token;
@@ -120,6 +120,7 @@ export const authOptions: NextAuthOptions = {
   },
   pages: {
     signIn: "/auth/login",
+    error: "/auth/error", // To show the error on a custom error page
   },
   secret: process.env.NEXTAUTH_SECRET,
 };

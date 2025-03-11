@@ -38,7 +38,7 @@ export const POST = async (req: Request) => {
       );
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    await connectToDatabase();
+    await prisma.$connect();
     const user = await prisma.user.create({
       data: {
         firstName,

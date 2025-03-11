@@ -23,8 +23,8 @@ const AdminSideBar = () => {
       icon: UsersIcon,
     },
     {
-      label: "Student's Catalog",
-      href: "/dashboard/adminDashboard/dStudentCatalog",
+      label: "Assign Teacher",
+      href: "/dashboard/adminDashboard/dAssignTeacher",
       icon: UsersIcon,
     },
   ];

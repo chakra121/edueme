@@ -27,10 +27,15 @@ const TeacherSideBar = () => {
       icon: AcademicCapIcon,
     },
     {
-      label:"Class Link",
-      href:"/dashboard/teacherDashboard/dClassLink",
-      icon:UsersIcon,
-    }
+      label: "Class Link",
+      href: "/dashboard/teacherDashboard/dClassLink",
+      icon: MegaphoneIcon,
+    },
+    {
+      label: "Student Catalog",
+      href: "/dashboard/teacherDashboard/dStudentCatalog",
+      icon: UsersIcon,
+    },
   ];
   return (
     <div className="space-y-4">

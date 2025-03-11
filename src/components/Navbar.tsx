@@ -103,7 +103,7 @@ const Navbar = () => {
                 <div className="flex gap-4">
                   <Link href={dashboardLink}>
                     <button className="btn btn-outline transition duration-300 ease-in-out hover:scale-105">
-                      Go to Dashboard
+                      Dashboard
                     </button>
                   </Link>
                   <button
