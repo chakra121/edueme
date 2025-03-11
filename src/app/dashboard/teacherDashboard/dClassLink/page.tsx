@@ -245,7 +245,7 @@ export default function ClassLinkManager() {
                   </button>
                 </div>
               ) : (
-                <div className="text-xl">
+                <div className="text-xl pl-6">
                   <p className="mb-2 font-bold">Class Link:</p>
                   <p className="mb-4 pl-5">{teacherLink.classLink}</p>
                   <p className="mb-2 font-bold">Topics:</p>
