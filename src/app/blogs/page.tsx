@@ -7,22 +7,95 @@ const blogContent = {
   description: "Explore insightful articles, expert opinions, and the latest trends in education, technology, and beyond. Stay informed and inspired with EduMe Blogs."
 };
 
+const featuredBlogs = [
+  { title: 'AI and Robotics: The Perfect Duo', date: 'February 24, 2025', img: '/blogs/img1.webp' },
+  { title: 'How does robotics affect our life?', date: 'January 15, 2025', img: '/blogs/img1.webp' },
+  { title: 'Robotics in Real life', date: 'December 23, 2024', img: '/blogs/img1.webp' },
+  { title: 'The Evolution of Robotics', date: 'October 24, 2024', img: '/blogs/img1.webp' },
+];
+
+const recentBlogs = [
+  { 
+    title: 'Top Robotics Trends in 2025: What’s Next?', 
+    date: 'March 12, 2025', 
+    img: '/blogs/img1.webp', 
+    author: 'Alex Johnson', 
+    excerpt: 'Artificial intelligence (AI) is the driving force behind the latest advancements in robotics. From humanoid assistants to AI-driven automation, discover the top trends shaping robotics in 2025.' 
+  },
+  { 
+    title: 'How to Build a Simple Robot at Home', 
+    date: 'March 08, 2025', 
+    img: '/blogs/img3.jpg', 
+    author: 'Jane Smith', 
+    excerpt: 'Want to build your first robot? Learn how to create a simple robot using Arduino, motors, and sensors. A step-by-step guide for beginners and hobbyists!' 
+  },
+  { 
+    title: 'Will Artificial Intelligence Be 100% Equal to Human Intelligence?', 
+    date: 'February 28, 2025', 
+    img: '/blogs/img1.webp', 
+    author: 'John Doe', 
+    excerpt: 'Can AI ever match human intelligence? Explore the differences between machine learning, deep learning, and human cognition in this thought-provoking discussion.' 
+  },
+  { 
+    title: 'How Robots Are Becoming More Human with AI', 
+    date: 'February 14, 2025', 
+    img: '/blogs/img1.webp', 
+    author: 'Emily Clark', 
+    excerpt: 'From emotional recognition to natural language processing, AI is making robots more human-like than ever before. Find out how this is changing industries and daily life.' 
+  }
+];
+
+
+const mainFeaturedPost = {
+  title: 'Future of Robotics: All You Need to Know in 2025',
+  author: 'Arka',
+  date: 'March 15, 2025',
+  img: '/blogs/img1.webp',
+  excerpt: 'Future of Robotics: All You Need to Know in 2025 In recent years, the field of robotics has seen remarkable advancements and breakthroughs, revolutionized various industries and transformed the way we live and work...'
+};
+
+const sidebarLinks = {
+  social: [
+    { icon: 'facebook', url: '#' },
+    { icon: 'twitter', url: '#' },
+    { icon: 'instagram', url: '#' },
+    { icon: 'github', url: '#' },
+    { icon: 'linkedin', url: '#' }
+  ],
+  categories: [
+    'Artificial intelligence',
+    'Assistant',
+    'Drone',
+    'Github',
+    'Programming',
+    'Robotics'
+  ]
+};
+
+interface Blog {
+  title: string;
+  date: string;
+  img: string;
+  author: string;
+  excerpt: string;
+}
+
+const BlogCard = ({ blog }: { blog: Blog }) => (
+  <div className="flex flex-col items-center p-6 border rounded shadow-sm">
+    <img src={blog.img} alt={blog.title} className="w-full h-56 object-cover rounded mb-4" />
+    <div className="w-full text-center">
+      <h3 className="text-xl font-bold">{blog.title}</h3>
+      <p className="text-gray-600">by {blog.author} on {blog.date}</p>
+      <p className="mt-2 text-sm">{blog.excerpt}</p>
+      <button className="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition-colors text-sm">
+        Read More
+      </button>
+    </div>
+  </div>
+);
+
 export default function BlogPage() {
   const [selectedTab, setSelectedTab] = useState<'featured' | 'recent'>('featured');
-
-  const featuredBlogs = [
-    { title: 'Github Repository Controls', date: 'January 24, 2021', img: '/blogs/img1.webp' },
-    { title: 'My work from home workstation', date: 'January 24, 2021', img: '/blogs/img1.webp' },
-    { title: 'What is a Virtual Assistant', date: 'January 24, 2021', img: '/blogs/img1.webp' },
-  ];
-
-  const recentBlogs = [
-    { title: 'The Future of AI in Healthcare', date: 'March 10, 2025', img: '/blogs/img1.webp' },
-    { title: 'The Impact of Quantum Computing on AI', date: 'March 10, 2025', img: '/blogs/img3.jpg' },
-    { title: 'Will Artificial Intelligence Be 100% Equal to Human Intelligence?', date: 'February 10, 2021', img: '/blogs/img1.webp' },
-    { title: 'The Role of Blockchain in Education', date: 'March 10, 2025', img: '/blogs/img1.webp' }, // New blog post
-  ];
-
   const blogsToDisplay = selectedTab === 'featured' ? featuredBlogs : recentBlogs;
 
   return (
@@ -55,44 +128,25 @@ export default function BlogPage() {
             <section className="mb-8 p-6 border rounded shadow-sm">
               <h2 className="text-4xl font-bold mb-4">Featured Post</h2>
               <div className="grid grid-cols-3 gap-4">
-                <img src="/blogs/img1.webp" alt="Featured Post" className="col-span-1 w-full h-64 object-cover rounded" />
+                <img src={mainFeaturedPost.img} alt="Featured Post" className="col-span-1 w-full h-64 object-cover rounded" />
                 <div className="col-span-1">
-                  <h3 className="text-2xl font-bold">Future of Robotics: All You Need to Know in 2025</h3>
-                  <p className="text-gray-600">by Arka on March 15, 2025</p>
-                  <p className="mt-2">Future of Robotics: All You Need to Know in 2023 In recent years, the field of robotics has seen remarkable advancements and breakthroughs, revolutionized various industries and transformed the way we live and work.</p>
+                  <h3 className="text-2xl font-bold">{mainFeaturedPost.title}</h3>
+                  <p className="text-gray-600">by {mainFeaturedPost.author} on {mainFeaturedPost.date}</p>
+                  <p className="mt-2">{mainFeaturedPost.excerpt}</p>
                   <button className="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition-colors">Read More</button>
                 </div>
                 <div className="col-span-1 border-l pl-4">
                   <h4 className="text-xl font-bold mb-4">Featured Posts</h4>
-                  <div className="space-y-4 h-64 overflow-y-auto pr-2"> {/* Added height and scroll */}
-                    <div className="flex items-center">
-                      <img src="/blogs/img1.webp" alt="Post Image" className="w-16 h-16 object-cover rounded mr-4" />
-                      <div>
-                        <h5 className="font-bold">My work from home workstation</h5>
-                        <p className="text-gray-600 text-sm">January 24, 2021</p>
+                  <div className="space-y-4 h-64 overflow-y-auto pr-2">
+                    {featuredBlogs.map((blog, index) => (
+                      <div key={index} className="flex items-center">
+                        <img src={blog.img} alt="Post Image" className="w-16 h-16 object-cover rounded mr-4" />
+                        <div>
+                          <h5 className="font-bold">{blog.title}</h5>
+                          <p className="text-gray-600 text-sm">{blog.date}</p>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex items-center">
-                      <img src="/blogs/img1.webp" alt="Post Image" className="w-16 h-16 object-cover rounded mr-4" />
-                      <div>
-                        <h5 className="font-bold">What is a Virtual Assistant</h5>
-                        <p className="text-gray-600 text-sm">January 24, 2021</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center">
-                      <img src="/blogs/img3.jpg" alt="Post Image" className="w-16 h-16 object-cover rounded mr-4" />
-                      <div>
-                        <h5 className="font-bold">The Impact of Quantum Computing</h5>
-                        <p className="text-gray-600 text-sm">March 10, 2025</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center">
-                      <img src="/blogs/img1.webp" alt="Post Image" className="w-16 h-16 object-cover rounded mr-4" />
-                      <div>
-                        <h5 className="font-bold">Future of AI in Healthcare</h5>
-                        <p className="text-gray-600 text-sm">March 10, 2025</p>
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -100,112 +154,45 @@ export default function BlogPage() {
             <section className="mb-8 p-6 border rounded shadow-sm">
               <h2 className="text-4xl font-bold mt-8 mb-4">Recent Posts</h2>
               <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="flex flex-col items-center p-6 border rounded shadow-sm">
-                  <img src="/blogs/img1.webp" alt="Another Post" className="w-full h-56 object-cover rounded mb-4" />
-                  <div className="w-full text-center">
-                    <h3 className="text-xl font-bold">Will Artificial Intelligence Be 100% Equal to Human Intelligence?</h3>
-                    <p className="text-gray-600">by John Doe on February 10, 2021</p>
-                    <p className="mt-2 text-sm">Will Artificial Intelligence Be 100% Equal to Human Intelligence? First, Human intelligence...</p>
-                    <button className="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition-colors text-sm">Read More</button>
-                  </div>
-                </div>
-                <div className="flex flex-col items-center p-6 border rounded shadow-sm">
-                  <img src="/blogs/img3.jpg" alt="Another Post" className="w-full h-56 object-cover rounded mb-4" />
-                  <div className="w-full text-center">
-                    <h3 className="text-xl font-bold">The Impact of Quantum Computing on AI</h3>
-                    <p className="text-gray-600">by Jane Smith on March 10, 2025</p>
-                    <p className="mt-2 text-sm">Quantum computing is poised ...</p>
-                    <button className="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition-colors text-sm">Read More</button>
-                  </div>
-                </div>
-                <div className="flex flex-col items-center p-6 border rounded shadow-sm">
-                  <img src="/blogs/img1.webp" alt="Another Post" className="w-full h-56 object-cover rounded mb-4" />
-                  <div className="w-full text-center">
-                    <h3 className="text-xl font-bold">The Future of AI in Healthcare</h3>
-                    <p className="text-gray-600">by Alex Johnson on March 10, 2025</p>
-                    <p className="mt-2 text-sm">Artificial intelligence (AI) is the...</p>
-                    <button className="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition-colors text-sm">Read More</button>
-                  </div>
-                </div>
-                <div className="flex flex-col items-center p-6 border rounded shadow-sm"> {/* New card */}
-                  <img src="/blogs/img1.webp" alt="Another Post" className="w-full h-56 object-cover rounded mb-4" />
-                  <div className="w-full text-center">
-                    <h3 className="text-xl font-bold">The Role of Blockchain in Education</h3>
-                    <p className="text-gray-600">by Emily Clark on March 10, 2025</p>
-                    <p className="mt-2 text-sm">Blockchain technology is revolutionizing...</p>
-                    <button className="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition-colors text-sm">Read More</button>
-                  </div>
-                </div>
+                {recentBlogs.map((blog, index) => (
+                  <BlogCard key={index} blog={blog} />
+                ))}
               </section>
             </section>
           </div>
           <div className="w-1/4">
-            <section className="mb-8 p-6 border rounded shadow-sm text-center"> {/* New card */}
+            <section className="mb-8 p-6 border rounded shadow-sm text-center">
               <img src="/logo_icon.png" alt="Edueme logo" className="w-16 h-16 object-cover rounded mx-auto mb-4" />
               <h3 className="text-xl font-bold">Edueme Research Labs</h3>
               <p className="text-gray-600 mb-4">Lorem ipsum dolor sit amet, conse tfctetur adipiscing elit. Vel in in donec iaculis tempasus odio nunc laoreet. Libero ullam rgscorper.</p>
               <div className="flex justify-center space-x-4">
-                <a href="#"><i className="fab fa-facebook"></i></a>
-                <a href="#"><i className="fab fa-twitter"></i></a>
-                <a href="#"><i className="fab fa-instagram"></i></a>
-                <a href="#"><i className="fab fa-github"></i></a>
-                <a href="#"><i className="fab fa-linkedin"></i></a>
+                {sidebarLinks.social.map((link, index) => (
+                  <a key={index} href={link.url}><i className={`fab fa-${link.icon}`}></i></a>
+                ))}
               </div>
             </section>
             <section className="mb-8 p-6 border rounded shadow-sm">
               <h2 className="text-3xl font-bold mb-4">Recent Posts</h2>
               <ul className="overflow-y-auto h-64">
-                <li className="mb-4 flex items-center">
-                  <img src="/blogs/img1.webp" alt="Post Image" className="w-16 h-16 object-cover rounded mr-4" />
-                  <div>
-                    <h3 className="text-xl font-bold">My work from home workstation</h3>
-                    <p className="text-gray-600">January 24, 2021</p>
-                  </div>
-                </li>
-                <li className="mb-4 flex items-center">
-                  <img src="/blogs/img1.webp" alt="Post Image" className="w-16 h-16 object-cover rounded mr-4" />
-                  <div>
-                    <h3 className="text-xl font-bold">What is a Virtual Assistant</h3>
-                    <p className="text-gray-600">January 24, 2021</p>
-                  </div>
-                </li>
-                <li className="mb-4 flex items-center">
-                  <img src="/blogs/img1.webp" alt="Post Image" className="w-16 h-16 object-cover rounded mr-4" />
-                  <div>
-                    <h3 className="text-xl font-bold">What you need to know about Programming</h3>
-                    <p className="text-gray-600">January 24, 2021</p>
-                  </div>
-                </li>
-                <li className="mb-4 flex items-center">
-                  <img src="/blogs/img1.webp" alt="Post Image" className="w-16 h-16 object-cover rounded mr-4" />
-                  <div>
-                    <h3 className="text-xl font-bold">Why you need to learn PHP</h3>
-                    <p className="text-gray-600">January 24, 2021</p>
-                  </div>
-                </li>
+                {recentBlogs.map((blog, index) => (
+                  <li key={index} className="mb-4 flex items-center">
+                    <img src={blog.img} alt="Post Image" className="w-16 h-16 object-cover rounded mr-4" />
+                    <div>
+                      <h3 className="text-xl font-bold">{blog.title}</h3>
+                      <p className="text-gray-600">{blog.date}</p>
+                    </div>
+                  </li>
+                ))}
               </ul>
             </section>
             <section className="mb-8 p-6 border rounded shadow-sm">
               <h2 className="text-3xl font-bold mb-4">Blog Categories</h2>
               <ul>
-                <li className="mb-2">
-                  <a href="#" className="text-blue-500 hover:underline"> Artificial intelligence</a>
-                </li>
-                <li className="mb-2">
-                  <a href="#" className="text-blue-500 hover:underline">Assistant</a>
-                </li>
-                <li className="mb-2">
-                  <a href="#" className="text-blue-500 hover:underline">Drone</a>
-                </li>
-                <li className="mb-2">
-                  <a href="#" className="text-blue-500 hover:underline">Github</a>
-                </li>
-                <li className="mb-2">
-                  <a href="#" className="text-blue-500 hover:underline">Programming</a>
-                </li>
-                <li className="mb-2">
-                  <a href="#" className="text-blue-500 hover:underline">Robotics</a>
-                </li>
+                {sidebarLinks.categories.map((category, index) => (
+                  <li key={index} className="mb-2">
+                    <a href="#" className="text-blue-500 hover:underline">{category}</a>
+                  </li>
+                ))}
               </ul>
             </section>
             <section className="p-6 border rounded shadow-sm mt-8">
@@ -236,7 +223,7 @@ export default function BlogPage() {
                 ))}
               </ul>
             </section>
-            <section className="p-6 border rounded shadow-sm mt-8"> {/* Newsletter card */}
+            <section className="p-6 border rounded shadow-sm mt-8">
               <h2 className="text-3xl font-bold mb-4">Newsletter</h2>
               <p className="mb-4">Join thousands of Tiny Salt subscribers and get our best recipes delivered each week!</p>
               <div className="flex mb-4">
