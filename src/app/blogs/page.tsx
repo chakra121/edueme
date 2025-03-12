@@ -1,6 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import Pagination from '../../components/Pagination'; // Adjust the import path as needed
 
 const blogContent = {
   title: "EduMe Blogs",
@@ -59,7 +60,6 @@ const recentBlogs = [
   }
 ];
 
-
 const mainFeaturedPost = {
   title: 'Future of Robotics: All You Need to Know in 2025',
   author: 'Arka',
@@ -109,8 +109,17 @@ const BlogCard = ({ blog }: { blog: Blog }) => (
 );
 
 export default function BlogPage() {
-  const [selectedTab, setSelectedTab] = useState<'featured' | 'recent'>('featured');
-  const blogsToDisplay = selectedTab === 'featured' ? featuredBlogs : recentBlogs;
+  const [currentPage, setCurrentPage] = useState(1);
+  const blogsPerPage = 4  ;
+  const totalPages = Math.ceil(recentBlogs.length / blogsPerPage);
+
+  const currentBlogs = recentBlogs.slice(
+    (currentPage - 1) * blogsPerPage,
+    currentPage * blogsPerPage
+  );
+
+  const [selectedTab, setSelectedTab] = useState('featured');
+  const blogsToDisplay = selectedTab === 'featured' ? featuredBlogs.slice(0, 5) : recentBlogs.slice(0, 5);
 
   return (
     <div className="font-sans">
@@ -168,10 +177,15 @@ export default function BlogPage() {
             <section className="mb-8 p-6 border rounded shadow-sm">
               <h2 className="text-4xl font-bold mt-8 mb-4">Recent Posts</h2>
               <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {recentBlogs.map((blog, index) => (
+                {currentBlogs.map((blog, index) => (
                   <BlogCard key={index} blog={blog} />
                 ))}
               </section>
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+              />
             </section>
           </div>
           <div className="w-1/4">
@@ -188,7 +202,7 @@ export default function BlogPage() {
             <section className="mb-8 p-6 border rounded shadow-sm">
               <h2 className="text-3xl font-bold mb-4">Recent Posts</h2>
               <ul className="overflow-y-auto h-64">
-                {recentBlogs.map((blog, index) => (
+                {recentBlogs.slice(0, 5).map((blog, index) => (
                   <li key={index} className="mb-4 flex items-center">
                     <img src={blog.img} alt="Post Image" className="w-16 h-16 object-cover rounded mr-4" />
                     <div>
@@ -209,6 +223,7 @@ export default function BlogPage() {
                 ))}
               </ul>
             </section>
+            
             <section className="p-6 border rounded shadow-sm mt-8">
               <h2 className="text-3xl font-bold mb-4">Blogs</h2>
               <div className="flex mb-4">
@@ -237,6 +252,7 @@ export default function BlogPage() {
                 ))}
               </ul>
             </section>
+
             <section className="p-6 border rounded shadow-sm mt-8">
               <h2 className="text-3xl font-bold mb-4">Newsletter</h2>
               <p className="mb-4">Join thousands of Tiny Salt subscribers and get our best recipes delivered each week!</p>
@@ -256,5 +272,6 @@ export default function BlogPage() {
       </div>
     </div>
   );
-};
+}
+
 
