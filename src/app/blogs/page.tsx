@@ -19,28 +19,42 @@ const recentBlogs = [
   { 
     title: 'Top Robotics Trends in 2025: What’s Next?', 
     date: 'March 12, 2025', 
-    img: '/blogs/img1.webp', 
+    img: '/blogs/img8.png', 
     author: 'Alex Johnson', 
     excerpt: 'Artificial intelligence (AI) is the driving force behind the latest advancements in robotics. From humanoid assistants to AI-driven automation, discover the top trends shaping robotics in 2025.' 
   },
   { 
+    title: 'AI-Powered Robotics: Transforming Industries in 2025',       
+    date: 'March 05, 2025', 
+    img: '/blogs/img7.jpg', 
+    author: 'Sophia Martinez', 
+    excerpt: 'From healthcare to manufacturing, AI-powered robots are revolutionizing industries. Explore the latest breakthroughs and how they’re shaping the future.' 
+  },
+  { 
+    title: 'AI-Powered Robotics: Transforming Industries in 2025',       
+    date: 'March 05, 2025', 
+    img: '/blogs/img5.jpg', 
+    author: 'Sophia Martinez', 
+    excerpt: 'From healthcare to manufacturing, AI-powered robots are revolutionizing industries. Explore the latest breakthroughs and how they’re shaping the future.' 
+  },
+  { 
     title: 'How to Build a Simple Robot at Home', 
     date: 'March 08, 2025', 
-    img: '/blogs/img3.jpg', 
+    img: '/blogs/img2.jpg', 
     author: 'Jane Smith', 
     excerpt: 'Want to build your first robot? Learn how to create a simple robot using Arduino, motors, and sensors. A step-by-step guide for beginners and hobbyists!' 
   },
   { 
     title: 'Will Artificial Intelligence Be 100% Equal to Human Intelligence?', 
     date: 'February 28, 2025', 
-    img: '/blogs/img1.webp', 
+    img: '/blogs/img3.jpg', 
     author: 'John Doe', 
     excerpt: 'Can AI ever match human intelligence? Explore the differences between machine learning, deep learning, and human cognition in this thought-provoking discussion.' 
   },
   { 
     title: 'The Future of Humanoid Robots: How Close Are We?', 
     date: 'March 10, 2025', 
-    img: '/blogs/img2.jpg', 
+    img: '/blogs/img4.jpg', 
     author: 'Michael Lee', 
     excerpt: 'Humanoid robots are evolving rapidly, with advancements in AI and machine learning pushing them closer to human-like behavior. But how far are we from full autonomy?' 
   },
@@ -58,20 +72,7 @@ const recentBlogs = [
     author: 'Sophia Martinez', 
     excerpt: 'From healthcare to manufacturing, AI-powered robots are revolutionizing industries. Explore the latest breakthroughs and how they’re shaping the future.' 
   },
-  { 
-    title: 'AI-Powered Robotics: Transforming Industries in 2025',       
-    date: 'March 05, 2025', 
-    img: '/blogs/img1.webp', 
-    author: 'Sophia Martinez', 
-    excerpt: 'From healthcare to manufacturing, AI-powered robots are revolutionizing industries. Explore the latest breakthroughs and how they’re shaping the future.' 
-  },
-  { 
-    title: 'AI-Powered Robotics: Transforming Industries in 2025',       
-    date: 'March 05, 2025', 
-    img: '/blogs/img1.webp', 
-    author: 'Sophia Martinez', 
-    excerpt: 'From healthcare to manufacturing, AI-powered robots are revolutionizing industries. Explore the latest breakthroughs and how they’re shaping the future.' 
-  },
+  
   { 
     title: 'AI-Powered Robotics: Transforming Industries in 2025',       
     date: 'March 05, 2025', 
@@ -172,7 +173,8 @@ export default function BlogPage() {
         <div className="w-1/2 p-8 flex flex-col items-center justify-center">
           <div className="text-left">
             <h1 className="text-6xl font-bold mb-5 mt-10 text-grey">
-              <span className="text-8xl">Welcome</span>!
+              <span className="text-8xl">Welcome</span>
+                <span className="text-green-500 text-8xl ml-4">!</span>
             </h1>
             <h2 className="text-3xl text-gray-700 mb-5">
               <span className="text-5xl">to {blogContent.title}</span> 
