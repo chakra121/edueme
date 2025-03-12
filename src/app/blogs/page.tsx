@@ -52,6 +52,48 @@ const recentBlogs = [
     excerpt: 'From healthcare to manufacturing, AI-powered robots are revolutionizing industries. Explore the latest breakthroughs and how they’re shaping the future.' 
   },
   { 
+    title: 'AI-Powered Robotics: Transforming Industries in 2025',       
+    date: 'March 05, 2025', 
+    img: '/blogs/img1.webp', 
+    author: 'Sophia Martinez', 
+    excerpt: 'From healthcare to manufacturing, AI-powered robots are revolutionizing industries. Explore the latest breakthroughs and how they’re shaping the future.' 
+  },
+  { 
+    title: 'AI-Powered Robotics: Transforming Industries in 2025',       
+    date: 'March 05, 2025', 
+    img: '/blogs/img1.webp', 
+    author: 'Sophia Martinez', 
+    excerpt: 'From healthcare to manufacturing, AI-powered robots are revolutionizing industries. Explore the latest breakthroughs and how they’re shaping the future.' 
+  },
+  { 
+    title: 'AI-Powered Robotics: Transforming Industries in 2025',       
+    date: 'March 05, 2025', 
+    img: '/blogs/img1.webp', 
+    author: 'Sophia Martinez', 
+    excerpt: 'From healthcare to manufacturing, AI-powered robots are revolutionizing industries. Explore the latest breakthroughs and how they’re shaping the future.' 
+  },
+  { 
+    title: 'AI-Powered Robotics: Transforming Industries in 2025',       
+    date: 'March 05, 2025', 
+    img: '/blogs/img1.webp', 
+    author: 'Sophia Martinez', 
+    excerpt: 'From healthcare to manufacturing, AI-powered robots are revolutionizing industries. Explore the latest breakthroughs and how they’re shaping the future.' 
+  },
+  { 
+    title: 'AI-Powered Robotics: Transforming Industries in 2025',       
+    date: 'March 05, 2025', 
+    img: '/blogs/img1.webp', 
+    author: 'Sophia Martinez', 
+    excerpt: 'From healthcare to manufacturing, AI-powered robots are revolutionizing industries. Explore the latest breakthroughs and how they’re shaping the future.' 
+  },
+  { 
+    title: 'AI-Powered Robotics: Transforming Industries in 2025',       
+    date: 'March 05, 2025', 
+    img: '/blogs/img1.webp', 
+    author: 'Sophia Martinez', 
+    excerpt: 'From healthcare to manufacturing, AI-powered robots are revolutionizing industries. Explore the latest breakthroughs and how they’re shaping the future.' 
+  },
+  { 
     title: 'How Robots Are Becoming More Human with AI', 
     date: 'February 14, 2025', 
     img: '/blogs/img1.webp', 
