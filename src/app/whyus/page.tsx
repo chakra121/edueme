@@ -7,7 +7,7 @@ const WhyUs = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
  
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
    
@@ -16,7 +16,7 @@ const WhyUs = () => {
   }, []);
  
   // Calculate position for parallax effect
-  const getParallaxStyle = (factor) => {
+  const getParallaxStyle = (factor: number) => {
     const x = (mousePosition.x / window.innerWidth - 0.5) * factor;
     const y = (mousePosition.y / window.innerHeight - 0.5) * factor;
     return { transform: `translate(${x}px, ${y}px)` };
