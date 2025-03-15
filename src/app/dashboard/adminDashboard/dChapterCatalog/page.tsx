@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const ManageChapters = () => {
+const ManageChapters = () => {
   return (
     <div className="card bg-base-100 p-4 shadow-lg">
       <h1 className="card-title p-3 text-3xl font-semibold text-base-content">
@@ -20,9 +20,7 @@ export const ManageChapters = () => {
           role="tabpanel"
           className="tab-content rounded-box border-base-300 bg-base-100 p-5 text-base-content"
         ></div>
-      </div>
 
-      <div role="tablist" className="tabs-boxed tabs mt-3">
         <input
           type="radio"
           name="my_tabs_3"
@@ -34,9 +32,7 @@ export const ManageChapters = () => {
           role="tabpanel"
           className="tab-content rounded-box border-base-300 bg-base-100 p-5 text-base-content"
         ></div>
-      </div>
 
-      <div role="tablist" className="tabs-boxed tabs mt-3">
         <input
           type="radio"
           name="my_tabs_3"
@@ -48,9 +44,7 @@ export const ManageChapters = () => {
           role="tabpanel"
           className="tab-content rounded-box border-base-300 bg-base-100 p-5 text-base-content"
         ></div>
-      </div>
 
-      <div role="tablist" className="tabs-boxed tabs mt-3">
         <input
           type="radio"
           name="my_tabs_3"
@@ -66,3 +60,5 @@ export const ManageChapters = () => {
     </div>
   );
 }
+
+export default ManageChapters;
