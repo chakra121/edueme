@@ -32,6 +32,11 @@ const AdminSideBar = () => {
       href:"/dashboard/adminDashboard/dCourseCatalog",
       icon :UsersIcon,
     },
+     {
+      label:"Chapters Catalog",
+      href:"/dashboard/adminDashboard/dChapterCatalog",
+      icon :UsersIcon,
+    },
   ];
   return (
     <div className="space-y-4">

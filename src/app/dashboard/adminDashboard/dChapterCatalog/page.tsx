@@ -1,10 +1,10 @@
 import React from 'react'
 
-export const ManageCourses = () => {
+export const ManageChapters = () => {
   return (
     <div className="card bg-base-100 p-4 shadow-lg">
       <h1 className="card-title p-3 text-3xl font-semibold text-base-content">
-        Manage Courses
+        Manage Chapters
       </h1>
 
       <div role="tablist" className="tabs-boxed tabs mt-3">

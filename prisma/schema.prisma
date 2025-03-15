@@ -84,10 +84,13 @@ model Courses {
   courseCode String   @unique
   courseName String
   teacher    Teacher?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
   students   User[]
   chapters   Chapter[]
 
-   classLink  ClassLink?
+  classLink  ClassLink?
 }
 
 
@@ -99,11 +102,13 @@ model Chapter {
   chapterDescription String
   isCompleted        Boolean? @default(false)
   notesLink          String?
-  
   courseID           String   @db.ObjectId
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 
   course             Courses  @relation(fields: [courseID], references: [id])  
   classes           Class[]
+
 }
 
 
