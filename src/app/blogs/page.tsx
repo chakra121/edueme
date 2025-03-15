@@ -129,6 +129,7 @@ const sidebarLinks = {
   ]
 };
 
+
 interface Blog {
   title: string;
   date: string;
@@ -218,13 +219,14 @@ export default function BlogPage() {
                 </div>
               </div>
             </section>
+
             <section className="mb-8 p-6 border rounded shadow-sm">
               <h2 className="text-4xl font-bold mt-8 mb-4">Recent Posts</h2>
               <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {currentBlogs.map((blog, index) => (
                   <BlogCard key={index} blog={blog} />
                 ))}
-              </section>
+              </section>  
               <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}

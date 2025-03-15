@@ -79,7 +79,7 @@ export default function RoboticsEvent() {
                 <AnimatedCard title="Date" content="01st & 02nd March 2025" Icon={<FaCalendarAlt />} />
                 <AnimatedCard title="Venue" content="Arka International School, Hyderabad" Icon={<FaMapMarkerAlt />} />
                 <AnimatedCard title="Events" content="Robotics & AI Expo, Open Mic, Guest Talk, Workshops" Icon={<FaMicrochip />} />
-            </div>
+            </div>  
             <div className="mt-12 max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
                 <AnimatedCard title="Junior Category" content="Grade 5 to 12" Icon={<FaUserGraduate />} />
                 <AnimatedCard title="Prize Rewards" content="1st Prize: ₹10,000 | Runners-up: ₹7,000 & ₹3,000" Icon={<FaTrophy />} />
