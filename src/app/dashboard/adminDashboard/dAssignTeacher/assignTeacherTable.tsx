@@ -14,7 +14,7 @@ interface Student {
   phoneNumber: string;
   teacherID?: string | null;
   course: {
-    courseCode: string;
+    courseCode: string ;
   };
 }
 
@@ -40,7 +40,7 @@ const AssignTeacherTable = () => {
         const teacherRes = await fetch("/api/teachers/getTeachers");
         const studentsData = await studentRes.json();
         const teachersData = await teacherRes.json();
-
+        
         setStudents(studentsData);
         setTeachers(teachersData);
 

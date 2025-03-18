@@ -373,7 +373,7 @@ const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
                 </thead>
                 <tbody>
                   {teachers.map((teacher, index) => (
-                    <tr key={index} className="hover">
+                    <tr key={index}>
                       <td>{index + 1}</td>
                       <td>{teacher.teacherName}</td>
                       <td>{teacher.phoneNumber}</td>

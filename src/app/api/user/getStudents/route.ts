@@ -11,6 +11,14 @@ export async function GET() {
         course: true
       },
     });
+
+    const studentsWithCourse = students.map(student => {
+      if (!student.course) {
+        student.course = null;
+      }
+      return student;
+    });
+
     return NextResponse.json(students, { status: 200 });
   } catch (error) {
     console.error("Error fetching students:", error);
