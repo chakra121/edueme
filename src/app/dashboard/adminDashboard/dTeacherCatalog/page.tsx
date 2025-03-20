@@ -103,7 +103,7 @@ interface Teacher {
   phoneNumber: string;
   email: string;
   employeeID: string;
-  courseID:String;
+  course:{courseName: string;}
   createdAt: string;
 }
 
@@ -196,6 +196,26 @@ const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
       setUpdating(false);
     });
   };
+  //<<<<>>>>>>>>>><<<><><><><><><<>><
+const [courses, setCourses] = useState<
+  { id: string; courseName: string; courseCode:string }[]
+>([]);
+
+const fetchCourses = async () => {
+  try {
+    const res = await fetch("/api/teachers/coursesDrop"); // Adjust the API endpoint if needed
+    const data = await res.json();
+    setCourses(data.courses);
+  } catch (error) {
+    console.error("Error fetching courses:", error);
+  }
+};
+
+useEffect(() => {
+  fetchCourses();
+}, []);
+
+
 
   return (
     <div className="card bg-base-100 p-4 shadow-lg">
@@ -285,17 +305,19 @@ const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
             <div className="w-full p-2 md:w-1/2">
               <label className="mb-1 block">Select Course:</label>
               <select
-                name="courseID" // Ensure this matches the key in formData
+                name="courseID"
                 className="select select-bordered w-full"
                 value={formData.courseID}
-                onChange={handleChange} // Use the updated handleChange function
+                onChange={handleChange}
               >
                 <option value="">-- Select a Course --</option>
-                <option value="R2-3">Robotics 2-3</option>
-                <option value="R4-5">Robotics 4-5</option>
-                <option value="R6-7">Robotics 6-7</option>
-                {/* Add more courses as needed */}
+                {courses.map((course) => (
+                  <option key={course.id} value={course.id}>
+                    {course.courseName} ({course.courseCode})
+                  </option>
+                ))}
               </select>
+
               {formErrors.courseID && (
                 <span className="text-error">{formErrors.courseID}</span>
               )}
@@ -367,7 +389,7 @@ const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
                     <th>Phone</th>
                     <th>Email</th>
                     <th>EmployeeID</th>
-                    <th>CourseID</th>
+                    <th>CourseName</th>
                     <th>Created At</th>
                   </tr>
                 </thead>
@@ -379,7 +401,7 @@ const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
                       <td>{teacher.phoneNumber}</td>
                       <td>{teacher.email}</td>
                       <td>{teacher.employeeID}</td>
-                      <td>{teacher.courseID}</td>
+                      <td>{teacher.course.courseName}</td>
                       <td>
                         {new Date(teacher.createdAt).toLocaleDateString()}
                       </td>
@@ -415,7 +437,7 @@ const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
                 <p className="text-base">🪪 {teacher.employeeID}</p>
                 <p className="text-base">📧 {teacher.email}</p>
                 <p className="text-base">📞 {teacher.phoneNumber}</p>
-                <p className="text-base">📖 {teacher.courseID}</p>
+                <p className="text-base">📖 {teacher.course.courseName}</p>
                 <p className="text-base text-gray-500">
                   Created: {new Date(teacher.createdAt).toLocaleDateString()}
                 </p>

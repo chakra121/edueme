@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 const DProfilePage = () => {
   const { data: session } = useSession();
   const [editing, setEditing] = useState(false);
+  const [toastMessage, setToastMessage] = useState(""); // ✅ Toast message state
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -16,6 +17,7 @@ const DProfilePage = () => {
     email: "",
     parentEmail: "",
   });
+  const [isLoading, setIsLoading] = useState(false); 
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -27,7 +29,7 @@ const DProfilePage = () => {
         const data = await response.json();
         setFormData(data);
       } catch (error) {
-        alert("Error fetching profile");
+        showToast("Error fetching profile", "error"); // ✅ Show error toast
       }
     };
 
@@ -43,10 +45,10 @@ const DProfilePage = () => {
 
   const handleSubmit = async () => {
     if (Object.values(formData).some((value) => value.trim() === "")) {
-      alert("All fields must be filled!");
+      showToast("All fields must be filled!", "error");
       return;
     }
-
+setIsLoading(true);
     try {
       const response = await fetch("/api/user/updateProfile", {
         method: "PUT",
@@ -54,23 +56,40 @@ const DProfilePage = () => {
         body: JSON.stringify(formData),
       });
 
-      const result = await response.json(); // Convert response to JSON
+      const result = await response.json();
 
       if (response.ok) {
-        alert("Profile updated successfully!");
+        showToast("Profile updated successfully!", "success"); // ✅ Success toast
         setEditing(false);
       } else {
-        alert(result.error || "Update failed. Please try again.");
+        showToast(result.error || "Update failed. Try again!", "error");
       }
     } catch (error) {
-      alert("Something went wrong. Try again later.");
-      console.error("Fetch error:", error);
+      showToast("Something went wrong. Try again later.", "error");
+    } finally{
+      setIsLoading(false);
     }
   };
 
+  // ✅ Function to show toast
+  const showToast = (message: string, type: "success" | "error") => {
+    setToastMessage(message);
+    setTimeout(() => setToastMessage(""), 3000); // Hide after 3s
+  };
 
   return (
     <div className="max-w-full">
+      {/* Toast Notification */}
+      {toastMessage && (
+        <div className="fixed bottom-4 right-4 z-50">
+          <div
+            className={`alert ${toastMessage.includes("success") ? "alert-success" : "alert-error"} shadow-lg`}
+          >
+            <span>{toastMessage}</span>
+          </div>
+        </div>
+      )}
+
       {/* Header Section */}
       <div className="card bg-base-100 p-6 text-center shadow-xl">
         <h2 className="text-2xl font-bold">
@@ -82,13 +101,10 @@ const DProfilePage = () => {
       {/* Profile Section */}
       <section className="card mt-4 bg-base-100 p-6 shadow-lg">
         <h2 className="text-center text-xl font-bold">Profile</h2>
-
         {/* Profile Picture */}
         <div className="mt-4 flex items-center justify-center">
           <div className="avatar">
-            <div className="w-24 rounded-full border">
-              
-            </div>
+            <div className="w-24 rounded-full border"></div>
           </div>
         </div>
 
@@ -97,14 +113,13 @@ const DProfilePage = () => {
           {/* First Name */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-base-content">First Name:</span>
+              <span className="label-text">First Name:</span>
             </label>
             <input
               type="text"
               name="firstName"
               value={formData.firstName}
               onChange={handleChange}
-              placeholder="First Name"
               disabled={!editing}
               className="input input-bordered w-full"
             />
@@ -113,14 +128,13 @@ const DProfilePage = () => {
           {/* Last Name */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-base-content">Last Name:</span>
+              <span className="label-text">Last Name:</span>
             </label>
             <input
               type="text"
               name="lastName"
               value={formData.lastName}
               onChange={handleChange}
-              placeholder="Last Name"
               disabled={!editing}
               className="input input-bordered w-full"
             />
@@ -129,7 +143,7 @@ const DProfilePage = () => {
           {/* Gender Dropdown */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-base-content">Gender:</span>
+              <span className="label-text">Gender:</span>
             </label>
             <select
               name="gender"
@@ -149,14 +163,13 @@ const DProfilePage = () => {
           {/* School Name */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-base-content">School Name:</span>
+              <span className="label-text">School Name:</span>
             </label>
             <input
               type="text"
               name="schoolName"
               value={formData.schoolName}
               onChange={handleChange}
-              placeholder="School Name"
               disabled={!editing}
               className="input input-bordered w-full"
             />
@@ -165,16 +178,13 @@ const DProfilePage = () => {
           {/* Phone Number */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-base-content">
-                Phone Number:
-              </span>
+              <span className="label-text">Phone Number:</span>
             </label>
             <input
               type="text"
               name="phoneNumber"
               value={formData.phoneNumber}
               onChange={handleChange}
-              placeholder="Phone Number"
               disabled={!editing}
               className="input input-bordered w-full"
             />
@@ -183,16 +193,13 @@ const DProfilePage = () => {
           {/* Parent Email */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-base-content">
-                Parent Email:
-              </span>
+              <span className="label-text">Parent Email:</span>
             </label>
             <input
               type="text"
               name="parentEmail"
               value={formData.parentEmail}
               onChange={handleChange}
-              placeholder="Parent Email"
               disabled={!editing}
               className="input input-bordered w-full"
             />
@@ -201,7 +208,7 @@ const DProfilePage = () => {
           {/* Grade Dropdown */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-base-content">Grade:</span>
+              <span className="label-text">Grade:</span>
             </label>
             <select
               name="grade"
@@ -224,7 +231,7 @@ const DProfilePage = () => {
           {/* Email (Always Disabled) */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-base-content">Email:</span>
+              <span className="label-text">Email:</span>
             </label>
             <input
               type="email"
@@ -247,12 +254,22 @@ const DProfilePage = () => {
             </button>
           ) : (
             <>
-              <button className="btn btn-success" onClick={handleSubmit}>
-                Submit
+              <button
+                className={`btn btn-success ${isLoading ? "btn-disabled" : ""}`}
+                onClick={handleSubmit}
+                disabled={isLoading} // Disable button when loading
+              >
+                {isLoading ? (
+                  <span className="loading loading-spinner"></span>
+                ) : (
+                  "Submit"
+                )}
               </button>
+
               <button
                 className="btn btn-error"
                 onClick={() => setEditing(false)}
+                disabled={isLoading} // Prevent canceling while submitting
               >
                 Cancel
               </button>

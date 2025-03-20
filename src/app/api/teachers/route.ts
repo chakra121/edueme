@@ -12,8 +12,8 @@ export async function GET() {
         phoneNumber: true,
         email: true,
         employeeID: true,
-        courseID: true,
         createdAt: true,
+        course:true
       },
     });
 

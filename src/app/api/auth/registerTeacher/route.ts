@@ -3,11 +3,10 @@ import { connectToDatabase } from "@/lib/connectDB";
 import prisma from "@/lib/globalPrisma";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
-import { ObjectId } from "mongodb"; // Import ObjectId for dummy value
 
 export const POST = async (req: Request) => {
   try {
-    const { teacherName, phoneNumber, email, password, employeeID, userRole } =
+    const { teacherName, phoneNumber, email, password, employeeID, userRole, courseID } =
       await req.json();
 
     if (
@@ -16,6 +15,7 @@ export const POST = async (req: Request) => {
       !email ||
       !password ||
       !employeeID ||
+      !courseID ||
       !userRole
     ) {
       return NextResponse.json({ message: "Invalid Data" }, { status: 422 });
@@ -34,6 +34,7 @@ export const POST = async (req: Request) => {
         hashedPassword,
         employeeID,
         userRole,
+        courseID
       },
     });
 
@@ -43,7 +44,7 @@ export const POST = async (req: Request) => {
       topics: [],
       description: "",
       teacherID: teacher.id,
-      courseID: new ObjectId().toString(), // Proper dummy ObjectID value
+      courseID: teacher.courseID || "", 
       DateAndTime: new Date().toISOString(),
     };
 
@@ -55,6 +56,7 @@ export const POST = async (req: Request) => {
 
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2002") {
+        console.log(error);
         return NextResponse.json(
           { message: "Email already exists", success: false },
           { status: 409 },

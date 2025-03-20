@@ -94,7 +94,6 @@ export const ManageCourses = () => {
   // Fetch courses on component mount
   useEffect(() => {
     fetchCourses();
-    console.log(courses);
   }, []);
 
   // Delete Course (Using Server Action)

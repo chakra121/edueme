@@ -59,8 +59,11 @@ export default function CourseDetailPage() {
         </button>
       </div>
 
-      <h1 className="text-3xl font-bold text-base-content">
+      <h1 className="text-3xl mb-4 font-bold text-base-content">
         Course: {courseCode}
+      </h1>
+      <h1 className="text-2xl mb-4 font-semibold text-base-content">
+        The Chapters are:
       </h1>
 
       {chapters.length === 0 ? (
