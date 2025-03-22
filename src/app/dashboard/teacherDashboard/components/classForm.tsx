@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { revalidatePath } from "next/cache";
 
 export default function ClassForm({
   chapterId,
@@ -12,8 +11,9 @@ export default function ClassForm({
   const [classTitle, setClassTitle] = useState("");
   const [classLink, setClassLink] = useState("");
   const [message, setMessage] = useState<string | null>(null);
-  const [messageType, setMessageType] = useState<"success" | "error">("success");
-
+  const [messageType, setMessageType] = useState<"success" | "error">(
+    "success",
+  );
 
   async function handleSubmit() {
     const res = await fetch("/api/class", {
@@ -26,11 +26,10 @@ export default function ClassForm({
     if (res.ok) {
       setMessage("Class added successfully!");
       setMessageType("success");
-
-     setTimeout(() => {
-       setMessage(null);
-       onClose(); // Close modal after success
-     }, 2000);
+      setTimeout(() => {
+        setMessage(null);
+        onClose();
+      }, 2000);
     } else {
       setMessage(`Error: ${data.error}`);
       setMessageType("error");
@@ -39,6 +38,7 @@ export default function ClassForm({
 
   return (
     <div>
+      {/* Form Content */}
       <div>
         <label className="label mb-1">
           <span className="label-text text-base-content">Class Title:</span>
@@ -61,16 +61,21 @@ export default function ClassForm({
           onChange={(e) => setClassLink(e.target.value)}
         />
       </div>
-      <div>
-        <button className="btn btn-primary mb-3 w-full" onClick={handleSubmit}>
-          Submit
-        </button>
-      </div>
+
+      <button className="btn btn-primary mb-3 w-full" onClick={handleSubmit}>
+        Submit
+      </button>
+
+      {/* Toast Notification */}
       {message && (
-        <div
-          className={`alert ${messageType === "success" ? "alert-success" : "alert-error"} mb-2 text-lg`}
-        >
-          <span>{message}</span>
+        <div className="fixed bottom-5 right-5 z-50">
+          <div
+            className={`alert ${
+              messageType === "success" ? "alert-success" : "alert-error"
+            } shadow-lg`}
+          >
+            <span>{message}</span>
+          </div>
         </div>
       )}
     </div>

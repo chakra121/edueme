@@ -1,10 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ClassDropdown from "./classDropdown";
-import { Course, Chapter, Class } from "../types"; // Add import
+import { Course, Chapter, Class } from "../types";
 
 interface Props {
-  course: Course; // Now using imported type
+  course: Course;
   selectedClassId: string | null;
   setSelectedClassId: (id: string) => void;
   onClose: () => void;
@@ -16,8 +16,24 @@ const DeleteClassModal: React.FC<Props> = ({
   setSelectedClassId,
   onClose,
 }) => {
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [toastType, setToastType] = useState<"success" | "error">("success");
+
+  useEffect(() => {
+    if (toastMessage) {
+      const timer = setTimeout(() => {
+        setToastMessage(null);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [toastMessage]);
+
   const handleDelete = async () => {
-    if (!selectedClassId) return alert("Please select a class.");
+    if (!selectedClassId) {
+      setToastMessage("Please select a class.");
+      setToastType("error");
+      return;
+    }
 
     try {
       const response = await fetch(`/api/class/${selectedClassId}`, {
@@ -25,20 +41,23 @@ const DeleteClassModal: React.FC<Props> = ({
       });
 
       if (response.ok) {
-        alert("Class deleted successfully.");
-        onClose();
+        setToastMessage("Class deleted successfully.");
+        setToastType("success");
+        setTimeout(onClose, 2000);
       } else {
-        alert("Failed to delete class.");
+        setToastMessage("Failed to delete class.");
+        setToastType("error");
       }
     } catch (error) {
       console.error("Delete error:", error);
-      alert("Failed to delete class.");
+      setToastMessage("Failed to delete class.");
+      setToastType("error");
     }
   };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-base-content bg-opacity-50">
-      <div className="card bg-base-100 shadow-lg w-1/3">
+      <div className="card w-1/3 bg-base-100 shadow-lg">
         <div className="card-body">
           <h2 className="card-title mb-4 text-xl font-bold">Delete Class</h2>
 
@@ -62,6 +81,18 @@ const DeleteClassModal: React.FC<Props> = ({
           </div>
         </div>
       </div>
+
+      {toastMessage && (
+        <div className="fixed bottom-5 right-5 z-50">
+          <div
+            className={`alert ${
+              toastType === "success" ? "alert-success" : "alert-error"
+            } shadow-lg`}
+          >
+            <span>{toastMessage}</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -106,8 +106,10 @@ export default function UpdateChapterModal({
               </button>
             </div>
             {toastMessage && (
-              <div className={`alert alert-${toastType} text-white`}>
+              <div className="fixed bottom-5 right-5 z-50">
+              <div className={`alert ${toastType === "success" ? "alert-success" : "alert-error"} shadow-lg`}>
                 <span>{toastMessage}</span>
+              </div>
               </div>
             )}
           </div>

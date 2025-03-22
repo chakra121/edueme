@@ -31,7 +31,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true, classId: newClass.id , classTitle: newClass.classTitle, youtubeLink:newClass.youTubeLink });
   } catch (error) {
     return NextResponse.json({ error: (error as Error).message }, { status: 500 });
-  } finally{
+  } finally {
      revalidatePath("/dashboard/teacherDashboard/dCourseCatalog"); 
   }
 }

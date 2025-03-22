@@ -1,7 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ClassDropdown from "./classDropdown";
-import { Course, Chapter, Class } from "../types"; // Add import
+import { Course, Chapter, Class } from "../types";
 
 interface Props {
   course: Course;
@@ -18,9 +18,24 @@ const UpdateClassModal: React.FC<Props> = ({
 }) => {
   const [classTitle, setClassTitle] = useState("");
   const [youTubeLink, setYouTubeLink] = useState("");
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [toastType, setToastType] = useState<"success" | "error">("success");
+
+  useEffect(() => {
+    if (toastMessage) {
+      const timer = setTimeout(() => {
+        setToastMessage(null);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [toastMessage]);
 
   const handleUpdate = async () => {
-    if (!selectedClassId) return alert("Please select a class.");
+    if (!selectedClassId) {
+      setToastMessage("Please select a class.");
+      setToastType("error");
+      return;
+    }
 
     try {
       const response = await fetch(`/api/class/${selectedClassId}`, {
@@ -30,24 +45,26 @@ const UpdateClassModal: React.FC<Props> = ({
       });
 
       if (response.ok) {
-        alert("Class updated successfully.");
-        onClose();
+        setToastMessage("Class updated successfully.");
+        setToastType("success");
+        setTimeout(onClose, 2000);
       } else {
-        alert("Failed to update class.");
+        setToastMessage("Failed to update class.");
+        setToastType("error");
       }
     } catch (error) {
       console.error("Update error:", error);
-      alert("Failed to update class.");
+      setToastMessage("Failed to update class.");
+      setToastType("error");
     }
   };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-base-content bg-opacity-50">
-      <div className="card bg-base-100 w-2/5">
+      <div className="card w-2/5 bg-base-100">
         <div className="card-body">
           <h3 className="card-title mb-4 text-xl font-bold">Update Class</h3>
 
-          {/* Add type annotations */}
           <div className="mb-3">
             <ClassDropdown
               classes={course.chapters.flatMap<Class>(
@@ -67,7 +84,6 @@ const UpdateClassModal: React.FC<Props> = ({
             />
           </div>
 
-          {/* Inputs */}
           <input
             type="text"
             className="input input-bordered mb-3 w-full"
@@ -83,6 +99,7 @@ const UpdateClassModal: React.FC<Props> = ({
             value={youTubeLink}
             onChange={(e) => setYouTubeLink(e.target.value)}
           />
+
           <div className="flex justify-end gap-3">
             <button className="btn btn-success" onClick={handleUpdate}>
               Update
@@ -93,6 +110,18 @@ const UpdateClassModal: React.FC<Props> = ({
           </div>
         </div>
       </div>
+
+      {toastMessage && (
+        <div className="fixed bottom-5 right-5 z-50">
+          <div
+            className={`alert ${
+              toastType === "success" ? "alert-success" : "alert-error"
+            } shadow-lg`}
+          >
+            <span>{toastMessage}</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

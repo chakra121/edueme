@@ -31,7 +31,11 @@ export default function ClassLinkManager() {
   useEffect(() => {
     const fetchClassLinks = async () => {
       try {
-        const res = await fetch(`/api/classlink/getLink`, { method: "GET" });
+        setLoading(true);
+        const [res] = await Promise.all([
+          fetch(`/api/classlink/getLink`, { method: "GET" }),
+          new Promise((resolve) => setTimeout(resolve, 3000)), // 3-second delay
+        ]);
 
         if (!res.ok) throw new Error("Failed to fetch class links");
 
@@ -154,8 +158,42 @@ export default function ClassLinkManager() {
     setNewTopics(newTopics.filter((_, i) => i !== index));
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <div className="card bg-base-100">
+        <div className="card-body">
+          <h1 className="card-title mb-4 text-3xl font-bold">
+            Live Class Link
+          </h1>
+          <div className="pl-6 text-xl">
+            {/* Class Link Skeleton */}
+            <p className="mb-2 font-bold">Class Link:</p>
+            <div className="skeleton mb-4 h-4 w-3/4"></div>
 
+            {/* Topics Skeleton */}
+            <p className="mb-2 font-bold">Topics:</p>
+            <ul className="mb-4 list-decimal space-y-3">
+              <div className="skeleton h-4 w-3/4"></div>
+              <div className="skeleton h-4 w-3/4"></div>
+              <div className="skeleton h-4 w-3/4"></div>
+              <div className="skeleton h-4 w-3/4"></div>
+            </ul>
+
+            {/* Instructions Skeleton */}
+            <p className="mb-2 font-bold">Instructions:</p>
+            <div className="skeleton mb-4 h-12 w-3/4"></div>
+
+            {/* Scheduled Date Skeleton */}
+            <p className="mb-2 font-bold">Scheduled Date and Time:</p>
+            <div className="skeleton mb-4 h-4 w-64 pl-5"></div>
+
+            {/* Last Updated Skeleton */}
+            <p className="mb-2 font-bold">Last Updated:</p>
+            <div className="skeleton mb-4 h-4 w-64 pl-5"></div>
+          </div>
+        </div>
+      </div>
+    );
   return (
     <div className="card bg-base-100">
       <div className="card-body">
@@ -176,7 +214,7 @@ export default function ClassLinkManager() {
                     type="text"
                     value={newClassLink}
                     onChange={(e) => setNewClassLink(e.target.value)}
-                    className="input-bordered input mb-4 w-full"
+                    className="input input-bordered mb-4 w-full"
                   />
 
                   <label className="label">
@@ -187,7 +225,7 @@ export default function ClassLinkManager() {
                   <textarea
                     value={newInstructions}
                     onChange={(e) => setNewInstructions(e.target.value)}
-                    className="textarea-bordered textarea mb-4 w-full"
+                    className="textarea textarea-bordered mb-4 w-full"
                   ></textarea>
 
                   <label className="label">
@@ -199,7 +237,7 @@ export default function ClassLinkManager() {
                     type="datetime-local"
                     value={newDateAndTime}
                     onChange={(e) => setNewDateAndTime(e.target.value)}
-                    className="input-bordered input mb-4 w-full"
+                    className="input input-bordered mb-4 w-full"
                   />
 
                   <label className="label">
@@ -213,7 +251,7 @@ export default function ClassLinkManager() {
                         type="text"
                         value={topic}
                         onChange={(e) => editTopic(index, e.target.value)}
-                        className="input-bordered input w-full"
+                        className="input input-bordered w-full"
                       />
                       <button
                         onClick={() => deleteTopic(index)}
@@ -245,7 +283,7 @@ export default function ClassLinkManager() {
                   </button>
                 </div>
               ) : (
-                <div className="text-xl pl-6">
+                <div className="pl-6 text-xl">
                   <p className="mb-2 font-bold">Class Link:</p>
                   <p className="mb-4 pl-5">{teacherLink.classLink}</p>
                   <p className="mb-2 font-bold">Topics:</p>

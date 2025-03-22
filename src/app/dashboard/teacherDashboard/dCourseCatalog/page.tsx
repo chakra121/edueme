@@ -6,8 +6,8 @@ import AddClassModal from "../components/addClassModal";
 import UpdateChapterModal from "../components/updateChapterModal";
 import UpdateClassModal from "../components/updateClassModal";
 import DeleteClassModal from "../components/deleteClassModal";
-
-import {Class, Chapter, Course} from "../types"
+import { ArrowPathIcon } from "@heroicons/react/24/outline";
+import { Class, Chapter, Course } from "../types";
 
 export default function CoursesPage() {
   const [course, setCourse] = useState<Course | null>(null);
@@ -27,8 +27,13 @@ export default function CoursesPage() {
   const fetchCourseData = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch("/api/teachers/getTeacherCourse");
-      const data = await response.json();
+      // Add 3-second delay
+      const [response] = await Promise.all([
+        fetch("/api/teachers/getTeacherCourse"),
+        new Promise((resolve) => setTimeout(resolve, 3000)),
+      ]);
+
+      const data = await (await response).json();
       setCourse(data.course);
     } catch (error) {
       console.error("Failed to fetch course:", error);
@@ -36,35 +41,37 @@ export default function CoursesPage() {
     setIsLoading(false);
   };
 
-  // Update useEffect to use the new function
   useEffect(() => {
     fetchCourseData();
   }, []);
 
-  if (isLoading) return (
-    <div className="card w-full bg-base-100">
-      <div className="card-body flex w-[40%] flex-col gap-4">
-        <h1 className="card-title mb-4 text-3xl font-bold">Course Catalog</h1>
-        <div className="skeleton h-32 w-full"></div>
-        <div className="skeleton h-4 w-28"></div>
-        <div className="skeleton h-4 w-full"></div>
-        <div className="skeleton h-4 w-full"></div>
+  if (isLoading)
+    return (
+      <div className="card w-full bg-base-100">
+        <div className="card-body flex w-[40%] flex-col gap-4">
+          <h1 className="card-title mb-4 text-3xl font-bold">Course Catalog</h1>
+          <div className="skeleton h-32 w-full"></div>
+          <div className="skeleton h-4 w-28"></div>
+          <div className="skeleton h-4 w-full"></div>
+          <div className="skeleton h-4 w-full"></div>
+        </div>
       </div>
-    </div>
-  );
-  if (!course) return (
-    <div className="card w-full bg-base-100">
-      <div className="card-body flex w-[40%] flex-col gap-4">
-        <h2 className="mb-4 text-3xl font-bold">No Course Found</h2>
+    );
+
+  if (!course)
+    return (
+      <div className="card w-full bg-base-100">
+        <div className="card-body flex w-[40%] flex-col gap-4">
+          <h2 className="mb-4 text-3xl font-bold">No Course Found</h2>
+        </div>
       </div>
-    </div>
-  );
+    );
 
   return (
     <div className="card bg-base-100">
       <div className="card-body">
         <h1 className="card-title mb-4 text-3xl font-bold">Course Catalog</h1>
-        <div className="w-fit mb-5">
+        <div className="mb-5 w-fit">
           <CourseCard
             course={course}
             onAddClass={() => {
@@ -85,6 +92,18 @@ export default function CoursesPage() {
               setIsUpdateChapterOpen(true);
             }}
           />
+          <div className="mt-4 flex justify-center">
+            <button
+              onClick={fetchCourseData}
+              className="btn btn-outline btn-sm"
+              disabled={isLoading}
+            >
+              <ArrowPathIcon
+                className={`mr-2 h-4 w-4 ${isLoading ? "animate-spin" : ""}`}
+              />
+              {isLoading ? "Refreshing..." : "Refresh Course Data"}
+            </button>
+          </div>
         </div>
         <span className="mb-3 text-base text-gray-500">
           Note:
@@ -93,9 +112,13 @@ export default function CoursesPage() {
               Click "Add Class" to select a chapter and add a class with title &
               link.
             </li>
-            <li>Click "Update Chapter" to change the chapter's status.</li>
             <li>Click "Update Class" to modify class details.</li>
-            <li>Click "Delete Class" to remove a class from the course.</li>
+            <li>Click "Delete Class" to remove a class.</li>
+            <li>Click "Update Chapter" to change the chapter's status.</li>
+            <li className="font-bold">
+              Click "Refresh Course Data" after every operation to reload the
+              course data.
+            </li>
           </ul>
         </span>
       </div>
