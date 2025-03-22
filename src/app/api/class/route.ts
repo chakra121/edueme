@@ -24,11 +24,11 @@ export async function POST(req: Request) {
 
     await prisma.chapter.update({
       where: { id: chapterId },
-      data: { classes: { connect: { id: newClass.id } } },
+      data: { classes: { connect: { id: newClass.id, classTitle:newClass.classTitle, youTubeLink:newClass.youTubeLink } } },
     });
     
 
-    return NextResponse.json({ success: true, classId: newClass.id });
+    return NextResponse.json({ success: true, classId: newClass.id , classTitle: newClass.classTitle, youtubeLink:newClass.youTubeLink });
   } catch (error) {
     return NextResponse.json({ error: (error as Error).message }, { status: 500 });
   } finally{

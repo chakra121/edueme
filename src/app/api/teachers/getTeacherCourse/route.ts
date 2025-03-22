@@ -32,6 +32,8 @@ export async function GET() {
         isCompleted: chapter.isCompleted ?? false,
         classes: chapter.classes.map((cls) => ({
           id: cls.id,
+          classTitle:cls.classTitle,
+          youTubeLink:cls.youTubeLink,
         })),
       })),
     },

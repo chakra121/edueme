@@ -11,10 +11,12 @@ import {
 } from "@heroicons/react/24/outline";
 import { usePathname } from "next/navigation";
 import classname from "classnames";
-
+import { useSession } from "next-auth/react";
+import prisma from "@/lib/globalPrisma";
 
 const StudentSideBar = () => {
   const currentPath = usePathname();
+  const Data = useSession();
 
   const links = [
     {
@@ -33,10 +35,10 @@ const StudentSideBar = () => {
       icon: AcademicCapIcon,
     },
     {
-      label:"Join Live Class",
-      href:"/dashboard/studentDashboard/dLiveClass",
-      icon:MegaphoneIcon  
-    }
+      label: "Join Live Class",
+      href: "/dashboard/studentDashboard/dLiveClass",
+      icon: MegaphoneIcon,
+    },
   ];
   return (
     <div className="space-y-4">
@@ -50,9 +52,7 @@ const StudentSideBar = () => {
             />
           </div>
         </div>
-        <h2 className="text-center text-lg font-bold text-base-content">
-          Srichakra
-        </h2>
+        <h2 className="text-center text-lg font-bold text-base-content">{Data.data?.user.email}</h2>
       </div>
       <ul className="relative flex w-full flex-col space-y-5 font-semibold text-base-content">
         {links.map((link) => (

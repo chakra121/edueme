@@ -63,46 +63,54 @@ export default function UpdateChapterModal({
   return (
     <>
       {/* Modal */}
-      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-        <div className="rounded-lg bg-white p-6 shadow-lg">
-          <h2 className="mb-4 text-xl font-semibold">Update Chapter Status</h2>
-        <div className=" mx-3 text-lg mb-4 flex font-semibold justify-between">
-            <span>Chapters</span>
-            <span>isCompleted</span>
-        </div>
-          {/* List of chapters with toggle switches */}
-          <div className="space-y-2">
-            {updatedChapters.map((chapter) => (
-              <div
-                key={chapter.id}
-                className="flex space-x-28 items-center justify-between rounded-md border-t p-3"
-              >
-                <span>{chapter.chapterName}</span>
-                <div className="px-10 items-center">
-                <input
-                  type="checkbox"
-                  className="checkbox checkbox-primary"
-                  checked={chapter.isCompleted}
-                  onChange={() => handleToggle(chapter.id)}
-                />
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="pt-2 mb-4 flex justify-end">
-            <button className="btn btn-outline mr-2" onClick={onClose}>
-              Cancel
-            </button>
-            <button className="btn btn-success" onClick={handleSubmit}>
-              Submit
-            </button>
-          </div>
-          {toastMessage && (
-            <div className={`alert alert-${toastType} text-white`}>
-              <span>{toastMessage}</span>
+      <div className="fixed inset-0 flex items-center justify-center bg-base-content bg-opacity-50">
+        <div className="card bg-base-100 shadow-lg w-2/6">
+          <div className="card-body">
+            
+            <h2 className="card-title mb-4 text-xl font-bold">
+              Update Chapter Status
+            </h2>
+            <div className="overflow-x-auto">
+              <table className="table mb-4 w-full">
+                <thead>
+                  <tr className="bg-base-200 text-base font-semibold">
+                    <th>Chapters</th>
+                    <th>isCompleted</th>
+                  </tr>
+                </thead>
+                <tbody className="text-base">
+                  {updatedChapters.map((chapter) => (
+                    <tr key={chapter.id} className="border-t-2">
+                      <td>{chapter.chapterName}</td>
+                      <td className="place-items-center">
+                        <div>
+                          <input
+                            type="checkbox"
+                            className="checkbox-primary checkbox transition-all hover:scale-110"
+                            checked={chapter.isCompleted}
+                            onChange={() => handleToggle(chapter.id)}
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-          )}
+            <div className="flex gap-3 justify-end">
+              <button className="btn btn-outline" onClick={onClose}>
+                Cancel
+              </button>
+              <button className="btn btn-success" onClick={handleSubmit}>
+                Submit
+              </button>
+            </div>
+            {toastMessage && (
+              <div className={`alert alert-${toastType} text-white`}>
+                <span>{toastMessage}</span>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </>

@@ -1,7 +1,7 @@
 "use client";
-import React from "react";
+import React, { useActionState } from "react";
 import Link from "next/link";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import {
   HomeIcon,
   UsersIcon,
@@ -14,6 +14,7 @@ import classname from "classnames";
 
 const TeacherSideBar = () => {
   const currentPath = usePathname();
+  const teacherData = useSession();
 
   const links = [
     {
@@ -41,7 +42,7 @@ const TeacherSideBar = () => {
     <div className="space-y-4">
       <div className="flex flex-col items-center space-y-2">
         <h2 className="text-center text-lg font-bold text-base-content">
-          Teacher Dashboard
+          Email : {teacherData.data?.user.email}
         </h2>
       </div>
       <ul className="relative flex w-full flex-col space-y-5 font-semibold text-base-content">
