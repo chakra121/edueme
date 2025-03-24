@@ -5,14 +5,19 @@ interface PageProps {
   children: ReactNode;
 }
 
-
 export default function Page({ children }: PageProps) {
   return (
-    <div className="bg-base-content pb-5 px-[4rem] pt-[5rem]">
+    <div className="min-h-screen bg-base-content px-[4rem] pt-[5rem]"> {/* Removed pb-5 */}
       <div className="card fixed w-64 bg-base-100 p-4">
         <StudentSideBar />
       </div>
-      <div className="ml-64 px-4">{children}</div>
+      {/* Main content area with height calculation */}
+      <div 
+        className="ml-64 px-4 h-[calc(100vh-5rem)] overflow-y-auto" 
+        style={{ height: 'calc(100dvh - 5rem)' }}
+      >
+        {children}
+      </div>
     </div>
   );
 }

@@ -101,7 +101,7 @@ const Hero = () => {
               </p>
               <div className="card-actions mb-3 justify-center">
                 <Link
-                  href="./eventAndExpo"
+                  href="./events"
                   className="btn btn-primary text-lg transition duration-300 ease-in-out hover:scale-105"
                 >
                   Register Now !!

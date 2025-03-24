@@ -1,12 +1,9 @@
 import "@/styles/globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import Script from "next/script";
 import LayoutClient from "./LayoutClient";
 import AuthProvider from "@/components/AuthProvider";
-// import CustomCursor from '../components/CustomCursor';
 
 export const metadata: Metadata = {
   title: "Edueme Research Lab",
@@ -15,7 +12,6 @@ export const metadata: Metadata = {
   keywords: "Education, Research, Learning, Robotics, Online Courses",
   authors: [{ name: "Edueme Team" }],
 };
-
 
 export default function RootLayout({
   children,
@@ -39,23 +35,18 @@ export default function RootLayout({
           `,
           }}
         />
-        {/* SEO Meta Tags */}
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="keywords" content="Education, Research, Learning" />
         <meta name="author" content="Edueme Team" />
-        {/* Feather Icons Script */}
         <Script
           src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"
           strategy="afterInteractive"
         />
       </head>
       <body>
-        <main>
-          <AuthProvider>
-            {/* <CustomCursor /> */}
-            <LayoutClient>{children}</LayoutClient>
-          </AuthProvider>
-        </main>
+        <AuthProvider>
+          <LayoutClient>{children}</LayoutClient>
+        </AuthProvider>
       </body>
     </html>
   );
