@@ -24,7 +24,7 @@ const WhyUs = () => {
 
 
   return (
-    <div className="relative overflow-hidden py-16 text-white bg-gradient-to-b from-gray-900 to-black min-h-screen">
+    <div className="relative overflow-hidden pt-[7rem] text-white bg-gradient-to-b from-gray-900 to-black min-h-screen">
       {/* Background Doodles with Mouse Parallax */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Circuit Board SVG - Top Right */}
@@ -359,11 +359,6 @@ const WhyUs = () => {
               <ellipse cx="25" cy="25" rx="20" ry="10" transform="rotate(120)" strokeWidth="1" />
             </svg>
           </div>
-        </div>
-       
-        {/* Footer */}
-        <div className="mt-12 text-center text-gray-500 text-sm">
-          <p>© 2025 Robotics Education Program. All rights reserved.</p>
         </div>
       </div>
       
