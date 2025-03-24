@@ -151,7 +151,7 @@ const WhyUs = () => {
           {/* GIF Section with floating effect */}
           <div className="relative w-full md:w-[400px] h-[400px] rounded-2xl overflow-hidden shadow-2xl shadow-blue-500/20 hover:scale-105 transition-transform duration-300 animate-float">
             <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 to-purple-600/20 mix-blend-overlay"></div>
-            <Image src="/info1.gif" alt="Information" layout="fill" objectFit="cover" />
+            <Image src="/info1.gif" alt="Information" layout="fill" objectFit="cover" priority />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
             <div className="absolute bottom-4 left-4 right-4 text-center">
               <span className="text-lg font-bold bg-black/50 px-4 py-2 rounded-full">Interactive Learning</span>
