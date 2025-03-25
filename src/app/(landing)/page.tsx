@@ -49,39 +49,6 @@ export default function HomePage() {
     visible: { opacity: 1, y: 0, transition: { duration: 1.5 } },
   });
 
-  // Add the chatbot integration script
-  /*useEffect(() => {
-    const scriptId = "OlS4o96Fwm8y-BCqebNv0";
-    const existingScript = document.getElementById(scriptId);
-    
-    if (!existingScript) {
-      const script = document.createElement("script");
-      script.src = "https://www.chatbase.co/embed.min.js";
-      script.id = scriptId;
-      script.domain = "www.chatbase.co";
-      document.body.appendChild(script);
-    }
-
-    // Cleanup script on component unmount
-    return () => {
-      const scriptToRemove = document.getElementById(scriptId);
-      if (scriptToRemove) {
-        document.body.removeChild(scriptToRemove);
-      }
-    };
-  }, []);*/
-
-  // Hash generation for user identification
-  const generateUserHash = (userId) => {
-    const crypto = require('crypto');
-    const secret = 'xl0bdm7lsnlby75bm6nt5nxxk2e11k45'; // Your verification secret key
-    return crypto.createHmac('sha256', secret).update(userId).digest('hex');
-  };
-
-  // Assuming you have a way to get the current user's ID
-  const userId = data?.user?.id; // Adjust this based on your user data structure
-  const userHash = userId ? generateUserHash(userId) : null;
-
 
   return (
     <div className="bg-base-200">
@@ -99,13 +66,6 @@ export default function HomePage() {
         <button onClick={logouthandler}> Logout</button>
         <AnnouncementScroller announcements={announcements} />
       </motion.div>
-
-      {/* Chatbot Integration */}
-      {/* {userHash && (
-        <script>
-          {`(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="OlS4o96Fwm8y-BCqebNv0";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();`}
-        </script>
-      )} */}
 
       {/* Sections with Bidirectional Scroll Animation */}
       {[Schools, Services, Products, MOFC, CH, ICT, Reviews, Gallery].map(

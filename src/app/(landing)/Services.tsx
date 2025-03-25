@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-const AiRoboticsPage: React.FC = () => {
+const Services: React.FC = () => {
 
   // Variants for text animations
   const textVariants = {
@@ -103,4 +103,4 @@ const AiRoboticsPage: React.FC = () => {
   );
 };
 
-export default AiRoboticsPage;
+export default Services;
