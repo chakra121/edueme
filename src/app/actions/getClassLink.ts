@@ -2,7 +2,7 @@
 
 import prisma from "@/lib/globalPrisma";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 
 export const getClassLink = async () => {
   const session = await getServerSession(authOptions);
