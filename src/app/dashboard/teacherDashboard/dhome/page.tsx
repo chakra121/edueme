@@ -15,4 +15,4 @@ const TeacherHomePage = () => {
   )
 }
 
-export default TeacherHomePage
+export default TeacherHomePage;

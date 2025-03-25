@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { deleteCourse } from "@/app/actions/deleteCourse";
 import { updateCourse } from "@/app/actions/updateCourse";
 
-export const ManageCourses = () => {
+const ManageCourses = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [toast, setToast] = useState<{
     message: string;
