@@ -27,8 +27,7 @@ export default function Home() {
         >
           <div className="absolute inset-0 bg-blue-900 bg-opacity-50"></div>
           <div className="relative z-10 text-center text-white flex flex-col justify-center items-center h-full">
-            <h2 className="text-4xl font-bold mb-4">All Events</h2>
-            <p className="text-lg">Home / Events</p>
+            <h2 className="text-4xl font-bold">All Events</h2>
           </div>
         </section>
 
