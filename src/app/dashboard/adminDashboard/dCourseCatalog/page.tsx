@@ -12,7 +12,7 @@ type Course = {
   chapters: string | number;
 };
 
-export const ManageCourses = () => {
+const ManageCourses = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [toast, setToast] = useState<{ message: string; type: "success" | "error" | null }>({
     message: "",
