@@ -44,7 +44,7 @@ export default function Schools() {
   const [theme, setTheme] = useState("bumblebee");
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") || "bumblebee";
+    const savedTheme = localStorage.getItem("theme") ?? "bumblebee";
     document.documentElement.setAttribute("data-theme", savedTheme);
     setTheme(savedTheme);
   }, []);

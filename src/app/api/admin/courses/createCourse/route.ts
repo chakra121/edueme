@@ -1,11 +1,14 @@
+import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import prisma from "@/lib/globalPrisma";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
+    // ✅ Step 1: Parse and type request body
+    const body: { courseCode: string; courseName: string } = await req.json();
     const { courseCode, courseName } = body;
 
+    // ✅ Step 2: Validate input
     if (!courseCode || !courseName) {
       return NextResponse.json(
         { message: "Course code and name are required" },
@@ -13,6 +16,7 @@ export async function POST(req: Request) {
       );
     }
 
+    // ✅ Step 3: Check if the course already exists
     const existingCourse = await prisma.courses.findUnique({
       where: { courseCode },
     });
@@ -24,15 +28,17 @@ export async function POST(req: Request) {
       );
     }
 
+    // ✅ Step 4: Create a new course in the database
     const newCourse = await prisma.courses.create({
       data: { courseCode, courseName },
     });
 
     return NextResponse.json(newCourse, { status: 201 });
   } catch (error) {
-    console.error("Error creating course:", error);
+    console.error("Error creating course:", error); // ✅ Log error properly
+
     return NextResponse.json(
-      { message: "Internal server error" },
+      { message: "Internal server error", error: (error as Error).message },
       { status: 500 },
     );
   }

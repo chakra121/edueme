@@ -1,11 +1,28 @@
-import { connectToDatabase } from "@/lib/connectDB";
-import prisma from "@/lib/globalPrisma";
+import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import prisma from "@/lib/globalPrisma";
 import bcrypt from "bcrypt";
 import { Prisma } from "@prisma/client";
 
-export const POST = async (req: Request) => {
+// ✅ Define expected request body type
+interface RegisterStudentData {
+  firstName: string;
+  lastName: string;
+  gender: string;
+  grade: string;
+  schoolName: string;
+  phoneNumber: string;
+  email: string;
+  parentEmail: string;
+  password: string;
+  userRole: string;
+}
+
+export const POST = async (req: NextRequest) => {
   try {
+    // ✅ Step 1: Parse and type request body
+    const requestBody: RegisterStudentData = await req.json();
+
     const {
       firstName,
       lastName,
@@ -17,7 +34,9 @@ export const POST = async (req: Request) => {
       parentEmail,
       password,
       userRole,
-    } = await req.json();
+    } = requestBody;
+
+    // ✅ Step 2: Validate input fields
     if (
       !firstName ||
       !lastName ||
@@ -29,17 +48,16 @@ export const POST = async (req: Request) => {
       !userRole ||
       !email ||
       !password
-    )
+    ) {
       return NextResponse.json({ message: "Invalid Data" }, { status: 422 });
-    if (!password) {
-      return NextResponse.json(
-        { message: "Password is required" },
-        { status: 422 },
-      );
     }
-    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // ✅ Step 3: Hash the password securely
+    const hashedPassword: string = await bcrypt.hash(password, 10);
+
+    // ✅ Step 4: Store student data in the database
     await prisma.$connect();
-    const user = await prisma.user.create({
+    await prisma.user.create({
       data: {
         firstName,
         lastName,
@@ -50,16 +68,18 @@ export const POST = async (req: Request) => {
         email,
         parentEmail,
         userRole,
-        hashedPassword,
+        hashedPassword: hashedPassword, // ✅ Make sure your Prisma schema expects `password`, not `hashedPassword`
       },
     });
+
     return NextResponse.json(
       { message: "Registration saved successfully", success: true },
-      { status: 200 },
+      { status: 201 },
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error registering:", error);
 
+    // ✅ Step 5: Handle Prisma unique constraint errors properly
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2002") {
         return NextResponse.json(

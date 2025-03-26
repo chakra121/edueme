@@ -13,7 +13,7 @@ interface Student {
 
 const ManageStudent = () => {
   const [students, setStudents] = useState<Student[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   const fetchStudents = async () => {
@@ -21,15 +21,15 @@ const ManageStudent = () => {
       setLoading(true);
       setError(null);
 
-      const [response] = await Promise.all([
-        fetch("/api/user/courseStudents"),
-        new Promise((resolve) => setTimeout(resolve, 3000)),
-      ]);
+      const response = await fetch("/api/user/courseStudents");
+      await new Promise((resolve) => setTimeout(resolve, 3000)); // Simulating delay
 
-      if (!response.ok) throw new Error("Failed to fetch students");
+      if (!response.ok) {
+        throw new Error("Failed to fetch students");
+      }
 
-      const data = await response.json();
-      setStudents(data);
+      const data: Student[] = await response.json();
+      setStudents(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Fetch error:", err);
       setError("Failed to load students. Please try again.");
@@ -39,7 +39,7 @@ const ManageStudent = () => {
   };
 
   useEffect(() => {
-    fetchStudents();
+    void fetchStudents();
   }, []);
 
   return (
@@ -92,17 +92,15 @@ const ManageStudent = () => {
             </thead>
             <tbody>
               {loading
-                ? Array(3)
-                    .fill(0)
-                    .map((_, index) => (
-                      <tr key={index}>
-                        {[...Array(7)].map((_, i) => (
-                          <td key={i}>
-                            <div className="skeleton h-4 w-full"></div>
-                          </td>
-                        ))}
-                      </tr>
-                    ))
+                ? Array.from({ length: 3 }).map((_, index) => (
+                    <tr key={index}>
+                      {Array.from({ length: 7 }).map((_, i) => (
+                        <td key={i}>
+                          <div className="skeleton h-4 w-full"></div>
+                        </td>
+                      ))}
+                    </tr>
+                  ))
                 : students.map((student, index) => (
                     <tr key={student.id} className="text-base">
                       <td>{index + 1}</td>

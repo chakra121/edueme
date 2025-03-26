@@ -1,23 +1,15 @@
-//@ts-nocheck
 import { PrismaClient } from "@prisma/client";
 
-let prisma: PrismaClient;
-
+// ✅ Extend globalThis properly to avoid `any` issues
 declare global {
-    namespace NodeJS {
-        interface Global {
-            prisma: PrismaClient;
-        }
-    }
+  var prisma: PrismaClient | undefined;
 }
 
-if(process.env.NODE_ENV === "production") {
-    prisma = new PrismaClient();
-} else {
-    if(!global.prisma) {
-        global.prisma = new PrismaClient();
-    }
-    prisma = global.prisma;
+// ✅ Use a singleton pattern to avoid multiple instances
+const prisma = globalThis.prisma ?? new PrismaClient();
+
+if (process.env.NODE_ENV !== "production") {
+  globalThis.prisma = prisma;
 }
 
 export default prisma;

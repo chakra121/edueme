@@ -15,7 +15,7 @@ export const updateChapter = async (data: {
         chapterCode: data.chapterCode,
         chapterName: data.chapterName,
         chapterDescription: data.chapterDescription,
-        notesLink: data.notesLink || null,
+        notesLink: data.notesLink ?? null,
       },
     });
     return { success: true, message: "Chapter updated successfully!" };

@@ -1,13 +1,19 @@
-// api/class/[classId]/route.ts
-import { NextRequest, NextResponse } from "next/server";
+import type { NextRequest } from "next/server"; // ✅ Import as type
+import { NextResponse } from "next/server";
 import prisma from "@/lib/globalPrisma";
+
+// ✅ Define expected request body type
+interface ClassUpdateRequest {
+  classTitle: string;
+  youTubeLink: string;
+}
 
 export async function PUT(
   req: NextRequest,
   { params }: { params: { classId: string } },
 ) {
   try {
-    const { classTitle, youTubeLink } = await req.json();
+    const { classTitle, youTubeLink }: ClassUpdateRequest = await req.json(); // ✅ Explicitly typed
 
     const updatedClass = await prisma.class.update({
       where: { id: params.classId },
@@ -15,7 +21,8 @@ export async function PUT(
     });
 
     return NextResponse.json(updatedClass);
-  } catch (error) {
+  } catch (error: unknown) {
+    console.error("Error updating class:", error); // ✅ Log the error
     return NextResponse.json(
       { error: "Error updating class" },
       { status: 500 },
@@ -31,8 +38,10 @@ export async function DELETE(
     await prisma.class.delete({
       where: { id: params.classId },
     });
+
     return NextResponse.json({ message: "Class deleted" });
-  } catch (error) {
+  } catch (error: unknown) {
+    console.error("Error deleting class:", error); // ✅ Log the error
     return NextResponse.json(
       { error: "Error deleting class" },
       { status: 500 },

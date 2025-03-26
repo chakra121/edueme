@@ -23,7 +23,7 @@ export default async function CoursesPage() {
   if (!user || !user.course) {
     return (
       <p className="text-center text-xl text-warning">
-        You haven't purchased any course.
+        You haven&apos;t purchased any course.
       </p>
     );
   }

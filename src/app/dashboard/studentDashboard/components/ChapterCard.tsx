@@ -12,7 +12,6 @@ interface ChapterCardProps {
 export default function ChapterCard({
   courseCode,
   chapterCode,
-  chapterId,
   chapterName,
   chapterDescription,
 }: ChapterCardProps) {

@@ -2,10 +2,16 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/globalPrisma";
 import { revalidatePath } from "next/cache";
 
+// ✅ Define the expected request body type
+interface ClassRequest {
+  chapterId: string;
+  classTitle: string;
+  classLink: string;
+}
 
 export async function POST(req: Request) {
   try {
-    const { chapterId, classTitle, classLink } = await req.json();
+    const { chapterId, classTitle, classLink }: ClassRequest = await req.json();
 
     if (!chapterId || !classTitle || !classLink) {
       return NextResponse.json(
@@ -14,6 +20,7 @@ export async function POST(req: Request) {
       );
     }
 
+    // ✅ Create new class with explicit typing
     const newClass = await prisma.class.create({
       data: {
         classTitle,
@@ -22,16 +29,25 @@ export async function POST(req: Request) {
       },
     });
 
+    // ✅ Connect the class to the chapter correctly
     await prisma.chapter.update({
       where: { id: chapterId },
-      data: { classes: { connect: { id: newClass.id, classTitle:newClass.classTitle, youTubeLink:newClass.youTubeLink } } },
+      data: { classes: { connect: { id: newClass.id } } }, // Removed extra fields
     });
-    
 
-    return NextResponse.json({ success: true, classId: newClass.id , classTitle: newClass.classTitle, youtubeLink:newClass.youTubeLink });
-  } catch (error) {
-    return NextResponse.json({ error: (error as Error).message }, { status: 500 });
-  } finally {
-     revalidatePath("/dashboard/teacherDashboard/dCourseCatalog"); 
+    revalidatePath("/dashboard/teacherDashboard/dCourseCatalog");
+
+    return NextResponse.json({
+      success: true,
+      classId: newClass.id,
+      classTitle: newClass.classTitle,
+      youtubeLink: newClass.youTubeLink,
+    });
+  } catch (error: unknown) {
+    console.error("Error creating class:", error);
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Unknown error" },
+      { status: 500 },
+    );
   }
 }

@@ -10,6 +10,11 @@ interface Chapter {
   chapterDescription: string;
 }
 
+interface APIResponse {
+  chapters: Chapter[];
+  error?: string;
+}
+
 export default function CourseDetailPage() {
   const router = useRouter();
   const params = useParams();
@@ -25,11 +30,11 @@ export default function CourseDetailPage() {
     const fetchChapters = async () => {
       try {
         const res = await fetch(`/api/courses/${courseCode}/chapters`);
-        const data = await res.json();
+        const data: APIResponse = await res.json(); // ✅ Explicitly type response
 
         if (!res.ok) throw new Error(data.error || "Failed to load chapters");
 
-        if (!data.chapters || !Array.isArray(data.chapters)) {
+        if (!Array.isArray(data.chapters)) {
           throw new Error("Invalid API response");
         }
 
@@ -41,8 +46,11 @@ export default function CourseDetailPage() {
       }
     };
 
-    fetchChapters();
-  }, [courseCode]);
+    // ✅ Use an IIFE to handle async function
+    (async () => {
+      await fetchChapters();
+    })();
+  }, [courseCode]); // ✅ Ensure all dependencies are included
 
   if (loading) return <p className="text-center text-xl">Loading...</p>;
   if (error) return <p className="text-center text-xl text-error">{error}</p>;
@@ -59,10 +67,10 @@ export default function CourseDetailPage() {
         </button>
       </div>
 
-      <h1 className="text-3xl mb-4 font-bold text-base-content">
+      <h1 className="mb-4 text-3xl font-bold text-base-content">
         Course: {courseCode}
       </h1>
-      <h1 className="text-2xl mb-4 font-semibold text-base-content">
+      <h1 className="mb-4 text-2xl font-semibold text-base-content">
         The Chapters are:
       </h1>
 

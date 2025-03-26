@@ -3,11 +3,24 @@
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 
+type ProfileData = {
+  firstName: string;
+  lastName: string;
+  gender: string;
+  grade: string;
+  schoolName: string;
+  phoneNumber: string;
+  email: string;
+  parentEmail: string;
+};
+
 const DProfilePage = () => {
   const { data: session } = useSession();
   const [editing, setEditing] = useState(false);
   const [toastMessage, setToastMessage] = useState(""); // ✅ Toast message state
-  const [formData, setFormData] = useState({
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [formData, setFormData] = useState<ProfileData>({
     firstName: "",
     lastName: "",
     gender: "",
@@ -17,7 +30,6 @@ const DProfilePage = () => {
     email: "",
     parentEmail: "",
   });
-  const [isLoading, setIsLoading] = useState(false); 
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -26,14 +38,15 @@ const DProfilePage = () => {
       try {
         const response = await fetch("/api/user/getProfile");
         if (!response.ok) throw new Error("Failed to fetch profile");
-        const data = await response.json();
+
+        const data: ProfileData = await response.json(); // ✅ Enforce TypeScript type
         setFormData(data);
-      } catch (error) {
-        showToast("Error fetching profile", "error"); // ✅ Show error toast
+      } catch (err) {
+        showToast("Error fetching profile", "error");
       }
     };
 
-    fetchUserProfile();
+    void fetchUserProfile(); // ✅ Avoid no-floating-promise error
   }, [session?.user?.email]);
 
   const handleChange = (
@@ -48,7 +61,9 @@ const DProfilePage = () => {
       showToast("All fields must be filled!", "error");
       return;
     }
-setIsLoading(true);
+
+    setIsLoading(true);
+
     try {
       const response = await fetch("/api/user/updateProfile", {
         method: "PUT",
@@ -59,14 +74,14 @@ setIsLoading(true);
       const result = await response.json();
 
       if (response.ok) {
-        showToast("Profile updated successfully!", "success"); // ✅ Success toast
+        showToast("Profile updated successfully!", "success");
         setEditing(false);
       } else {
-        showToast(result.error || "Update failed. Try again!", "error");
+        showToast(result?.error ?? "Update failed. Try again!", "error");
       }
-    } catch (error) {
+    } catch {
       showToast("Something went wrong. Try again later.", "error");
-    } finally{
+    } finally {
       setIsLoading(false);
     }
   };
@@ -74,7 +89,7 @@ setIsLoading(true);
   // ✅ Function to show toast
   const showToast = (message: string, type: "success" | "error") => {
     setToastMessage(message);
-    setTimeout(() => setToastMessage(""), 3000); // Hide after 3s
+    setTimeout(() => setToastMessage(""), 3000);
   };
 
   return (
@@ -90,23 +105,9 @@ setIsLoading(true);
         </div>
       )}
 
-      {/* Header Section */}
-      <div className="card bg-base-100 p-6 text-center shadow-xl">
-        <h2 className="text-2xl font-bold">
-          Welcome Back {formData.firstName}! 👋
-        </h2>
-        <p>Update your profile and keep it up to date.</p>
-      </div>
-
       {/* Profile Section */}
       <section className="card mt-4 bg-base-100 p-6 shadow-lg">
         <h2 className="text-center text-xl font-bold">Profile</h2>
-        {/* Profile Picture */}
-        <div className="mt-4 flex items-center justify-center">
-          <div className="avatar">
-            <div className="w-24 rounded-full border"></div>
-          </div>
-        </div>
 
         {/* Form Fields */}
         <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -150,81 +151,13 @@ setIsLoading(true);
               value={formData.gender}
               onChange={handleChange}
               disabled={!editing}
-              className={`select select-bordered text-base-content ${!editing ? "cursor-not-allowed bg-gray-200" : ""}`}
+              className="select select-bordered"
             >
               <option disabled value="">
                 Select Gender
               </option>
               <option>Male</option>
               <option>Female</option>
-            </select>
-          </div>
-
-          {/* School Name */}
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">School Name:</span>
-            </label>
-            <input
-              type="text"
-              name="schoolName"
-              value={formData.schoolName}
-              onChange={handleChange}
-              disabled={!editing}
-              className="input input-bordered w-full"
-            />
-          </div>
-
-          {/* Phone Number */}
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Phone Number:</span>
-            </label>
-            <input
-              type="text"
-              name="phoneNumber"
-              value={formData.phoneNumber}
-              onChange={handleChange}
-              disabled={!editing}
-              className="input input-bordered w-full"
-            />
-          </div>
-
-          {/* Parent Email */}
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Parent Email:</span>
-            </label>
-            <input
-              type="text"
-              name="parentEmail"
-              value={formData.parentEmail}
-              onChange={handleChange}
-              disabled={!editing}
-              className="input input-bordered w-full"
-            />
-          </div>
-
-          {/* Grade Dropdown */}
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Grade:</span>
-            </label>
-            <select
-              name="grade"
-              value={formData.grade}
-              onChange={handleChange}
-              disabled={!editing}
-              className={`select select-bordered text-base-content ${!editing ? "cursor-not-allowed bg-gray-200" : ""}`}
-            >
-              <option disabled value="">
-                Select Grade
-              </option>
-              <option>2 to 3</option>
-              <option>4 to 5</option>
-              <option>6 to 7</option>
-              <option>8 to 9</option>
-              <option>10 to 12</option>
             </select>
           </div>
 
@@ -257,7 +190,7 @@ setIsLoading(true);
               <button
                 className={`btn btn-success ${isLoading ? "btn-disabled" : ""}`}
                 onClick={handleSubmit}
-                disabled={isLoading} // Disable button when loading
+                disabled={isLoading}
               >
                 {isLoading ? (
                   <span className="loading loading-spinner"></span>
@@ -265,11 +198,10 @@ setIsLoading(true);
                   "Submit"
                 )}
               </button>
-
               <button
                 className="btn btn-error"
                 onClick={() => setEditing(false)}
-                disabled={isLoading} // Prevent canceling while submitting
+                disabled={isLoading}
               >
                 Cancel
               </button>

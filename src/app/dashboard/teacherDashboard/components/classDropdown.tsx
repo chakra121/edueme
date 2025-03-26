@@ -6,7 +6,7 @@ interface ClassDropdownProps {
 
 const ClassDropdown: React.FC<ClassDropdownProps> = ({
   classes,
-  selectedClassId,
+  
   setSelectedClassId,
 }) => {
   return (

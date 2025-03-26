@@ -32,58 +32,43 @@ export default function ClassLinkManager() {
     const fetchClassLinks = async () => {
       try {
         setLoading(true);
-        const [res] = await Promise.all([
-          fetch(`/api/classlink/getLink`, { method: "GET" }),
-          new Promise((resolve) => setTimeout(resolve, 3000)), // 3-second delay
-        ]);
+        const res = await fetch("/api/classlink/getLink");
 
-        if (!res.ok) throw new Error("Failed to fetch class links");
+        if (!res.ok) {
+          throw new Error("Failed to fetch class links");
+        }
 
-        const data = await res.json();
+        const data: TeacherLink[] = await res.json();
         setTeacherLinks(Array.isArray(data) ? data : [data]);
-      } catch (error) {
-        console.error("Error fetching class links:", error);
+      } catch (err) {
+        console.error("Error fetching class links:", err);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchClassLinks();
+    void fetchClassLinks();
   }, []);
 
   // Format date for display
   const formatDateTime = (dateString: string) => {
-    try {
-      const date = new Date(dateString);
-      return format(date, "MMMM dd, yyyy hh:mm aa");
-    } catch (error) {
-      return "Invalid date";
-    }
+    if (!dateString) return "Invalid date";
+    return format(new Date(dateString), "MMMM dd, yyyy hh:mm aa");
   };
 
   // Format date for input field
   const formatDateTimeForInput = (dateString: string) => {
-    try {
-      const date = new Date(dateString);
-      return format(date, "yyyy-MM-dd'T'HH:mm");
-    } catch (error) {
-      return "";
-    }
+    if (!dateString) return "";
+    return format(new Date(dateString), "yyyy-MM-dd'T'HH:mm");
   };
 
   // Start Editing
-  const startEditing = (
-    classLinkId: string,
-    currentLink: string,
-    currentTopics: string[],
-    currentInstructions: string,
-    currentDateAndTime: string,
-  ) => {
-    setEditingLinkId(classLinkId);
-    setNewClassLink(currentLink);
-    setNewTopics([...currentTopics]);
-    setNewInstructions(currentInstructions);
-    setNewDateAndTime(formatDateTimeForInput(currentDateAndTime));
+  const startEditing = (link: TeacherLink) => {
+    setEditingLinkId(link.id);
+    setNewClassLink(link.classLink);
+    setNewTopics([...link.topics]);
+    setNewInstructions(link.description);
+    setNewDateAndTime(formatDateTimeForInput(link.DateAndTime));
   };
 
   // Update Class Link and Topics
@@ -101,99 +86,64 @@ export default function ClassLinkManager() {
         }),
       });
 
-      if (res.ok) {
-        setMessage("Details Updated Successfully!");
-        setMessageType("success");
-
-        setTimeout(() => {
-          setMessage(null);
-        }, 2000);
-
-        const updatedData = await res.json();
-
-        // Optimistic UI Update
-        setTeacherLinks((prev) =>
-          prev.map((cl) =>
-            cl.id === classLinkId
-              ? {
-                  ...cl,
-                  classLink: newClassLink,
-                  topics: [...newTopics],
-                  description: newInstructions,
-                  DateAndTime: updatedData.DateAndTime,
-                  updatedAt: updatedData.updatedAt,
-                }
-              : cl,
-          ),
-        );
-      } else {
-        setMessage(`Error: ${res.statusText}`);
-        setMessageType("error");
+      if (!res.ok) {
+        throw new Error(`Error: ${res.statusText}`);
       }
 
+      setMessage("Details Updated Successfully!");
+      setMessageType("success");
+
+      setTimeout(() => {
+        setMessage(null);
+      }, 2000);
+
+      const updatedData: TeacherLink = await res.json();
+
+      // Optimistic UI Update
+      setTeacherLinks((prev) =>
+        prev.map((cl) =>
+          cl.id === classLinkId
+            ? {
+                ...cl,
+                classLink: newClassLink,
+                topics: [...newTopics],
+                description: newInstructions,
+                DateAndTime: updatedData.DateAndTime,
+                updatedAt: updatedData.updatedAt,
+              }
+            : cl,
+        ),
+      );
+    } catch (error) {
+      console.error("Error updating class link:", error);
+      setMessage("Error updating class link");
+      setMessageType("error");
+    } finally {
       setEditingLinkId(null);
       setNewClassLink("");
       setNewTopics([]);
       setNewInstructions("");
       setNewDateAndTime("");
-    } catch (error) {
-      console.error("Error updating class link:", error);
     }
   };
 
   // Add a new topic
-  const addTopic = () => {
-    setNewTopics([...newTopics, ""]);
-  };
+  const addTopic = () => setNewTopics([...newTopics, ""]);
 
   // Edit topic
   const editTopic = (index: number, value: string) => {
-    const updatedTopics = [...newTopics];
-    updatedTopics[index] = value;
-    setNewTopics(updatedTopics);
+    setNewTopics((prev) =>
+      prev.map((topic, i) => (i === index ? value : topic)),
+    );
   };
 
   // Delete topic
   const deleteTopic = (index: number) => {
-    setNewTopics(newTopics.filter((_, i) => i !== index));
+    setNewTopics((prev) => prev.filter((_, i) => i !== index));
   };
 
-  if (loading)
-    return (
-      <div className="card bg-base-100">
-        <div className="card-body">
-          <h1 className="card-title mb-4 text-3xl font-bold">
-            Live Class Link
-          </h1>
-          <div className="pl-6 text-xl">
-            {/* Class Link Skeleton */}
-            <p className="mb-2 font-bold">Class Link:</p>
-            <div className="skeleton mb-4 h-4 w-3/4"></div>
+  if (loading) return <p>Loading class links...</p>;
 
-            {/* Topics Skeleton */}
-            <p className="mb-2 font-bold">Topics:</p>
-            <ul className="mb-4 list-decimal space-y-3">
-              <div className="skeleton h-4 w-3/4"></div>
-              <div className="skeleton h-4 w-3/4"></div>
-              <div className="skeleton h-4 w-3/4"></div>
-              <div className="skeleton h-4 w-3/4"></div>
-            </ul>
-
-            {/* Instructions Skeleton */}
-            <p className="mb-2 font-bold">Instructions:</p>
-            <div className="skeleton mb-4 h-12 w-3/4"></div>
-
-            {/* Scheduled Date Skeleton */}
-            <p className="mb-2 font-bold">Scheduled Date and Time:</p>
-            <div className="skeleton mb-4 h-4 w-64 pl-5"></div>
-
-            {/* Last Updated Skeleton */}
-            <p className="mb-2 font-bold">Last Updated:</p>
-            <div className="skeleton mb-4 h-4 w-64 pl-5"></div>
-          </div>
-        </div>
-      </div>
-    );
   return (
     <div className="card bg-base-100">
       <div className="card-body">
@@ -201,15 +151,11 @@ export default function ClassLinkManager() {
         {teacherLinks.length === 0 ? (
           <p>No class links found.</p>
         ) : (
-          teacherLinks.map((teacherLink) => (
-            <div key={teacherLink.id} className="mb-4">
-              {editingLinkId === teacherLink.id ? (
+          teacherLinks.map((link) => (
+            <div key={link.id} className="mb-4">
+              {editingLinkId === link.id ? (
                 <div>
-                  <label className="label">
-                    <span className="label-text text-lg font-semibold">
-                      New Class Link:
-                    </span>
-                  </label>
+                  <label className="label">New Class Link:</label>
                   <input
                     type="text"
                     value={newClassLink}
@@ -217,22 +163,14 @@ export default function ClassLinkManager() {
                     className="input input-bordered mb-4 w-full"
                   />
 
-                  <label className="label">
-                    <span className="label-text text-lg font-semibold">
-                      Instructions:
-                    </span>
-                  </label>
+                  <label className="label">Instructions:</label>
                   <textarea
                     value={newInstructions}
                     onChange={(e) => setNewInstructions(e.target.value)}
                     className="textarea textarea-bordered mb-4 w-full"
                   ></textarea>
 
-                  <label className="label">
-                    <span className="label-text text-lg font-semibold">
-                      Scheduled Date and Time:
-                    </span>
-                  </label>
+                  <label className="label">Scheduled Date and Time:</label>
                   <input
                     type="datetime-local"
                     value={newDateAndTime}
@@ -240,11 +178,7 @@ export default function ClassLinkManager() {
                     className="input input-bordered mb-4 w-full"
                   />
 
-                  <label className="label">
-                    <span className="label-text text-lg font-semibold">
-                      Edit Topics:
-                    </span>
-                  </label>
+                  <label className="label">Edit Topics:</label>
                   {newTopics.map((topic, index) => (
                     <div key={index} className="mb-3 flex items-center">
                       <input
@@ -261,16 +195,15 @@ export default function ClassLinkManager() {
                       </button>
                     </div>
                   ))}
-                  <div className="">
-                    <button
-                      onClick={addTopic}
-                      className="btn btn-accent btn-md mb-4"
-                    >
-                      +
-                    </button>
-                  </div>
                   <button
-                    onClick={() => updateClassLink(teacherLink.id)}
+                    onClick={addTopic}
+                    className="btn btn-accent btn-md mb-4"
+                  >
+                    +
+                  </button>
+
+                  <button
+                    onClick={() => updateClassLink(link.id)}
                     className="btn btn-primary"
                   >
                     Update
@@ -285,57 +218,20 @@ export default function ClassLinkManager() {
               ) : (
                 <div className="pl-6 text-xl">
                   <p className="mb-2 font-bold">Class Link:</p>
-                  <p className="mb-4 pl-5">{teacherLink.classLink}</p>
-                  <p className="mb-2 font-bold">Topics:</p>
-                  <ul className="mb-4 list-decimal pl-10">
-                    {teacherLink.topics.map((topic, index) => (
-                      <li className="pl-1" key={index}>
-                        {topic}
-                      </li>
-                    ))}
-                  </ul>
-                  <p className="mb-2 font-bold">Instructions:</p>
-                  <p className="mb-4 pl-5">{teacherLink.description}</p>
-
-                  <p className="mb-2 font-bold">Scheduled Date and Time:</p>
-                  <p className="mb-4 pl-5">
-                    {formatDateTime(teacherLink.DateAndTime)}
-                  </p>
-
-                  <p className="mb-2 font-bold">Last Updated:</p>
-                  <p className="mb-4 pl-5">
-                    {formatDateTime(teacherLink.updatedAt)}
-                  </p>
-
+                  <p>{link.classLink}</p>
                   <button
-                    onClick={() =>
-                      startEditing(
-                        teacherLink.id,
-                        teacherLink.classLink,
-                        teacherLink.topics,
-                        teacherLink.description,
-                        teacherLink.DateAndTime,
-                      )
-                    }
-                    className="btn btn-secondary mb-4"
+                    onClick={() => startEditing(link)}
+                    className="btn btn-secondary"
                   >
-                    Edit Class
+                    Edit
                   </button>
                   <a
-                    href={teacherLink.classLink}
+                    href={link.classLink}
                     target="_blank"
-                    className="btn btn-primary mb-4 ml-2"
+                    className="btn btn-primary ml-2"
                   >
                     Start Live Class
                   </a>
-
-                  {message && (
-                    <div
-                      className={`alert ${messageType === "success" ? "alert-success" : "alert-error"} mb-2 text-lg`}
-                    >
-                      <span>{message}</span>
-                    </div>
-                  )}
                 </div>
               )}
             </div>

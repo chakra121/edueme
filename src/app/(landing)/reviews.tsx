@@ -1,13 +1,22 @@
-
 import React from "react";
 import dynamic from "next/dynamic";
+import Image from "next/image"; // Import Next.js Image
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaStar } from "react-icons/fa";
 
 const Slider = dynamic(() => import("react-slick"), { ssr: false });
 
-const reviews = [
+type Review = {
+  name: string;
+  position: string;
+  institution: string;
+  review: string;
+  rating: number;
+  image: string;
+};
+
+const reviews: Review[] = [
   {
     name: "Name of Principal",
     position: "Principal",
@@ -31,14 +40,13 @@ const reviews = [
     position: "Faculty",
     institution: "ABC Institute",
     review:
-      "EduMe's research-driven approach is outstanding. Faculty and students benefit immensely from their programs.",
+      "EduMe&apos;s research-driven approach is outstanding. Faculty and students benefit immensely from their programs.",
     rating: 3.5,
     image: "/profile-image.avif",
   },
 ];
 
 const ReviewCarousel = () => {
-
   const settings = {
     dots: true,
     infinite: true,
@@ -53,27 +61,40 @@ const ReviewCarousel = () => {
   };
 
   return (
-    <section className="bg-base-100 py-16 flex flex-col items-center text-base-content transition-all duration-500">
-      <h2 className="text-4xl font-bold text-center mb-10">Listen to our Clients</h2>
-      <div className="w-full text-base-content max-w-3xl">
+    <section className="flex flex-col items-center bg-base-100 py-16 text-base-content transition-all duration-500">
+      <h2 className="mb-10 text-center text-4xl font-bold">
+        Listen to our Clients
+      </h2>
+      <div className="w-full max-w-3xl text-base-content">
         <Slider {...settings}>
           {reviews.map((review, index) => (
-            <div key={index} className="bg-base-200 shadow-lg rounded-3xl p-8 text-center">
-              <div className="flex justify-center mb-4">
-                <img
+            <div
+              key={index}
+              className="rounded-3xl bg-base-200 p-8 text-center shadow-lg"
+            >
+              <div className="mb-4 flex justify-center">
+                <Image
                   src={review.image}
                   alt={review.name}
-                  className="w-16 h-16 rounded-full border-4 border-base-content shadow-md"
+                  width={64} // Specify width & height to optimize loading
+                  height={64}
+                  className="rounded-full border-4 border-base-content shadow-md"
                 />
               </div>
-              <p className="text-base-content text-lg italic mb-4">"{review.review}"</p>
-              <div className="flex justify-center mb-4">
-                {[...Array(Math.floor(review.rating))].map((_, i) => (
+              <p className="mb-4 text-lg italic text-base-content">
+                &quot;{review.review}&quot;
+              </p>
+              <div className="mb-4 flex justify-center">
+                {[...Array<number>(Math.floor(review.rating))].map((_, i) => (
                   <FaStar key={i} className="text-yellow-500" />
                 ))}
               </div>
-              <p className="mb-1 text-lg font-semibold text-base-content">{review.name}</p>
-              <p className="mb-1 text-base-content font-medium">{review.position}</p>
+              <p className="mb-1 text-lg font-semibold text-base-content">
+                {review.name}
+              </p>
+              <p className="mb-1 font-medium text-base-content">
+                {review.position}
+              </p>
               <p className="mb-1 text-base-content">{review.institution}</p>
             </div>
           ))}

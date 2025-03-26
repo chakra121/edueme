@@ -1,12 +1,16 @@
 "use client";
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 
 interface ClassItem {
   id: string;
   classTitle: string;
   youTubeLink: string;
+}
+
+interface APIResponse {
+  classes: ClassItem[];
+  error?: string;
 }
 
 export default function ChapterDetailPage() {
@@ -27,7 +31,7 @@ export default function ChapterDetailPage() {
         const res = await fetch(
           `/api/courses/${courseCode}/chapters/${chapterCode}/classes`,
         );
-        const data = await res.json();
+        const data: APIResponse = await res.json(); // ✅ Explicitly type response
 
         if (!res.ok) throw new Error(data.error || "Failed to load classes");
 
@@ -43,8 +47,11 @@ export default function ChapterDetailPage() {
       }
     };
 
-    fetchClasses();
-  }, [chapterCode]);
+    // ✅ Use an IIFE to handle async function
+    (async () => {
+      await fetchClasses();
+    })();
+  }, [chapterCode, courseCode]); // ✅ Added `courseCode` to dependencies
 
   if (loading) return <p className="text-center text-xl">Loading...</p>;
   if (error) return <p className="text-center text-xl text-error">{error}</p>;

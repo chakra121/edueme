@@ -4,24 +4,21 @@ import { useForm } from "react-hook-form";
 import { deleteCourse } from "@/app/actions/deleteCourse";
 import { updateCourse } from "@/app/actions/updateCourse";
 
-const ManageCourses = () => {
+type Course = {
+  id: string;
+  courseCode: string;
+  courseName: string;
+  teacher: string;
+  chapters: string | number;
+};
+
+export const ManageCourses = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [toast, setToast] = useState<{
-    message: string;
-    type: "success" | "error" | null;
-  }>({
+  const [toast, setToast] = useState<{ message: string; type: "success" | "error" | null }>({
     message: "",
     type: null,
   });
-  const [courses, setCourses] = useState<
-    {
-      id: string;
-      courseCode: string;
-      courseName: string;
-      teacher: string;
-      chapters: string | number;
-    }[]
-  >([]);
+  const [courses, setCourses] = useState<Course[]>([]);
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
 
   const {
@@ -30,10 +27,7 @@ const ManageCourses = () => {
     reset,
     setValue,
     formState: { errors },
-  } = useForm<{
-    courseCode: string;
-    courseName: string;
-  }>();
+  } = useForm<{ courseCode: string; courseName: string }>();
 
   // Show toast message
   const showToast = (message: string, type: "success" | "error") => {
@@ -46,10 +40,7 @@ const ManageCourses = () => {
   };
 
   // Handle form submission
-  const handleCreateCourse = async (data: {
-    courseCode: string;
-    courseName: string;
-  }) => {
+  const handleCreateCourse = async (data: { courseCode: string; courseName: string }) => {
     try {
       setLoading(true);
       const response = await fetch("/api/admin/courses/createCourse", {
@@ -65,27 +56,24 @@ const ManageCourses = () => {
 
       reset();
       showToast("Course created successfully!", "success");
+      await fetchCourses(); // ✅ Refresh the course list after creation
     } catch (error) {
-      showToast(
-        error instanceof Error ? error.message : "An error occurred",
-        "error",
-      );
+      showToast(error instanceof Error ? error.message : "An error occurred", "error");
     } finally {
       setLoading(false);
     }
   };
 
-  // view tabbbbb
-
+  // Fetch courses
   const fetchCourses = async () => {
     try {
       setLoading(true);
       const res = await fetch("/api/admin/courses/getCourse");
       if (!res.ok) throw new Error("Failed to fetch courses");
-      const data = await res.json();
+      const data: Course[] = await res.json(); // ✅ Explicitly define the type
       setCourses(data);
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching courses:", error);
     } finally {
       setLoading(false);
     }
@@ -93,18 +81,22 @@ const ManageCourses = () => {
 
   // Fetch courses on component mount
   useEffect(() => {
-    fetchCourses();
+    void fetchCourses(); // ✅ Prevents floating promise warning
   }, []);
 
   // Delete Course (Using Server Action)
   const handleDeleteCourse = async (id: string) => {
-    console.log(id);
-    const result = await deleteCourse(id);
-    if (result.success) {
-      showToast("Course deleted successfully!", "success");
-      fetchCourses(); // ✅ Refresh course list after deletion
-    } else {
-      showToast(result.message, "error");
+    try {
+      console.log(id);
+      const result = await deleteCourse(id);
+      if (result.success) {
+        showToast("Course deleted successfully!", "success");
+        await fetchCourses(); // ✅ Refresh course list after deletion
+      } else {
+        showToast(result.message, "error");
+      }
+    } catch (error) {
+      console.error("Error deleting course:", error);
     }
   };
 
@@ -119,10 +111,7 @@ const ManageCourses = () => {
   };
 
   // Handle course update
-  const handleUpdateCourse = async (data: {
-    courseCode: string;
-    courseName: string;
-  }) => {
+  const handleUpdateCourse = async (data: { courseCode: string; courseName: string }) => {
     if (!selectedCourse) {
       showToast("Please select a course to update.", "error");
       return;
@@ -134,7 +123,7 @@ const ManageCourses = () => {
 
       if (result.success) {
         showToast("Course updated successfully!", "success");
-        fetchCourses(); // ✅ Refresh courses list
+        await fetchCourses(); // ✅ Refresh courses list
         setSelectedCourse(null); // ✅ Clear selection
         reset(); // ✅ Reset form fields
       } else {
@@ -142,10 +131,12 @@ const ManageCourses = () => {
       }
     } catch (error) {
       showToast("An error occurred during update.", "error");
+      console.error("Update error:", error);
     } finally {
       setLoading(false);
     }
   };
+
 
   return (
     <div className="card bg-base-100 p-4 shadow-lg">

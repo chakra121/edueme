@@ -4,6 +4,21 @@ import { useState, useEffect, useTransition } from "react";
 import { deleteTeacher } from "@/app/actions/deleteTeacher";
 import { updateTeacher } from "@/app/actions/updateTeacher";
 
+interface Teacher {
+  teacherName: string;
+  phoneNumber: string;
+  email: string;
+  employeeID: string;
+  course: { courseName: string };
+  createdAt: string;
+}
+
+interface Course {
+  id: string;
+  courseName: string;
+  courseCode: string;
+}
+
 export default function DTeacherCatalogPage() {
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -14,98 +29,84 @@ export default function DTeacherCatalogPage() {
     email: "",
     password: "",
     employeeID: "",
-    courseID :""
+    courseID: "",
   });
+const [updating, setUpdating] = useState(false);
 
-const handleChange = (
-  e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-) => {
-  setFormData({ ...formData, [e.target.name]: e.target.value });
-  setFormErrors({ ...formErrors, [e.target.name]: "" });
-};
-
-const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
-  setLoading(true);
-  setFormErrors({});
-  setSuccessMessage("");
-
-  const teacherData = {
-    ...formData,
-    userRole: "teacher",
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setFormErrors((prev) => ({ ...prev, [e.target.name]: "" }));
   };
 
-  let errors: Record<string, string> = {};
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setLoading(true);
+    setFormErrors({});
+    setSuccessMessage("");
 
-  // Validate required fields
-  if (!teacherData.teacherName)
-    errors.teacherName = "Teacher name is required.";
-  if (!teacherData.phoneNumber)
-    errors.phoneNumber = "Phone number is required.";
-  else if (!/^\d{10}$/.test(teacherData.phoneNumber)) {
-    errors.phoneNumber = "Invalid phone number (10 digits required)";
-  }
-  if (!teacherData.email) errors.email = "Email is required.";
-  if (!teacherData.password) errors.password = "Password is required.";
-  else if (teacherData.password.length < 8)
-    errors.password = "Password must be at least 8 characters";
-  if (!teacherData.employeeID) errors.employeeID = "Employee ID is required.";
-  if (!teacherData.courseID) errors.courseID = "Course selection is required."; // Add this line
+    const teacherData = { ...formData, userRole: "teacher" };
 
-  // Validate email format
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(teacherData.email)) {
-    errors.email = "Invalid email format.";
-  }
+    const errors: Record<string, string> = {};
 
-  if (Object.keys(errors).length > 0) {
-    setFormErrors(errors);
-    setLoading(false);
-    return;
-  }
+    if (!teacherData.teacherName)
+      errors.teacherName = "Teacher name is required.";
+    if (!teacherData.phoneNumber)
+      errors.phoneNumber = "Phone number is required.";
+    else if (!/^\d{10}$/.test(teacherData.phoneNumber)) {
+      errors.phoneNumber = "Invalid phone number (10 digits required)";
+    }
+    if (!teacherData.email) errors.email = "Email is required.";
+    if (!teacherData.password) errors.password = "Password is required.";
+    else if (teacherData.password.length < 8)
+      errors.password = "Password must be at least 8 characters";
+    if (!teacherData.employeeID) errors.employeeID = "Employee ID is required.";
+    if (!teacherData.courseID)
+      errors.courseID = "Course selection is required.";
 
-  try {
-    const response = await fetch("/api/auth/registerTeacher", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(teacherData),
-    });
-
-    const result = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.message || "Something went wrong!");
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(teacherData.email)) {
+      errors.email = "Invalid email format.";
     }
 
-    setSuccessMessage(
-      `Teacher: "${teacherData.teacherName}" is successfully created!`,
-    );
-    setFormData({
-      teacherName: "",
-      phoneNumber: "",
-      email: "",
-      password: "",
-      employeeID: "",
-      courseID: "", // Reset courseID
-    });
-  } catch (error: any) {
-    console.error("Error registering teacher:", error);
-    setFormErrors({ server: error.message || "Failed to register teacher." });
-  } finally {
-    setLoading(false);
-  }
-};
-  // <<<<<<<<<Get teacher for table>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-interface Teacher {
-  teacherName: string;
-  phoneNumber: string;
-  email: string;
-  employeeID: string;
-  course:{courseName: string;}
-  createdAt: string;
-}
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/auth/registerTeacher", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(teacherData),
+      });
+
+      const result: { message?: string } = await response.json();
+
+      if (!response.ok)
+        throw new Error(result.message || "Something went wrong!");
+
+      setSuccessMessage(
+        `Teacher: "${teacherData.teacherName}" is successfully created!`,
+      );
+      setFormData({
+        teacherName: "",
+        phoneNumber: "",
+        email: "",
+        password: "",
+        employeeID: "",
+        courseID: "",
+      });
+    } catch (error) {
+      setFormErrors({
+        server: (error as Error).message || "Failed to register teacher.",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const [teachers, setTeachers] = useState<Teacher[]>([]);
   const [total, setTotal] = useState(0);
@@ -115,7 +116,7 @@ interface Teacher {
     setTLoading(true);
     try {
       const res = await fetch("/api/teachers");
-      const data = await res.json();
+      const data: { teachers: Teacher[]; total: number } = await res.json();
       setTeachers(data.teachers);
       setTotal(data.total);
     } catch (error) {
@@ -126,97 +127,92 @@ interface Teacher {
   };
 
   useEffect(() => {
-    fetchTeachers();
-  }, []);  
-
-  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    void fetchTeachers();
+  }, []);
 
   const [deleting, setDeleting] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
-   const handleDelete = (email: string) => {
-     if (!confirm("Are you sure you want to delete this teacher?")) return;
+  const handleDelete = (email: string) => {
+    if (!confirm("Are you sure you want to delete this teacher?")) return;
 
-     setDeleting(email);
-     startTransition(async () => {
-       const result = await deleteTeacher(email);
-       if (result.success) {
-         setTeachers((prev) =>
-           prev.filter((teacher) => teacher.email !== email),
-         );
-       } else {
-         alert(result.message);
-       }
-       setDeleting(null);
-     });
-   };
-
-  //  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
-  const [updateData, setUpdateData] = useState({ teacherName: "", phoneNumber: "", employeeID: "" });
-  const [updating, setUpdating] = useState(false);
-
- const handleSelectTeacher = (e: React.ChangeEvent<HTMLSelectElement>) => {
-   if (!e.target || !e.target.value) return; // Prevent undefined errors
-
-   const teacher = teachers.find((t) => t.email === e.target.value);
-
-   if (teacher) {
-     setSelectedTeacher(teacher);
-     setUpdateData({
-       teacherName: teacher.teacherName || "",
-       phoneNumber: teacher.phoneNumber || "",
-       employeeID: teacher.employeeID || "",
-     });
-   }
- };
-
-
-  const handleUpdateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUpdateData({ ...updateData, [e.target.name]: e.target.value });
-  };
-
-  const handleUpdateSubmit = () => {
-    if (!selectedTeacher) return;
-
-    setUpdating(true);
+    setDeleting(email);
     startTransition(async () => {
-      const result = await updateTeacher(selectedTeacher.email, updateData);
+      const result = await deleteTeacher(email);
       if (result.success) {
         setTeachers((prev) =>
-          prev.map((t) =>
-            t.email === selectedTeacher.email ? { ...t, ...updateData } : t,
-          ),
+          prev.filter((teacher) => teacher.email !== email),
         );
-        alert("Teacher updated successfully!");
-        setSelectedTeacher(null);
       } else {
         alert(result.message);
       }
-      setUpdating(false);
+      setDeleting(null);
     });
   };
-  //<<<<>>>>>>>>>><<<><><><><><><<>><
-const [courses, setCourses] = useState<
-  { id: string; courseName: string; courseCode:string }[]
->([]);
 
-const fetchCourses = async () => {
-  try {
-    const res = await fetch("/api/teachers/coursesDrop"); // Adjust the API endpoint if needed
-    const data = await res.json();
-    setCourses(data.courses);
-  } catch (error) {
-    console.error("Error fetching courses:", error);
-  }
-};
+  const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
+  const [updateData, setUpdateData] = useState({
+    teacherName: "",
+    phoneNumber: "",
+    employeeID: "",
+  });
 
-useEffect(() => {
-  fetchCourses();
-}, []);
+  const handleSelectTeacher = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const teacher = teachers.find((t) => t.email === e.target.value);
+    if (teacher) {
+      setSelectedTeacher(teacher);
+      setUpdateData({
+        teacherName: teacher.teacherName,
+        phoneNumber: teacher.phoneNumber,
+        employeeID: teacher.employeeID,
+      });
+    }
+  };
 
+  const handleUpdateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUpdateData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
+ const handleUpdateSubmit = async () => {
+   if (!selectedTeacher) return;
 
+   setUpdating(true); // Start loading state
+
+   try {
+     const result = await updateTeacher(selectedTeacher.email, updateData);
+     if (result.success) {
+       setTeachers((prev) =>
+         prev.map((t) =>
+           t.email === selectedTeacher.email ? { ...t, ...updateData } : t,
+         ),
+       );
+       alert("Teacher updated successfully!");
+       setSelectedTeacher(null);
+     } else {
+       alert(result.message);
+     }
+   } catch (error) {
+     alert("Failed to update teacher.");
+   } finally {
+     setUpdating(false); // Stop loading state
+   }
+ };
+
+  const [courses, setCourses] = useState<Course[]>([]);
+
+  const fetchCourses = async () => {
+    try {
+      const res = await fetch("/api/teachers/coursesDrop");
+      const data: { courses: Course[] } = await res.json();
+      setCourses(data.courses);
+    } catch (error) {
+      console.error("Error fetching courses:", error);
+    }
+  };
+
+  useEffect(() => {
+    void fetchCourses();
+  }, []);
   return (
     <div className="card bg-base-100 p-4 shadow-lg">
       <h1 className="card-title p-3 text-3xl font-semibold text-base-content">

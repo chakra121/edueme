@@ -2,10 +2,15 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/globalPrisma";
 import { revalidatePath } from "next/cache";
 
+// ✅ Define the expected request body type
+interface ChapterUpdate {
+  id: string;
+  isCompleted: boolean;
+}
 
 export async function POST(req: Request) {
   try {
-    const { chapters } = await req.json();
+    const { chapters }: { chapters: ChapterUpdate[] } = await req.json();
 
     if (!chapters || !Array.isArray(chapters)) {
       return NextResponse.json(
@@ -14,22 +19,26 @@ export async function POST(req: Request) {
       );
     }
 
-    // Bulk update chapters
+    // ✅ Bulk update chapters with explicit typing
     await Promise.all(
-      chapters.map(({ id, isCompleted }) =>
+      chapters.map(({ id, isCompleted }: ChapterUpdate) =>
         prisma.chapter.update({
           where: { id },
           data: { isCompleted },
         }),
       ),
     );
-revalidatePath("/dashboard/teacherDashboard/dCourseCatalog");
+
+    // ✅ Ensure correct cache revalidation
+    revalidatePath("/dashboard/teacherDashboard/dCourseCatalog");
+
     return NextResponse.json({ success: true });
-    
-  } catch (error) {
+  } catch (error: unknown) {
+    console.error("Error updating chapters:", error);
+
     return NextResponse.json(
-      { error: (error as Error).message },
+      { error: error instanceof Error ? error.message : "Unknown error" },
       { status: 500 },
     );
-  } 
+  }
 }

@@ -7,7 +7,7 @@ import UpdateChapterModal from "../components/updateChapterModal";
 import UpdateClassModal from "../components/updateClassModal";
 import DeleteClassModal from "../components/deleteClassModal";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
-import { Class, Chapter, Course } from "../types";
+import { Chapter, Course } from "../types";
 
 export default function CoursesPage() {
   const [course, setCourse] = useState<Course | null>(null);
@@ -27,22 +27,22 @@ export default function CoursesPage() {
   const fetchCourseData = async () => {
     setIsLoading(true);
     try {
-      // Add 3-second delay
-      const [response] = await Promise.all([
-        fetch("/api/teachers/getTeacherCourse"),
-        new Promise((resolve) => setTimeout(resolve, 3000)),
-      ]);
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      const response = await fetch("/api/teachers/getTeacherCourse");
 
-      const data = await (await response).json();
+      if (!response.ok) throw new Error("Failed to fetch course data");
+
+      const data: { course: Course } = await response.json();
       setCourse(data.course);
     } catch (error) {
       console.error("Failed to fetch course:", error);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   useEffect(() => {
-    fetchCourseData();
+    void fetchCourseData();
   }, []);
 
   if (isLoading)
@@ -109,15 +109,22 @@ export default function CoursesPage() {
           Note:
           <ul className="mt-2 list-disc space-y-3 pl-8">
             <li>
-              Click "Add Class" to select a chapter and add a class with title &
-              link.
+              Click <strong>Add Class</strong> to select a chapter and add a
+              class with title &amp; link.
             </li>
-            <li>Click "Update Class" to modify class details.</li>
-            <li>Click "Delete Class" to remove a class.</li>
-            <li>Click "Update Chapter" to change the chapter's status.</li>
+            <li>
+              Click <strong>Update Class</strong> to modify class details.
+            </li>
+            <li>
+              Click <strong>Delete Class</strong> to remove a class.
+            </li>
+            <li>
+              Click <strong>Update Chapter</strong> to change the chapter's
+              status.
+            </li>
             <li className="font-bold">
-              Click "Refresh Course Data" after every operation to reload the
-              course data.
+              Click <strong>Refresh Course Data</strong> after every operation
+              to reload the course data.
             </li>
           </ul>
         </span>

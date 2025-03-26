@@ -12,7 +12,7 @@ import {
 import { usePathname } from "next/navigation";
 import classname from "classnames";
 import { useSession } from "next-auth/react";
-import prisma from "@/lib/globalPrisma";
+import Image from "next/image"; // ✅ Import Next.js Image
 
 const StudentSideBar = () => {
   const currentPath = usePathname();
@@ -40,20 +40,27 @@ const StudentSideBar = () => {
       icon: MegaphoneIcon,
     },
   ];
+
   return (
     <div className="space-y-4">
       <div className="flex flex-col items-center space-y-2">
         <div className="avatar">
           <div className="ring-base-primary w-16 rounded-full ring">
-            <img
-              className="object-cover"
+            {/* ✅ Use Next.js Image Component */}
+            <Image
+              className="rounded-full object-cover"
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn-ucft4USNcEFqghK_s5NvcjRVJr_cfHN9w&s"
               alt="Teacher Avatar"
+              width={64} // ✅ Provide width
+              height={64} // ✅ Provide height
             />
           </div>
         </div>
-        <h2 className="text-center text-lg font-bold text-base-content">{Data.data?.user.email}</h2>
+        <h2 className="text-center text-lg font-bold text-base-content">
+          {Data.data?.user.email}
+        </h2>
       </div>
+
       <ul className="relative flex w-full flex-col space-y-5 font-semibold text-base-content">
         {links.map((link) => (
           <li key={link.href} className="static w-full">
@@ -72,6 +79,7 @@ const StudentSideBar = () => {
           </li>
         ))}
       </ul>
+
       <div className="mt-auto w-full">
         <button
           onClick={() => signOut()}

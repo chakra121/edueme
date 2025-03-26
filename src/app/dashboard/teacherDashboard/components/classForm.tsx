@@ -1,6 +1,12 @@
 "use client";
 import { useState } from "react";
 
+// Define API response type
+interface ApiResponse {
+  success?: boolean;
+  error?: string;
+}
+
 export default function ClassForm({
   chapterId,
   onClose,
@@ -8,30 +14,37 @@ export default function ClassForm({
   chapterId: string;
   onClose: () => void;
 }) {
-  const [classTitle, setClassTitle] = useState("");
-  const [classLink, setClassLink] = useState("");
+  const [classTitle, setClassTitle] = useState<string>("");
+  const [classLink, setClassLink] = useState<string>("");
   const [message, setMessage] = useState<string | null>(null);
   const [messageType, setMessageType] = useState<"success" | "error">(
     "success",
   );
 
   async function handleSubmit() {
-    const res = await fetch("/api/class", {
-      method: "POST",
-      body: JSON.stringify({ chapterId, classTitle, classLink }),
-      headers: { "Content-Type": "application/json" },
-    });
+    try {
+      const res = await fetch("/api/class", {
+        method: "POST",
+        body: JSON.stringify({ chapterId, classTitle, classLink }),
+        headers: { "Content-Type": "application/json" },
+      });
 
-    const data = await res.json();
-    if (res.ok) {
+      // Parse JSON response safely
+      const data: ApiResponse = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to add class");
+      }
+
       setMessage("Class added successfully!");
       setMessageType("success");
+
       setTimeout(() => {
         setMessage(null);
         onClose();
       }, 2000);
-    } else {
-      setMessage(`Error: ${data.error}`);
+    } catch (error) {
+      setMessage(`Error: ${(error as Error).message}`);
       setMessageType("error");
     }
   }
@@ -70,9 +83,7 @@ export default function ClassForm({
       {message && (
         <div className="fixed bottom-5 right-5 z-50">
           <div
-            className={`alert ${
-              messageType === "success" ? "alert-success" : "alert-error"
-            } shadow-lg`}
+            className={`alert ${messageType === "success" ? "alert-success" : "alert-error"} shadow-lg`}
           >
             <span>{message}</span>
           </div>

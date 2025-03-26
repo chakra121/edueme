@@ -1,4 +1,4 @@
-import NextAuth, { NextAuthOptions, User } from "next-auth";
+import NextAuth, { type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@/lib/globalPrisma";
 import { connectToDatabase } from "@/lib/connectDB";
@@ -7,10 +7,10 @@ import bcrypt from "bcrypt";
 export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
-    maxAge: 60 * 60 * 24, // Session expires in 24 hours
+    maxAge: 60 * 60 * 24, // 24 hours
   },
   jwt: {
-    maxAge: 60 * 60 * 24, // JWT expires in 24 hours
+    maxAge: 60 * 60 * 24, // 24 hours
   },
   providers: [
     CredentialsProvider({
@@ -20,74 +20,47 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", placeholder: "Enter password" },
       },
       async authorize(credentials) {
-        if (!credentials || !credentials.email || !credentials.password) {
+        if (!credentials?.email || !credentials?.password) {
           throw new Error("Invalid credentials!");
         }
 
         try {
           await connectToDatabase();
 
-          // Check in User model
-          let user = await prisma.user.findFirst({
-            where: { email: credentials.email },
-          });
+          const user =
+            (await prisma.user.findFirst({
+              where: { email: credentials.email },
+            })) ??
+            (await prisma.teacher.findFirst({
+              where: { email: credentials.email },
+            })) ??
+            (await prisma.admin.findFirst({
+              where: { email: credentials.email },
+            }));
 
-          if (user && user.hashedPassword) {
-            const isValid = await bcrypt.compare(
-              credentials.password,
-              user.hashedPassword,
-            );
-            if (isValid) {
-              return {
-                id: user.id,
-                email: user.email,
-                role: "student",
-              };
-            }
+          if (!user || !("hashedPassword" in user || "password" in user)) {
+            throw new Error("Invalid credentials!");
           }
 
-          // Check in Teacher model
-          let teacher = await prisma.teacher.findFirst({
-            where: { email: credentials.email },
-          });
+          const isValid = await bcrypt.compare(
+            credentials.password,
+            "hashedPassword" in user ? user.hashedPassword : user.password,
+          );
 
-          if (teacher && teacher.hashedPassword) {
-            const isValid = await bcrypt.compare(
-              credentials.password,
-              teacher.hashedPassword,
-            );
-            if (isValid) {
-              return {
-                id: teacher.id,
-                name: teacher.teacherName,
-                email: teacher.email,
-                role: "teacher",
-              };
-            }
+          if (!isValid) {
+            throw new Error("Invalid credentials!");
           }
 
-          // Check in Admin model
-          let admin = await prisma.admin.findFirst({
-            where: { email: credentials.email },
-          });
-
-          if (admin && admin.password) {
-            const isValid = await bcrypt.compare(
-              credentials.password,
-              admin.password,
-            );
-            if (isValid) {
-              return {
-                id: admin.id,
-                name: "Admin",
-                email: admin.email,
-                role: "superadmin",
-              };
-            }
-          }
-
-          // If no match found
-          throw new Error("Invalid credentials!");
+          return {
+            id: user.id,
+            email: user.email,
+            role:
+              "teacherName" in user
+                ? "teacher"
+                : "superadmin" in user
+                  ? "superadmin"
+                  : "student",
+          };
         } catch (error) {
           console.error("Authorization Error:", error);
           throw new Error("Invalid credentials!");
@@ -100,17 +73,19 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id;
-        token.role = user.role;
-        token.email = user.email;
-
-        token.exp = Math.floor(Date.now() / 1000) + 60 * 60 * 24; // Expire in 24 hours
+        return {
+          ...token,
+          id: user.id,
+          role: user.role,
+          email: user.email,
+          exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24, // 24-hour expiry
+        };
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
-        session.user.id = token.id as string;
+        session.user.id = token.id;
         session.user.role = token.role as "student" | "teacher" | "superadmin";
         session.user.email = token.email;
         session.expires = new Date(token.exp * 1000).toISOString();
@@ -120,7 +95,7 @@ export const authOptions: NextAuthOptions = {
   },
   pages: {
     signIn: "/auth/login",
-    error: "/auth/error", // To show the error on a custom error page
+    error: "/auth/error",
   },
   secret: process.env.NEXTAUTH_SECRET,
 };

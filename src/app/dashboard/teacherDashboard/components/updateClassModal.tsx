@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import ClassDropdown from "./classDropdown";
-import { Course, Chapter, Class } from "../types";
+import type { Course, Chapter, Class } from "../types";
 
 interface Props {
   course: Course;
