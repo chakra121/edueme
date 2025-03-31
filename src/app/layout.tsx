@@ -4,6 +4,7 @@ import { type Metadata } from "next";
 import Script from "next/script";
 import LayoutClient from "./LayoutClient";
 import AuthProvider from "@/components/AuthProvider";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 export const metadata: Metadata = {
   title: "Edueme Research Lab",
@@ -44,6 +45,7 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <SpeedInsights/>
         <AuthProvider>
           <LayoutClient>{children}</LayoutClient>
         </AuthProvider>
