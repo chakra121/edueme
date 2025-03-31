@@ -21,7 +21,7 @@ interface RegisterStudentData {
 export const POST = async (req: NextRequest) => {
   try {
     // ✅ Step 1: Parse and type request body
-    const requestBody: RegisterStudentData = await req.json();
+    const requestBody = await req.json() as RegisterStudentData;
 
     const {
       firstName,

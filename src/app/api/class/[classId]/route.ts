@@ -13,7 +13,8 @@ export async function PUT(
   { params }: { params: { classId: string } },
 ) {
   try {
-    const { classTitle, youTubeLink }: ClassUpdateRequest = await req.json(); // ✅ Explicitly typed
+    const body = await req.json() as ClassUpdateRequest; // Explicitly cast to expected type
+    const { classTitle, youTubeLink } = body; // Destructure after type assertion
 
     const updatedClass = await prisma.class.update({
       where: { id: params.classId },

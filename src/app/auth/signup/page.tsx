@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState } from "react";
+import type { ChangeEvent, FormEvent } from "react";
 
 interface FormData {
   firstName: string;
@@ -15,9 +16,7 @@ interface FormData {
   userRole: string;
 }
 
-interface FormErrors {
-  [key: string]: string;
-}
+type FormErrors = Record<string, string>;
 
 const Signup: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -121,14 +120,17 @@ const Signup: React.FC = () => {
          }),
        });
 
-       const result = await response.json();
+       interface RegisterStudentResponse {
+         message?: string;
+       }
+       const result = (await response.json()) as RegisterStudentResponse;
 
        if (response.ok) {
          console.log("Registration successful:", result);
          setSubmitted(true);
        } else {
          setErrorMessage(
-           result.message || "Registration failed. Please try again.",
+           result.message ?? "Registration failed. Please try again.",
          );
        }
      } catch (error) {
@@ -376,7 +378,7 @@ const Signup: React.FC = () => {
                   <div className="form-control mt-4">
                     <label className="label">
                       <span className="label-text text-base-content">
-                        Parent's Email:
+                        Parent&apos;s Email:
                       </span>
                     </label>
                     <input

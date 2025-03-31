@@ -1,3 +1,4 @@
+/* eslint-disable no-var */
 import { PrismaClient } from "@prisma/client";
 
 // ✅ Extend globalThis properly to avoid `any` issues

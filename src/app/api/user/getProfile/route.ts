@@ -5,7 +5,7 @@ import { authOptions } from "@/lib/auth";
 
 export async function GET() {
   const session = await getServerSession(authOptions);
-  if (!session || !session.user?.email) {
+  if (!session?.user?.email) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -30,21 +30,31 @@ export async function GET() {
     }
 
     return NextResponse.json(user);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }finally{
     await prisma.$disconnect();
   }
 }
 
+interface UserProfileUpdate {
+  firstName?: string;
+  lastName?: string;
+  gender?: string;
+  grade?: string;
+  schoolName?: string;
+  phoneNumber?: string;
+  parentEmail?: string;
+}
+
 export async function PUT(req: Request) {
   const session = await getServerSession(authOptions);
-  if (!session || !session.user?.email) {
+  if (!session?.user?.email) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
-    const data = await req.json();
+    const data = (await req.json()) as UserProfileUpdate;
 
     const updatedUser = await prisma.user.update({
       where: { email: session.user.email },
@@ -52,7 +62,7 @@ export async function PUT(req: Request) {
     });
 
     return NextResponse.json({ success: true, user: updatedUser });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Failed to update profile" },
       { status: 500 },

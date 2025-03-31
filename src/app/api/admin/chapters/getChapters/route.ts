@@ -27,7 +27,7 @@ export async function GET() {
         courseName: chapter.course.courseName,
       })),
     );
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { message: "Failed to fetch chapters" },
       { status: 500 },

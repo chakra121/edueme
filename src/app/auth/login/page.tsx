@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState } from "react";
+import type { ChangeEvent, FormEvent } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -143,7 +144,7 @@ const Login: React.FC = () => {
           </form>
 
           <p className="mt-3 text-center text-sm text-base-content">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <a href="/auth/signup" className="link link-info font-medium">
               Signup
             </a>

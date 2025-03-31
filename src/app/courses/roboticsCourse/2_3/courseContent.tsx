@@ -324,21 +324,7 @@ const courseSections: CourseSection[] = [
           )}
         </div>
       ))}
-      <div className="mt-2 flex items-center space-x-5 justify-center">
-        <Link
-          href="./2_3/mcqTest"
-          className="mt-2 rounded-lg bg-violet-500 p-4 text-sm"
-        >
-          Take a demo Quiz Test
-        </Link>
-        <Link
-          href="./2_3/blanksTest"
-          className="mt-2 rounded-lg bg-violet-500 p-4 text-sm"
-        >
-          Take a demo Blanks Test
-        </Link>
-      </div>
-    </div>
+   </div>
   );
 };
 

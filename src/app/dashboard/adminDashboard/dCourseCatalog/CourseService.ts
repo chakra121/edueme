@@ -15,7 +15,7 @@ export type CourseFormData = {
 export type ServiceResponse = {
   success: boolean;
   message: string;
-  data?: any;
+  data?: Course | Course[] | null;
 };
 
 export const CourseService = {

@@ -1,15 +1,24 @@
-import { NextRequest, NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import prisma from "@/lib/globalPrisma";
 
 export async function PUT(req: NextRequest) {
   try {
+    interface UpdateClassLinkPayload {
+      classLinkId: string;
+      newClassLink: string;
+      newTopics?: string[];
+      newInstructions: string;
+      newDateAndTime?: string;
+    }
+
     const {
       classLinkId,
       newClassLink,
       newTopics,
       newInstructions,
       newDateAndTime,
-    } = await req.json();
+    } = await req.json() as UpdateClassLinkPayload;
 
     if (!classLinkId || !newClassLink || !newInstructions || !newTopics) {
       return NextResponse.json(

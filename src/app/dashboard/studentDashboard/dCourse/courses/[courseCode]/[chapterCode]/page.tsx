@@ -31,9 +31,9 @@ export default function ChapterDetailPage() {
         const res = await fetch(
           `/api/courses/${courseCode}/chapters/${chapterCode}/classes`,
         );
-        const data: APIResponse = await res.json(); // ✅ Explicitly type response
+        const data = (await res.json()) as APIResponse; // ✅ Explicitly cast response
 
-        if (!res.ok) throw new Error(data.error || "Failed to load classes");
+        if (!res.ok) throw new Error(data.error ?? "Failed to load classes");
 
         if (!data.classes || !Array.isArray(data.classes)) {
           throw new Error("Invalid API response");
@@ -48,7 +48,7 @@ export default function ChapterDetailPage() {
     };
 
     // ✅ Use an IIFE to handle async function
-    (async () => {
+    void (async () => {
       await fetchClasses();
     })();
   }, [chapterCode, courseCode]); // ✅ Added `courseCode` to dependencies

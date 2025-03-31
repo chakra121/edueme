@@ -10,7 +10,7 @@ interface ChapterUpdate {
 
 export async function POST(req: Request) {
   try {
-    const { chapters }: { chapters: ChapterUpdate[] } = await req.json();
+    const { chapters } = (await req.json()) as { chapters: ChapterUpdate[] };
 
     if (!chapters || !Array.isArray(chapters)) {
       return NextResponse.json(

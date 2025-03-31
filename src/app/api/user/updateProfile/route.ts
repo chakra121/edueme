@@ -6,9 +6,19 @@ import prisma from "@/lib/globalPrisma"; // Ensure Prisma is correctly set up
 export async function PUT(req: Request) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session || !session.user?.email) {
+    if (!session?.user?.email) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+
+    type UserProfile = {
+      firstName: string;
+      lastName: string;
+      gender?: string;
+      grade?: string;
+      schoolName?: string;
+      phoneNumber: string;
+      parentEmail: string;
+    };
 
     const {
       firstName,
@@ -18,8 +28,7 @@ export async function PUT(req: Request) {
       schoolName,
       phoneNumber,
       parentEmail,
-      photoLink,
-    } = await req.json();
+    } = (await req.json()) as UserProfile;
 
     // Validate required fields
     if (!firstName || !lastName || !phoneNumber || !parentEmail) {

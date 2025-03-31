@@ -5,7 +5,7 @@ import prisma from "@/lib/globalPrisma";
 export async function POST(req: NextRequest) {
   try {
     // ✅ Step 1: Parse and type request body
-    const body: { courseCode: string; courseName: string } = await req.json();
+    const body = (await req.json()) as { courseCode: string; courseName: string };
     const { courseCode, courseName } = body;
 
     // ✅ Step 2: Validate input

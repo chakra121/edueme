@@ -11,7 +11,7 @@ interface ClassRequest {
 
 export async function POST(req: Request) {
   try {
-    const { chapterId, classTitle, classLink }: ClassRequest = await req.json();
+    const { chapterId, classTitle, classLink } = await req.json() as ClassRequest;
 
     if (!chapterId || !classTitle || !classLink) {
       return NextResponse.json(

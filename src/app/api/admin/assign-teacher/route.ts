@@ -11,7 +11,7 @@ interface AssignTeacherRequest {
 export async function POST(req: NextRequest) {
   try {
     // ✅ Parse request body with explicit type
-    const body: AssignTeacherRequest = await req.json();
+    const body = (await req.json()) as AssignTeacherRequest;
     const { studentId, teacherId } = body;
 
     if (!studentId) {

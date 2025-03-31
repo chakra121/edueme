@@ -39,9 +39,9 @@ const DProfilePage = () => {
         const response = await fetch("/api/user/getProfile");
         if (!response.ok) throw new Error("Failed to fetch profile");
 
-        const data: ProfileData = await response.json(); // ✅ Enforce TypeScript type
+        const data = (await response.json()) as ProfileData; // ✅ Explicitly type the JSON response
         setFormData(data);
-      } catch (err) {
+      } catch {
         showToast("Error fetching profile", "error");
       }
     };
@@ -71,7 +71,7 @@ const DProfilePage = () => {
         body: JSON.stringify(formData),
       });
 
-      const result = await response.json();
+      const result = (await response.json()) as { error?: string };
 
       if (response.ok) {
         showToast("Profile updated successfully!", "success");
@@ -87,7 +87,7 @@ const DProfilePage = () => {
   };
 
   // ✅ Function to show toast
-  const showToast = (message: string, type: "success" | "error") => {
+  const showToast = (message: string, _type: "success" | "error") => {
     setToastMessage(message);
     setTimeout(() => setToastMessage(""), 3000);
   };
