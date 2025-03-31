@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
         { status: 400 },
       );
     }
-
+await prisma.$connect(); // ✅ Ensure Prisma connection is established
     // ✅ Create a new chapter
     const newChapter = await prisma.chapter.create({
       data: {
@@ -68,5 +68,7 @@ export async function POST(req: NextRequest) {
       },
       { status: 500 },
     );
+  } finally {
+    await prisma.$disconnect(); // ✅ Ensure Prisma connection is closed
   }
 }
