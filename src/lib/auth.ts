@@ -3,6 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@/lib/globalPrisma";
 import { connectToDatabase } from "@/lib/connectDB";
 import bcrypt from "bcrypt";
+import type { NextApiHandler } from "next";
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -21,49 +22,77 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          throw new Error("Invalid credentials!");
+          return null;
         }
 
         try {
           await connectToDatabase();
 
-          const user =
-            (await prisma.user.findFirst({
-              where: { email: credentials.email },
-            })) ??
-            (await prisma.teacher.findFirst({
-              where: { email: credentials.email },
-            })) ??
-            (await prisma.admin.findFirst({
-              where: { email: credentials.email },
-            }));
+          // Try to find user in each model sequentially
+          let user;
+          let userRole = "";
 
-          if (!user || !("hashedPassword" in user || "password" in user)) {
-            throw new Error("Invalid credentials!");
+          // Check in user model (student)
+          user = await prisma.user.findUnique({
+            where: { email: credentials.email },
+          });
+
+          if (user) {
+            userRole = "student";
           }
 
+          // If not found, check in teacher model
+          if (!user) {
+            user = await prisma.teacher.findUnique({
+              where: { email: credentials.email },
+            });
+            if (user) {
+              userRole = "teacher";
+            }
+          }
+
+          // If still not found, check in admin model
+          if (!user) {
+            user = await prisma.admin.findUnique({
+              where: { email: credentials.email },
+            });
+            if (user) {
+              userRole = "superadmin";
+            }
+          }
+
+          // If no user found in any model
+          if (!user) {
+            return null;
+          }
+
+          // Determine which password field to use
+          const passwordField =
+            "hashedPassword" in user ? user.hashedPassword : user.password;
+
+          if (!passwordField) {
+            return null;
+          }
+
+          // Compare passwords
           const isValid = await bcrypt.compare(
             credentials.password,
-            "hashedPassword" in user ? user.hashedPassword : user.password,
+            passwordField,
           );
 
           if (!isValid) {
-            throw new Error("Invalid credentials!");
+            return null;
           }
 
+          // Return authenticated user with role
           return {
             id: user.id,
             email: user.email,
-            role:
-              "teacherName" in user
-                ? "teacher"
-                : "superadmin" in user
-                  ? "superadmin"
-                  : "student",
+            role: userRole as "student" | "teacher" | "superadmin",
           };
         } catch (error) {
           console.error("Authorization Error:", error);
-          throw new Error("Invalid credentials!");
+          return null;
         } finally {
           await prisma.$disconnect();
         }
@@ -86,7 +115,7 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id;
-        session.user.role = token.role as "student" | "teacher" | "superadmin";
+        session.user.role = token.role;
         session.user.email = token.email;
         session.expires = new Date(token.exp * 1000).toISOString();
       }
@@ -100,5 +129,5 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 };
 
-const handler = NextAuth(authOptions);
+const handler = NextAuth(authOptions) as NextApiHandler;
 export { handler as GET, handler as POST };

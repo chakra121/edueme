@@ -63,7 +63,7 @@ const Login: React.FC = () => {
 
     // Fetch session to get user role
  const res = await fetch("/api/auth/session");
-    const session = await res.json();
+    const session = (await res.json()) as { user?: { role?: string } };
 
     switch (session?.user?.role) {
       case "teacher":

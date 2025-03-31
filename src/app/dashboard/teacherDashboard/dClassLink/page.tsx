@@ -38,7 +38,7 @@ export default function ClassLinkManager() {
           throw new Error("Failed to fetch class links");
         }
 
-        const data: TeacherLink[] = await res.json();
+        const data = (await res.json()) as TeacherLink[];
         setTeacherLinks(Array.isArray(data) ? data : [data]);
       } catch (err) {
         console.error("Error fetching class links:", err);
@@ -97,7 +97,7 @@ export default function ClassLinkManager() {
         setMessage(null);
       }, 2000);
 
-      const updatedData: TeacherLink = await res.json();
+      const updatedData = (await res.json()) as TeacherLink;
 
       // Optimistic UI Update
       setTeacherLinks((prev) =>

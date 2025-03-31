@@ -7,7 +7,7 @@ import UpdateChapterModal from "../components/updateChapterModal";
 import UpdateClassModal from "../components/updateClassModal";
 import DeleteClassModal from "../components/deleteClassModal";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
-import { Chapter, Course } from "../types";
+import type { Chapter, Course } from "../types";
 
 export default function CoursesPage() {
   const [course, setCourse] = useState<Course | null>(null);
@@ -32,7 +32,7 @@ export default function CoursesPage() {
 
       if (!response.ok) throw new Error("Failed to fetch course data");
 
-      const data: { course: Course } = await response.json();
+      const data = (await response.json()) as { course: Course };
       setCourse(data.course);
     } catch (error) {
       console.error("Failed to fetch course:", error);
@@ -119,7 +119,7 @@ export default function CoursesPage() {
               Click <strong>Delete Class</strong> to remove a class.
             </li>
             <li>
-              Click <strong>Update Chapter</strong> to change the chapter's
+              Click <strong>Update Chapter</strong> to change the chapter&apos;s
               status.
             </li>
             <li className="font-bold">

@@ -30,7 +30,7 @@ interface Teacher {
 const AssignTeacherTable = () => {
   const [students, setStudents] = useState<Student[]>([]);
   const [teachers, setTeachers] = useState<Teacher[]>([]);
-  const [assignments, setAssignments] = useState<{ [key: string]: string }>({});
+  const [assignments, setAssignments] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false); // Added loading state
 
   useEffect(() => {
@@ -38,30 +38,26 @@ const AssignTeacherTable = () => {
       try {
         const studentRes = await fetch("/api/user/getStudents");
         const teacherRes = await fetch("/api/teachers/getTeachers");
-        const studentsData = await studentRes.json();
-        const teachersData = await teacherRes.json();
+        const studentsData = (await studentRes.json()) as Student[];
+        const teachersData = (await teacherRes.json()) as Teacher[];
         
         setStudents(studentsData);
         setTeachers(teachersData);
 
-        const initialAssignments: { [key: string]: string } =
-          studentsData.reduce(
-            (
-              acc: { [key: string]: string },
-              student: { id: string; teacherID?: string },
-            ) => {
-              acc[student.id] = student.teacherID ? student.teacherID : "none";
-              return acc;
-            },
-            {} as { [key: string]: string },
-          );
+        const initialAssignments: Record<string, string> = studentsData.reduce(
+          (acc, student) => {
+            acc[student.id] = student.teacherID ?? "none";
+            return acc;
+          },
+          {} as Record<string, string>
+        );
         setAssignments(initialAssignments);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
-    fetchData();
+    void fetchData();
   }, []);
 
   const handleAssignTeacher = async () => {
@@ -115,7 +111,7 @@ const AssignTeacherTable = () => {
                 <td>
                   <TeacherDropdown
                     teachers={teachers}
-                    selected={assignments[student.id] || "none"}
+                    selected={assignments[student.id] ?? "none"}
                     onChange={(teacherId: string) =>
                       setAssignments((prev) => ({
                         ...prev,

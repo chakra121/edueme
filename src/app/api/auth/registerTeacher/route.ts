@@ -4,7 +4,7 @@ import prisma from "@/lib/globalPrisma";
 import bcrypt from "bcrypt";
 import { Prisma } from "@prisma/client";
 
-// ✅ Define expected request body type
+// Define expected request body type
 interface RegisterTeacherData {
   teacherName: string;
   phoneNumber: string;
@@ -17,8 +17,8 @@ interface RegisterTeacherData {
 
 export const POST = async (req: NextRequest) => {
   try {
-    // ✅ Step 1: Parse and type request body
-    const requestBody: RegisterTeacherData = await req.json();
+    // Parse and type request body
+    const requestBody = (await req.json()) as RegisterTeacherData;
 
     const {
       teacherName,
@@ -30,7 +30,7 @@ export const POST = async (req: NextRequest) => {
       courseID,
     } = requestBody;
 
-    // ✅ Step 2: Validate input fields
+    // Validate input fields
     if (
       !teacherName ||
       !phoneNumber ||
@@ -40,49 +40,114 @@ export const POST = async (req: NextRequest) => {
       !courseID ||
       !userRole
     ) {
-      return NextResponse.json({ message: "Invalid Data" }, { status: 422 });
+      return NextResponse.json(
+        {
+          message: "Invalid Data",
+          success: false,
+        },
+        { status: 422 },
+      );
     }
 
-    // ✅ Step 3: Hash the password securely
+    // Hash the password securely
     const hashedPassword: string = await bcrypt.hash(password, 10);
 
-    // ✅ Step 4: Store teacher data in the database
     await prisma.$connect();
 
-    // ✅ Create Teacher
+    // Check if email already exists
+    const existingTeacherWithEmail = await prisma.teacher.findUnique({
+      where: { email },
+    });
+
+    if (existingTeacherWithEmail) {
+      return NextResponse.json(
+        {
+          message: "Email already exists",
+          success: false,
+        },
+        { status: 409 },
+      );
+    }
+
+    // Check if courseID is already assigned to another teacher
+    if (courseID) {
+      const existingTeacherWithCourse = await prisma.teacher.findFirst({
+        where: { courseID },
+      });
+
+      if (existingTeacherWithCourse) {
+        return NextResponse.json(
+          {
+            message: "This course is already assigned to another teacher",
+            success: false,
+          },
+          { status: 409 },
+        );
+      }
+    }
+
+    // Create Teacher
     const teacher = await prisma.teacher.create({
       data: {
         teacherName,
         phoneNumber,
         email,
-        hashedPassword: hashedPassword, // ✅ Ensure Prisma schema expects `password`, not `hashedPassword`
+        hashedPassword,
         employeeID,
         userRole,
-        courseID,
+        courseID, // This is optional in your schema
+        photoLink: "", // Optional, providing empty string as default
       },
     });
 
-    // ✅ Step 5: Create ClassLink with `??` for nullish handling
+    // Create ClassLink
     await prisma.classLink.create({
       data: {
         classLink: "",
         topics: [],
         description: "",
         teacherID: teacher.id,
-        courseID: teacher.courseID ?? "", // ✅ Prefer `??` over `||` for safer default values
+        courseID,
         DateAndTime: new Date().toISOString(),
       },
     });
 
-    return NextResponse.json({ teacher }, { status: 201 });
+    return NextResponse.json(
+      {
+        teacher,
+        success: true,
+        message: "Teacher registered successfully",
+      },
+      { status: 201 },
+    );
   } catch (error: unknown) {
     console.error("Error registering teacher:", error);
 
-    // ✅ Step 6: Handle Prisma unique constraint errors properly
+    // Handle Prisma unique constraint errors properly
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2002") {
+        // Check the target field that caused the unique constraint error
+        const target = (error.meta?.target as string[]) || [];
+
+        if (target.includes("email")) {
+          return NextResponse.json(
+            { message: "Email already exists", success: false },
+            { status: 409 },
+          );
+        }
+
+        if (target.includes("courseID")) {
+          return NextResponse.json(
+            {
+              message: "This course is already assigned to another teacher",
+              success: false,
+            },
+            { status: 409 },
+          );
+        }
+
         return NextResponse.json(
-          { message: "Email already exists", success: false },
+          { message: "Duplicate record exists", success: false },
           { status: 409 },
         );
       }

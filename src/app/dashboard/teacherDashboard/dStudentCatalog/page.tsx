@@ -28,7 +28,7 @@ const ManageStudent = () => {
         throw new Error("Failed to fetch students");
       }
 
-      const data: Student[] = await response.json();
+      const data = (await response.json()) as Student[];
       setStudents(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Fetch error:", err);

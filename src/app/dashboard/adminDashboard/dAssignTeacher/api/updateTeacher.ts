@@ -14,5 +14,6 @@ export const updateTeacherAssignment = async (
     throw new Error("Failed to update teacher assignment");
   }
 
-  return response.json();
+  const data = await response.json() as { success: boolean; message: string };
+  return data;
 };

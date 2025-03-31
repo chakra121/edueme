@@ -30,10 +30,10 @@ export default function ClassForm({
       });
 
       // Parse JSON response safely
-      const data: ApiResponse = await res.json();
+      const data = (await res.json()) as ApiResponse;
 
       if (!res.ok) {
-        throw new Error(data.error || "Failed to add class");
+        throw new Error(data.error ?? "Failed to add class");
       }
 
       setMessage("Class added successfully!");
