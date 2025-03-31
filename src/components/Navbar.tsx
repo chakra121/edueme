@@ -20,12 +20,6 @@ const Navbar = () => {
     setTheme(savedTheme);
   }, []);
 
-  const toggleTheme = () => {
-    const newTheme = theme === "bumblebee" ? "dracula" : "bumblebee";
-    document.documentElement.setAttribute("data-theme", newTheme);
-    localStorage.setItem("theme", newTheme);
-    setTheme(newTheme);
-  };
 
   const logoSrc = theme === "bumblebee" ? "/logo_black.png" : "/logo_white.png";
   const logoSrc2 = theme === "bumblebee" ? "/logo_white.png" : "/logo_black.png";

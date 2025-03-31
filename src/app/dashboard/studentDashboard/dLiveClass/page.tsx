@@ -22,7 +22,7 @@ const DLiveClass = () => {
       const date =
         typeof dateString === "string" ? new Date(dateString) : dateString;
       return format(date, "MMMM dd, yyyy hh:mm aa");
-    } catch (error) {
+    } catch {
       return "Invalid date";
     }
   };

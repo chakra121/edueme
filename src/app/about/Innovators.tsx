@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import React from 'react';
 
 const Innovators: React.FC = () => {
@@ -16,43 +17,54 @@ const Innovators: React.FC = () => {
   return (
     <div className="bg-light-blue py-16">
       <div className="wrapper text-center">
-        <h6 className="text-lg font-semibold text-green-600 uppercase">Innovators</h6>
-        <h2 className="text-4xl font-extrabold text-white leading-tight ">
+        <h6 className="text-lg font-semibold uppercase text-green-600">
+          Innovators
+        </h6>
+        <h2 className="text-4xl font-extrabold leading-tight text-white">
           Helping 4M students find their inner expertise and{" "}
-          <span className="block mt-4 text-4xl font-bold text-white ">
+          <span className="mt-4 block text-4xl font-bold text-white">
             become the leaders and innovators of tomorrow.
           </span>
         </h2>
-        <p className="text-white mt-4 max-w-3xl mx-auto">
-          At Edueme, we offer designed courses to provide students with hands-on experience in robotics, enabling them to develop the practical skills necessary to construct their own innovative ideas.
+        <p className="mx-auto mt-4 max-w-3xl text-white">
+          At Edueme, we offer designed courses to provide students with hands-on
+          experience in robotics, enabling them to develop the practical skills
+          necessary to construct their own innovative ideas.
         </p>
 
         {/* Image Carousel Section */}
         <div className="mt-8">
-          <div className="overflow-hidden relative">
+          <div className="relative overflow-hidden">
             <div className="carousel-wrapper">
               <div className="carousel flex">
                 {images.map((image, index) => (
-                  <div key={index} className="flex-none w-1/4 p-2">
-                    <div className="shadow-md rounded-md overflow-hidden">
-                      <img
+                  <div key={index} className="w-1/4 flex-none p-2">
+                    <div className="overflow-hidden rounded-md shadow-md">
+                      <Image
                         src={image.src}
                         alt={image.alt}
-                        className="w-full h-auto rounded-lg"
-                        style={{ maxWidth: '200px' }} // Reduce image size
+                        className="h-auto w-full rounded-lg"
+                        style={{ maxWidth: "200px" }} // Reduce image size
+                        width={500}
+                        height={300}
                       />
                     </div>
                   </div>
                 ))}
                 {/* Duplicate images for smooth looping effect */}
                 {images.map((image, index) => (
-                  <div key={index + images.length} className="flex-none w-1/4 p-2">
-                    <div className="shadow-md rounded-md overflow-hidden">
-                      <img
+                  <div
+                    key={index + images.length}
+                    className="w-1/4 flex-none p-2"
+                  >
+                    <div className="overflow-hidden rounded-md shadow-md">
+                      <Image
                         src={image.src}
                         alt={image.alt}
-                        className="w-full h-auto rounded-lg"
-                        style={{ maxWidth: '200px' }} // Reduce image size
+                        className="h-auto w-full rounded-lg"
+                        width={500}
+                        height={300}
+                        style={{ maxWidth: "200px" }} // Reduce image size
                       />
                     </div>
                   </div>

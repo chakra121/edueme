@@ -19,7 +19,7 @@ export const updateChapter = async (data: {
       },
     });
     return { success: true, message: "Chapter updated successfully!" };
-  } catch (error) {
+  } catch {
     return { success: false, message: "Failed to update chapter." };
   }
 };

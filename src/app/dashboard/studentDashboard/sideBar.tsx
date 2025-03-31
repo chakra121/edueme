@@ -12,7 +12,6 @@ import {
 import { usePathname } from "next/navigation";
 import classname from "classnames";
 import { useSession } from "next-auth/react";
-import Image from "next/image"; // ✅ Import Next.js Image
 
 const StudentSideBar = () => {
   const currentPath = usePathname();
@@ -47,13 +46,7 @@ const StudentSideBar = () => {
         <div className="avatar">
           <div className="ring-base-primary w-16 rounded-full ring">
             {/* ✅ Use Next.js Image Component */}
-            <img
-              className="rounded-full object-cover"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn-ucft4USNcEFqghK_s5NvcjRVJr_cfHN9w&s"
-              alt="Teacher Avatar"
-              width={64} // ✅ Provide width
-              height={64} // ✅ Provide height
-            ></img>
+            
           </div>
         </div>
         <h2 className="text-center text-lg font-bold text-base-content">

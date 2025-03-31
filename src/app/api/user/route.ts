@@ -6,7 +6,7 @@ export const GET = async () =>{
         await prisma.$connect();
         const users = await prisma.user.findMany();
         return NextResponse.json({users},{status:200});
-    } catch (error) {
+    } catch {
         return NextResponse.json({error:"Server Error"},{status:500});
     }finally{
         await prisma.$disconnect();

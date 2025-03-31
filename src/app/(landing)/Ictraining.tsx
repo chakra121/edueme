@@ -5,7 +5,7 @@ import {
   FaUsers,
   FaLaptopCode,
 } from "react-icons/fa";
-
+import Image from "next/image";
 import { PiCertificateFill } from "react-icons/pi";
 
 
@@ -17,28 +17,28 @@ const ICTraining = () => {
       description:
         "Engage with instructors in real-time, ask questions, and participate in discussions for a better understanding.",
       icon: <FaChalkboardTeacher className="text-5xl text-base-content" />,
-      image: "interactive_learning.jpg",
+      image: "/interactive_learning.jpg",
     },
     {
       title: "Collaborative Environment",
       description:
         "Work together with peers, share ideas, and improve teamwork skills through group activities and projects.",
       icon: <FaUsers className="text-5xl text-base-content" />,
-      image: "collaborative_learning.jpg",
+      image: "/collaborative_learning.jpg",
     },
     {
       title: "Hands-On Practical Sessions",
       description:
         "Gain real-world experience with lab exercises, coding sessions, and live demonstrations.",
       icon: <FaLaptopCode className="text-5xl text-base-content" />,
-      image: "hands_on_learning.jpg",
+      image: "/hands_on_learning.jpg",
     },
     {
       title: "Certified Courses",
       description:
         "Complete instructor-led courses and earn industry-recognized certifications to boost your career.",
       icon: <PiCertificateFill className="text-5xl text-base-content" />,
-      image: "certification.jpg",
+      image: "/certification.jpg",
     },
   ];
 
@@ -76,9 +76,11 @@ const ICTraining = () => {
               whileHover={{ scale: 1.1 }}
               transition={{ duration: 0.3 }}
             >
-              <img
+              <Image
                 src={point.image}
                 alt={point.title}
+                width={500}
+                height={300}
                 className="h-full w-full object-cover text-base-content transition-transform duration-500"
               />
             </motion.figure>

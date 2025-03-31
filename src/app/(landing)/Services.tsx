@@ -1,8 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const Services: React.FC = () => {
-
   // Variants for text animations
   const textVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -85,10 +85,12 @@ const Services: React.FC = () => {
             custom={index} // Stagger effect using index
           >
             <figure className="h-48 w-full overflow-hidden">
-              <img
+              <Image
                 src={card.imageSrc}
                 alt={card.title}
                 className="h-full w-full border-b-2 border-orange-950 object-cover"
+                width={300}
+                height={200}
               />
             </figure>
             <div className="card-body text-center">

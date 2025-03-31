@@ -6,7 +6,7 @@ export const deleteChapter = async (id: string) => {
   try {
     await prisma.chapter.delete({ where: { id } });
     return { success: true, message: "Chapter deleted successfully!" };
-  } catch (error) {
+  } catch {
     return { success: false, message: "Failed to delete chapter." };
   }
 };

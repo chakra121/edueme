@@ -23,8 +23,8 @@ export default function ClassLinkManager() {
   const [newInstructions, setNewInstructions] = useState<string>("");
   const [newDateAndTime, setNewDateAndTime] = useState<string>("");
   const [message, setMessage] = useState<string | null>(null);
-  const [messageType, setMessageType] = useState<"success" | "error">(
-    "success",
+  const [messageType, setMessageType] = useState<"success" | "error" | null>(
+    null,
   );
 
   // Fetch Class Links
@@ -49,12 +49,6 @@ export default function ClassLinkManager() {
 
     void fetchClassLinks();
   }, []);
-
-  // Format date for display
-  const formatDateTime = (dateString: string) => {
-    if (!dateString) return "Invalid date";
-    return format(new Date(dateString), "MMMM dd, yyyy hh:mm aa");
-  };
 
   // Format date for input field
   const formatDateTimeForInput = (dateString: string) => {
@@ -238,6 +232,17 @@ export default function ClassLinkManager() {
           ))
         )}
       </div>
+      {message && (
+        <div
+          className={`toast toast-${messageType} fixed bottom-4 left-1/2 -translate-x-1/2 transform rounded p-4 shadow-lg ${
+            messageType === "success"
+              ? "bg-green-500 text-white"
+              : "bg-red-500 text-white"
+          }`}
+        >
+          {message}
+        </div>
+      )}
     </div>
   );
 }

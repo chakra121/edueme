@@ -19,7 +19,7 @@ export async function GET() {
       return student;
     });
 
-    return NextResponse.json(students, { status: 200 });
+    return NextResponse.json(studentsWithCourse, { status: 200 });
   } catch (error) {
     console.error("Error fetching students:", error);
     return NextResponse.json(

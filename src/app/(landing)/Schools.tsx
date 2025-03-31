@@ -1,8 +1,9 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import Marquee from "@/components/ui/marquee";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const schoolsList = [
   { img: "/schools/logo1.png" },
@@ -29,7 +30,7 @@ const ReviewCard = ({ img }: { img: string }) => {
       )}
       whileHover={{ scale: 1.1 }} // Slight hover effect
     >
-      <img
+      <Image
         width="120"
         height="120"
         alt={img}
@@ -41,12 +42,9 @@ const ReviewCard = ({ img }: { img: string }) => {
 };
 
 export default function Schools() {
-  const [theme, setTheme] = useState("bumblebee");
-
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") ?? "bumblebee";
     document.documentElement.setAttribute("data-theme", savedTheme);
-    setTheme(savedTheme);
   }, []);
 
   return (

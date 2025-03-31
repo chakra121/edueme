@@ -1,6 +1,6 @@
 "use client";
-import { motion, useAnimation } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
 import Hero from "./Hero";
 import Schools from "./Schools";
 import Products from "./Products";
@@ -26,17 +26,17 @@ export default function HomePage() {
 
   // State to track scroll direction
   const [scrollDirection, setScrollDirection] = useState("down");
-  let lastScrollY = 0;
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      if (currentScrollY > lastScrollY) {
+      if (currentScrollY > lastScrollY.current) {
         setScrollDirection("down"); // User scrolling down
       } else {
         setScrollDirection("up"); // User scrolling up
       }
-      lastScrollY = currentScrollY;
+      lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener("scroll", handleScroll);
