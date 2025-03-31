@@ -36,8 +36,19 @@ const AssignTeacherTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const studentRes = await fetch("/api/user/getStudents");
-        const teacherRes = await fetch("/api/teachers/getTeachers");
+  const studentRes = await fetch("/api/user/getStudents", {
+    method: "GET",
+    headers: {
+      "Cache-Control": "no-cache, no-store, must-revalidate",
+    },
+  });
+  const teacherRes = await fetch("/api/teachers/getTeachers", {
+    method: "GET",
+    headers: {
+      "Cache-Control": "no-cache, no-store, must-revalidate",
+      
+    },
+  });
         const studentsData = (await studentRes.json()) as Student[];
         const teachersData = (await teacherRes.json()) as Teacher[];
         

@@ -21,7 +21,12 @@ export type ServiceResponse = {
 export const CourseService = {
   // Fetch all courses
   fetchCourses: async (): Promise<Course[]> => {
-    const res = await fetch("/api/admin/courses/getCourse");
+    const res = await fetch("/api/admin/courses/getCourse", {
+      method: "GET",
+      headers: {
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+      },
+    });
     if (!res.ok) throw new Error("Failed to fetch courses");
     return (await res.json()) as Course[];
   },

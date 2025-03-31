@@ -23,7 +23,12 @@ export async function registerTeacher(
 
 export async function fetchTeachers(): Promise<Teacher[]> {
   try {
-    const response = await fetch("/api/teachers");
+    const response = await fetch("/api/teachers", {
+      method: "GET",
+      headers: {
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+      },
+    });
 
     if (!response.ok) {
       throw new Error(
@@ -62,7 +67,12 @@ export async function fetchTeachers(): Promise<Teacher[]> {
 
 export async function fetchCourses(): Promise<Course[]> {
   try {
-    const res = await fetch("/api/teachers/coursesDrop");
+    const res = await fetch("/api/teachers/coursesDrop", {
+      method: "GET",
+      headers: {
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+      },
+    });
 
     if (!res.ok) {
       throw new Error(

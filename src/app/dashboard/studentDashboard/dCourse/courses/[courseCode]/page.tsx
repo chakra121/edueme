@@ -29,7 +29,12 @@ export default function CourseDetailPage() {
 
     const fetchChapters = async () => {
       try {
-        const res = await fetch(`/api/courses/${courseCode}/chapters`);
+        const res = await fetch(`/api/courses/${courseCode}/chapters`, {
+          method: "GET",
+          headers: {
+            "Cache-Control": "no-cache, no-store, must-revalidate",
+          },
+        });
         const data = (await res.json()) as APIResponse; // ✅ Explicitly cast response
 
         if (!res.ok) throw new Error(data.error ?? "Failed to load chapters");

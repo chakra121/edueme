@@ -4,7 +4,12 @@ import type { Chapter,Course } from "./ChapterTypes";
 
 export const fetchCourses = async () => {
   try {
-    const response = await fetch("/api/admin/courses/getCourse");
+    const response = await fetch("/api/admin/courses/getCourse", {
+      method: "GET",
+      headers: {
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+      },
+    });
     if (!response.ok) throw new Error("Failed to fetch courses");
     return (await response.json()) as Course[];
   } catch (error) {
@@ -15,7 +20,12 @@ export const fetchCourses = async () => {
 
 export const fetchChapters = async (): Promise<Chapter[]> => {
   try {
-    const response = await fetch("/api/admin/chapters/getChapters");
+    const response = await fetch("/api/admin/chapters/getChapters", {
+      method: "GET",
+      headers: {
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+      },
+    });
     if (!response.ok) throw new Error("Failed to fetch chapters");
     return (await response.json()) as Chapter[];
   } catch (error) {

@@ -32,7 +32,12 @@ export default function ClassLinkManager() {
     const fetchClassLinks = async () => {
       try {
         setLoading(true);
-        const res = await fetch("/api/classlink/getLink");
+        const res = await fetch("/api/classlink/getLink", {
+          method: "GET",
+          headers: {
+            "Cache-Control": "no-cache, no-store, must-revalidate",
+          },
+        });
 
         if (!res.ok) {
           throw new Error("Failed to fetch class links");

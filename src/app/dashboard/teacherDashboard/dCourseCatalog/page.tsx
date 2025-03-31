@@ -28,7 +28,12 @@ export default function CoursesPage() {
     setIsLoading(true);
     try {
       await new Promise((resolve) => setTimeout(resolve, 3000));
-      const response = await fetch("/api/teachers/getTeacherCourse");
+      const response = await fetch("/api/teachers/getTeacherCourse", {
+        method: "GET",
+        headers: {
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+        },
+      });
 
       if (!response.ok) throw new Error("Failed to fetch course data");
 

@@ -30,6 +30,12 @@ export default function ChapterDetailPage() {
       try {
         const res = await fetch(
           `/api/courses/${courseCode}/chapters/${chapterCode}/classes`,
+          {
+            method: "GET",
+            headers: {
+              "Cache-Control": "no-cache, no-store, must-revalidate",
+            },
+          },
         );
         const data = (await res.json()) as APIResponse; // ✅ Explicitly cast response
 

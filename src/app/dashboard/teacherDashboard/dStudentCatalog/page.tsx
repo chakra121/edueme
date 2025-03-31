@@ -21,7 +21,12 @@ const ManageStudent = () => {
       setLoading(true);
       setError(null);
 
-      const response = await fetch("/api/user/courseStudents");
+      const response = await fetch("/api/user/courseStudents", {
+        method: "GET",
+        headers: {
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+        },
+      });
       await new Promise((resolve) => setTimeout(resolve, 3000)); // Simulating delay
 
       if (!response.ok) {
