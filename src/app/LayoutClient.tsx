@@ -13,6 +13,7 @@ const HIDDEN_BOTH_PATHS = [
 const HIDDEN_FOOTER_PATHS = [
   "/dashboard/studentDashboard",
   "/dashboard/teacherDashboard",
+  "/dashboard/adminDashboard",
 ];
 
 export default function LayoutClient({

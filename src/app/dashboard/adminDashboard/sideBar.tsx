@@ -28,14 +28,19 @@ const AdminSideBar = () => {
       icon: UsersIcon,
     },
     {
-      label:"Courses Catalog",
-      href:"/dashboard/adminDashboard/dCourseCatalog",
-      icon :UsersIcon,
+      label: "Courses Catalog",
+      href: "/dashboard/adminDashboard/dCourseCatalog",
+      icon: UsersIcon,
     },
-     {
-      label:"Chapters Catalog",
-      href:"/dashboard/adminDashboard/dChapterCatalog",
-      icon :UsersIcon,
+    {
+      label: "Chapters Catalog",
+      href: "/dashboard/adminDashboard/dChapterCatalog",
+      icon: UsersIcon,
+    },
+    {
+      label: "Download Data",
+      href: "/dashboard/adminDashboard/dDownloadData",
+      icon: UsersIcon,
     },
   ];
   return (

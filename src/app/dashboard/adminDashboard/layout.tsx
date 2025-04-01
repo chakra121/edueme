@@ -7,7 +7,7 @@ interface PageProps {
 
 export default function Page({ children }: PageProps) {
   return (
-    <div className="bg-base-content pb-5 px-[4rem] pt-[5rem]">
+    <div className="min-h-screen bg-base-content px-[4rem] pb-5 pt-[5rem]">
       <div className="card fixed w-64 bg-base-100 p-4">
         <AdminSideBar />
       </div>
