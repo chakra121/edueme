@@ -19,14 +19,25 @@ export async function GET() {
 
     // Handle missing data (if no teacher or chapters exist, return NaN)
     const formattedCourses = courses.map((course) => ({
-      id : course.id,
+      id: course.id,
       courseCode: course.courseCode,
       courseName: course.courseName,
       teacher: course.teacher ? course.teacher.teacherName : "NaN",
       chapters: course._count?.chapters ?? "NaN",
     }));
 
-    return NextResponse.json(formattedCourses, { status: 200 });
+    // Create response object
+    const response = NextResponse.json(formattedCourses);
+
+    // Set cache-control headers to prevent caching
+    response.headers.set(
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate, proxy-revalidate",
+    );
+    response.headers.set("Pragma", "no-cache");
+    response.headers.set("Expires", "0");
+
+    return response;
   } catch (error) {
     console.error("Error fetching courses:", error);
     return NextResponse.json(
