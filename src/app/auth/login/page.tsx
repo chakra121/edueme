@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface FormData {
   email: string;
@@ -130,6 +131,14 @@ const Login: React.FC = () => {
               {errors.password && (
                 <span className="text-sm text-error">{errors.password}</span>
               )}
+              <div className="flex mt-2 justify-end">
+                <Link
+                  href="/auth/forgot-password"
+                  className="link link-info text-xs"
+                >
+                  Forgot password?
+                </Link>
+              </div>
             </div>
 
             <div className="card-actions mt-6">

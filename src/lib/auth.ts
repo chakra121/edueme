@@ -29,7 +29,7 @@ export const authOptions: NextAuthOptions = {
           await connectToDatabase();
 
           // Try to find user in each model sequentially
-          let user;
+          let user: { id: string; email: string; hashedPassword?: string; password?: string } | null;
           let userRole = "";
 
           // Check in user model (student)
@@ -68,7 +68,7 @@ export const authOptions: NextAuthOptions = {
 
           // Determine which password field to use
           const passwordField =
-            "hashedPassword" in user ? user.hashedPassword : user.password;
+            user.hashedPassword ?? user.password;
 
           if (!passwordField) {
             return null;

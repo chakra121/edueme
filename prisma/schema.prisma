@@ -14,9 +14,13 @@ datasource db {
 }
 
 model Admin {
-  id            String              @id @default(auto()) @map("_id") @db.ObjectId
-  email         String              @unique
-  password      String
+  id               String              @id @default(auto()) @map("_id") @db.ObjectId
+  email            String              @unique
+  hashedPassword   String
+
+  resetToken       String?          @map("_resetToken")
+  resetTokenExpiry DateTime?
+
   announcements AdminAnnouncement[] @relation("AdminToAnnouncement")
 }
 
@@ -48,6 +52,9 @@ model User {
   userRole       String
   hashedPassword String
   photoLink      String?
+
+  resetToken       String?  @map("_resetToken")
+  resetTokenExpiry DateTime?
   
   courseID       String?   @db.ObjectId() // One student can have only one course
   teacherID      String?
@@ -70,6 +77,10 @@ model Teacher {
   employeeID     String
   photoLink      String?
   userRole       String
+
+  resetToken       String?  @map("_resetToken")
+  resetTokenExpiry DateTime?
+
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
