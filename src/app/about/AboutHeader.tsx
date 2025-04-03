@@ -12,7 +12,7 @@ const AboutHeader = () => {
         {/* Left Image Card */}
         <div className="overflow-hidden rounded-lg shadow-lg">
           <Image
-            src="about bg.png"
+            src="/about bg.png"
             alt="About Banner"
             className="h-auto w-full"
             style={{ backgroundColor: "transparent" }}
