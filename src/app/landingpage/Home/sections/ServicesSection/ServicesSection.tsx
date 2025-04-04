@@ -1,5 +1,6 @@
-import { ArrowRightIcon, ArrowLeftIcon } from "lucide-react";
+import { ArrowRightIcon } from "lucide-react";
 import React from "react";
+import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -127,7 +128,9 @@ export const ServicesSection = (): JSX.Element => {
               />
             ) : (
               <div className="relative w-[250px] h-[220px]">
-                <img
+                <Image
+                  width={250}
+                  height={220}
                   className="w-full h-full object-contain"
                   alt={card.imageAlt}
                   src={card.image}

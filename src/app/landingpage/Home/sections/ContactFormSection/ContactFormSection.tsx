@@ -8,6 +8,7 @@ import {
   RadioGroupItem,
 } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
+import Image from "next/image";
 
 export const ContactFormSection = (): JSX.Element => {
   // Form options data
@@ -112,13 +113,17 @@ export const ContactFormSection = (): JSX.Element => {
           {/* Right side: Decorative element */}
           <div className="relative w-[500px] h-[500px] flex-shrink-0 bg-[url(/prodcuts/mask-group.png)] bg-contain bg-no-repeat">
             {/* Black vector */}
-            <img
+            <Image
+              width={500}
+              height={500}
               className="absolute w-[120px] h-[120px] top-[150px] left-[190px]"
               alt="ntg"
               src="/prodcuts/odiamond.png"
             />
             {/* Yellow vector */}
-            <img
+            <Image
+              width={500}
+              height={500}
               className="absolute w-[80px] h-[80px] top-[300px] left-[230px]"
               alt="ntg"
               src="/prodcuts/vector-2.svg"
