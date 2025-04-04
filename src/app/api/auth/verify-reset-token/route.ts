@@ -5,7 +5,10 @@ import { connectToDatabase } from "@/lib/connectDB";
 import prisma from "@/lib/globalPrisma";
 import type { UserType } from "@/lib/types";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: NextRequest) {
+  
   try {
     await connectToDatabase();
 
