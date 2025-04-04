@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/globalPrisma"; // Ensure you have a Prisma client in `lib/prisma.ts`
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   try {
     const students = await prisma.user.findMany({

@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/globalPrisma"; // Ensure this path is correct
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   try {
     const courses = await prisma.courses.findMany({

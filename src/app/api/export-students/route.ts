@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import ExcelJS from "exceljs";
 import prisma from "@/lib/globalPrisma";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   try {
     // Fetch all students (users with userRole = 'student')
