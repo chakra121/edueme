@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useEffect, useRef } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CallToActionSection } from "./sections/CallToActionSection";
@@ -9,6 +10,8 @@ import { HeroSection } from "./sections/HeroSection/HeroSection";
 import { ProcessOverviewSection } from "./sections/ProcessOverviewSection";
 import { ServicesSection } from "./sections/ServicesSection";
 import { TestimonialsSection } from "./sections/TestimonialsSection";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const sectionHeaders = [
   {
@@ -49,8 +52,161 @@ const sectionHeaders = [
 ];
 
 const Home = (): JSX.Element => {
+  const robotRef = useRef(null);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    // Register ScrollTrigger plugin
+    gsap.registerPlugin(ScrollTrigger);
+    
+    // Initial robot position (above the viewport)
+    gsap.set(robotRef.current, {
+      position: "fixed",
+      top: "-100px",
+      left: "50%",
+      transform: "translateX(-50%)",
+      width: "120px",
+      height: "auto",
+      zIndex: 1000
+    });
+
+    // Robot animation for ServicesSection
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: "#services-section",
+        start: "top 80%",
+        end: "bottom 20%",
+        scrub: true,
+        // markers: true, // Enable for debugging
+      }
+    })
+    .to(robotRef.current, {
+      top: "120px",
+      left: "20%",
+      rotate: 0
+    });
+
+    // Robot animation for CTA Section
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: "#cta-section",
+        start: "top 80%",
+        end: "bottom 20%",
+        scrub: true,
+      }
+    })
+    .to(robotRef.current, {
+      top: "150px",
+      left: "80%",
+      rotate: "10deg"
+    });
+
+    // Robot animation for Case Studies Section
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: "#case-studies-section",
+        start: "top 80%",
+        end: "bottom 20%",
+        scrub: true,
+      }
+    })
+    .to(robotRef.current, {
+      top: "180px",
+      left: "30%",
+      rotate: "-5deg"
+    });
+
+    // Robot animation for Process Overview Section
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: "#process-section",
+        start: "top 80%",
+        end: "bottom 20%",
+        scrub: true,
+      }
+    })
+    .to(robotRef.current, {
+      top: "150px",
+      left: "70%",
+      rotate: "15deg"
+    });
+
+    // Robot animation for Training Section
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: "#training-section",
+        start: "top 80%",
+        end: "bottom 20%",
+        scrub: true,
+      }
+    })
+    .to(robotRef.current, {
+      top: "200px",
+      left: "25%",
+      rotate: "-10deg"
+    });
+
+    // Robot animation for Features Section
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: "#features-section",
+        start: "top 80%",
+        end: "bottom 20%",
+        scrub: true,
+      }
+    })
+    .to(robotRef.current, {
+      top: "160px",
+      left: "75%",
+      rotate: "5deg"
+    });
+
+    // Robot animation for Testimonials Section
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: "#testimonials-section",
+        start: "top 80%",
+        end: "bottom 20%",
+        scrub: true,
+      }
+    })
+    .to(robotRef.current, {
+      top: "220px",
+      left: "40%",
+      rotate: "-15deg"
+    });
+
+    // Robot animation for Contact Section
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: "#contact-section",
+        start: "top 80%",
+        end: "bottom 20%",
+        scrub: true,
+      }
+    })
+    .to(robotRef.current, {
+      top: "180px",
+      left: "60%",
+      rotate: "0deg"
+    });
+
+    // Clean up ScrollTrigger on unmount
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
+
   return (
-    <div className="bg-white flex flex-row justify-center w-full">
+    <div className="bg-white flex flex-row justify-center w-full" ref={containerRef}>
+      {/* Robot Element that will be animated */}
+      <img 
+        ref={robotRef}
+        src="/robo.gif" 
+        alt="Robot Animation" 
+        className="hidden md:block" // Hide on mobile
+      />
+
       <div className="bg-white w-full max-w-[1688px] relative">
         <div className="relative w-full">
           <HeroSection />
@@ -61,7 +217,7 @@ const Home = (): JSX.Element => {
           />
         </div>
 
-        <div className="w-full mt-16">
+        <div id="services-section" className="w-full mt-16">
           <div className="flex w-full max-w-[1440px] items-start gap-10 px-[100px] py-0 mx-auto">
             <div className="flex flex-col items-start">
               <Badge className="px-4 py-2 bg-[#ffb800] text-black rounded-lg font-bold text-4xl leading-tight">
@@ -75,7 +231,7 @@ const Home = (): JSX.Element => {
           <ServicesSection />
         </div>
 
-        <div className="w-full relative">
+        <div id="cta-section" className="w-full relative">
           <CallToActionSection />
           <img
             className="absolute w-[70px] h-[70px] top-56 left-[1274px]"
@@ -89,16 +245,16 @@ const Home = (): JSX.Element => {
           />
         </div>
 
-        <div className="w-full">
+        <div id="case-studies-section" className="w-full">
           <CaseStudiesSection />
         </div>
 
-        <div className="w-full">
+        <div id="process-section" className="w-full">
           <ProcessOverviewSection />
         </div>
 
         {/* Inclassroom Training Section */}
-        <div className="w-full mt-16">
+        <div id="training-section" className="w-full mt-16">
           <div className="flex w-full max-w-[1440px] items-start gap-10 px-[100px] py-0 mx-auto">
             <div className="flex flex-col items-start">
               <Badge className="px-4 py-2 bg-[#ffb800] text-black rounded-lg font-bold text-4xl leading-tight">
@@ -111,14 +267,14 @@ const Home = (): JSX.Element => {
           </div>
         </div>
 
-        <div className="w-full relative">
+        <div id="features-section" className="w-full relative">
           <FeaturesSection />
           <Button className="absolute bottom-[68px] right-[269px] bg-dark text-white text-xl font-normal rounded-[14px] px-[35px] py-5 [font-family:'Space_Grotesk',Helvetica]">
             Explore
           </Button>
         </div>
 
-        <div className="w-full mt-16">
+        <div id="testimonials-section" className="w-full mt-16">
           <div className="flex w-full max-w-[1440px] items-start gap-10 px-[100px] py-0 mx-auto">
             <div className="flex flex-col items-start">
               <Badge className="px-4 py-2 bg-[#ffb800] text-black rounded-lg font-bold text-4xl leading-tight">
@@ -132,7 +288,7 @@ const Home = (): JSX.Element => {
           <TestimonialsSection />
         </div>
 
-        <div className="w-full mt-16">
+        <div id="contact-section" className="w-full mt-16">
           <div className="flex w-full max-w-[1440px] items-start gap-10 px-[100px] py-0 mx-auto">
             <div className="flex flex-col items-start">
               <Badge className="px-4 py-2 bg-[#ffb800] text-black rounded-lg font-bold text-4xl leading-tight">

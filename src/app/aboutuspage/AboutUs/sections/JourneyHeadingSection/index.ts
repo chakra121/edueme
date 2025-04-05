@@ -1,0 +1,1 @@
+export { JourneyHeadingSection } from "./JourneyHeadingSection";
