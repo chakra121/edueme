@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import ExcelJS from "exceljs";
 import prisma from "@/lib/globalPrisma"; // Adjust the path to your Prisma client
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   try {
     // Fetch all teachers

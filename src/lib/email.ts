@@ -12,6 +12,7 @@ export async function sendEmail({ to, subject, html }: EmailParams) {
   const user = process.env.EMAIL_SERVER_USER ?? "";
   const pass = process.env.EMAIL_SERVER_PASSWORD ?? "";
   const from = process.env.EMAIL_FROM ?? "noreply@example.com";
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const secure = process.env.EMAIL_SERVER_SECURE === "true";
 
   const transporter = nodemailer.createTransport({

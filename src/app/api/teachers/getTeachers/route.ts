@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/globalPrisma";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   try {
     const teachers = await prisma.teacher.findMany({

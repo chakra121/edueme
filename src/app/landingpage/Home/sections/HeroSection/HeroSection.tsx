@@ -17,7 +17,7 @@ export const HeroSection = (): JSX.Element => {
     }, 3000); // 3 seconds
 
     return () => clearInterval(timer);
-  }, []);
+  }, [images.length]);
 
   // Optional: Add navigation functions
   const nextSlide = () => {
@@ -59,8 +59,8 @@ export const HeroSection = (): JSX.Element => {
             Welcome to <br />
             EdueMe
           </h1>
-          <p className="mt-6 text-lg text-gray-600">
-            "Robotics, AI, and IoT – The RA(I)oT Curriculum for Future Innovators."
+          <p className="mt-6 text-xl text-gray-600">
+            &quot;Robotics, AI, and IoT - The RA(I)oT Curriculum for Future Innovators&quot;
           </p>
           <Button className="mt-8 px-8 py-4 bg-black text-white rounded-lg text-lg font-medium hover:opacity-80">
             Book a demo
@@ -143,9 +143,9 @@ export const HeroSection = (): JSX.Element => {
                 className="mx-8 cursor-pointer overflow-hidden rounded-xl border border-gray-100 px-8 py-4 bg-white hover:shadow-lg transition-all duration-300"
                 whileHover={{ scale: 1.1 }}
               >
-                <img
-                  width="120"
-                  height="120"
+                <Image
+                  width={120}
+                  height={120}
                   alt={logo.alt}
                   src={logo.src}
                   className="rounded-md object-contain"

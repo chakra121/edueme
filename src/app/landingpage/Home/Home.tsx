@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CallToActionSection } from "./sections/CallToActionSection";
 import { CaseStudiesSection } from "./sections/CaseStudiesSection/CaseStudiesSection";
+import Image from "next/image";
 import { ContactFormSection } from "./sections/ContactFormSection";
 import { FeaturesSection } from "./sections/FeaturesSection/FeaturesSection";
 import { HeroSection } from "./sections/HeroSection/HeroSection";
@@ -210,7 +211,9 @@ const Home = (): JSX.Element => {
       <div className="bg-white w-full max-w-[1688px] relative">
         <div className="relative w-full">
           <HeroSection />
-          <img
+          <Image
+          height={20}
+          width={488}
             className="absolute w-[488px] h-20 top-0 left-[39px] object-cover"
             alt="Image"
             src="/image-12.png"
@@ -233,12 +236,16 @@ const Home = (): JSX.Element => {
 
         <div id="cta-section" className="w-full relative">
           <CallToActionSection />
-          <img
+          <Image
+            width={70}
+            height={70}
             className="absolute w-[70px] h-[70px] top-56 left-[1274px]"
             alt="Image"
             src="/image-9.png"
           />
-          <img
+          <Image
+            width={70} 
+            height={70}
             className="absolute w-[70px] h-[70px] top-[294px] left-[1110px] object-cover"
             alt="Image"
             src="/image-10.png"

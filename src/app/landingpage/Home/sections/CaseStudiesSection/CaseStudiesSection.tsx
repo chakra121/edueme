@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import Image from "next/image";
 
 export const CaseStudiesSection = (): JSX.Element => {
   // Data for case studies to enable mapping
@@ -66,7 +67,9 @@ export const CaseStudiesSection = (): JSX.Element => {
                   </div>
 
                   {/* Icon */}
-                  <img
+                  <Image
+                    width={20}
+                    height={20}
                     className="w-[20.32px] h-[19.53px]"
                     alt="Icon"
                     src={study.iconSrc}

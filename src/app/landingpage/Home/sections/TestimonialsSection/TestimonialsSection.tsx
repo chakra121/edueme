@@ -61,7 +61,7 @@ const ReviewCarousel = () => {
     fade: true,
     cssEase: "linear",
     nextArrow: (
-      <img
+      <Image
         src="/prodcuts/right.png"
         alt="Next"
         className="custom-arrow custom-next"
@@ -70,7 +70,7 @@ const ReviewCarousel = () => {
       />
     ),
     prevArrow: (
-      <img
+      <Image
         src="/prodcuts/left.png"
         alt="Previous"
         className="custom-arrow custom-prev"
