@@ -11,6 +11,11 @@ import { HeroSection } from "./sections/HeroSection/HeroSection";
 import { ProcessOverviewSection } from "./sections/ProcessOverviewSection";
 import { ServicesSection } from "./sections/ServicesSection";
 import { TestimonialsSection } from "./sections/TestimonialsSection";
+import { SkillEducationSection }from "./sections/SkillEducationSection/SkillEducationSection";
+import { CreatingInnovatorsSection } from "./sections/CreatingInnovatorsSection/CreatingInnovatorsSection";
+import { AcademicYearSection }from "./sections/AcademicYearSection/AcademicYearSection";
+
+
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -201,7 +206,7 @@ const Home = (): JSX.Element => {
   return (
     <div className="bg-white flex flex-row justify-center w-full" ref={containerRef}>
       {/* Robot Element that will be animated */}
-      <img 
+      <image 
         ref={robotRef}
         src="/robo.gif" 
         alt="Robot Animation" 
@@ -218,6 +223,21 @@ const Home = (): JSX.Element => {
             alt="Image"
             src="/image-12.png"
           />
+        </div>
+
+        {/* Skill Education Section */}
+        <div id="case-studies-section" className="w-full">
+          <SkillEducationSection />
+        </div>
+
+        {/* Creating Innovators Section */}
+        <div id="case-studies-section" className="w-full">
+          <CreatingInnovatorsSection />
+        </div>
+
+        {/* Academic Year Section */}
+        <div id="case-studies-section" className="w-full">
+          <AcademicYearSection />
         </div>
 
         <div id="services-section" className="w-full mt-16">
