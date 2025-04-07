@@ -206,7 +206,7 @@ const Home = (): JSX.Element => {
   return (
     <div className="bg-white flex flex-row justify-center w-full" ref={containerRef}>
       {/* Robot Element that will be animated */}
-      <image 
+      <img 
         ref={robotRef}
         src="/robo.gif" 
         alt="Robot Animation" 

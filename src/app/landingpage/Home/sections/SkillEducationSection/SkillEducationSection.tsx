@@ -8,31 +8,31 @@ export const SkillEducationSection = (): JSX.Element => {
       title: "Enhances Employability",
       description:
         "Skill-based education equips individuals with practical abilities, making them more attractive to employers and bridging the gap between education and employment.",
-      image: "/images/employability.jpg",
+      image: "/yskills/img1.png",
     },
     {
       title: "Promotes Lifelong Learning",
       description:
         "Focusing on skills encourages continuous personal development, fostering adaptability in a rapidly changing world.",
-      image: "/images/lifelong-learning.jpg",
+      image: "/yskills/img2.jpg",
     },
     {
       title: "Bridges Education and Industry",
       description:
         "Skill education aligns academic learning with industry needs, ensuring graduates are job-ready and reducing unemployment rates.",
-      image: "/images/education-industry.jpg",
+      image: "/yskills/img3.jpg",
     },
     {
       title: "Fosters Innovation",
       description:
         "Practical skills empower individuals to think critically and solve problems creatively, driving innovation and entrepreneurship.",
-      image: "/images/innovation.jpg",
+      image: "/yskills/img4.jpg",
     },
     {
       title: "Develops Critical Thinking",
       description:
         "Skill-based learning emphasizes analytical thinking, enabling individuals to assess situations effectively and make informed decisions.",
-      image: "/images/critical-thinking.jpg",
+      image: "/yskills/img5.png",
     },
   ];
 

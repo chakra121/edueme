@@ -84,3 +84,4 @@ export const CreatingInnovatorsSection = (): JSX.Element => {
   );
 };
 
+

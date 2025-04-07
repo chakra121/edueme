@@ -19,13 +19,13 @@ export default function Home() {
       <main className="min-h-screen bg-white">
         {/* Hero Section */}
         <section
-          className="relative h-96 bg-cover bg-center"
-          style={{ backgroundImage: "url('/events/evenbg.jpg')" }}
-        >
-          <div className="absolute inset-0 bg-blue-900 bg-opacity-50"></div>
-          <div className="relative z-10 flex h-full flex-col items-center justify-center text-center text-white">
-            <h2 className="text-4xl font-bold">All Events</h2>
-          </div>
+              className="relative h-96 bg-cover bg-center px-8"
+              style={{ backgroundImage: "url('/events/evenbg.jpg')" }}
+            >
+              <div className="absolute inset-0 bg-blue-900 bg-opacity-50"></div>
+              <div className="relative z-10 flex h-full flex-col items-center justify-center text-center text-white">
+              <h2 className="text-4xl font-bold">All Events</h2>
+              </div>
         </section>
 
         {/* Featured Event */}
@@ -72,4 +72,3 @@ export default function Home() {
       </main>
     );
 }
-
