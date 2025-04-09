@@ -52,7 +52,7 @@ export const CreatingInnovatorsSection = (): JSX.Element => {
           >
             <div>
               <Image
-                src="/images/innovation-classroom-1.jpg"
+                src="/innovators/img1.jpg"
                 alt="Students building prototypes"
                 width={800}
                 height={500}
@@ -61,7 +61,7 @@ export const CreatingInnovatorsSection = (): JSX.Element => {
             </div>
             <div>
               <Image
-                src="/images/innovation-classroom-2.jpg"
+                src="/innovators/img2.jpg"
                 alt="STEM activity"
                 width={800}
                 height={500}
@@ -70,7 +70,7 @@ export const CreatingInnovatorsSection = (): JSX.Element => {
             </div>
             <div>
               <Image
-                src="/images/innovation-classroom-3.jpg"
+                src="/innovators/img3.jpg"
                 alt="Design thinking in class"
                 width={800}
                 height={500}

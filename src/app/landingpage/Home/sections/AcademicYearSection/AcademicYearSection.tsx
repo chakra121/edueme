@@ -7,31 +7,31 @@ import Image from "next/image";
     title: "Foundation & Orientation",
     description:
       "Kick off the year with introductory sessions, setting the tone with creativity, collaboration, and curiosity. Students explore tech basics and get hands-on with exciting activities.",
-    image: "/images/orientation.jpg",
+    image: "/academicyear/img1.png",
   },
   {
     title: "Hands-on Skill Training",
     description:
       "Students dive into practical sessions on robotics, coding, AI, and design thinking. Mentorship and real-world tasks ignite their passion for innovation.",
-    image: "/images/skill-training.jpg",
+    image: "/academicyear/img2.jpg",
   },
   {
     title: "Mid-Year Project Showcase",
     description:
       "Learners present their progress through mid-year expos. They build prototypes, solve community problems, and get real feedback from peers and experts.",
-    image: "/images/project-showcase.jpg",
+    image: "/academicyear/img3.jpg",
   },
   {
     title: "Hackathons & Tech Fests",
     description:
       "Exciting hackathons and competitions build team spirit and innovation under pressure. This phase enhances creativity, critical thinking, and time management.",
-    image: "/images/hackathon.jpg",
+    image: "/academicyear/img4.jpg",
   },
   {
     title: "Final Project & Graduation",
     description:
       "The year culminates with final project presentations and certification. Students reflect on growth and plan the next stage of their innovation journey.",
-    image: "/images/graduation.jpg",
+    image: "/academicyear/img5.png",
   },
 ];
 

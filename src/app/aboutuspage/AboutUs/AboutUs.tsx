@@ -10,7 +10,6 @@ import { JourneyHeadingSection } from "./sections/JourneyHeadingSection";
 import { TestimonialsSection } from "./sections/TestimonialsSection/TestimonialsSection";
 
 export const AboutUs = (): JSX.Element => {
-  // Impact numbers data
   const impactNumbers = [
     { value: "75+", label: "Students Enrolled" },
     { value: "100+", label: "Teachers" },
@@ -19,7 +18,6 @@ export const AboutUs = (): JSX.Element => {
     { value: "5+", label: "Years of Experience" },
   ];
 
-  // Awards data
   const awards = [
     {
       image: "/about/image-18.png",
@@ -53,24 +51,24 @@ export const AboutUs = (): JSX.Element => {
       <section className="w-full relative">
         <HeroSection />
         <img
-          className="w-[488px] h-20 mx-auto mt-[55px] object-cover"
+          className="w-64 sm:w-80 md:w-[488px] h-auto mx-auto mt-10 object-cover"
           alt="Logo"
           src="/about/image-12.png"
         />
       </section>
 
       {/* Testimonials Section */}
-      <section className="w-full relative mt-8 flex justify-center">
+      <section className="w-full mt-8 flex justify-center">
         <TestimonialsSection />
       </section>
 
       {/* Industry Recognition Section */}
-      <section className="w-full relative mt-8 flex justify-center">
+      <section className="w-full mt-8 flex justify-center">
         <IndustryRecognitionSection />
       </section>
 
       {/* Core Value Section */}
-      <section className="w-full relative mt-8 flex justify-center">
+      <section className="w-full mt-8 flex justify-center">
         <CoreValueSection />
       </section>
 
@@ -78,61 +76,59 @@ export const AboutUs = (): JSX.Element => {
       <JourneyHeadingSection />
 
       {/* Impact Numbers Section */}
-      <section className="w-full mt-16">
+      <section className="w-full mt-16 px-4 sm:px-6 lg:px-8">
         <ImpactNumbersSection />
 
-        <Card className="w-[1240px] h-[513px] mx-auto mt-16 bg-[#0D1B2A] rounded-[45px] overflow-hidden">
-          <CardContent className="p-0 relative h-full">
-            <div className="absolute w-[428px] top-[47px] right-[73px] py-4 px-6 rounded-lg">
-              <p className="font-normal text-white text-[40px] tracking-[0] leading-normal font-['Souliyo_Unicode-Regular',Helvetica]">
-              &quot;At EdueMe, we believe that innovation begins with curiosity,
-              and every learner has the potential to change the world🚀&quot;
-              </p>
-            </div>
+        <Card className="w-full max-w-6xl mx-auto mt-16 bg-[#0D1B2A] rounded-3xl overflow-hidden">
+          <CardContent className="p-0 relative flex flex-col md:flex-row items-center md:items-start">
             <img
-              className="absolute w-[447px] h-[465px] top-12 left-[139px] object-cover"
+              className="w-60 sm:w-80 md:w-[447px] h-auto mt-8 md:mt-12 md:ml-10 object-cover"
               alt="Global certificate"
               src="/about/globalcertificate-1.png"
             />
+            <div className="px-6 py-6 md:py-10 md:pr-16 text-center md:text-left">
+              <p className="text-white text-xl sm:text-2xl md:text-3xl font-medium leading-relaxed">
+                "At EdueMe, we believe that innovation begins with curiosity,
+                and every learner has the potential to change the world 🚀"
+              </p>
+            </div>
           </CardContent>
         </Card>
       </section>
 
       {/* Awards and Recognition Section */}
-      <section className="w-full max-w-[1440px] mt-16 px-[100px]">
-        <div className="flex justify-between items-start">
-          <div className="inline-flex flex-col items-start">
-            <div className="inline-flex flex-col items-start gap-2.5 px-[7px] py-0 bg-[#ffb800] rounded-[7px]">
-              <h2 className="font-h-2 text-[length:var(--h-2-font-size)] leading-[var(--h-2-line-height)] tracking-[var(--h-2-letter-spacing)] text-black">
+      <section className="w-full max-w-7xl mt-16 px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row justify-between gap-6 md:gap-10">
+          <div className="flex flex-col">
+            <div className="bg-[#ffb800] px-3 py-1 rounded-md w-fit">
+              <h2 className="text-black text-lg sm:text-xl font-semibold">
                 Awards and Recognition
               </h2>
             </div>
           </div>
-          <div className="w-[576px] font-p text-black text-[length:var(--p-font-size)] tracking-[var(--p-letter-spacing)] leading-[var(--p-line-height)]">
+          <p className="text-black text-base sm:text-lg max-w-xl">
             Our Commitment to Excellence has been recognized by industry
             leaders. Here are some of our proudest achievements.
-          </div>
+          </p>
         </div>
 
-        <div className="flex justify-between mt-16">
+        <div className="flex flex-wrap justify-center gap-6 mt-12">
           {awards.map((award, index) => (
             <Card
               key={index}
-              className="w-[272px] h-[433px] bg-grey rounded-[75px]"
+              className="w-[90%] sm:w-[280px] h-auto bg-grey rounded-[40px] flex flex-col items-center p-4"
             >
-              <CardContent className="p-0 relative h-full">
-                <img
-                  className="w-[220px] h-[220px] mx-auto mt-3 object-cover"
-                  alt={`Award ${index + 1}`}
-                  src={award.image}
-                />
-                <h3 className="absolute w-[169px] top-[216px] left-[50%] transform -translate-x-1/2 font-m3-label-large text-black text-[length:var(--m3-label-large-font-size)] tracking-[var(--m3-label-large-letter-spacing)] leading-[var(--m3-label-large-line-height)]">
-                  {award.title}
-                </h3>
-                <p className="w-[233px] absolute top-[253px] left-[50%] transform -translate-x-1/2 font-p text-black text-[length:var(--p-font-size)] tracking-[var(--p-letter-spacing)] leading-[var(--p-line-height)]">
-                  {award.description}
-                </p>
-              </CardContent>
+              <img
+                className="w-[180px] h-[180px] object-cover mt-2"
+                alt={`Award ${index + 1}`}
+                src={award.image}
+              />
+              <h3 className="mt-4 text-center text-black text-lg font-semibold">
+                {award.title}
+              </h3>
+              <p className="text-sm text-black text-center mt-2">
+                {award.description}
+              </p>
             </Card>
           ))}
         </div>
@@ -141,17 +137,16 @@ export const AboutUs = (): JSX.Element => {
       {/* Award Recognition Section */}
       <AwardRecognitionSection />
 
-      <section className="w-full relative">
+      {/* Footer Logo */}
+      <section className="w-full mt-10">
         <img
-          className="w-[488px] h-20 mx-auto mt-[55px] object-cover"
+          className="w-64 sm:w-80 md:w-[488px] h-auto mx-auto object-cover"
           alt="Logo"
           src="/about/image-12.png"
         />
       </section>
-
     </div>
   );
 };
-
 
 export default AboutUs;
