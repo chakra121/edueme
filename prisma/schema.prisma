@@ -148,3 +148,25 @@ model ClassLink {
 
   users      User[]   // Multiple students can be associated with the same class link
 }
+
+model UpcomingEvent {
+  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  title             String
+  subTitle          String?
+  description       String
+  eventVenue        String
+  eventdate         String
+  contactUs         String
+  programs          String[]
+  category          String
+  regFee            String
+  registrationLink  String
+  note              String?
+
+  published         Boolean   @default(false)
+  slug              String    @unique
+  regEndDate        DateTime?
+
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+}

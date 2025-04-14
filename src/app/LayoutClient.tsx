@@ -27,7 +27,7 @@ export default function LayoutClient({
   // Loader and path checks
   useEffect(() => {
     setIsLoading(true);
-    const timer = setTimeout(() => setIsLoading(false), 3000);
+    const timer = setTimeout(() => setIsLoading(false), 1500);
 
     return () => {
       clearTimeout(timer);

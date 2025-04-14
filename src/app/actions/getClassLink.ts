@@ -18,7 +18,10 @@ export const getClassLink = async () => {
     });
 
     if (!user?.classLinkId) {
-      return { error: "No class details available" };
+      return {
+        error:
+          "Class details are currently unavailable. It seems a teacher has not yet been assigned to you.",
+      };
     }
 
     // Fetch the class link using classLinkId

@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/globalPrisma";
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import CourseCard from "../components/CourseCard";
 
 export default async function CoursesPage() {
@@ -22,9 +23,21 @@ export default async function CoursesPage() {
 
   if (!user || !user.course) {
     return (
-      <p className="text-center text-xl text-warning">
-        You haven&apos;t purchased any course.
-      </p>
+      <div className="card border-4 border-yellow-700 bg-gradient-to-r from-yellow-50 to-yellow-100 shadow-lg">
+        <div className="card-body flex flex-col items-center justify-center space-y-4">
+          <ExclamationTriangleIcon className="h-12 w-12 text-yellow-500" />
+          <h2 className="text-2xl font-semibold text-yellow-700">
+            No Courses Found
+          </h2>
+          <p className="text-center text-lg text-yellow-600">
+            You haven't enrolled in any course yet. Explore our offerings and
+            begin your learning journey today!
+          </p>
+          <a href="/courses" className="btn btn-secondary mt-2">
+            Browse Courses
+          </a>
+        </div>
+      </div>
     );
   }
 

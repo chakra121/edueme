@@ -16,7 +16,7 @@ export default function PageLoader({ visible }: { visible: boolean }) {
           priority // Ensures it's loaded quickly
           className="animate-bounce rounded-full shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)]"
           style={{
-            animationDuration: "1.7s",
+            animationDuration: "1.5s",
             animationTimingFunction: "cubic-bezier(0.4, 0, 0.6, 1)",
           }}
         />

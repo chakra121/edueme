@@ -2,8 +2,13 @@
 import React from "react";
 import Link from "next/link";
 import {
-  UsersIcon,
   MegaphoneIcon,
+  UserGroupIcon,
+  UserPlusIcon,
+  BookOpenIcon,
+  DocumentTextIcon,
+  CalendarDaysIcon,
+  ArrowDownTrayIcon,
 } from "@heroicons/react/24/outline";
 import { usePathname } from "next/navigation";
 import classname from "classnames";
@@ -20,27 +25,32 @@ const AdminSideBar = () => {
     {
       label: "Teacher's Catalog",
       href: "/dashboard/adminDashboard/dTeacherCatalog",
-      icon: UsersIcon,
+      icon: UserGroupIcon,
     },
     {
       label: "Assign Teacher",
       href: "/dashboard/adminDashboard/dAssignTeacher",
-      icon: UsersIcon,
+      icon: UserPlusIcon,
     },
     {
       label: "Courses Catalog",
       href: "/dashboard/adminDashboard/dCourseCatalog",
-      icon: UsersIcon,
+      icon: BookOpenIcon,
     },
     {
       label: "Chapters Catalog",
       href: "/dashboard/adminDashboard/dChapterCatalog",
-      icon: UsersIcon,
+      icon: DocumentTextIcon,
+    },
+    {
+      label: "Events",
+      href: "/dashboard/adminDashboard/dEvents",
+      icon: CalendarDaysIcon,
     },
     {
       label: "Download Data",
       href: "/dashboard/adminDashboard/dDownloadData",
-      icon: UsersIcon,
+      icon: ArrowDownTrayIcon,
     },
   ];
   return (

@@ -58,7 +58,12 @@ export default function CourseDetailPage() {
   }, [courseCode]); // ✅ Ensure all dependencies are included
 
   if (loading) return <p className="text-center text-xl">Loading...</p>;
-  if (error) return <p className="text-center text-xl text-error">{error}</p>;
+  if (error)
+    return (
+      <div className="card bg-base-100 p-6">
+        <p>{error}</p>
+      </div>
+    );
 
   return (
     <div className="card bg-base-100 p-6">
