@@ -140,7 +140,7 @@ interface Blog {
 }
 
 const BlogCard = ({ blog }: { blog: Blog }) => (
-  <div className="flex flex-col items-center rounded border p-6 shadow-sm">
+  <div className="flex flex-col items-center rounded border p-6 shadow-xs">
     <Image
       src={blog.img}
       width={500}
@@ -212,7 +212,7 @@ export default function BlogPage() {
       <div className="font-sans">
         <main className="flex gap-8 p-10">
           <div className="w-3/4">
-            <section className="mb-8 rounded border p-6 shadow-sm">
+            <section className="mb-8 rounded border p-6 shadow-xs">
               <h2 className="mb-4 text-4xl font-bold">Featured Post</h2>
               <div className="grid grid-cols-3 gap-4">
                 <Image
@@ -257,7 +257,7 @@ export default function BlogPage() {
               </div>
             </section>
 
-            <section className="mb-8 rounded border p-6 shadow-sm">
+            <section className="mb-8 rounded border p-6 shadow-xs">
               <h2 className="mb-4 mt-8 text-4xl font-bold">Recent Posts</h2>
               <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 {currentBlogs.map((blog, index) => (
@@ -272,7 +272,7 @@ export default function BlogPage() {
             </section>
           </div>
           <div className="w-1/4">
-            <section className="mb-8 rounded border p-6 text-center shadow-sm">
+            <section className="mb-8 rounded border p-6 text-center shadow-xs">
               <Image
                 width={500}
                 height={300}
@@ -294,7 +294,7 @@ export default function BlogPage() {
                 ))}
               </div>
             </section>
-            <section className="mb-8 rounded border p-6 shadow-sm">
+            <section className="mb-8 rounded border p-6 shadow-xs">
               <h2 className="mb-4 text-3xl font-bold">Recent Posts</h2>
               <ul className="h-64 overflow-y-auto">
                 {recentBlogs.slice(0, 5).map((blog, index) => (
@@ -314,7 +314,7 @@ export default function BlogPage() {
                 ))}
               </ul>
             </section>
-            <section className="mb-8 rounded border p-6 shadow-sm">
+            <section className="mb-8 rounded border p-6 shadow-xs">
               <h2 className="mb-4 text-3xl font-bold">Blog Categories</h2>
               <ul>
                 {sidebarLinks.categories.map((category, index) => (
@@ -327,7 +327,7 @@ export default function BlogPage() {
               </ul>
             </section>
 
-            <section className="mt-8 rounded border p-6 shadow-sm">
+            <section className="mt-8 rounded border p-6 shadow-xs">
               <h2 className="mb-4 text-3xl font-bold">Blogs</h2>
               <div className="mb-4 flex">
                 <button
@@ -362,7 +362,7 @@ export default function BlogPage() {
               </ul>
             </section>
 
-            <section className="mt-8 rounded border p-6 shadow-sm">
+            <section className="mt-8 rounded border p-6 shadow-xs">
               <h2 className="mb-4 text-3xl font-bold">Newsletter</h2>
               <p className="mb-4">
                 Join thousands of Tiny Salt subscribers and get our best recipes
@@ -372,7 +372,7 @@ export default function BlogPage() {
                 <input
                   type="text"
                   placeholder="Type And Hit Enter"
-                  className="flex-grow rounded-l border p-2"
+                  className="grow rounded-l border p-2"
                 />
                 <button className="rounded-r border-l bg-gray-200 p-2">
                   <svg

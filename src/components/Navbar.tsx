@@ -50,7 +50,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`navbar fixed z-[99] mb-4 flex h-16 w-full items-center justify-between px-5 py-[0.5rem] ${isStudentOrTeacherDashboard ? "bg-transparent" : "bg-base-100 shadow-md"}`}
+      className={`navbar fixed z-99 mb-4 flex h-16 w-full items-center justify-between px-5 py-[0.5rem] ${isStudentOrTeacherDashboard ? "bg-transparent" : "bg-base-100 shadow-md"}`}
     >
       {isStudentOrTeacherDashboard ? (
         <div className="flex w-full justify-center">

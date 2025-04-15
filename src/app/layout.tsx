@@ -24,18 +24,9 @@ export default function RootLayout({
       lang="en"
       className={`${GeistSans.variable}`}
       suppressHydrationWarning
+      data-theme="bumblebee"
     >
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-            (function() {
-              const theme = localStorage.getItem("theme") || "bumblebee";
-              document.documentElement.setAttribute("data-theme", theme);
-            })();
-          `,
-          }}
-        />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="keywords" content="Education, Research, Learning" />
         <meta name="author" content="Edueme Team" />
@@ -45,7 +36,7 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <SpeedInsights/>
+        <SpeedInsights />
         <AuthProvider>
           <LayoutClient>{children}</LayoutClient>
         </AuthProvider>

@@ -6,7 +6,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 export const CreatingInnovatorsSection = (): JSX.Element => {
   return (
-    <section className="py-24 px-6 md:px-20 bg-gradient-to-r from-yellow-50 to-white overflow-hidden">
+    <section className="py-24 px-6 md:px-20 bg-linear-to-r from-yellow-50 to-white overflow-hidden">
       <motion.h2
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}

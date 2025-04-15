@@ -111,7 +111,7 @@ export const ContactFormSection = (): JSX.Element => {
           </div>
 
           {/* Right side: Decorative element */}
-          <div className="relative w-[500px] h-[500px] flex-shrink-0 bg-[url(/prodcuts/mask-group.png)] bg-contain bg-no-repeat">
+          <div className="relative w-[500px] h-[500px] shrink-0 bg-[url(/prodcuts/mask-group.png)] bg-contain bg-no-repeat">
             {/* Black vector */}
             <Image
               width={500}

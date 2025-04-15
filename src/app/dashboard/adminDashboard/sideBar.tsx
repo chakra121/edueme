@@ -73,7 +73,7 @@ const AdminSideBar = () => {
               href={link.href}
             >
               <link.icon className="mr-3 h-7 w-7" />
-              <span className="flex-grow text-left">{link.label}</span>
+              <span className="grow text-left">{link.label}</span>
             </Link>
           </li>
         ))}

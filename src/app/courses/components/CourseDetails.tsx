@@ -11,7 +11,7 @@ interface CourseDetailsProps {
 
 export default function CourseDetails({ course }: CourseDetailsProps) {
   return (
-    <div className="overflow-hidden rounded-lg bg-white shadow-lg">
+    <div className="overflow-hidden rounded-xl bg-base-100 drop-shadow-lg">
       <div className="md:flex">
         <div className="md:w-1/3">
           <Image

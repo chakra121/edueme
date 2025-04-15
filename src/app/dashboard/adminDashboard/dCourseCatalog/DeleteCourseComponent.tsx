@@ -28,7 +28,7 @@ const DeleteCourseComponent: React.FC<DeleteCourseProps> = ({
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {courses.length > 0 ? (
           courses.map((course) => (
-            <div key={course.id} className="card bg-base-200 p-4 shadow">
+            <div key={course.id} className="card bg-base-200 p-4 shadow-sm">
               <h3 className="text-xl font-bold">{course.courseName}</h3>
               <p>Code: {course.courseCode}</p>
               <p>Chapters: {course.chapters || 0}</p>

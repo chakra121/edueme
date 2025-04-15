@@ -159,7 +159,7 @@ const EventsList: React.FC = () => {
           <input
             type="text"
             placeholder="Search events..."
-            className="w-full rounded-md border bg-white px-4 py-2 placeholder-gray-500 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#4e6cff]"
+            className="w-full rounded-md border bg-white px-4 py-2 placeholder-gray-500 shadow-xs focus:border-transparent focus:outline-hidden focus:ring-2 focus:ring-[#4e6cff]"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -170,7 +170,7 @@ const EventsList: React.FC = () => {
         {currentEvents.map((event) => (
           <div
             key={event.id}
-            className="flex flex-col overflow-hidden rounded-md border shadow-sm md:flex-row"
+            className="flex flex-col overflow-hidden rounded-md border shadow-xs md:flex-row"
           >
             <div className="relative h-48 w-full md:w-48">
               <Image

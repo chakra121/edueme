@@ -23,7 +23,7 @@ export default async function CoursesPage() {
 
   if (!user || !user.course) {
     return (
-      <div className="card border-4 border-yellow-700 bg-gradient-to-r from-yellow-50 to-yellow-100 shadow-lg">
+      <div className="card border-4 border-yellow-700 bg-linear-to-r from-yellow-50 to-yellow-100 shadow-lg">
         <div className="card-body flex flex-col items-center justify-center space-y-4">
           <ExclamationTriangleIcon className="h-12 w-12 text-yellow-500" />
           <h2 className="text-2xl font-semibold text-yellow-700">

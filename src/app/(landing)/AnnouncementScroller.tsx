@@ -8,7 +8,7 @@ const AnnouncementScroller: React.FC<AnnouncementScrollerProps> = ({
   announcements,
 }) => {
   return (
-    <div className="overflow-hidden bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 py-2 text-slate-800">
+    <div className="overflow-hidden bg-linear-to-r from-indigo-600 via-purple-500 to-pink-500 py-2 text-slate-800">
       <div
         className="animate-scroll flex whitespace-nowrap"
         style={{ animationDuration: "25s" }}

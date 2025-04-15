@@ -59,11 +59,11 @@ const Hero = () => {
             <span ref={typedElement1}></span>{" "}
                         <span
               ref={typedElement2}
-              className="relative bg-gradient-to-r from-yellow-500 via-orange-500 to-orange-400 bg-clip-text text-7xl text-transparent drop-shadow-[0_0_15px_rgba(249,115,22,0.6)]"
+              className="relative bg-linear-to-r from-yellow-500 via-orange-500 to-orange-400 bg-clip-text text-7xl text-transparent drop-shadow-[0_0_15px_rgba(249,115,22,0.6)]"
             >
               <span
                 ref={typedElement2}
-                className="from-yellow-500 absolute inset-0 -z-10 bg-gradient-to-r via-orange-500 to-orange-400 opacity-100 blur-[24px]"
+                className="from-yellow-500 absolute inset-0 -z-10 bg-linear-to-r via-orange-500 to-orange-400 opacity-100 blur-[24px]"
               ></span>
             </span>
           </h1>

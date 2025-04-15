@@ -44,7 +44,7 @@ const StudentSideBar = () => {
     <div className="space-y-4">
       <div className="flex flex-col items-center space-y-2">
         <div className="avatar">
-          <div className="ring-base-primary w-16 rounded-full ring">
+          <div className="ring-base-primary w-16 rounded-full ring-3">
             {/* ✅ Use Next.js Image Component */}
             
           </div>
@@ -67,7 +67,7 @@ const StudentSideBar = () => {
               href={link.href}
             >
               <link.icon className="mr-3 h-7 w-7" />
-              <span className="flex-grow text-left">{link.label}</span>
+              <span className="grow text-left">{link.label}</span>
             </Link>
           </li>
         ))}
@@ -79,7 +79,7 @@ const StudentSideBar = () => {
           className="btn btn-error flex w-full items-center justify-center space-x-2 transition duration-300 ease-in-out hover:scale-105"
         >
           <ArrowLeftOnRectangleIcon className="mr-1 h-6 w-6" />
-          <span className="flex-grow text-left">Logout</span>
+          <span className="grow text-left">Logout</span>
         </button>
       </div>
     </div>

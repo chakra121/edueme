@@ -40,7 +40,7 @@ export default async function CheckoutSuccessPage({
   }
 
   return (
-    <div className="container mx-auto px-4 py-12 pt-[5%]">
+    <div className="container mx-auto px-4 py-12 pt-28">
       <div className="mx-auto max-w-2xl rounded-lg border-2 border-green-500 bg-white p-8 shadow-lg">
         <div className="mb-8 text-center">
           <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-green-100">

@@ -121,8 +121,9 @@ export default function CheckoutPage() {
           key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
           amount: amount * 100, // Amount in paisa
           currency: "INR",
-          name: "Your Education Platform",
+          name: "Edueme Research Labs",
           description: `Payment for ${course.courseName}`,
+          image: "@/public/logo_icon.png",
           order_id: orderId,
           handler: async function (response: any) {
             await verifyPayment(response);
@@ -134,12 +135,12 @@ export default function CheckoutPage() {
             },
           },
           prefill: {
-            name: "",
-            email: "",
+            name: session?.user?.name || "",
+            email: session?.user?.email || "",
             contact: "",
           },
           theme: {
-            color: "#F97316", // Orange color
+            color: "#6366f1", // Orange color
           },
         };
 
@@ -218,7 +219,7 @@ export default function CheckoutPage() {
             <div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 flex-shrink-0 stroke-current"
+                className="h-6 w-6 shrink-0 stroke-current"
                 fill="none"
                 viewBox="0 0 24 24"
               >
@@ -259,7 +260,7 @@ export default function CheckoutPage() {
             <div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 flex-shrink-0 stroke-current"
+                className="h-6 w-6 shrink-0 stroke-current"
                 fill="none"
                 viewBox="0 0 24 24"
               >
@@ -282,55 +283,67 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen pt-20 bg-base-100 px-4 py-12 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-md overflow-hidden rounded-lg bg-base-200 shadow-lg">
-        <div className="bg-base-300 p-6 text-primary-content">
-          <h1 className="text-2xl font-bold">Checkout</h1>
-          <p className="mt-2">Review your course purchase</p>
+    <div className="min-h-screen bg-gray-200 px-4 py-12 pt-30 sm:px-6 lg:px-8">
+      <div className="ring-base-300 mx-auto max-w-2xl overflow-hidden rounded-xl shadow-xl ring-1">
+        {/* Header */}
+        <div className="bg-primary text-primary-content px-6 py-5">
+          <h1 className="text-3xl font-bold">Course Checkout</h1>
+          <p className="text-md mt-1 font-semibold">
+            Complete your purchase below
+          </p>
         </div>
 
-        <div className="p-6">
-          <div className="mb-6">
-            <h2 className="mb-4 text-xl font-semibold">{course.courseName}</h2>
-            <p className="mb-2 text-sm">Course Code: {course.courseCode}</p>
-            <div className="divider"></div>
-            <div className="flex items-center justify-between">
-              <span className="font-medium">Course Fee:</span>
-              <span className="text-xl font-bold">₹{course.courseFee}</span>
-            </div>
+        {/* Course Details */}
+        <div className="bg-base-200 space-y-4 p-6">
+          <div>
+            <h2 className="text-xl font-semibold">{course.courseName}</h2>
+            <p className="text-base-content/70 text-sm">
+              Code: {course.courseCode}
+            </p>
           </div>
 
-          <div className="alert alert-info mb-6">
+          <div className="divider m-0"></div>
+
+          <div className="flex items-center justify-between">
+            <span className="text-base font-medium">Course Fee</span>
+            <span className="text-success text-2xl font-bold">
+              ₹{course.courseFee}
+            </span>
+          </div>
+
+          {/* Info Alert */}
+          <div className="alert alert-info rounded-lg shadow-sm">
             <svg
               xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 shrink-0 stroke-current"
               fill="none"
               viewBox="0 0 24 24"
-              className="h-6 w-6 flex-shrink-0 stroke-current"
             >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
                 d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              ></path>
+              />
             </svg>
-            <span>
+            <span className="text-sm font-medium">
               You can only purchase one course. This purchase cannot be changed
               later.
             </span>
           </div>
 
-          <div className="flex space-x-4">
+          {/* Action Buttons */}
+          <div className="flex flex-col gap-3 pt-4 sm:flex-row">
             <Link
               href={`/courses/${course.courseCode}`}
-              className="btn btn-outline flex-1"
+              className="btn btn-outline btn-secondary w-full sm:w-1/2"
             >
               Cancel
             </Link>
             <button
               onClick={initiatePayment}
               disabled={isLoading || paymentInitiated}
-              className="btn btn-primary flex-1"
+              className="btn btn-primary w-full sm:w-1/2"
             >
               {isLoading ? (
                 <span className="loading loading-spinner loading-sm"></span>

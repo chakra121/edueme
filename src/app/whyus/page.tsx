@@ -22,7 +22,7 @@ const WhyUs = () => {
   };
 
   return (
-    <div className="relative overflow-hidden pt-[7rem] text-gray-800 bg-gradient-to-b from-gray-50 to-white min-h-screen">
+    <div className="relative overflow-hidden pt-[7rem] text-gray-800 bg-linear-to-b from-gray-50 to-white min-h-screen">
       {/* Background Doodles with Mouse Parallax */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Circuit Board SVG - Top Right */}
@@ -135,7 +135,7 @@ const WhyUs = () => {
       {/* Main Content */}
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col items-center opacity-0 animate-fadeIn" style={{animation: "fadeIn 0.8s forwards"}}>
-          <h1 className="text-5xl md:text-6xl font-bold text-center leading-tight bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 bg-clip-text text-transparent">
+          <h1 className="text-5xl md:text-6xl font-bold text-center leading-tight bg-linear-to-r from-blue-600 via-blue-500 to-blue-600 bg-clip-text text-transparent">
             Why Choose Us?
           </h1>
           <div className="h-1 bg-blue-500 mt-4 mb-6 rounded-full w-0 animate-expandWidth" style={{animation: "expandWidth 1s 0.6s forwards"}}></div>
@@ -147,9 +147,9 @@ const WhyUs = () => {
         <div className="mt-20 flex flex-col lg:flex-row items-center justify-center gap-12 opacity-0 animate-fadeIn" style={{animation: "fadeIn 1s 1s forwards"}}>
           {/* GIF Section with floating effect */}
           <div className="relative w-full md:w-[400px] h-[400px] rounded-2xl overflow-hidden shadow-lg shadow-blue-500/10 hover:scale-105 transition-transform duration-300 animate-float">
-            <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/10 to-purple-600/10 mix-blend-overlay"></div>
+            <div className="absolute inset-0 bg-linear-to-tr from-blue-600/10 to-purple-600/10 mix-blend-overlay"></div>
             <Image src="/info1.gif" alt="Information" layout="fill" objectFit="cover" priority />
-            <div className="absolute inset-0 bg-gradient-to-t from-white/70 via-transparent to-transparent"></div>
+            <div className="absolute inset-0 bg-linear-to-t from-white/70 via-transparent to-transparent"></div>
             <div className="absolute bottom-4 left-4 right-4 text-center">
               <span className="text-lg font-bold bg-white/80 text-blue-800 px-4 py-2 rounded-full">Interactive Learning</span>
             </div>
@@ -181,7 +181,7 @@ const WhyUs = () => {
               ].map((item, index) => (
                 <li
                   key={index}
-                  className={`flex items-center gap-6 p-4 rounded-xl bg-gradient-to-r from-gray-50/80 to-white/80 hover:from-blue-50 hover:to-blue-50 backdrop-blur-sm transition-all duration-300 shadow-md border border-gray-200 group opacity-0 animate-slideIn hover:scale-102 hover:translate-x-1`}
+                  className={`flex items-center gap-6 p-4 rounded-xl bg-linear-to-r from-gray-50/80 to-white/80 hover:from-blue-50 hover:to-blue-50 backdrop-blur-xs transition-all duration-300 shadow-md border border-gray-200 group opacity-0 animate-slideIn hover:scale-102 hover:translate-x-1`}
                   style={{animation: `slideIn 0.6s ${1.2 + item.delay}s forwards`}}
                 >
                   <div className={`text-${item.color} text-3xl bg-white p-3 rounded-full flex items-center justify-center min-w-14 h-14 shadow-md border border-gray-200 group-hover:rotate-12 transition-transform duration-300`}>
@@ -226,9 +226,9 @@ const WhyUs = () => {
        
         {/* National Education Policy Section */}
         <div className="mt-24 px-6 max-w-4xl mx-auto text-center relative opacity-0 animate-fadeInUp" style={{animation: "fadeInUp 0.8s forwards"}}>
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-100 via-blue-50 to-blue-100 rounded-3xl transform -skew-y-2 scale-105 blur-xl"></div>
+          <div className="absolute inset-0 bg-linear-to-r from-blue-100 via-blue-50 to-blue-100 rounded-3xl transform -skew-y-2 scale-105 blur-xl"></div>
          
-          <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-500 relative">
+          <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-blue-500 relative">
             National Education Policy (NEP)
           </h2>
          
@@ -247,7 +247,7 @@ const WhyUs = () => {
             ].map((item, index) => (
               <div
                 key={index}
-                className="p-6 bg-gradient-to-br from-white to-gray-50 rounded-xl border border-gray-200 backdrop-blur-sm shadow-md hover:shadow-blue-500/10 transition-all duration-300 group opacity-0 hover:scale-105"
+                className="p-6 bg-linear-to-br from-white to-gray-50 rounded-xl border border-gray-200 backdrop-blur-xs shadow-md hover:shadow-blue-500/10 transition-all duration-300 group opacity-0 hover:scale-105"
                 style={{animation: `fadeIn 0.5s ${item.delay}s forwards`}}
               >
                 <div className="relative">
@@ -296,7 +296,7 @@ const WhyUs = () => {
         {/* Call to Action */}
         <div className="mt-20 text-center opacity-0 animate-fadeIn" style={{animation: "fadeIn 0.6s 0.3s forwards"}}>
           <h3 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Ready to Start Your Journey?</h3>
-          <button className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-full text-lg font-medium shadow-lg shadow-blue-600/20 hover:shadow-blue-500/30 transition-all duration-300 hover:scale-105 active:scale-95">
+          <button className="px-8 py-4 bg-linear-to-r from-blue-600 to-blue-500 text-white rounded-full text-lg font-medium shadow-lg shadow-blue-600/20 hover:shadow-blue-500/30 transition-all duration-300 hover:scale-105 active:scale-95">
             Enroll Now
           </button>
         </div>

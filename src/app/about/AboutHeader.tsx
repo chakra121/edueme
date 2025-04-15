@@ -22,7 +22,7 @@ const AboutHeader = () => {
         </div>
 
         {/* Content Card */}
-        <div className="max-w-3xl rounded-lg bg-gradient-to-br from-gray-800 to-gray-600 p-6 text-white shadow-lg">
+        <div className="max-w-3xl rounded-lg bg-linear-to-br from-gray-800 to-gray-600 p-6 text-white shadow-lg">
           <p className="leading-relaxed text-white/70">
             At Edueme, we are passionate about empowering the next generation of
             innovators, thinkers, and problem-solvers through STEM education.

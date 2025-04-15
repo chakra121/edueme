@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const GalleryPage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-200 py-12">
+    <div className="min-h-screen bg-linear-to-b from-blue-50 to-blue-200 py-12">
       {/* Main Container Card */}
       <div className="container mx-auto max-w-5xl overflow-hidden rounded-lg bg-white px-6 shadow-lg">
         {/* Top Section: Heading */}

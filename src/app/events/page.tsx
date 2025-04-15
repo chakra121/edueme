@@ -63,12 +63,12 @@ function AnimatedCard({
 
 export default function RoboticsEvent() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-purple-50 p-20">
+    <div className="min-h-screen bg-linear-to-b from-indigo-50 to-purple-50 p-20">
       <div className="mx-auto max-w-6xl px-4 pt-8 text-center sm:px-6 lg:px-8">
         <FloatingRobot>
           <RiRobot2Fill className="mx-auto h-24 w-24 text-purple-600" />
         </FloatingRobot>
-        <h1 className="mt-6 bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-5xl font-extrabold text-transparent">
+        <h1 className="mt-6 bg-linear-to-r from-purple-600 to-indigo-600 bg-clip-text text-5xl font-extrabold text-transparent">
           Navikarana 1.0
         </h1>
         <h2 className="mt-4 text-2xl font-bold text-indigo-600">

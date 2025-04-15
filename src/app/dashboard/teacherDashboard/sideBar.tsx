@@ -50,7 +50,7 @@ const TeacherSideBar = () => {
           <li key={link.href} className="static w-full">
             <Link
               className={classname({
-                "btn flex w-full items-center justify-start rounded-md p-3 text-left text-base-content transition duration-300 ease-in-out hover:btn-primary hover:scale-105 hover:shadow-lg":
+                "btn flex w-full items-center justify-start rounded-md p-3 text-left hover:btn text-base-content transition duration-300 ease-in-out hover:btn-primary hover:scale-105 hover:shadow-lg":
                   true,
                 "btn btn-primary": currentPath === link.href,
                 "border-none bg-base-100": currentPath !== link.href,
@@ -58,7 +58,7 @@ const TeacherSideBar = () => {
               href={link.href}
             >
               <link.icon className="mr-3 h-7 w-7" />
-              <span className="flex-grow text-left">{link.label}</span>
+              <span className="grow text-left">{link.label}</span>
             </Link>
           </li>
         ))}
@@ -69,7 +69,7 @@ const TeacherSideBar = () => {
           className="btn btn-error flex w-full items-center justify-center space-x-2 transition duration-300 ease-in-out hover:scale-105"
         >
           <ArrowLeftOnRectangleIcon className="mr-1 h-6 w-6" />
-          <span className="flex-grow text-left">Logout</span>
+          <span className="grow text-left">Logout</span>
         </button>
       </div>
     </div>

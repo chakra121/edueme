@@ -62,7 +62,7 @@ export default function PurchaseCourseButton({
 
   if (isLoading) {
     return (
-      <div className="mt-4 flex items-center justify-center">
+      <div className="mt-5 flex items-center justify-center">
         <button className="btn btn-primary" disabled>
           <span className="loading loading-spinner loading-md"></span>
           Checking...
@@ -73,8 +73,11 @@ export default function PurchaseCourseButton({
 
   if (!canPurchase && existingCourseCode) {
     return (
-      <div className="mt-4 flex flex-col items-center justify-center">
-        <div className="alert alert-warning mb-4">
+      <div className="mt-5 flex justify-center">
+        <div
+          role="alert"
+          className="alert alert-success alert-outline w-auto px-4"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6 shrink-0 stroke-current"
@@ -85,10 +88,10 @@ export default function PurchaseCourseButton({
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
-              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
             />
           </svg>
-          <span>
+          <span className="text-lg font-medium whitespace-nowrap">
             You have already purchased a course. Access your course from your
             dashboard
           </span>
@@ -98,7 +101,7 @@ export default function PurchaseCourseButton({
   }
 
   return (
-    <div className="mt-4 flex items-center justify-center">
+    <div className="mt-5 flex items-center justify-center">
       <Link
         href={`/courses/checkout?courseId=${course.id}`}
         className="btn btn-primary"
