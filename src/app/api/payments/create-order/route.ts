@@ -36,6 +36,25 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "User ID mismatch" }, { status: 403 });
     }
 
+    // Check if the user already has a completed payment
+    const existingPayment = await prisma.payment.findFirst({
+      where: {
+        userId: userId,
+        status: "completed",
+      },
+    });
+
+    // If the user already has a completed payment, they can't purchase another course
+    if (existingPayment) {
+      return NextResponse.json(
+        {
+          error: "You have already purchased a course",
+          existingCourseId: existingPayment.courseId,
+        },
+        { status: 403 },
+      );
+    }
+
     // Create a receipt ID
     const receiptId = `rcpt_${Date.now()}_${userId.substring(0, 5)}`;
 

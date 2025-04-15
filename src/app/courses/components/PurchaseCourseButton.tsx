@@ -1,9 +1,10 @@
 // components/PurchaseCourseButton.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Courses } from "@prisma/client";
+import Link from "next/link";
 
 interface PurchaseCourseButtonProps {
   course: Courses;
@@ -14,128 +15,96 @@ export default function PurchaseCourseButton({
   course,
   userId,
 }: PurchaseCourseButtonProps) {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [canPurchase, setCanPurchase] = useState(false);
+  const [existingCourseId, setExistingCourseId] = useState<string | null>(null);
+  const [existingCourseCode, setExistingCourseCode] = useState<string | null>(
+    null,
+  );
   const router = useRouter();
 
-  const initiatePayment = async () => {
-    try {
-      setIsLoading(true);
+  useEffect(() => {
+    // Check if the user already has a course
+    const checkCourseAccess = async () => {
+      try {
+        const response = await fetch("/api/buyCourse/check-purchasable");
+        if (!response.ok) {
+          throw new Error("Failed to check course access");
+        }
 
-      // Create an order on the server
-      const response = await fetch("/api/payments/create-order", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          courseId: course.id,
-          courseName: course.courseName,
-          courseCode: course.courseCode,
-          amount: course.courseFee,
-          userId,
-        }),
-      });
+        const data = await response.json();
+        setCanPurchase(data.canPurchase);
 
-      if (!response.ok) {
-        throw new Error("Failed to create order");
-      }
+        if (!data.canPurchase && data.existingCourse) {
+          setExistingCourseId(data.existingCourse.courseId);
 
-      const { orderId, amount } = await response.json();
+          // Get the course code for the existing course
+          const courseResponse = await fetch(
+            `/api/buyCourse/id-param/${data.existingCourse.courseId}`,
+          );
+          if (courseResponse.ok) {
+            const courseData = await courseResponse.json();
+            setExistingCourseCode(courseData.courseCode);
+          }
+        }
 
-      // Load Razorpay script dynamically
-      const script = document.createElement("script");
-      script.src = "https://checkout.razorpay.com/v1/checkout.js";
-      script.async = true;
-      document.body.appendChild(script);
-
-      script.onload = () => {
-        const options = {
-          key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-          amount: amount * 100, // Amount in paisa
-          currency: "INR",
-          name: "Your Education Platform",
-          description: `Payment for ${course.courseName}`,
-          order_id: orderId,
-          handler: async function (response: any) {
-            await verifyPayment(response);
-          },
-          prefill: {
-            name: "",
-            email: "",
-            contact: "",
-          },
-          theme: {
-            color: "#F97316", // Orange color
-          },
-        };
-
-        const razorpay = new (window as any).Razorpay(options);
-        razorpay.open();
         setIsLoading(false);
-      };
-
-      script.onerror = () => {
+      } catch (error) {
+        console.error("Error checking course access:", error);
         setIsLoading(false);
-        alert("Failed to load Razorpay. Please try again.");
-      };
-    } catch (error) {
-      console.error("Payment initiation failed:", error);
-      setIsLoading(false);
-      alert("Payment initiation failed. Please try again.");
-    }
-  };
-
-  const verifyPayment = async (paymentDetails: any) => {
-    try {
-      setIsLoading(true);
-
-      const response = await fetch("/api/payments/verify-payment", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          razorpay_payment_id: paymentDetails.razorpay_payment_id,
-          razorpay_order_id: paymentDetails.razorpay_order_id,
-          razorpay_signature: paymentDetails.razorpay_signature,
-          courseId: course.id,
-          userId,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Payment verification failed");
+        // Default to allowing purchase if check fails
+        setCanPurchase(true);
       }
+    };
 
-      const { success } = await response.json();
+    checkCourseAccess();
+  }, []);
 
-      if (success) {
-        router.push(
-          `/courses/checkout-success?paymentId=${paymentDetails.razorpay_payment_id}&courseCode=${course.courseCode}`,
-        );
-      } else {
-        router.push("/courses/checkout-failure");
-      }
-    } catch (error) {
-      console.error("Payment verification failed:", error);
-      setIsLoading(false);
-      router.push("/courses/checkout-failure");
-    }
-  };
+  if (isLoading) {
+    return (
+      <div className="mt-4 flex items-center justify-center">
+        <button className="btn btn-primary" disabled>
+          <span className="loading loading-spinner loading-md"></span>
+          Checking...
+        </button>
+      </div>
+    );
+  }
+
+  if (!canPurchase && existingCourseCode) {
+    return (
+      <div className="mt-4 flex flex-col items-center justify-center">
+        <div className="alert alert-warning mb-4">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6 shrink-0 stroke-current"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+            />
+          </svg>
+          <span>
+            You have already purchased a course. Access your course from your
+            dashboard
+          </span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="mt-4 flex items-center justify-center">
-      <button
-        onClick={initiatePayment}
-        disabled={isLoading}
+      <Link
+        href={`/courses/checkout?courseId=${course.id}`}
         className="btn btn-primary"
       >
-        {isLoading ? (
-          <span className="loading loading-spinner loading-md"></span>
-        ) : (
-          `Purchase Course for ₹${course.courseFee}`
-        )}
-      </button>
+        Purchase Course for ₹{course.courseFee}
+      </Link>
     </div>
   );
 }

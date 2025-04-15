@@ -120,12 +120,6 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("daisyui")],
-   daisyui: {
-  themes: ["bumblebee", "dracula"], // Available themes
-  darkTheme: "dracula", // Default dark theme
-  base: true, // Enable base styles
-  utils: true, // Enable DaisyUI utilities
-  logs: false, // Hide unnecessary logs
-},
+  plugins: [require("tailwindcss-animate")],
+  
 } satisfies Config;

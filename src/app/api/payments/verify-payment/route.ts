@@ -43,6 +43,21 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Check if the user already has a completed payment
+    const existingCompletedPayment = await prisma.payment.findFirst({
+      where: {
+        userId: userId,
+        status: "completed",
+      },
+    });
+
+    if (existingCompletedPayment) {
+      return NextResponse.json(
+        { error: "You have already purchased a course" },
+        { status: 403 },
+      );
+    }
+
     // Update payment status in database
     await prisma.payment.update({
       where: {
@@ -55,7 +70,16 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // Give access to the course
+    // Update the User model directly to set the courseID field
+    // This maintains the one-student-one-course relationship
+    await prisma.user.update({
+      where: { id: userId },
+      data: {
+        courseID: courseId,
+      },
+    });
+
+    // Also keep the many-to-many relationship for compatibility with existing code
     await prisma.courses.update({
       where: { id: courseId },
       data: {

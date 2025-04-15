@@ -36,10 +36,10 @@ export default async function CourseDetailPage({
       <CourseDetails course={course} />
 
       {!isLoggedIn && (
-        <div className="mt-8 rounded-lg border-2 border-yellow-400 bg-yellow-100 p-4">
-          <p className="text-lg font-semibold">
+        <div role="alert" className="alert alret-soft alert-warning">
+          <span>
             Please log in to purchase this course.
-          </p>
+          </span>
         </div>
       )}
 
