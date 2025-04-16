@@ -65,7 +65,7 @@ const AdminSideBar = () => {
           <li key={link.href} className="static w-full">
             <Link
               className={classname({
-                "btn flex w-full items-center justify-start rounded-md p-3 text-left text-base-content transition duration-300 ease-in-out hover:btn-primary hover:scale-105 hover:shadow-lg":
+                "btn flex w-full items-center justify-start rounded-md p-3 text-left text-base-content transition duration-300 ease-in-out hover:btn hover:btn-primary hover:scale-105 hover:shadow-lg":
                   true,
                 "btn btn-primary": currentPath === link.href,
                 "border-none bg-base-100": currentPath !== link.href,

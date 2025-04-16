@@ -33,7 +33,7 @@ export default function EventsPage() {
         Upcoming Event Management
       </h1>
 
-      <div role="tablist" className="tabs-boxed tabs mt-3">
+      <div role="tablist" className="tabs-border tabs mt-3">
         {/* Create Tab */}
         <input
           type="radio"

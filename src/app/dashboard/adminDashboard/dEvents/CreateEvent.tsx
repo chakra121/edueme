@@ -115,213 +115,211 @@ export default function CreateEvent({
   };
 
   return (
-    <div className="card border-2 bg-base-100 p-4">
-      <h2 className="card-title mb-4 text-2xl font-bold">Create New Event</h2>
-<div>
-      <form onSubmit={handleSubmit} className="space-y-3">
-        {/* Title */}
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text text-base">Title</span>
-          </label>
-          <input
-            type="text"
-            name="title"
-            value={formData.title}
-            onChange={handleChange}
-            className="input input-bordered"
-            required
-          />
-        </div>
+    <div>
+      <h2 className="mb-4 text-2xl font-bold">Create New Event</h2>
+      <div>
+        <form onSubmit={handleSubmit} className="space-y-3">
+          {/* Title */}
+          <div className="form-control">
+            <label className="mb-1 block text-lg font-medium text-gray-700">
+              <span className="label-text">Title :</span>
+            </label>
+            <input
+              type="text"
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
+              className="input input-bordered w-full"
+              required
+            />
+          </div>
 
-        {/* Subtitle */}
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text text-base">Sub-Title:</span>
-          </label>
-          <input
-            type="text"
-            name="subTitle"
-            value={formData.subTitle}
-            onChange={handleChange}
-            className="input input-bordered"
-          />
-        </div>
+          {/* Subtitle */}
+          <div className="form-control">
+            <label className="mb-1 block text-lg font-medium text-gray-700">
+              <span className="label-text">Sub-Title :</span>
+            </label>
+            <input
+              type="text"
+              name="subTitle"
+              value={formData.subTitle}
+              onChange={handleChange}
+              className="input input-bordered w-full"
+            />
+          </div>
 
-        {/* Description */}
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text text-base">Description</span>
-          </label>
-          <textarea
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            className="textarea textarea-bordered h-24"
-            required
-          ></textarea>
-        </div>
+          {/* Description */}
+          <div className="form-control">
+            <label className="mb-1 block text-lg font-medium text-gray-700">
+              <span className="label-text">Description :</span>
+            </label>
+            <textarea
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              className="textarea textarea-bordered h-24 w-full"
+              required
+            ></textarea>
+          </div>
 
-        {/* Venue */}
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text text-base">Event Venue</span>
-          </label>
-          <input
-            type="text"
-            name="eventVenue"
-            value={formData.eventVenue}
-            onChange={handleChange}
-            className="input input-bordered"
-            required
-          />
-        </div>
+          {/* Venue */}
+          <div className="form-control">
+            <label className="mb-1 block text-lg font-medium text-gray-700">
+              <span className="label-text">Event Venue :</span>
+            </label>
+            <input
+              type="text"
+              name="eventVenue"
+              value={formData.eventVenue}
+              onChange={handleChange}
+              className="input input-bordered w-full"
+              required
+            />
+          </div>
 
-        {/* Event Date */}
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text text-base">Event Date</span>
-          </label>
-          <input
-            type="text"
-            name="eventdate"
-            value={formData.eventdate}
-            onChange={handleChange}
-            className="input input-bordered"
-            required
-            placeholder="e.g., April 15-17, 2025"
-          />
-        </div>
+          {/* Event Date */}
+          <div className="form-control">
+            <label className="mb-1 block text-lg font-medium text-gray-700">
+              <span className="label-text">Event Date :</span>
+            </label>
+            <input
+              type="text"
+              name="eventdate"
+              value={formData.eventdate}
+              onChange={handleChange}
+              className="input input-bordered w-full"
+              required
+              placeholder="e.g., April 15-17, 2025"
+            />
+          </div>
 
-        {/* Contact */}
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text text-base">Contact Information</span>
-          </label>
-          <input
-            type="text"
-            name="contactUs"
-            value={formData.contactUs}
-            onChange={handleChange}
-            className="input input-bordered"
-            required
-          />
-        </div>
+          {/* Contact */}
+          <div className="form-control">
+            <label className="mb-1 block text-lg font-medium text-gray-700">
+              <span className="label-text">Contact Information :</span>
+            </label>
+            <input
+              type="text"
+              name="contactUs"
+              value={formData.contactUs}
+              onChange={handleChange}
+              className="input input-bordered w-full"
+              required
+            />
+          </div>
 
-        {/* Programs */}
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text text-base">
-              Programs (comma-separated)
-            </span>
-          </label>
-          <input
-            type="text"
-            name="programs"
-            value={formData.programs.join(", ")}
-            onChange={handleProgramsChange}
-            className="input input-bordered"
-            required
-            placeholder="e.g., Workshop, Seminar, Panel Discussion"
-          />
-        </div>
+          {/* Programs */}
+          <div className="form-control">
+            <label className="mb-1 block text-lg font-medium text-gray-700">
+              <span className="label-text">Programs (comma-separated) :</span>
+            </label>
+            <input
+              type="text"
+              name="programs"
+              value={formData.programs.join(", ")}
+              onChange={handleProgramsChange}
+              className="input input-bordered w-full"
+              required
+              placeholder="e.g., Workshop, Seminar, Panel Discussion"
+            />
+          </div>
 
-        {/* Category */}
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text text-base">Category</span>
-          </label>
-          <input
-            type="text"
-            name="category"
-            value={formData.category}
-            onChange={handleChange}
-            className="input input-bordered"
-            required
-          />
-        </div>
+          {/* Category */}
+          <div className="form-control">
+            <label className="mb-1 block text-lg font-medium text-gray-700">
+              <span className="label-text">Category :</span>
+            </label>
+            <input
+              type="text"
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+              className="input input-bordered w-full"
+              required
+            />
+          </div>
 
-        {/* Registration Fee */}
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text text-base">Registration Fee</span>
-          </label>
-          <input
-            type="text"
-            name="regFee"
-            value={formData.regFee}
-            onChange={handleChange}
-            className="input input-bordered"
-            required
-          />
-        </div>
+          {/* Registration Fee */}
+          <div className="form-control">
+            <label className="mb-1 block text-lg font-medium text-gray-700">
+              <span className="label-text">Registration Fee :</span>
+            </label>
+            <input
+              type="text"
+              name="regFee"
+              value={formData.regFee}
+              onChange={handleChange}
+              className="input input-bordered w-full"
+              required
+            />
+          </div>
 
-        {/* Registration Link */}
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text text-base">Registration Link</span>
-          </label>
-          <input
-            type="url"
-            name="registrationLink"
-            value={formData.registrationLink}
-            onChange={handleChange}
-            className="input input-bordered"
-            required
-          />
-        </div>
+          {/* Registration Link */}
+          <div className="form-control">
+            <label className="mb-1 block text-lg font-medium text-gray-700">
+              <span className="label-text">Registration Link :</span>
+            </label>
+            <input
+              type="url"
+              name="registrationLink"
+              value={formData.registrationLink}
+              onChange={handleChange}
+              className="input input-bordered w-full"
+              required
+            />
+          </div>
 
-        {/* Note */}
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text">Note (Optional)</span>
-          </label>
-          <textarea
-            name="note"
-            value={formData.note}
-            onChange={handleChange}
-            className="textarea textarea-bordered"
-          ></textarea>
-        </div>
+          {/* Note */}
+          <div className="form-control">
+            <label className="mb-1 block text-lg font-medium text-gray-700">
+              <span className="label-text">Note (Optional) :</span>
+            </label>
+            <textarea
+              name="note"
+              value={formData.note}
+              onChange={handleChange}
+              className="textarea textarea-bordered h-24 w-full"
+            ></textarea>
+          </div>
 
-        {/* Registration End Date */}
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text text-base">Registration End Date</span>
-          </label>
-          <input
-            type="datetime-local"
-            name="regEndDate"
-            value={formData.regEndDate}
-            onChange={handleChange}
-            className="input input-bordered"
-          />
-        </div>
+          {/* Registration End Date */}
+          <div className="form-control">
+            <label className="mb-1 block text-lg font-medium text-gray-700">
+              <span className="label-text">Registration End Date :</span>
+            </label>
+            <input
+              type="datetime-local"
+              name="regEndDate"
+              value={formData.regEndDate}
+              onChange={handleChange}
+              className="input input-bordered"
+            />
+          </div>
 
-        {/* Published Status */}
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text text-base">Published</span>
+          {/* Published Status */}
+          <div className="form-control">
+            <label className="pr-3 text-lg font-medium text-gray-700">
+              <span className="label-text">Published :</span>
+            </label>
             <input
               type="checkbox"
               className="toggle toggle-primary"
               checked={formData.published}
               onChange={handlePublishedChange}
             />
-          </label>
-        </div>
+          </div>
 
-        {/* Submit Button */}
-        <div className="form-control mt-6">
-          <button
-            type="submit"
-            className={`btn btn-primary ${loading ? "loading" : ""}`}
-            disabled={loading}
-          >
-            {loading ? "Creating..." : "Create Event"}
-          </button>
-        </div>
-      </form>
+          {/* Submit Button */}
+          <div className="form-control mt-6">
+            <button
+              type="submit"
+              className={`btn btn-primary btn-block ${loading ? "loading" : ""}`}
+              disabled={loading}
+            >
+              {loading ? "Creating..." : "Create Event"}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

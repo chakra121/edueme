@@ -83,7 +83,7 @@ export default function DeleteEvent({
   }
 
   return (
-    <div className="card border-2 p-6">
+    <div>
       <div className="mb-6 flex items-center justify-between">
         <h2 className="text-2xl font-bold">Delete Events</h2>
         <button onClick={fetchEvents} className="btn btn-outline btn-sm">

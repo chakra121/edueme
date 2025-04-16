@@ -52,11 +52,11 @@ const UpdateCourseComponent: React.FC<UpdateCourseProps> = ({
 
       {/* Course Selection */}
       <div className="form-control">
-        <label className="label">
-          <span className="label-text">Select Course to Update:</span>
+        <label className="mb-1 block text-lg font-medium text-gray-700">
+          <span className="label-text">Select Course to Update :</span>
         </label>
         <select
-          className="select select-bordered"
+          className="select select-bordered w-full"
           onChange={(e) => handleSelectCourse(e.target.value)}
           value={selectedCourse ?? ""}
         >
@@ -77,18 +77,18 @@ const UpdateCourseComponent: React.FC<UpdateCourseProps> = ({
         >
           {/* Course Code Input */}
           <div className="form-control">
-            <label className="label">
+            <label className="mb-1 block text-lg font-medium text-gray-700">
               <span className="label-text">Course Code</span>
             </label>
             <input
               type="text"
-              className="input input-bordered"
+              className="input input-bordered w-full"
               {...register("courseCode", {
                 required: "Course code is required",
               })}
             />
             {errors.courseCode && (
-              <span className="text-sm text-error">
+              <span className="text-error text-sm">
                 {errors.courseCode.message}
               </span>
             )}
@@ -96,18 +96,18 @@ const UpdateCourseComponent: React.FC<UpdateCourseProps> = ({
 
           {/* Course Name Input */}
           <div className="form-control">
-            <label className="label">
+            <label className="mb-1 block text-lg font-medium text-gray-700">
               <span className="label-text">Course Name</span>
             </label>
             <input
               type="text"
-              className="input input-bordered"
+              className="input input-bordered w-full"
               {...register("courseName", {
                 required: "Course name is required",
               })}
             />
             {errors.courseName && (
-              <span className="text-sm text-error">
+              <span className="text-error text-sm">
                 {errors.courseName.message}
               </span>
             )}

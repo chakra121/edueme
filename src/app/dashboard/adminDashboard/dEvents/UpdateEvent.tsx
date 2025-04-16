@@ -161,14 +161,16 @@ export default function UpdateEvent({
   };
 
   return (
-    <div className="card bg-base-100 border-2 p-6">
+    <div>
       <h2 className="mb-4 text-2xl font-bold">Update Event</h2>
 
-      <div className="card bg-base-100 pb-8">
-        <label className="mb-3 text-base">Select an Event to Edit</label>
+      <div className="card bg-base-100 pb-2">
+        <label className="mb-1 block text-lg font-medium text-gray-700">
+          Select an Event to Edit :
+        </label>
         <div className="flex items-center gap-4">
           <select
-            className="select select-bordered w-full max-w-md"
+            className="select select-bordered w-2/5"
             value={selectedEventId}
             onChange={handleEventSelect}
             disabled={fetchingEvents}
@@ -195,7 +197,7 @@ export default function UpdateEvent({
 
       {/* Edit Modal */}
       <dialog id="edit_event_modal" className="modal">
-        <div className="modal-box max-w-3xl">
+        <div className="modal-box max-h-5/6 w-full max-w-3xl">
           <h3 className="mb-4 text-xl font-bold">
             Edit Event: {selectedEvent?.title}
           </h3>
@@ -224,15 +226,17 @@ export default function UpdateEvent({
                 },
               ].map((field) => (
                 <div className="form-control" key={field.name}>
-                  <label className="label">
-                    <span className="label-text text-base">{field.label}</span>
+                  <label className="mb-1 block text-lg font-medium text-gray-700">
+                    <span className="label-text text-base">
+                      {field.label} :
+                    </span>
                   </label>
                   {field.type === "textarea" ? (
                     <textarea
                       name={field.name}
                       value={(formData as any)[field.name] || ""}
                       onChange={handleChange}
-                      className="textarea textarea-bordered"
+                      className="textarea textarea-bordered h-20 w-full"
                     ></textarea>
                   ) : (
                     <input
@@ -240,35 +244,37 @@ export default function UpdateEvent({
                       name={field.name}
                       value={(formData as any)[field.name] || ""}
                       onChange={handleChange}
-                      className="input input-bordered"
+                      className="input input-bordered w-full"
                     />
                   )}
                 </div>
               ))}
 
               <div className="form-control">
-                <label className="label">
-                  <span className="label-text text-base">Programs (comma-separated)</span>
+                <label className="mb-1 block text-lg font-medium text-gray-700">
+                  <span className="label-text text-base">
+                    Programs (comma-separated) :
+                  </span>
                 </label>
                 <input
                   type="text"
                   name="programs"
                   value={formData.programs?.join(", ") || ""}
                   onChange={handleProgramsChange}
-                  className="input input-bordered"
+                  className="input input-bordered w-full"
                 />
               </div>
 
               <div className="form-control">
-                <label className="label">
-                  <span className="label-text text-base">Published</span>
-                  <input
-                    type="checkbox"
-                    checked={formData.published || false}
-                    onChange={handlePublishedChange}
-                    className="toggle toggle-primary"
-                  />
+                <label className="pr-3 text-lg font-medium text-gray-700">
+                  <span className="label-text text-base">Published :</span>
                 </label>
+                <input
+                  type="checkbox"
+                  checked={formData.published || false}
+                  onChange={handlePublishedChange}
+                  className="toggle toggle-primary"
+                />
               </div>
 
               <div className="modal-action flex justify-start gap-2">

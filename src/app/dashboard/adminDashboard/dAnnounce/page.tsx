@@ -29,33 +29,33 @@ export default async function dAnnouncePage() {
 
   return (
     <div className="card bg-base-100 p-4 shadow-lg">
-      <h1 className="card-title p-3 text-3xl font-semibold text-base-content">
+      <h1 className="card-title text-base-content p-3 text-3xl font-semibold">
         Announcements
       </h1>
 
-      <div role="tablist" className="tabs tabs-boxed mt-3">
+      <div role="tablist" className="tabs tabs-border mt-3">
         <input
           type="radio"
           name="my_tabs_2"
           role="tab"
-          className="tab text-lg font-medium text-base-content"
+          className="tab text-base-content text-lg font-medium"
           aria-label="Common"
           defaultChecked
         />
         <div
           role="tabpanel"
-          className="tab-content rounded-box border-base-300 bg-base-100 p-5 text-base-content"
+          className="tab-content rounded-box border-base-300 bg-base-100 text-base-content p-5"
         >
           <div className="flex flex-col space-y-5">
             {/* current Announcement box */}
-            <div className="flex flex-col space-y-4 rounded-lg border-4 p-4">
+            <div className="flex flex-col space-y-4 rounded-lg border-2 p-4">
               <h2 className="border-b pb-2 text-xl font-semibold">
                 Present Announcement
               </h2>
               <h1 className="text-2xl font-semibold">
                 {currentCommonAnnouncement?.title}
               </h1>
-              <p className="text-lg text-base-content">
+              <p className="text-base-content text-lg">
                 {currentCommonAnnouncement?.description}
               </p>
               <div className="flex items-center space-x-3 border-t pt-2">
@@ -72,7 +72,7 @@ export default async function dAnnouncePage() {
             {/* update box */}
             <form
               action={updateCommonAnnouncement}
-              className="flex flex-col space-y-4 rounded-lg border-4 p-4"
+              className="flex flex-col space-y-4 rounded-lg border-2 p-4"
             >
               <input
                 type="text"
@@ -83,8 +83,8 @@ export default async function dAnnouncePage() {
               <h2 className="border-b pb-2 text-xl font-semibold">
                 Update the Announcement
               </h2>
-              <label className="block text-lg font-medium text-base-content">
-                Title
+              <label className="mb-1 block text-lg font-medium text-gray-700">
+                Title :
               </label>
               <input
                 type="text"
@@ -92,13 +92,13 @@ export default async function dAnnouncePage() {
                 className="input input-bordered w-full"
                 placeholder="Enter title"
               />
-              <label className="block text-lg font-medium text-base-content">
-                Description
+              <label className="mb-1 block text-lg font-medium text-gray-700">
+                Description :
               </label>
               <textarea
                 name="description"
                 rows={5}
-                className="textarea textarea-bordered"
+                className="textarea textarea-bordered w-full"
                 placeholder="Enter description"
               ></textarea>
               <div>
@@ -114,23 +114,23 @@ export default async function dAnnouncePage() {
           type="radio"
           name="my_tabs_2"
           role="tab"
-          className="tab text-lg font-medium text-base-content"
+          className="tab text-base-content text-lg font-medium"
           aria-label="Student"
         />
         <div
           role="tabpanel"
-          className="tab-content rounded-box border-base-300 bg-base-100 p-5 text-base-content"
+          className="tab-content rounded-box border-base-300 bg-base-100 text-base-content p-5"
         >
           <div className="flex flex-col space-y-5">
             {/* current Announcement box */}
-            <div className="flex flex-col space-y-4 rounded-lg border-4 p-4">
+            <div className="flex flex-col space-y-4 rounded-lg border-2 p-4">
               <h2 className="border-b pb-2 text-xl font-semibold">
                 Present Announcement
               </h2>
               <h1 className="text-2xl font-semibold">
                 {currentStudentAnnouncement?.title}
               </h1>
-              <p className="text-lg text-base-content">
+              <p className="text-base-content text-lg">
                 {currentStudentAnnouncement?.description}
               </p>
               <div className="flex items-center space-x-3 border-t pt-2">
@@ -147,7 +147,7 @@ export default async function dAnnouncePage() {
             {/* update box */}
             <form
               action={updateStudentAnnouncement}
-              className="flex flex-col space-y-4 rounded-lg border-4 p-4"
+              className="flex flex-col space-y-4 rounded-lg border-2 p-4"
             >
               <input
                 type="text"
@@ -158,8 +158,8 @@ export default async function dAnnouncePage() {
               <h2 className="border-b pb-2 text-xl font-semibold">
                 Update the Announcement
               </h2>
-              <label className="block text-lg font-medium text-base-content">
-                Title
+              <label className="mb-1 block text-lg font-medium text-gray-700">
+                Title :
               </label>
               <input
                 type="text"
@@ -167,13 +167,13 @@ export default async function dAnnouncePage() {
                 className="input input-bordered w-full"
                 placeholder="Enter title"
               />
-              <label className="block text-lg font-medium text-base-content">
-                Description
+              <label className="mb-1 block text-lg font-medium text-gray-700">
+                Description :
               </label>
               <textarea
                 name="description"
                 rows={5}
-                className="textarea textarea-bordered"
+                className="textarea textarea-bordered w-full"
                 placeholder="Enter description"
               ></textarea>
               <div>

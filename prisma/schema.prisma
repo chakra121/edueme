@@ -66,45 +66,45 @@ model User {
   classLink      ClassLink? @relation(fields: [classLinkId], references: [id])
 
   course         Courses? @relation(fields: [courseID], references: [id])
-  payments          Payment[]
+  payments       Payment[]
 }
 
 model Teacher {
-  id             String   @id @default(auto()) @map("_id") @db.ObjectId
-  teacherName    String
-  phoneNumber    String
-  email          String   @unique
-  hashedPassword String
-  employeeID     String
-  photoLink      String?
-  userRole       String
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  teacherName      String
+  phoneNumber      String
+  email            String   @unique
+  hashedPassword   String
+  employeeID       String
+  photoLink        String?
+  userRole         String
 
   resetToken       String?  @map("_resetToken")
   resetTokenExpiry DateTime?
 
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 
   // One teacher has only one course
-  courseID       String?   @unique @db.ObjectId
-  course         Courses? @relation(fields: [courseID],references: [id])
- classLink      ClassLink?
+  courseID         String?   @unique @db.ObjectId
+  course           Courses? @relation(fields: [courseID],references: [id])
+ classLink         ClassLink?
 }
 
 model Courses {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  courseCode String   @unique
-  courseName String
-  teacher    Teacher?
-  courseFee  Int?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  courseCode  String   @unique
+  courseName  String
+  teacher     Teacher?
+  courseFee   Int?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
-  students   User[]
-  chapters   Chapter[]
+  students    User[]
+  chapters    Chapter[]
 
-  classLink  ClassLink?
-  payments          Payment[]
+  classLink   ClassLink?
+  payments    Payment[]
 }
 
 
@@ -121,7 +121,7 @@ model Chapter {
   updatedAt          DateTime @updatedAt
 
   course             Courses  @relation(fields: [courseID], references: [id], onDelete: Cascade)  
-  classes           Class[]
+  classes            Class[]
 
 }
 
@@ -137,19 +137,19 @@ model Class {
 }
 
 model ClassLink {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  classLink  String
-  topics     String[]
-  description String
-  teacherID  String   @unique @db.ObjectId
-  courseID   String   @unique @db.ObjectId
-  DateAndTime DateTime
-  updatedAt  DateTime @updatedAt
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  classLink         String
+  topics            String[]
+  description       String
+  teacherID         String   @unique @db.ObjectId
+  courseID          String   @unique @db.ObjectId
+  DateAndTime       DateTime
+  updatedAt         DateTime @updatedAt
 
-  teacher    Teacher  @relation(fields: [teacherID], references: [id])
-  course     Courses  @relation(fields: [courseID], references: [id])
+  teacher           Teacher  @relation(fields: [teacherID], references: [id])
+  course            Courses  @relation(fields: [courseID], references: [id])
 
-  users      User[]   // Multiple students can be associated with the same class link
+  users             User[]   // Multiple students can be associated with the same class link
 }
 
 model UpcomingEvent {

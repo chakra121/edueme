@@ -122,26 +122,26 @@ const MainCoursesContainer: React.FC = () => {
 
   return (
     <div className="card bg-base-100 p-4 shadow-lg">
-      <h1 className="card-title p-3 text-3xl font-semibold text-base-content">
+      <h1 className="card-title text-base-content p-3 text-3xl font-semibold">
         Course Management System
       </h1>
 
       {/* Single Toast component for the entire system */}
       {toast.type && <ToastComponent toast={toast} />}
 
-      <div role="tablist" className="tabs-boxed tabs mt-3">
+      <div role="tablist" className="tabs-border tabs mt-3">
         {/* Create Tab */}
         <input
           type="radio"
           name="course_tabs"
           role="tab"
-          className="tab text-lg font-medium text-base-content"
+          className="tab text-base-content text-lg font-medium"
           aria-label="Create"
           defaultChecked
         />
         <div
           role="tabpanel"
-          className="tab-content rounded-box border-base-300 bg-base-100 p-5 text-base-content"
+          className="tab-content rounded-box border-base-300 bg-base-100 text-base-content p-5"
         >
           <h2 className="mb-4 text-2xl font-semibold">Create New Course</h2>
           <CreateCourseForm onSubmit={handleCreateCourse} loading={loading} />
@@ -152,12 +152,12 @@ const MainCoursesContainer: React.FC = () => {
           type="radio"
           name="course_tabs"
           role="tab"
-          className="tab text-lg font-medium text-base-content"
+          className="tab text-base-content text-lg font-medium"
           aria-label="View"
         />
         <div
           role="tabpanel"
-          className="tab-content rounded-box border-base-300 bg-base-100 p-5 text-base-content"
+          className="tab-content rounded-box border-base-300 bg-base-100 text-base-content p-5"
         >
           <ViewCoursesComponent
             courses={courses}
@@ -171,12 +171,12 @@ const MainCoursesContainer: React.FC = () => {
           type="radio"
           name="course_tabs"
           role="tab"
-          className="tab text-lg font-medium text-base-content"
+          className="tab text-base-content text-lg font-medium"
           aria-label="Update"
         />
         <div
           role="tabpanel"
-          className="tab-content rounded-box border-base-300 bg-base-100 p-5 text-base-content"
+          className="tab-content rounded-box border-base-300 bg-base-100 text-base-content p-5"
         >
           <UpdateCourseComponent
             courses={courses}
@@ -190,12 +190,12 @@ const MainCoursesContainer: React.FC = () => {
           type="radio"
           name="course_tabs"
           role="tab"
-          className="tab text-lg font-medium text-base-content"
+          className="tab text-base-content text-lg font-medium"
           aria-label="Delete"
         />
         <div
           role="tabpanel"
-          className="tab-content rounded-box border-base-300 bg-base-100 p-5 text-base-content"
+          className="tab-content rounded-box border-base-300 bg-base-100 text-base-content p-5"
         >
           <DeleteCourseComponent
             courses={courses}

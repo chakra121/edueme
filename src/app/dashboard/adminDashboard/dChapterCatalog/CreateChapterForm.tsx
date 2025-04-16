@@ -58,67 +58,75 @@ export const CreateChapterForm: React.FC<CreateChapterFormProps> = ({
   };
 
   return (
-    <div className="card bg-base-200 p-4 shadow-lg">
-      <h2 className="p-3 text-2xl font-bold">Create Chapter</h2>
+    <div>
+      <h2 className="mb-3 text-2xl font-bold">Create Chapter</h2>
       <Toast toast={toast} />
 
       <form onSubmit={handleSubmit(handleCreateChapter)} className="space-y-4">
         <div className="form-control">
-          <label className="label">Chapter Code:</label>
+          <label className="mb-1 block text-lg font-medium text-gray-700">
+            Chapter Code:
+          </label>
           <input
             type="text"
-            className="input input-bordered"
+            className="input input-bordered w-full"
             {...register("chapterCode", { required: "Required" })}
           />
           {errors.chapterCode && (
-            <span className="text-sm text-error">
+            <span className="text-error text-sm">
               {errors.chapterCode.message}
             </span>
           )}
         </div>
 
         <div className="form-control">
-          <label className="label">Chapter Name:</label>
+          <label className="mb-1 block text-lg font-medium text-gray-700">
+            Chapter Name:
+          </label>
           <input
             type="text"
-            className="input input-bordered"
+            className="input input-bordered w-full"
             {...register("chapterName", { required: "Required" })}
           />
           {errors.chapterName && (
-            <span className="text-sm text-error">
+            <span className="text-error text-sm">
               {errors.chapterName.message}
             </span>
           )}
         </div>
 
         <div className="form-control">
-          <label className="label">Chapter Description:</label>
+          <label className="mb-1 block text-lg font-medium text-gray-700">
+            Chapter Description:
+          </label>
           <textarea
-            className="textarea textarea-bordered"
+            className="textarea textarea-bordered w-full"
             {...register("chapterDescription", { required: "Required" })}
           />
           {errors.chapterDescription && (
-            <span className="text-sm text-error">
+            <span className="text-error text-sm">
               {errors.chapterDescription.message}
             </span>
           )}
         </div>
 
         <div className="form-control">
-          <label className="label">
+          <label className="mb-1 block text-lg font-medium text-gray-700">
             Notes Link (https://***www.example.com***) :
           </label>
           <input
             type="url"
-            className="input input-bordered"
+            className="input input-bordered w-full"
             {...register("notesLink", { required: "Required" })}
           />
         </div>
 
         <div className="form-control">
-          <label className="label">Select Course:</label>
+          <label className="mb-1 block text-lg font-medium text-gray-700">
+            Select Course:
+          </label>
           <select
-            className="select select-bordered"
+            className="select select-bordered w-full"
             {...register("courseID", { required: "Required" })}
           >
             <option value="">Select a course</option>

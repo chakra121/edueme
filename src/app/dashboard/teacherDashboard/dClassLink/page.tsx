@@ -120,7 +120,7 @@ export default function ClassLinkManager() {
   return (
     <div className="card bg-base-100">
       <div className="card-body">
-        <h1 className="mb-4 text-3xl font-bold text-primary">
+        <h1 className="text-primary mb-4 text-3xl font-bold">
           Live Class Details
         </h1>
 
@@ -128,7 +128,9 @@ export default function ClassLinkManager() {
           <>
             {editing ? (
               <div>
-                <label className="label">New Class Link:</label>
+                <label className="mb-1 block text-lg font-medium text-gray-700">
+                  New Class Link :
+                </label>
                 <input
                   type="text"
                   value={newClassLink}
@@ -136,14 +138,18 @@ export default function ClassLinkManager() {
                   className="input input-bordered mb-4 w-full"
                 />
 
-                <label className="label">Instructions:</label>
+                <label className="mb-1 block text-lg font-medium text-gray-700">
+                  Instructions :
+                </label>
                 <textarea
                   value={newInstructions}
                   onChange={(e) => setNewInstructions(e.target.value)}
                   className="textarea textarea-bordered mb-4 w-full"
                 ></textarea>
 
-                <label className="label">Scheduled Date and Time:</label>
+                <label className="mb-1 block text-lg font-medium text-gray-700">
+                  Scheduled Date and Time :
+                </label>
                 <input
                   type="datetime-local"
                   value={newDateAndTime}
@@ -151,7 +157,9 @@ export default function ClassLinkManager() {
                   className="input input-bordered mb-4 w-full"
                 />
 
-                <label className="label">Edit Topics:</label>
+                <label className="mb-1 block text-lg font-medium text-gray-700">
+                  Edit Topics :
+                </label>
                 {newTopics.map((topic, index) => (
                   <div key={index} className="mb-3 flex items-center">
                     <input
@@ -171,7 +179,7 @@ export default function ClassLinkManager() {
 
                 <button
                   onClick={addTopic}
-                  className="btn btn-accent btn-md mb-4"
+                  className="btn btn-accent btn-outline mb-4"
                 >
                   +
                 </button>
@@ -195,7 +203,7 @@ export default function ClassLinkManager() {
 
                 <h2 className="mb-2 font-bold">Description:</h2>
                 <p className="mb-4">{teacherLink.description}</p>
-                
+
                 <h2 className="mb-2 font-bold">Scheduled Date & Time:</h2>
                 <p className="mb-4">
                   {format(new Date(teacherLink.DateAndTime), "PPpp")}

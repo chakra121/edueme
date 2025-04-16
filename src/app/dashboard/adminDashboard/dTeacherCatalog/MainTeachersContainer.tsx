@@ -121,7 +121,7 @@ export default function MainTeachersContainer() {
 
   return (
     <div className="card bg-base-100 p-4 shadow-lg">
-      <h1 className="card-title p-3 text-3xl font-semibold text-base-content">
+      <h1 className="card-title text-base-content p-3 text-3xl font-semibold">
         CRUD Panel for Teacher
       </h1>
 
@@ -145,18 +145,18 @@ export default function MainTeachersContainer() {
         </div>
       )}
 
-      <div role="tablist" className="tabs-boxed tabs mt-3">
+      <div role="tablist" className="tabs-border tabs mt-3">
         <input
           type="radio"
           name="my_tabs_3"
           role="tab"
-          className="tab text-lg font-medium text-base-content"
+          className="tab text-base-content text-lg font-medium"
           aria-label="Create"
           defaultChecked
         />
         <div
           role="tabpanel"
-          className="tab-content rounded-box border-base-300 bg-base-100 p-5 text-base-content"
+          className="tab-content rounded-box border-base-300 bg-base-100 text-base-content p-5"
         >
           <CreateTeacherForm courses={courses} onSuccess={handleTeacherAdded} />
         </div>
@@ -165,12 +165,12 @@ export default function MainTeachersContainer() {
           type="radio"
           name="my_tabs_3"
           role="tab"
-          className="tab text-lg font-medium text-base-content"
+          className="tab text-base-content text-lg font-medium"
           aria-label="View"
         />
         <div
           role="tabpanel"
-          className="tab-content rounded-box border-base-300 bg-base-100 p-5 text-base-content"
+          className="tab-content rounded-box border-base-300 bg-base-100 text-base-content p-5"
         >
           <ViewTeachersComponent
             teachers={teachers}
@@ -184,12 +184,12 @@ export default function MainTeachersContainer() {
           type="radio"
           name="my_tabs_3"
           role="tab"
-          className="tab text-lg font-medium text-base-content"
+          className="tab text-base-content text-lg font-medium"
           aria-label="Delete"
         />
         <div
           role="tabpanel"
-          className="tab-content rounded-box border-base-300 bg-base-100 p-5 text-base-content"
+          className="tab-content rounded-box border-base-300 bg-base-100 text-base-content p-5"
         >
           <DeleteTeacherComponent
             teachers={teachers}
@@ -202,12 +202,12 @@ export default function MainTeachersContainer() {
           type="radio"
           name="my_tabs_3"
           role="tab"
-          className="tab text-lg font-medium text-base-content"
+          className="tab text-base-content text-lg font-medium"
           aria-label="Update"
         />
         <div
           role="tabpanel"
-          className="tab-content rounded-box border-base-300 bg-base-100 p-5 text-base-content"
+          className="tab-content rounded-box border-base-300 bg-base-100 text-base-content p-5"
         >
           <UpdateTeacherComponent
             teachers={teachers}

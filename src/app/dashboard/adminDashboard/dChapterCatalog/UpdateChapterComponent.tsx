@@ -69,15 +69,17 @@ export const UpdateChapterComponent: React.FC<UpdateChapterProps> = ({
 
   return (
     <>
-      <h2 className="text-2xl font-bold">Update Chapter</h2>
+      <h2 className="mb-3 text-2xl font-bold">Update Chapter</h2>
       <Toast toast={toast} />
 
       {/* Select Course */}
       <div className="form-control">
-        <label className="label">Select Course:</label>
+        <label className="mb-1 block text-lg font-medium text-gray-700">
+          Select Course:
+        </label>
         <select
           onChange={(e) => onCourseChange(e.target.value)}
-          className="select select-bordered"
+          className="select select-bordered w-full"
           value={selectedCourse}
         >
           <option value="">----- Select a Course -----</option>
@@ -92,10 +94,12 @@ export const UpdateChapterComponent: React.FC<UpdateChapterProps> = ({
       {/* Select Chapter - Only visible after selecting a course */}
       {selectedCourse && (
         <div className="form-control mt-3">
-          <label className="label">Select Chapter:</label>
+          <label className="mb-1 block text-lg font-medium text-gray-700">
+            Select Chapter:
+          </label>
           <select
             onChange={(e) => setSelectedChapter(e.target.value)}
-            className="select select-bordered"
+            className="select select-bordered w-full"
             value={selectedChapter}
           >
             <option value="">----- Select a Chapter -----</option>
@@ -114,39 +118,47 @@ export const UpdateChapterComponent: React.FC<UpdateChapterProps> = ({
           <input type="hidden" value={selectedChapter} />
 
           <div className="form-control">
-            <label className="label">Chapter Code:</label>
+            <label className="mb-1 block text-lg font-medium text-gray-700">
+              Chapter Code:
+            </label>
             <input
               type="text"
-              className="input input-bordered"
+              className="input input-bordered w-full"
               value={chapterCode}
               onChange={(e) => setChapterCode(e.target.value)}
             />
           </div>
 
           <div className="form-control">
-            <label className="label">Chapter Name:</label>
+            <label className="mb-1 block text-lg font-medium text-gray-700">
+              Chapter Name:
+            </label>
             <input
               type="text"
-              className="input input-bordered"
+              className="input input-bordered w-full"
               value={chapterName}
               onChange={(e) => setChapterName(e.target.value)}
             />
           </div>
 
           <div className="form-control">
-            <label className="label">Description:</label>
+            <label className="mb-1 block text-lg font-medium text-gray-700">
+              Description:
+            </label>
             <textarea
-              className="textarea textarea-bordered"
+              className="textarea textarea-bordered w-full"
               value={chapterDescription}
               onChange={(e) => setChapterDescription(e.target.value)}
             />
           </div>
 
           <div className="form-control">
-            <label className="label">Notes Link:</label>
+            <label className="mb-1 block text-lg font-medium text-gray-700">
+              Notes Link:
+            </label>
             <input
               type="text"
-              className="input input-bordered"
+              className="input input-bordered w-full"
               value={notesLink}
               onChange={(e) => setNotesLink(e.target.value)}
               placeholder="Enter URL for chapter notes"

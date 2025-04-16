@@ -102,7 +102,7 @@ const Login: React.FC = () => {
 
           <form onSubmit={handleSubmit}>
             <div className="form-control">
-              <label className="label">
+              <label className="label mb-1 text-md">
                 <span className="label-text text-base-content">Email:</span>
               </label>
               <input
@@ -110,7 +110,7 @@ const Login: React.FC = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className={`input input-bordered text-base-content ${errors.email ? "input-error" : ""}`}
+                className={`input input-bordered w-full text-base-content ${errors.email ? "input-error" : ""}`}
               />
               {errors.email && (
                 <span className="text-sm text-error">{errors.email}</span>
@@ -118,7 +118,7 @@ const Login: React.FC = () => {
             </div>
 
             <div className="form-control mt-4">
-              <label className="label">
+              <label className="label mb-1 text-md">
                 <span className="label-text text-base-content">Password:</span>
               </label>
               <input
@@ -126,7 +126,7 @@ const Login: React.FC = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                className={`input input-bordered text-base-content ${errors.password ? "input-error" : ""}`}
+                className={`input w-full input-bordered text-base-content ${errors.password ? "input-error" : ""}`}
               />
               {errors.password && (
                 <span className="text-sm text-error">{errors.password}</span>
@@ -134,7 +134,7 @@ const Login: React.FC = () => {
               <div className="flex mt-2 justify-end">
                 <Link
                   href="/auth/forgot-password"
-                  className="link link-info text-xs"
+                  className="link link-info text-sm font-light"
                 >
                   Forgot password?
                 </Link>

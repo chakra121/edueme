@@ -28,12 +28,13 @@ export const DeleteChapterComponent: React.FC<DeleteChapterProps> = ({
 
   return (
     <>
-      <h2 className="text-2xl font-bold">Delete Chapters</h2>
+      <h2 className="text-2xl mb-3 font-bold">Delete Chapters</h2>
       <Toast toast={toast} />
-
+      <div className="flex items-center space-x-2">
+      <label className="label font-semibold">Filter by Course:</label>
       <select
         onChange={(e) => onCourseChange(e.target.value)}
-        className="select select-bordered mt-3"
+        className="select select-bordered"
       >
         <option value="">All Courses</option>
         {courses.map((course) => (
@@ -42,6 +43,7 @@ export const DeleteChapterComponent: React.FC<DeleteChapterProps> = ({
           </option>
         ))}
       </select>
+      </div>
 
       <div className="mt-4 grid grid-cols-2 gap-4">
         {filteredChapters.map((chapter) => (

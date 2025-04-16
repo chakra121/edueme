@@ -32,19 +32,19 @@ const CreateCourseForm: React.FC<CreateCourseFormProps> = ({
     <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
       {/* Course Code Input */}
       <div className="form-control">
-        <label className="label">
-          <span className="label-text">Course Code</span>
+        <label className="mb-1 block text-lg font-medium text-gray-700">
+          <span className="label-text">Course Code :</span>
         </label>
         <input
           type="text"
           placeholder="E.g., CS101"
-          className="input input-bordered"
+          className="input input-bordered w-full"
           {...register("courseCode", {
             required: "Course code is required",
           })}
         />
         {errors.courseCode && (
-          <span className="mt-1 text-sm text-error">
+          <span className="text-error mt-1 text-sm">
             {errors.courseCode.message}
           </span>
         )}
@@ -52,19 +52,19 @@ const CreateCourseForm: React.FC<CreateCourseFormProps> = ({
 
       {/* Course Name Input */}
       <div className="form-control">
-        <label className="label">
-          <span className="label-text">Course Name</span>
+        <label className="mb-1 block text-lg font-medium text-gray-700">
+          <span className="label-text">Course Name :</span>
         </label>
         <input
           type="text"
           placeholder="E.g., Introduction to Computer Science"
-          className="input input-bordered"
+          className="input input-bordered w-full"
           {...register("courseName", {
             required: "Course name is required",
           })}
         />
         {errors.courseName && (
-          <span className="mt-1 text-sm text-error">
+          <span className="text-error mt-1 text-sm">
             {errors.courseName.message}
           </span>
         )}

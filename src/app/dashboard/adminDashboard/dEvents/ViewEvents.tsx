@@ -76,7 +76,7 @@ export default function ViewEvents() {
   }
 
   return (
-    <div className="card border-2 bg-base-100 p-6">
+    <div>
       <div className="mb-6 flex items-center justify-between">
         <h2 className="text-2xl font-bold">View Events</h2>
         <button onClick={fetchEvents} className="btn btn-outline btn-sm">
@@ -107,7 +107,7 @@ export default function ViewEvents() {
           {events.map((event) => (
             <div
               key={event.id}
-              className="card border-2 bg-base-100 transition duration-300 ease-out hover:scale-105 hover:shadow-xl"
+              className="card bg-base-100 border-2 transition duration-300 ease-out hover:scale-105 hover:shadow-xl"
             >
               <div className="card-body">
                 <h2 className="card-title">
@@ -136,11 +136,11 @@ export default function ViewEvents() {
 
       {/* Event Detail Modal */}
       {modalOpen && selectedEvent && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="relative max-h-[95vh] w-full max-w-4xl overflow-y-auto rounded-lg bg-base-100 p-6">
+        <div className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black">
+          <div className="bg-base-100 relative max-h-[95vh] w-full max-w-4xl overflow-y-auto rounded-lg p-6">
             <button
               onClick={closeModal}
-              className="btn btn-circle btn-sm absolute right-4 top-4"
+              className="btn btn-circle btn-sm absolute top-4 right-4"
             >
               ✕
             </button>
@@ -158,7 +158,7 @@ export default function ViewEvents() {
               >
                 {selectedEvent.published ? "Published" : "Draft"}
               </div>
-              <div className="badge badge-outline">
+              <div className="badge badge-neutral badge-outline">
                 {selectedEvent.category}
               </div>
             </div>

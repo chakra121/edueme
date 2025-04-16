@@ -27,10 +27,10 @@ export const ViewChaptersComponent: React.FC<ViewChaptersProps> = ({
 
   return (
     <>
-      <h2 className="mb-4 p-2 text-2xl font-bold">View Chapters</h2>
+      <h2 className="mb-4 text-2xl font-bold">View Chapters</h2>
 
       <div className="mb-4 flex justify-between">
-        <div className="flex items-center space-x-1">
+        <div className="flex items-center space-x-2">
           <label className="label font-semibold">Filter by Course:</label>
           <select
             className="select select-bordered"
