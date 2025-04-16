@@ -14,6 +14,9 @@ import { TestimonialsSection } from "./sections/TestimonialsSection";
 import { SkillEducationSection }from "./sections/SkillEducationSection/SkillEducationSection";
 import { CreatingInnovatorsSection } from "./sections/CreatingInnovatorsSection/CreatingInnovatorsSection";
 import { AcademicYearSection }from "./sections/AcademicYearSection/AcademicYearSection";
+import { UpcomingEventsSection }from "./sections/UpcomingEventsSection/UpcomingEventsSection";
+import { AnnouncementSection } from "./sections/AnnouncementSection/AnnouncementSection";
+
 
 
 import gsap from "gsap";
@@ -225,6 +228,11 @@ const Home = (): JSX.Element => {
           />
         </div>
 
+        <div id="case-studies-section" className="w-full">
+          <AnnouncementSection />
+        </div>
+
+
         {/* Skill Education Section */}
         <div id="case-studies-section" className="w-full">
           <SkillEducationSection />
@@ -274,6 +282,10 @@ const Home = (): JSX.Element => {
 
         <div id="case-studies-section" className="w-full">
           <CaseStudiesSection />
+        </div>
+
+        <div id="case-studies-section" className="w-full">
+          <UpcomingEventsSection />
         </div>
 
         <div id="process-section" className="w-full">
