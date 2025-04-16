@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
+import dynamic from "next/dynamic";
 import Hero from "./Hero";
 import Schools from "./Schools";
 import Products from "./Products";
@@ -12,6 +13,10 @@ import CH from "./curriculumh";
 import ICT from "./Ictraining";
 import Reviews from "./reviews";
 import { useSession, signOut } from "next-auth/react";
+
+const LaunchIcon = dynamic(() => import("@mui/icons-material/Launch"), {
+  ssr: false,
+});
 
 export default function HomePage() {
   const announcements = [
@@ -48,7 +53,6 @@ export default function HomePage() {
     hidden: { opacity: 0, y: scrollDirection === "down" ? 80 : -80 },
     visible: { opacity: 1, y: 0, transition: { duration: 1.5 } },
   });
-
 
   return (
     <div className="bg-base-200">
