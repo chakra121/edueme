@@ -28,9 +28,9 @@ export const AnnouncementSection = () => {
   return (
     <div id="announcement-section" className="w-full bg-gray-50 py-4 overflow-hidden">
       <div className="flex justify-center mb-3">
-        <Badge className="bg-[#ffb800] text-black text-2xl px-5 py-2 rounded-lg">
-          📢 Latest Announcements
-        </Badge>
+        <div className="px-4 py-2 bg-[#ffb800] text-black rounded-lg font-bold text-3xl leading-tight">
+        📢 Latest Announcements
+        </div>
       </div>
       <div className="relative w-full h-[50px] overflow-hidden">
         <div

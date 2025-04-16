@@ -251,9 +251,9 @@ const Home = (): JSX.Element => {
         <div id="services-section" className="w-full mt-16">
           <div className="flex w-full max-w-[1440px] items-start gap-10 px-[100px] py-0 mx-auto">
             <div className="flex flex-col items-start">
-              <Badge className="px-4 py-2 bg-[#ffb800] text-black rounded-lg font-bold text-4xl leading-tight">
-                {sectionHeaders?.[0]?.badge}
-              </Badge>
+            <div className="px-4 py-2 bg-[#ffb800] text-black rounded-lg font-bold text-4xl leading-tight">
+              Services
+            </div>
             </div>
             <div className="font-p text-black text-lg leading-relaxed w-[580px]">
               {sectionHeaders?.[0]?.description}
@@ -296,9 +296,9 @@ const Home = (): JSX.Element => {
         <div id="training-section" className="w-full mt-16">
           <div className="flex w-full max-w-[1440px] items-start gap-10 px-[100px] py-0 mx-auto">
             <div className="flex flex-col items-start">
-              <Badge className="px-4 py-2 bg-[#ffb800] text-black rounded-lg font-bold text-4xl leading-tight">
-                {sectionHeaders?.[3]?.badge}
-              </Badge>
+            <div className="px-4 py-2 bg-[#ffb800] text-black rounded-lg font-bold text-4xl leading-tight">
+              Inclassroom Training
+            </div>
             </div>
             <div className="font-p text-black text-lg leading-relaxed w-[580px]">
               {sectionHeaders?.[3]?.description}
@@ -316,9 +316,9 @@ const Home = (): JSX.Element => {
         <div id="testimonials-section" className="w-full mt-16">
           <div className="flex w-full max-w-[1440px] items-start gap-10 px-[100px] py-0 mx-auto">
             <div className="flex flex-col items-start">
-              <Badge className="px-4 py-2 bg-[#ffb800] text-black rounded-lg font-bold text-4xl leading-tight">
-                {sectionHeaders?.[4]?.badge}
-              </Badge>
+            <div className="px-4 py-2 bg-[#ffb800] text-black rounded-lg font-bold text-4xl leading-tight">
+              Listen to our Clients
+            </div>
             </div>
             <div className="font-p text-black text-lg leading-relaxed w-[576px]">
               {sectionHeaders?.[4]?.description}
@@ -330,9 +330,9 @@ const Home = (): JSX.Element => {
         <div id="contact-section" className="w-full mt-16">
           <div className="flex w-full max-w-[1440px] items-start gap-10 px-[100px] py-0 mx-auto">
             <div className="flex flex-col items-start">
-              <Badge className="px-4 py-2 bg-[#ffb800] text-black rounded-lg font-bold text-4xl leading-tight">
-                {sectionHeaders?.[5]?.badge}
-              </Badge>
+            <div className="px-4 py-2 bg-[#ffb800] text-black rounded-lg font-bold text-4xl leading-tight">
+          Contact Us
+        </div>
             </div>
             <div className="font-p text-black text-lg leading-relaxed w-[323px]">
               {sectionHeaders?.[5]?.description}
