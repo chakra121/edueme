@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { useRouter } from "next/navigation";
 
 const serviceCards = [
   {
@@ -78,6 +79,12 @@ const serviceCards = [
 ];
 
 export const ServicesSection = (): JSX.Element => {
+  const router = useRouter();
+
+  const handleLearnMore = () => {
+    router.push("/dashboard/studentDashboard/dHome");
+  };
+
   return (
     <section className="flex flex-col w-full gap-12 py-12">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 px-6 lg:px-[120px]">
@@ -91,7 +98,7 @@ export const ServicesSection = (): JSX.Element => {
                 {card.tags.map((tag, tagIndex) => (
                   <Badge
                     key={tagIndex}
-                    className={`px-5 py-2 mb-2 ${card.badgeBgColor} rounded-lg font-bold text-black text-lg leading-tight`}
+                    className={`px-5 py-2 mb-2 ${card.badgeBgColor} rounded-lg font-bold text-black text-lg leading-tight pointer-events-none`}
                   >
                     {tag.includes("\n")
                       ? tag.split("\n").map((line, i) => (
@@ -104,15 +111,17 @@ export const ServicesSection = (): JSX.Element => {
                   </Badge>
                 ))}
               </div>
-              <div className="flex items-center gap-4">
-                <Button
-                  className="w-[50px] h-[50px] p-0 bg-[#060a08] rounded-full flex items-center justify-center hover:bg-[#00a73e]"
-                  variant="ghost"
+              <div 
+                className="flex items-center gap-4 cursor-pointer" 
+                onClick={handleLearnMore}
+              >
+                <div
+                  className="w-[50px] h-[50px] p-0 bg-[#060a08] rounded-full flex items-center justify-center"
                 >
                   <ArrowRightIcon
                     className="w-6 h-6 text-white transform rotate-[-45deg]"
                   />
-                </Button>
+                </div>
                 <span
                   className={`[font-family:'Space_Grotesk',Helvetica] font-medium ${card.textColor} text-lg tracking-wide leading-6`}
                 >
@@ -143,4 +152,3 @@ export const ServicesSection = (): JSX.Element => {
     </section>
   );
 };
-
