@@ -1,79 +1,143 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useRef } from "react";
+import { motion, useAnimation, useInView } from "framer-motion";
 import Image from "next/image";
 
- const academicTimeline = [
+const academicTimeline = [
   {
     title: "Foundation & Orientation",
-    description:
-      "Kick off the year with introductory sessions, setting the tone with creativity, collaboration, and curiosity. Students explore tech basics and get hands-on with exciting activities.",
+    description: "Creative kickoff sessions with hands-on tech exploration.",
     image: "/academicyear/img1.png",
+    color: "#FFD166" // Yellow
   },
   {
     title: "Hands-on Skill Training",
-    description:
-      "Students dive into practical sessions on robotics, coding, AI, and design thinking. Mentorship and real-world tasks ignite their passion for innovation.",
-    image: "/academicyear/img2.jpg",
+    description: "Practical workshops in robotics, coding, AI, and design thinking.",
+    image: "/academicyear/hos.jpg",
+    color: "#06D6A0" // Green
   },
   {
     title: "Mid-Year Project Showcase",
-    description:
-      "Learners present their progress through mid-year expos. They build prototypes, solve community problems, and get real feedback from peers and experts.",
+    description: "Student-led expos featuring innovative prototypes and solutions.",
     image: "/academicyear/img3.jpg",
+    color: "#118AB2" // Blue
   },
   {
     title: "Hackathons & Tech Fests",
-    description:
-      "Exciting hackathons and competitions build team spirit and innovation under pressure. This phase enhances creativity, critical thinking, and time management.",
+    description: "Team competitions building innovation under pressure.",
     image: "/academicyear/img4.jpg",
+    color: "#EF476F" // Pink
   },
   {
     title: "Final Project & Graduation",
-    description:
-      "The year culminates with final project presentations and certification. Students reflect on growth and plan the next stage of their innovation journey.",
+    description: "Culmination of learning journey with certification and reflection.",
     image: "/academicyear/img5.png",
+    color: "#9B5DE5" // Purple
   },
 ];
 
-export const AcademicYearSection = (): JSX.Element => {
+interface TimelineItem {
+  title: string;
+  description: string;
+  image: string;
+  color: string;
+}
+
+const TimelineCard = ({ item, index, isEven }: { item: TimelineItem; index: number; isEven: boolean }) => {
+  const cardRef = useRef(null);
+  const isInView = useInView(cardRef, { once: true, amount: 0.3 });
+  const controls = useAnimation();
+
+  useEffect(() => {
+    if (isInView) {
+      controls.start("visible");
+    }
+  }, [isInView, controls]);
+
   return (
-    <section className="py-20 px-6 md:px-16 ">
-      <h2 className="text-4xl font-bold text-center mb-16">
-        <span className="text-yellow-500">Academic Year</span> Program Journey
-      </h2>
-      <div className="relative border-l-4 border-yellow-400 ml-4 pl-6 space-y-20">
-        {academicTimeline.map((step, index) => (
-          <motion.div
-            key={index}
-            className="relative flex flex-col md:flex-row items-center md:items-start gap-10"
-            initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            {/* Marker */}
-            <div className="absolute left-[-35px] top-4 w-6 h-6 bg-yellow-500 rounded-full border-4 border-white shadow-md" />
+    <motion.div
+      ref={cardRef}
+      className={`relative flex items-center justify-center ${isEven ? 'md:flex-row-reverse' : 'md:flex-row'} mb-24`}
+      initial="hidden"
+      animate={controls}
+      variants={{
+        hidden: { opacity: 0, x: isEven ? 100 : -100 },
+        visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } }
+      }}
+    >
+      {/* Marker */}
+      <div 
+        className="absolute left-1/2 transform -translate-x-1/2 z-10 w-8 h-8 rounded-full border-4 border-white shadow-lg"
+        style={{ backgroundColor: item.color }}
+      />
+      
+      {/* Line connector */}
+      <div className={`absolute h-24 w-1 bg-gradient-to-b from-gray-300 to-transparent ${index === academicTimeline.length - 1 ? 'hidden' : ''}`} 
+           style={{ top: '100%', left: '50%', transform: 'translateX(-50%)' }} />
 
-            {/* Image */}
-            <div className="w-full md:w-1/2">
-              <Image
-                src={step.image}
-                alt={step.title}
-                width={600}
-                height={400}
-                className="rounded-2xl shadow-lg"
-              />
+      {/* Content container */}
+      <div className="w-full md:w-5/12 flex flex-col items-center">
+        <motion.div 
+          className="overflow-hidden rounded-xl shadow-2xl w-full h-full"
+          whileHover={{ scale: 1.03, transition: { duration: 0.3 } }}
+        >
+          <div className="relative w-full h-64 md:h-80">
+            <Image
+              src={item.image}
+              alt={item.title}
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-6">
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">{item.title}</h3>
+              <p className="text-white/90 text-sm md:text-base">{item.description}</p>
             </div>
+          </div>
+        </motion.div>
+      </div>
 
-            {/* Text */}
-            <div className="w-full md:w-1/2 flex flex-col gap-2">
-              <h3 className="text-2xl font-semibold text-yellow-600">{step.title}</h3>
-              <p className="text-gray-700 text-md leading-relaxed">{step.description}</p>
-            </div>
-          </motion.div>
-        ))}
+      {/* Empty space for the other side */}
+      <div className="w-full md:w-5/12"></div>
+    </motion.div>
+  );
+};
+
+export const AcademicYearSection = () => {
+  return (
+    <section className="py-24 px-4 md:px-8 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
+      <motion.div 
+        className="max-w-6xl mx-auto mb-16 text-center"
+        initial={{ opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
+        <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <span className="text-yellow-500">Academic Year</span> Journey
+        </h2>
+        <p className="text-gray-600 max-w-2xl mx-auto">
+          Follow the transformative path students take throughout the year
+        </p>
+      </motion.div>
+
+      <div className="relative max-w-6xl mx-auto">
+        {/* Center timeline */}
+        <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-yellow-400 via-blue-400 to-purple-500 transform -translate-x-1/2" />
+
+        {/* Timeline items */}
+        <div className="relative z-10">
+          {academicTimeline.map((item, index) => (
+            <TimelineCard 
+              key={index} 
+              item={item} 
+              index={index} 
+              isEven={index % 2 === 0} 
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
 };
+
 
