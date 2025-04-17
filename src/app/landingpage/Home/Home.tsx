@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CallToActionSection } from "./sections/CallToActionSection";
@@ -11,13 +11,11 @@ import { HeroSection } from "./sections/HeroSection/HeroSection";
 import { ProcessOverviewSection } from "./sections/ProcessOverviewSection";
 import { ServicesSection } from "./sections/ServicesSection";
 import { TestimonialsSection } from "./sections/TestimonialsSection";
-import { SkillEducationSection }from "./sections/SkillEducationSection/SkillEducationSection";
+import { SkillEducationSection } from "./sections/SkillEducationSection/SkillEducationSection";
 import { CreatingInnovatorsSection } from "./sections/CreatingInnovatorsSection/CreatingInnovatorsSection";
-import { AcademicYearSection }from "./sections/AcademicYearSection/AcademicYearSection";
-import { UpcomingEventsSection }from "./sections/UpcomingEventsSection/UpcomingEventsSection";
+import { AcademicYearSection } from "./sections/AcademicYearSection/AcademicYearSection";
+import { UpcomingEventsSection } from "./sections/UpcomingEventsSection/UpcomingEventsSection";
 import { AnnouncementSection } from "./sections/AnnouncementSection/AnnouncementSection";
-
-
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -63,146 +61,115 @@ const sectionHeaders = [
 const Home = (): JSX.Element => {
   const robotRef = useRef(null);
   const containerRef = useRef(null);
+  const [isRobotVisible, setIsRobotVisible] = useState(true);
 
   useEffect(() => {
     // Register ScrollTrigger plugin
     gsap.registerPlugin(ScrollTrigger);
     
-    // Initial robot position (above the viewport)
+    // Initial robot position (top center of the viewport)
     gsap.set(robotRef.current, {
       position: "fixed",
-      top: "-100px",
+      top: "80px",
       left: "50%",
       transform: "translateX(-50%)",
       width: "120px",
       height: "auto",
-      zIndex: 1000
+      zIndex: 1000,
+      opacity: 0
     });
 
-    // Robot animation for ServicesSection
-    gsap.timeline({
+    // Fade in animation for robot
+    gsap.to(robotRef.current, {
+      opacity: 1,
+      duration: 1,
+      delay: 0.5
+    });
+
+    // Create a smooth path for the robot
+    const mainTimeline = gsap.timeline({
       scrollTrigger: {
-        trigger: "#services-section",
-        start: "top 80%",
-        end: "bottom 20%",
-        scrub: true,
-        // markers: true, // Enable for debugging
+        trigger: containerRef.current,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 1, // Smoother scrubbing with a 1 second delay
+        onUpdate: (self) => {
+          // Show/hide robot based on scroll position
+          if (self.progress > 0.05 && self.progress < 0.95) {
+            setIsRobotVisible(true);
+          } else {
+            setIsRobotVisible(false);
+          }
+        }
       }
-    })
-    .to(robotRef.current, {
-      top: "120px",
-      left: "20%",
-      rotate: 0
     });
 
-    // Robot animation for CTA Section
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: "#cta-section",
-        start: "top 80%",
-        end: "bottom 20%",
-        scrub: true,
-      }
-    })
-    .to(robotRef.current, {
-      top: "150px",
-      left: "80%",
-      rotate: "10deg"
+    // Position waypoints for a smoother path
+    const waypoints = [
+      { top: "120px", left: "30%", rotate: 0, scale: 1 },
+      { top: "150px", left: "70%", rotate: "10deg", scale: 1.1 },
+      { top: "180px", left: "20%", rotate: "-5deg", scale: 0.9 },
+      { top: "150px", left: "80%", rotate: "15deg", scale: 1.2 },
+      { top: "200px", left: "25%", rotate: "-10deg", scale: 1 },
+      { top: "160px", left: "65%", rotate: "5deg", scale: 1.1 },
+      { top: "220px", left: "40%", rotate: "-15deg", scale: 0.95 },
+      { top: "180px", left: "60%", rotate: "0deg", scale: 1 }
+    ];
+    
+    // Add each waypoint to the timeline
+    waypoints.forEach((point, index) => {
+      mainTimeline.to(robotRef.current, {
+        top: point.top,
+        left: point.left,
+        rotate: point.rotate,
+        scale: point.scale,
+        ease: "power1.inOut", // Smoother easing
+        duration: 1 / waypoints.length // Distribute evenly across the timeline
+      }, index / waypoints.length);
     });
 
-    // Robot animation for Case Studies Section
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: "#case-studies-section",
-        start: "top 80%",
-        end: "bottom 20%",
-        scrub: true,
-      }
-    })
-    .to(robotRef.current, {
-      top: "180px",
-      left: "30%",
-      rotate: "-5deg"
+    // Add hover animation for the robot
+    const hoverAnimation = gsap.timeline({ repeat: -1, yoyo: true });
+    hoverAnimation.to(robotRef.current, {
+      y: "-=10",
+      duration: 1,
+      ease: "power1.inOut"
     });
 
-    // Robot animation for Process Overview Section
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: "#process-section",
-        start: "top 80%",
-        end: "bottom 20%",
-        scrub: true,
-      }
-    })
-    .to(robotRef.current, {
-      top: "150px",
-      left: "70%",
-      rotate: "15deg"
+    // Add button to toggle robot visibility
+    const toggleButton = document.createElement('button');
+    toggleButton.textContent = '🤖';
+    toggleButton.style.position = 'fixed';
+    toggleButton.style.bottom = '20px';
+    toggleButton.style.right = '20px';
+    toggleButton.style.zIndex = '1001';
+    toggleButton.style.backgroundColor = '#ffb800';
+    toggleButton.style.border = 'none';
+    toggleButton.style.borderRadius = '50%';
+    toggleButton.style.width = '50px';
+    toggleButton.style.height = '50px';
+    toggleButton.style.fontSize = '24px';
+    toggleButton.style.cursor = 'pointer';
+    toggleButton.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
+    
+    document.body.appendChild(toggleButton);
+    
+    let isRobotHidden = false;
+    toggleButton.addEventListener('click', () => {
+      isRobotHidden = !isRobotHidden;
+      gsap.to(robotRef.current, {
+        opacity: isRobotHidden ? 0 : 1,
+        duration: 0.3
+      });
     });
 
-    // Robot animation for Training Section
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: "#training-section",
-        start: "top 80%",
-        end: "bottom 20%",
-        scrub: true,
-      }
-    })
-    .to(robotRef.current, {
-      top: "200px",
-      left: "25%",
-      rotate: "-10deg"
-    });
-
-    // Robot animation for Features Section
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: "#features-section",
-        start: "top 80%",
-        end: "bottom 20%",
-        scrub: true,
-      }
-    })
-    .to(robotRef.current, {
-      top: "160px",
-      left: "75%",
-      rotate: "5deg"
-    });
-
-    // Robot animation for Testimonials Section
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: "#testimonials-section",
-        start: "top 80%",
-        end: "bottom 20%",
-        scrub: true,
-      }
-    })
-    .to(robotRef.current, {
-      top: "220px",
-      left: "40%",
-      rotate: "-15deg"
-    });
-
-    // Robot animation for Contact Section
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: "#contact-section",
-        start: "top 80%",
-        end: "bottom 20%",
-        scrub: true,
-      }
-    })
-    .to(robotRef.current, {
-      top: "180px",
-      left: "60%",
-      rotate: "0deg"
-    });
-
-    // Clean up ScrollTrigger on unmount
+    // Clean up on unmount
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      hoverAnimation.kill();
+      if (document.body.contains(toggleButton)) {
+        document.body.removeChild(toggleButton);
+      }
     };
   }, []);
 
@@ -213,15 +180,16 @@ const Home = (): JSX.Element => {
         ref={robotRef}
         src="/robo.gif" 
         alt="Robot Animation" 
-        className="hidden md:block" // Hide on mobile
+        className={`hidden md:block transition-opacity duration-300 ${isRobotVisible ? 'opacity-100' : 'opacity-0'}`}
+        style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))' }}
       />
 
       <div className="bg-white w-full max-w-[1688px] relative">
         <div className="relative w-full">
           <HeroSection />
           <Image
-          height={20}
-          width={488}
+            height={20}
+            width={488}
             className="absolute w-[488px] h-20 top-0 left-[39px] object-cover"
             alt="Image"
             src="/image-12.png"
@@ -331,8 +299,8 @@ const Home = (): JSX.Element => {
           <div className="flex w-full max-w-[1440px] items-start gap-10 px-[100px] py-0 mx-auto">
             <div className="flex flex-col items-start">
             <div className="px-4 py-2 bg-[#ffb800] text-black rounded-lg font-bold text-4xl leading-tight">
-          Contact Us
-        </div>
+              Contact Us
+            </div>
             </div>
             <div className="font-p text-black text-lg leading-relaxed w-[323px]">
               {sectionHeaders?.[5]?.description}
