@@ -4,10 +4,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { AwardRecognitionSection } from "./sections/AwardRecognitionSection";
 import { CoreValueSection } from "./sections/CoreValueSection";
 import { HeroSection } from "./sections/HeroSection/HeroSection";
-import { ImpactNumbersSection } from "./sections/ImpactNumbersSection/ImpactNumbersSection";
 import { IndustryRecognitionSection } from "./sections/IndustryRecognitionSection";
 import { JourneyHeadingSection } from "./sections/JourneyHeadingSection";
 import { TestimonialsSection } from "./sections/TestimonialsSection/TestimonialsSection";
+import  ImpactSection  from "./sections/ImpactSection/ImpactSection";
+import  JourneySection from "./sections/JourneySection/JourneySection";
+
+
 
 export const AboutUs = (): JSX.Element => {
   const impactNumbers = [
@@ -57,27 +60,27 @@ export const AboutUs = (): JSX.Element => {
         />
       </section>
 
-      {/* Testimonials Section */}
+      {/* Impact Section
       <section className="w-full mt-8 flex justify-center">
-        <TestimonialsSection />
+        <ImpactSection />
+      </section> */}
+
+      {/* Journey Section */}
+      <section className="w-full mt-8 flex justify-center">
+        <JourneySection />
       </section>
 
-      {/* Industry Recognition Section */}
-      <section className="w-full mt-8 flex justify-center">
-        <IndustryRecognitionSection />
-      </section>
-
-      {/* Core Value Section */}
+      {/* Core Value Section
       <section className="w-full mt-8 flex justify-center">
         <CoreValueSection />
-      </section>
+      </section> */}
 
-      {/* Journey Heading Section */}
-      <JourneyHeadingSection />
+      {/* Journey Heading Section
+      <JourneyHeadingSection /> */}
 
       {/* Impact Numbers Section */}
       <section className="w-full mt-16 px-4 sm:px-6 lg:px-8">
-        <ImpactNumbersSection />
+        <ImpactSection />
 
         <Card className="w-full max-w-6xl mx-auto mt-16 bg-[#0D1B2A] rounded-3xl overflow-hidden">
           <CardContent className="p-0 relative flex flex-col md:flex-row items-center md:items-start">
@@ -133,7 +136,7 @@ export const AboutUs = (): JSX.Element => {
           ))}
         </div>
       </section>
-
+        <br></br>
       {/* Award Recognition Section */}
       <AwardRecognitionSection />
 
