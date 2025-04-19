@@ -56,10 +56,10 @@ export default function ErrorPage() {
       let y3Forward = true;
       
       function animate() {
-        requestAnimationFrame(animate);
         if (!canvas || !ctx) return;
-        
+        requestAnimationFrame(animate);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
         ctx.beginPath();
         ctx.moveTo(130, 170);
         ctx.bezierCurveTo(250, y1, 345, y2, 400, y3);
@@ -153,7 +153,7 @@ export default function ErrorPage() {
   };
   
   const handleDashboardClick = () => {
-    router.push('/dashboard/studentDashboard/dHome');
+    router.push('/dashboard');
   };
   
   return (
@@ -204,7 +204,6 @@ export default function ErrorPage() {
           <div className="robot__head-visor-flare2"></div>
         </div>
       </div>
-      
       
       <style jsx global>{`
         /* Remove any default margins/padding and disable header/footer */
