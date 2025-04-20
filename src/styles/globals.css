@@ -1,40 +1,91 @@
+/* app/globals.css */
+
 @import 'tailwindcss';
 @plugin "daisyui" {
-   themes: light --default, dark --prefersdark,bumblebee;
+   themes: light --default, dark --prefersdark, bumblebee; /* Added comma for clarity */
  }
 
 @config '../../tailwind.config.ts';
 
-/* 
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
+/* --- Confetti Animation Keyframes --- */
+@keyframes confetti-slow {
+  0% { transform: translate3d(0, 0, 0) rotateX(0) rotateY(0); opacity: 1; }
+  100% { transform: translate3d(25px, 105vh, 0) rotateX(360deg) rotateY(180deg); opacity: 1; }
+}
 
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults. */
+@keyframes confetti-medium {
+  0% { transform: translate3d(0, 0, 0) rotateX(0) rotateY(0); opacity: 1; }
+  100% { transform: translate3d(100px, 105vh, 0) rotateX(100deg) rotateY(360deg); opacity: 1; }
+}
 
+@keyframes confetti-fast {
+  0% { transform: translate3d(0, 0, 0) rotateX(0) rotateY(0); opacity: 1; }
+  100% { transform: translate3d(-50px, 105vh, 0) rotateX(10deg) rotateY(250deg); opacity: 1; }
+}
+
+/* --- Confetti Base Styles --- */
+.confetti {
+  /* Base styles applied dynamically in JS component:
+     position: absolute;
+     left: [random];
+     width: [random];
+     height: [random];
+     background-color: [random];
+     top: -10px;
+     border-radius: 0%;
+     z-index: 9999;
+  */
+  opacity: 0; /* Start hidden, animation makes it visible */
+  pointer-events: none; /* Ensure confetti doesn't block interactions */
+}
+
+.confetti--animation-slow {
+  animation: confetti-slow 2.25s linear forwards;
+}
+
+.confetti--animation-medium {
+  animation: confetti-medium 1.75s linear forwards;
+}
+
+.confetti--animation-fast {
+  animation: confetti-fast 1.25s linear forwards;
+}
+
+/* --- Tailwind Base, Components, Utilities --- */
+/* These directives should ideally come after imports/plugins but before custom layers if needed */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* --- Base Layer Styles --- */
 @layer base {
+  /*
+    Tailwind CSS v4 Compatibility: Default border color changed to `currentcolor`.
+    These styles retain the v3 behavior using gray-200 as a fallback.
+    Remove if explicitly setting border colors everywhere or adapting to v4 defaults.
+  */
   *,
   ::after,
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
+    border-color: var(--color-gray-200, currentcolor); /* Consider if var(--border) is more appropriate */
   }
-}
 
-@layer base {
   /* Ensure background and text colors update with theme */
   html, body {
     @apply bg-background text-foreground transition-colors duration-300;
+    /* Prevent horizontal scrollbars caused by off-screen confetti initially */
+    /* overflow-x: hidden; /* Reconsider if this interferes with layout */
   }
 
+  /* Apply theme border color */
   * {
     @apply border-border;
   }
-}
 
-@layer base {
+  /* Theme CSS Variables */
   :root {
     --background: 0 0% 100%; /* White for light mode */
     --foreground: 0 0% 3.9%;
@@ -52,7 +103,7 @@
     --accent-foreground: 0 0% 9%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
+    --border: 0 0% 89.8%; /* Used by * selector */
     --input: 0 0% 89.8%;
     --ring: 0 0% 3.9%;
     --chart-1: 12 76% 61%;
@@ -66,6 +117,8 @@
     --color-3: 210 100% 63%;
     --color-4: 195 100% 63%;
     --color-5: 90 100% 63%;
+    /* Fallback for v3 border compatibility if needed */
+    --color-gray-200: hsl(0 0% 89.8%);
   }
 
   /* Dark Mode Variables */
@@ -86,7 +139,7 @@
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 20%;
+    --border: 0 0% 20%; /* Used by * selector */
     --input: 0 0% 20%;
     --ring: 0 0% 83.1%;
     --chart-1: 220 70% 50%;
@@ -99,10 +152,25 @@
     --color-3: 210 100% 63%;
     --color-4: 195 100% 63%;
     --color-5: 90 100% 63%;
+     /* Fallback for v3 border compatibility if needed */
+    --color-gray-200: hsl(0 0% 20%);
   }
 }
 
-/* Custom Masonry Styles */
+/* --- Utility Layer / Custom Components --- */
+/* You can use @layer components or @layer utilities for custom classes */
+
+/* Custom Masonry Style */
 .break-inside-avoid {
   break-inside: avoid;
 }
+
+/* --- Progress Bar Transitions --- */
+/* Apply transitions to elements used in the progress bar */
+/* These classes should be added to the circle/line elements in your TSX */
+.progress-circle, .progress-line {
+  transition: all 0.5s ease-out; /* Smooth transitions for background, border, width etc. */
+}
+
+/* --- DaisyUI Button styles are handled by the plugin --- */
+/* No need for custom .btn, .btn-primary etc. unless overriding DaisyUI */
