@@ -55,7 +55,6 @@ export default function CheckoutFailurePage() {
         muted
         playsInline
         className="absolute top-0 left-0 min-h-screen min-w-full object-cover"
-        style={{ zIndex: -2 }}
       >
         <source src="/cfbgv.mp4" type="video/mp4" />
       </video>
@@ -91,7 +90,7 @@ export default function CheckoutFailurePage() {
                     </svg>
                   </div>
                 </div>
-                <span className="mt-3 text-sm font-bold">REGISTRATION</span>
+                <span className="step-label mt-3 text-sm font-bold text-white transition-opacity duration-500">REGISTRATION</span>
               </div>
 
               {/* Line between Step 1 and 2 */}
@@ -119,7 +118,7 @@ export default function CheckoutFailurePage() {
                     </svg>
                   </div>
                 </div>
-                <span className="mt-3 text-sm font-bold">COURSE SELECTION</span>
+                <span className="step-label mt-3 text-sm font-bold text-white transition-opacity duration-500">COURSE SELECTION</span>
               </div>
 
               {/* Line between Step 2 and 3 */}
@@ -147,7 +146,7 @@ export default function CheckoutFailurePage() {
                     </svg>
                   </div>
                 </div>
-                <span className="mt-3 text-sm font-bold">PAYMENT</span>
+                <span className="step-label mt-3 text-sm font-bold text-white transition-opacity duration-500">PAYMENT</span>
               </div>
             </div>
           </div>
