@@ -123,7 +123,7 @@ export default function CheckoutPage() {
           currency: "INR",
           name: "Edueme Research Labs",
           description: `Payment for ${course.courseName}`,
-          image: "@/public/logo_icon.png",
+          image: "/logo_icon.png",
           order_id: orderId,
           handler: async function (response: any) {
             await verifyPayment(response);

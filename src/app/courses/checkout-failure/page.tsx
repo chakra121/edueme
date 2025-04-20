@@ -94,7 +94,7 @@ export default function CheckoutFailurePage() {
               </div>
 
               {/* Line between Step 1 and 2 */}
-              <div className="absolute top-7 left-0 h-2 w-full">
+              <div className="absolute top-7 left-7 h-2 w-1/2">
                 <div className="progress-line h-2 w-0 bg-[#ffb800] transition-all duration-1000 ease-out"></div>
               </div>
 
@@ -122,7 +122,7 @@ export default function CheckoutFailurePage() {
               </div>
 
               {/* Line between Step 2 and 3 */}
-              <div className="absolute top-7 left-1/2 h-2 w-1/2">
+              <div className="absolute top-7 left-1/2 h-2 w-80">
                 <div className="progress-line h-2 w-0 bg-gray-300 transition-all duration-1000 ease-out"></div>
               </div>
 

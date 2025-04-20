@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Marquee from "react-fast-marquee";
@@ -45,36 +44,33 @@ export const HeroSection = (): JSX.Element => {
   ];
 
   return (
-    <section className="flex flex-col w-full items-start gap-[30px] relative">
+    <section className="relative flex w-full flex-col items-start gap-[30px]">
       {/* Hero Content */}
-      <div className="flex flex-col md:flex-row items-center justify-between py-20 bg-gray-50 px-10 w-full">
+      <div className="flex w-full flex-col items-center justify-between bg-gray-50 px-10 py-20 md:flex-row">
         {/* Text Content */}
-        <motion.div 
-          className="md:w-1/2 text-center md:text-left"
+        <motion.div
+          className="text-center md:w-1/2 md:text-left"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-5xl font-bold leading-tight">
+          <h1 className="text-5xl leading-tight font-bold">
             Welcome to <br />
             EdueMe
           </h1>
-          <p className="mt-6 text-xl text-gray-600">
-            &quot;Robotics, AI, and IoT - The RA(I)oT Curriculum for Future Innovators&quot;
+          <p className="mt-6 text-xl font-semibold text-gray-600">
+            Robotics, AI, and IoT - The RA(I)oT Curriculum for Future Innovators
           </p>
-          <Button className="mt-8 px-8 py-4 bg-black text-white rounded-lg text-lg font-medium hover:opacity-80">
-            Book a demo
-          </Button>
         </motion.div>
 
         {/* Updated Image Carousel */}
-        <motion.div 
-          className="mt-10 md:mt-0 md:w-1/2 relative"
+        <motion.div
+          className="relative mt-10 md:mt-0 md:w-1/2"
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="relative w-full h-[400px] rounded-lg overflow-hidden">
+          <div className="relative h-[400px] w-full overflow-hidden rounded-lg">
             {images.map((src, index) => (
               <Image
                 key={index}
@@ -87,31 +83,31 @@ export const HeroSection = (): JSX.Element => {
                 priority={index === 0}
               />
             ))}
-            
+
             {/* Navigation Buttons */}
             <button
               onClick={prevSlide}
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/75"
+              className="absolute top-1/2 left-4 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white hover:bg-black/75"
               aria-label="Previous slide"
             >
               ←
             </button>
             <button
               onClick={nextSlide}
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/75"
+              className="absolute top-1/2 right-4 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white hover:bg-black/75"
               aria-label="Next slide"
             >
               →
             </button>
 
             {/* Dots Indicator */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+            <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
               {images.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    currentSlide === index ? "bg-white w-4" : "bg-white/50"
+                  className={`h-2 w-2 rounded-full transition-all ${
+                    currentSlide === index ? "w-4 bg-white" : "bg-white/50"
                   }`}
                   aria-label={`Go to slide ${index + 1}`}
                 />
@@ -122,8 +118,14 @@ export const HeroSection = (): JSX.Element => {
       </div>
 
       {/* Partner Logos */}
-      <div className="relative flex flex-col items-center justify-center overflow-hidden bg-white px-4 py-6 lg:py-8 w-full">
-        <motion.div 
+      <div className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-white px-4 py-6 lg:py-8">
+        <div>
+          <h1 className="text-base-content pb-5 text-2xl font-bold text-balance sm:text-3xl lg:text-4xl">
+            Schools in Collaboration
+          </h1>
+        </div>
+
+        <motion.div
           className="w-full"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -140,7 +142,7 @@ export const HeroSection = (): JSX.Element => {
             {partnerLogos.map((logo, index) => (
               <motion.figure
                 key={index}
-                className="mx-8 cursor-pointer overflow-hidden rounded-xl border border-gray-100 px-8 py-4 bg-white hover:shadow-lg transition-all duration-300"
+                className="mx-8 cursor-pointer overflow-hidden rounded-xl border border-gray-300 bg-white px-8 py-4 transition-all duration-100 hover:border hover:border-gray-300 hover:shadow-lg"
                 whileHover={{ scale: 1.1 }}
               >
                 <Image
@@ -156,8 +158,8 @@ export const HeroSection = (): JSX.Element => {
         </motion.div>
 
         {/* Gradient Fades */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-linear-to-r from-white" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-linear-to-l from-white" />
+        <div className="from-base-100 pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-linear-to-r" />
+        <div className="from-base-100 pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-linear-to-l" />
       </div>
     </section>
   );
