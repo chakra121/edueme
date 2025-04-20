@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 // Type definition
 type EventData = {
@@ -84,7 +85,7 @@ export const UpcomingEventsSection = () => {
   return (
     <section
       id="events-preview"
-      className="relative overflow-hidden bg-white py-24 text-black"
+      className="relative overflow-hidden bg-white py-22 text-black"
     >
       <div className="mx-auto max-w-7xl px-4 text-center">
         <motion.h2
@@ -108,7 +109,7 @@ export const UpcomingEventsSection = () => {
           moments in our events!
         </motion.p>
 
-        <div className="flex flex-col flex-wrap items-center justify-center gap-6 md:flex-row">
+        <div className="flex mb-5 flex-col flex-wrap items-center justify-center gap-6 md:flex-row">
           {events.map((event, i) => (
             <motion.div
               key={i}
@@ -117,7 +118,7 @@ export const UpcomingEventsSection = () => {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="w-full max-w-sm rounded-xl border border-yellow-300 bg-white p-6 shadow-lg transition-all hover:scale-105 duration-300 hover:shadow-yellow-400/40"
+              className="w-full max-w-sm rounded-xl border border-yellow-300 bg-white p-6 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-yellow-400/40"
             >
               <h3 className="mb-2 text-xl font-bold text-yellow-500">
                 {event.title}
@@ -134,7 +135,7 @@ export const UpcomingEventsSection = () => {
               </p>
 
               {event.regEndDate && (
-                <p className="mt-2 text-md font-medium text-red-500">
+                <p className="text-md mt-2 font-medium text-red-500">
                   ⏳ {countdowns[i] || "Loading..."}
                 </p>
               )}
@@ -142,14 +143,9 @@ export const UpcomingEventsSection = () => {
           ))}
         </div>
 
-        <motion.button
-          whileHover={{ scale: 1.08 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => router.push("/allevents")}
-          className="mt-14 rounded-full bg-yellow-400 px-8 py-3 text-lg font-semibold text-black shadow-lg shadow-yellow-500/30 transition duration-300 hover:bg-yellow-300"
-        >
+        <Link href="/upcomingEvents" className="btn mt-5 btn-primary btn-lg transition duration-300 ease-out hover:scale-110">
           Explore All Events →
-        </motion.button>
+        </Link>
       </div>
     </section>
   );

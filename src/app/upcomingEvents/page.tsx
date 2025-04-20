@@ -1,107 +1,85 @@
-'use client';
-import { useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { EffectCoverflow, Navigation, Pagination } from 'swiper/modules';
+"use client";
 
-import 'swiper/css';
-import 'swiper/css/effect-coverflow';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { RiRobot2Fill } from "react-icons/ri";
+import EventCard from "./components/EventCard";
+import type { UpcomingEvent } from "@/types/upcomingEvents";
 
-export default function UpcomingEvents() {
-  const [activeTab, setActiveTab] = useState('events');
+// Floating animation component
+function FloatingRobot() {
+  return (
+    <motion.div
+      initial={{ y: 0 }}
+      animate={{ y: [0, -20, 0] }}
+      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+    >
+      <RiRobot2Fill className="mx-auto h-24 w-24 text-purple-600" />
+    </motion.div>
+  );
+}
 
-  const handleTabClick = (tab: string) => {
-    setActiveTab(tab);
-  };
+export default function EventsPage() {
+  const [events, setEvents] = useState<UpcomingEvent[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const events = [
-    {
-      img: '/g1.jpg',
-      title: 'Robo Soccer',
-      date: 'APRIL 15, 2025',
-      fee: '₹300',
-    },
-    {
-      img: '/g2.jpg',
-      title: 'Mystery Box',
-      date: 'APRIL 16, 2025',
-      fee: '₹500',
-    },
-    {
-      img: '/g3.jpg',
-      title: 'Fox Hunt',
-      date: 'APRIL 30, 2025',
-      fee: '₹400',
-    },
-  ];
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch("/api/upcomingEvents");
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch events");
+        }
+
+        const data = await response.json();
+        setEvents(data);
+      } catch (err) {
+        setError("Error loading events. Please try again later.");
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, []);
 
   return (
-    <div className="flex flex-col min-h-screen bg-black text-white">
-      {/* Hero Section */}
-      <section className="relative h-80 flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-black/50 z-0">
-          <img
-            src="/upco.jpg"
-            alt="Circuit Board Background"
-            className="w-full h-full object-cover opacity-80"
-          />
-        </div>
-        <div className="relative z-10 text-center">
-          <h1 className="text-5xl font-bold mb-4 text-white">Upcoming Events</h1>
-        </div>
-      </section>
+    <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-purple-50 p-6 md:p-12">
+      <div className="mx-auto max-w-6xl px-4 pt-8 text-center sm:px-6 lg:px-8">
+        <FloatingRobot />
+        <h1 className="mt-6 bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-5xl font-extrabold text-transparent">
+          Upcoming Events
+        </h1>
+        <p className="mt-4 text-xl text-gray-700">
+          Discover our exciting robotics and AI events
+        </p>
+      </div>
 
-      {/* Events Section with Swiper */}
-      <section className="py-16 bg-black">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-12 text-center">The Events</h2>
-
-          <Swiper
-            effect={'coverflow'}
-            grabCursor={true}
-            centeredSlides={true}
-            slidesPerView={'auto'}
-            coverflowEffect={{
-              rotate: 50,
-              stretch: 0,
-              depth: 100,
-              modifier: 1,
-              slideShadows: true,
-            }}
-            navigation
-            pagination={{ clickable: true }}
-            modules={[EffectCoverflow, Navigation, Pagination]}
-            className="w-full max-w-5xl mx-auto"
-          >
-            {events.map((event, index) => (
-              <SwiperSlide
-                key={index}
-                className="w-64 h-96 rounded-xl overflow-hidden bg-black shadow-lg"
-              >
-                <div className="relative h-full">
-                  <img
-                    src={event.img}
-                    alt={event.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black to-transparent p-4">
-                    <p className="text-white font-bold">{event.date}</p>
-                    <p className="text-white">REGISTRATION FEE: {event.fee}</p>
-                  </div>
-                </div>
-                <h3 className="text-2xl font-bold text-center mt-4">{event.title}</h3>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-
-          <div className="flex justify-center mt-12">
-            <button className="bg-transparent hover:bg-pink-600 text-white font-semibold border border-pink-600 hover:border-transparent rounded-full py-2 px-8">
-              Register Here
-            </button>
-          </div>
+      {isLoading ? (
+        <div className="mt-12 text-center">
+          <div className="inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-purple-600 border-r-transparent"></div>
+          <p className="mt-4 text-lg text-gray-700">Loading events...</p>
         </div>
-      </section>
+      ) : error ? (
+        <div className="mt-12 text-center">
+          <p className="text-lg text-red-500">{error}</p>
+        </div>
+      ) : events.length === 0 ? (
+        <div className="mt-12 text-center">
+          <p className="text-lg text-gray-700">
+            No upcoming events at the moment. Please check back later!
+          </p>
+        </div>
+      ) : (
+        <div className="mx-auto mt-12 grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {events.map((event) => (
+            <EventCard key={event.id} event={event} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

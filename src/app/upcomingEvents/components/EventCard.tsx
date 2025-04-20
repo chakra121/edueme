@@ -63,7 +63,7 @@ export default function EventCard({ event }: EventCardProps) {
           className="mt-6"
         >
           <Link
-            href={`/events/${event.slug}`}
+            href={`/upcomingEvents/${event.slug}`}
             className="block rounded-md bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-2 text-center font-medium text-white transition-colors hover:from-purple-700 hover:to-indigo-700"
           >
             View Details
