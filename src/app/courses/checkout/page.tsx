@@ -6,13 +6,12 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import {
-  CreditCardIcon,
   ExclamationTriangleIcon,
   InformationCircleIcon,
   XCircleIcon,
   ArrowLeftIcon,
-  LockClosedIcon, // Added for payment button
-} from "@heroicons/react/24/solid"; // Using Heroicons for better visuals
+  LockClosedIcon, 
+} from "@heroicons/react/24/solid"; 
 import styles from './header.module.css';
 
 interface Course {
@@ -47,102 +46,51 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     const loadCheckoutData = async () => {
-        setIsLoading(true); // Start loading
+         if (!courseId || status !== "authenticated" || !session?.user?.id) {
+           router.push("/courses");
+           return;
+         }
 
-        // Redirect immediately if not authenticated
-        if (status === "unauthenticated") {
-            router.push("/api/auth/signin"); // Or your login page
-            return;
-        }
+         try {
+           // Check if user can purchase
+           const accessResponse = await fetch(
+             "/api/buyCourse/check-purchasable",
+           );
+           if (!accessResponse.ok) {
+             throw new Error("Failed to check course access");
+           }
+           const accessData = await accessResponse.json();
+           setCanPurchase(accessData.canPurchase);
 
-        // Wait until session is loaded
-        if (status === 'loading') {
-            // Still loading session, wait...
-            // We'll re-run the effect when status changes
-            return;
-        }
+           if (!accessData.canPurchase && accessData.existingCourse) {
+             // Get the course code for the existing course
+             const courseResponse = await fetch(
+               `/api/courses/${accessData.existingCourse.courseId}`,
+             );
+             if (courseResponse.ok) {
+               const courseData = await courseResponse.json();
+               setExistingCourseCode(courseData.courseCode);
+             }
+             setIsLoading(false);
+             return;
+           }
 
-        // Session is authenticated now, proceed. Check for courseId.
-        if (!courseId) {
-            console.warn("No courseId found in query params.");
-            router.push("/courses");
-            return;
-        }
+           // Get course details
+           const courseResponse = await fetch(
+             `/api/buyCourse/id-param/${courseId}`,
+           );
+           if (!courseResponse.ok) {
+             throw new Error("Failed to load course details");
+           }
 
-
-        // --- Defensive check for session.user.id ---
-        if (!session?.user?.id) {
-            console.error("User session loaded but ID is missing.");
-            // Handle this case, maybe redirect to login or show error
-            router.push("/courses"); // Or an error page
-            setIsLoading(false);
-            return;
-        }
-        // --- End defensive check ---
-
-
-        try {
-            // Check if user can purchase
-            const accessResponse = await fetch("/api/buyCourse/check-purchasable");
-            if (!accessResponse.ok) {
-                // Log detailed error if possible
-                const errorText = await accessResponse.text();
-                console.error("Failed to check course access:", accessResponse.status, errorText);
-                throw new Error(`Failed to check course access (status ${accessResponse.status})`);
-            }
-
-            const accessData = await accessResponse.json();
-            setCanPurchase(accessData.canPurchase);
-
-            if (!accessData.canPurchase && accessData.existingCourse?.courseId) {
-                // Get the course code for the existing course
-                try {
-                    const courseResponse = await fetch(
-                        `/api/courses/${accessData.existingCourse.courseId}`,
-                    );
-                    if (courseResponse.ok) {
-                        const courseData = await courseResponse.json();
-                        setExistingCourseCode(courseData.courseCode);
-                    } else {
-                         console.warn(`Failed to fetch existing course details (status ${courseResponse.status}) for courseId: ${accessData.existingCourse.courseId}`);
-                         // Even if we fail to get the code, we know they can't purchase.
-                         // Proceed without the code, the message will still be shown.
-                         setExistingCourseCode('your-course'); // Fallback link
-                    }
-                } catch (courseError) {
-                     console.error("Error fetching existing course details:", courseError);
-                     setExistingCourseCode('your-course'); // Fallback link on error
-                }
-                setIsLoading(false);
-                return; // Stop further processing
-            } else if (!accessData.canPurchase) {
-                // Cannot purchase, but no existing course info (edge case or API issue)
-                 console.warn("Cannot purchase course, but no existing course information received.");
-                 // Redirect or show a generic message? Redirecting to courses for now.
-                 router.push("/courses");
-                 return;
-            }
-
-
-            // Get course details for the *selected* course
-            const courseResponse = await fetch(`/api/buyCourse/id-param/${courseId}`);
-            if (!courseResponse.ok) {
-                // Log detailed error
-                const errorText = await courseResponse.text();
-                console.error("Failed to load course details:", courseResponse.status, errorText);
-                throw new Error(`Failed to load course details (status ${courseResponse.status})`);
-            }
-
-            const courseData = await courseResponse.json();
-            setCourse(courseData);
-
-        } catch (error) {
-            console.error("Error loading checkout data:", error);
-            // Redirect to courses page on any error during data loading
-            router.push("/courses");
-        } finally {
-             setIsLoading(false); // Stop loading regardless of outcome
-        }
+           const courseData = await courseResponse.json();
+           setCourse(courseData);
+           setIsLoading(false);
+         } catch (error) {
+           console.error("Error loading checkout data:", error);
+           setIsLoading(false);
+           router.push("/courses");
+         }
     };
 
     loadCheckoutData();
@@ -150,7 +98,7 @@ export default function CheckoutPage() {
 
 
   const initiatePayment = async () => {
-    if (!course || !session?.user?.id || paymentInitiated || isLoading) return;
+    if (!course || !session?.user?.id || paymentInitiated) return;
 
     try {
       setIsLoading(true);
@@ -173,24 +121,13 @@ export default function CheckoutPage() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error("Order creation failed:", errorData);
+       
         if (errorData.existingCourseId) {
-          // Server detected user already has a course (race condition check)
+
           setCanPurchase(false);
-          // Fetch existing course code again if possible, or use a fallback
-           try {
-              const courseRes = await fetch(`/api/courses/${errorData.existingCourseId}`);
-              if (courseRes.ok) {
-                const courseInfo = await courseRes.json();
-                setExistingCourseCode(courseInfo.courseCode);
-              } else {
-                 setExistingCourseCode('your-course');
-              }
-           } catch {
-              setExistingCourseCode('your-course');
-           }
-          setIsLoading(false);
-          setPaymentInitiated(false); // Allow potential retry if state changes
+      
+          
+          setIsLoading(false); // Allow potential retry if state changes
           return;
         }
         throw new Error(errorData.error || "Failed to create order");
@@ -202,21 +139,15 @@ export default function CheckoutPage() {
       const script = document.createElement("script");
       script.src = "https://checkout.razorpay.com/v1/checkout.js";
       script.async = true;
+      document.body.appendChild(script);
       script.onload = () => {
-        if (!window.Razorpay) {
-           console.error("Razorpay SDK not loaded");
-           alert("Payment service failed to load. Please try again.");
-           setIsLoading(false);
-           setPaymentInitiated(false);
-           return;
-        }
 
         const options = {
           key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
           amount: amount * 100, // Amount in paisa
           currency: "INR",
           name: "Edueme Research Labs",
-          description: `Payment for ${course.courseName} (${course.courseCode})`,
+          description: `Payment for ${course.courseName}`,
           image: "/logo_icon.png", // Ensure this path is correct in /public
           order_id: orderId,
           handler: async function (response: any) {
@@ -224,76 +155,29 @@ export default function CheckoutPage() {
           },
           modal: {
             ondismiss: function () {
-                console.log("Razorpay modal dismissed");
-                // Optional: Add a small delay before redirecting or reset state
-                // to allow user interaction if needed. For now, directly reset.
-                setIsLoading(false);
-                setPaymentInitiated(false); // Allow retry if they dismissed
-                // Decide if redirect is needed here. Redirecting back might be confusing
-                // Maybe stay on the page? If they dismissed, they likely didn't pay.
-                // router.push(`/courses/${course.courseCode}`); // Old behavior
+              // If the payment window is dismissed, redirect to courses page
+              router.push(`/courses/${course.courseCode}`);
             },
-             // Prevent closing modal by clicking outside
-             escape: false, // Prevent closing modal by pressing Escape key
-             backdropclose: false,
           },
           prefill: {
             name: session?.user?.name || "",
             email: session?.user?.email || "",
-            contact: "", // Can potentially prefill if available in user profile
+            contact: "",
           },
           theme: {
-            color: "#4f46e5", // Indigo color, matching primary button typically
+            color: "636#f1", // Indigo color, matching primary button typically
           },
-          // Ensure notes are serializable if used
-          // notes: {
-          //     course_id: course.id,
-          //     user_id: session.user.id
-          // }
         };
 
-        try {
-            const razorpay = new (window as any).Razorpay(options);
-            razorpay.on('payment.failed', function (response: any){
-                console.error("Razorpay payment failed:", response.error);
-                // alert(`Payment Failed: ${response.error.description}`);
-                // Don't redirect immediately on failure, let verify handle it or show message
-                // router.push("/courses/checkout-failure");
-                setIsLoading(false); // Stop loading indicator on failure
-                setPaymentInitiated(false); // Allow retry
-                 // Maybe push to failure page *after* trying verification?
-                 // For now, let handler decide.
-                 // Redirect to a failure page with more details if possible
-                router.push(`/courses/checkout-failure?reason=${encodeURIComponent(response.error.reason)}&orderId=${orderId}`);
-
-
-            });
-            razorpay.open();
-             // Don't set isLoading to false here, wait for handler or dismiss/fail
-        } catch (rzpError) {
-             console.error("Failed to initialize Razorpay:", rzpError);
-             alert("Could not initiate payment gateway. Please try again.");
-             setIsLoading(false);
-             setPaymentInitiated(false);
-        }
-
+const razorpay = new (window as any).Razorpay(options);
+razorpay.open();
+setIsLoading(false);
       };
 
       script.onerror = () => {
-        console.error("Failed to load Razorpay script.");
         setIsLoading(false);
         setPaymentInitiated(false);
-        alert("Failed to load payment gateway. Please check your connection and try again.");
-      };
-
-      document.body.appendChild(script);
-
-      // Cleanup script tag on component unmount
-      return () => {
-        const existingScript = document.querySelector(`script[src="${script.src}"]`);
-        if (existingScript) {
-          document.body.removeChild(existingScript);
-        }
+ alert("Failed to load Razorpay. Please try again.");
       };
 
 
@@ -301,17 +185,16 @@ export default function CheckoutPage() {
       console.error("Payment initiation failed:", error);
       setIsLoading(false);
       setPaymentInitiated(false);
-      alert(`Payment initiation failed: ${error instanceof Error ? error.message : "Unknown error"}. Please try again.`);
+      alert("Payment initiation failed. Please try again.");
     }
   };
 
   const verifyPayment = async (paymentDetails: any) => {
-     // Ensure loading state is true for verification step
-    setIsLoading(true);
-    setPaymentInitiated(true); // Keep payment marked as initiated during verification
+    
 
 
     try {
+      setIsLoading(true);
       const response = await fetch("/api/payments/verify-payment", {
         method: "POST",
         headers: {
@@ -326,35 +209,24 @@ export default function CheckoutPage() {
         }),
       });
 
-       // No need to parse JSON immediately, check status first
-       if (!response.ok) {
-           const errorBody = await response.text(); // Get raw error response
-           console.error("Payment verification API failed:", response.status, errorBody);
-           throw new Error(`Payment verification failed (status ${response.status})`);
-       }
-
+      if (!response.ok) {
+        throw new Error("Payment verification failed");
+      }
+      
 
       const { success } = await response.json();
 
       if (success) {
-        // Clear potentially sensitive query params on success redirect
         router.push(
-          `/courses/checkout-success?courseCode=${course?.courseCode}` // Only pass necessary info
-        );
+          `/courses/checkout-success?paymentId=${paymentDetails.razorpay_payment_id}&courseCode=${course?.courseCode}`,);
       } else {
-         console.warn("Payment verification returned success: false");
-         // Include order ID for potential debugging on failure page
-         router.push(`/courses/checkout-failure?orderId=${paymentDetails.razorpay_order_id}`);
+        router.push("/courses/checkout-failure");
       }
-       // No finally block needed here as router.push navigates away
-       // isLoading state doesn't matter after navigation
+      
     } catch (error) {
       console.error("Payment verification failed:", error);
-      setIsLoading(false); // Set loading false if verification *itself* errors
-      setPaymentInitiated(false); // Allow retry if verification failed
-      // Include order ID if available
-      const orderId = paymentDetails?.razorpay_order_id || 'unknown';
-      router.push(`/courses/checkout-failure?orderId=${orderId}&error=verification`);
+      setIsLoading(false);
+      router.push("/courses/checkout-failure");
     }
   };
 
