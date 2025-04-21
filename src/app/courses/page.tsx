@@ -13,7 +13,7 @@ export default async function CoursesPage() {
     <div 
       className="min-h-screen text-gray-800 font-sans relative"
       style={{
-        backgroundImage: 'url(/corecourse.avif)',
+        backgroundImage: 'url(/coreecourse.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed'
