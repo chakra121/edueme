@@ -47,10 +47,18 @@ export default function EventsPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-purple-50 p-6 md:p-12">
+    <div 
+      style={{
+        backgroundImage: "url('/uebg.jpg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+      className="min-h-screen p-6 md:p-12"
+    >
       <div className="mx-auto max-w-6xl px-4 pt-8 text-center sm:px-6 lg:px-8">
         <FloatingRobot />
-        <h1 className="mt-6 bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-5xl font-extrabold text-transparent">
+        <h1 className="mt-6 bg-gradient-to-r from-[#ffb800] to-indigo-600 bg-clip-text text-5xl font-extrabold text-transparent">
           Upcoming Events
         </h1>
         <p className="mt-4 text-xl text-gray-700">

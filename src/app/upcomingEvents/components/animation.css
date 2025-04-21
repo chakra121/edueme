@@ -1,0 +1,202 @@
+/* === Card Hover Animation Styles (animation.css) === */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+/* @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"); */ /* Optional: Only if you need specific RTL font */
+
+:root {
+    /* Define fallback colors - these will be overridden by JS */
+    --color-border-fallback: #ffb800;
+    --color-text-hover-fallback: #fff5d9;
+    --color-bg-inner: #1a1612; /* Darker background for better contrast */
+    --color-bg-inner-pattern: rgba(255, 184, 0, 0.08); /* Subtle pattern */
+}
+
+.file-container {
+    --rotation: 0deg;
+    --border-color: #ffb800;
+    --hover-text-color: #ffb800;
+
+    width: 320px;
+    min-height: 300px;
+    border: 6px solid transparent;
+    border-radius: 1em;
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    position: relative;
+    overflow: hidden; /* Important for border effect */
+    padding: 6px; /* Reduced from 8px */
+    cursor: pointer;
+    display: flex; /* Use flex to center inner content if needed */
+    justify-content: center;
+    align-items: center;
+    /* Set the background including the gradient border */
+    background-image: linear-gradient(var(--color-bg-inner), var(--color-bg-inner)),
+                      conic-gradient(from var(--rotation), #ffb800 0deg, #ffb800 90deg, var(--color-bg-inner) 90deg, var(--color-bg-inner) 360deg);
+
+    transition: transform 0.2s ease-out; /* Optional: slight scale on hover */
+}
+
+/* Remove alternating styles */
+.file-container:nth-child(odd),
+.file-container:nth-child(even) {
+    --border-color: #ffb800;
+    --hover-text-color: #ffb800;
+    background-image: linear-gradient(var(--color-bg-inner), var(--color-bg-inner)),
+                      conic-gradient(from var(--rotation), #ffb800 0deg, #ffb800 90deg, var(--color-bg-inner) 90deg, var(--color-bg-inner) 360deg);
+}
+
+
+
+.file-container .card-title-text { /* Target the specific title text */
+    color: #f5f5f5;
+    transition: color 0.3s ease;
+}
+
+.file-container:hover .card-title-text {
+    color: var(--hover-text-color);
+}
+
+.inner-container {
+    width: 100%; /* Take full width of padding box */
+    height: 100%; /* Take full height of padding box */
+    background-color: var(--color-bg-inner);
+    border-radius: calc(1em - 4px); /* Slightly smaller radius */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    /* Subtle background pattern from example */
+    background-image:
+        linear-gradient(45deg, var(--color-bg-inner-pattern) 25%, transparent 25%, transparent 75%, var(--color-bg-inner-pattern) 75%),
+        linear-gradient(-45deg, var(--color-bg-inner-pattern) 25%, transparent 25%, transparent 75%, var(--color-bg-inner-pattern) 75%);
+    background-size: 20px 20px; /* Smaller pattern size */
+    padding: 4px; /* Reduced from 6px */
+}
+
+/* Container for the image */
+.image-container {
+    width: 100%;
+    height: 200px; /* Or adjust height as needed */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Styles for the image itself */
+.file-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Crop image nicely */
+    display: block; /* Remove extra space below image */
+}
+
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 12px 6px 12px; /* Reduced bottom padding */
+    gap: 0.15rem; /* Reduced gap between elements */
+}
+
+.card-title-wrapper { /* Replaces .text class from example */
+    font-size: 1.5rem; /* Equivalent to text-2xl */
+    font-weight: bold;
+    letter-spacing: -.01em;
+    line-height: normal;
+    margin-bottom: 5px;
+    width: auto;
+    position: relative;
+    overflow: hidden; /* Crucial for the text-effect */
+    /* Use Tailwind for text color initially */
+    /* color: #f5f5f5; Replaced by Tailwind text-purple-600 below*/
+    transition: color 0.3s ease; /* Transition color on hover */
+    padding: 2px 0; /* Add slight padding top/bottom */
+}
+
+.card-title { /* Replaces .title class from example */
+    position: relative;
+    z-index: 10;
+    padding: 2px 4px; /* Padding around the text inside the effect */
+    display: inline-block; /* Allows background effect */
+    width: 100%; /* Make span take width */
+    text-align: left; /* Align title text */
+     /* Base color from original component */
+    color: #ffb800; /* purple-600 */
+    transition: color 0.3s ease; /* Ensure title color also transitions */
+}
+
+/* Apply hover color specifically to the title span if needed, or rely on parent */
+.file-container:hover .card-title {
+     color: var(--hover-text-color); /* Use variable for hover color */
+}
+
+
+.card-title-effect { /* Replaces .text-effect class */
+    clip-path: polygon(0 50%, 100% 50%, 100% 50%, 0 50%);
+    transform-origin: center;
+    transition: all cubic-bezier(.1,.5,.5,1) 0.4s;
+    position: absolute;
+    left: -4px;
+    right: -4px;
+    top: -4px;
+    bottom: -4px;
+    z-index: 0;
+    /* Background color set by JS using --border-color */
+    background-color: var(--border-color);
+}
+
+.file-container:hover .card-title-effect {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+/* Ensure Tailwind styles inside the card still work but adjust for dark theme */
+.inner-container .text-indigo-500 { color: #ffb800; } /* Lighter Indigo */
+.inner-container .text-gray-700 { color: #ffd466; } /* Light Gray */
+.inner-container .text-purple-500 { color: #ffcb33; } /* Lighter Purple */
+
+/* Specific adjustments needed inside the card content for dark theme */
+.card-content .text-indigo-400 { color: #ffb800; } /* Even Lighter Indigo */
+.card-content .text-purple-400 { color: #ffc933; } /* Even Lighter Purple */
+.card-content .text-gray-300 { color: #ffe399; } /* Light Gray is fine */
+
+
+/* Style the button link - keep original gradient but adjust hover */
+.card-button-link {
+    display: block;
+    border-radius: 0.375rem; /* rounded-md */
+    background-image: linear-gradient(to right, #ffb800, #ff9100); /* from-purple-600 to-indigo-600 */
+    padding: 0.4rem 1rem; /* Slightly reduced padding */
+    text-align: center;
+    font-weight: 500; /* font-medium */
+    color: white;
+    transition: background-image 0.3s ease, transform 0.2s ease;
+    will-change: transform; /* Optimize animation */
+    margin-bottom: 0;
+}
+
+.file-container:nth-child(odd) .card-button-link,
+.file-container:nth-child(even) .card-button-link {
+    background-image: linear-gradient(to right, #ffb800, #ff9100);
+}
+
+.card-button-link:hover {
+     /* Keep gradient but maybe slightly change or add brightness */
+     background-image: linear-gradient(to right, #ff9100, #ffb800); /* hover:from-purple-700 hover:to-indigo-700 */
+     transform: scale(1.03); /* Add slight scale on hover */
+}
+.card-button-link:active {
+    transform: scale(0.97); /* Add tap effect */
+}
+
+/* Adjust spacing for details section */
+.mt-4 {
+    margin-top: 1rem !important; /* Changed to 0.5rem for button spacing */
+}
+
+.mt-6 {
+    margin-top: 1.5rem !important; /* Reduced from 1.5rem */
+}
+
+/* Remove or adjust margin utilities */
+.mt-3 {
+    margin-top: 0.5rem !important; /* Reduced from 0.75rem */
+}
+
+/* === End Card Hover Animation Styles === */
