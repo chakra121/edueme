@@ -6,28 +6,33 @@
 
 generator client {
   provider = "prisma-client-js"
+  output   = "app/generated/prisma/client"
 }
+
 
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
+
 model Admin {
   id               String              @id @default(auto()) @map("_id") @db.ObjectId
   email            String              @unique
   hashedPassword   String
 
-  resetToken       String?          @map("_resetToken")
+  resetToken       String?             @map("_resetToken")
   resetTokenExpiry DateTime?
 
-  announcements AdminAnnouncement[] @relation("AdminToAnnouncement")
+  announcements    AdminAnnouncement[] @relation("AdminToAnnouncement")
 }
+
 
 enum UserRole {
   common
   student
 }
+
 
 model AdminAnnouncement {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
@@ -39,66 +44,69 @@ model AdminAnnouncement {
   admin       Admin?   @relation(fields: [adminId], references: [id], name: "AdminToAnnouncement")
 }
 
+
 model User {
-  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
   firstName      String
   lastName       String
   gender         String
   grade          String
   schoolName     String
   phoneNumber    String
-  email          String   @unique
+  email          String       @unique
   parentEmail    String
   userRole       String
   hashedPassword String
   photoLink      String?
 
-  resetToken       String?  @map("_resetToken")
+  resetToken       String?    @map("_resetToken")
   resetTokenExpiry DateTime?
   
-  courseID       String?   @db.ObjectId() // One student can have only one course
+  courseID       String?      @db.ObjectId() // One student can have only one course
   teacherID      String?
 
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
 
-  classLinkId    String?  @db.ObjectId
-  classLink      ClassLink? @relation(fields: [classLinkId], references: [id])
+  classLinkId    String?      @db.ObjectId
+  classLink      ClassLink?   @relation(fields: [classLinkId], references: [id])
 
-  course         Courses? @relation(fields: [courseID], references: [id])
+  course         Courses?     @relation(fields: [courseID], references: [id])
   payments       Payment[]
 }
 
+
 model Teacher {
-  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  id               String       @id @default(auto()) @map("_id") @db.ObjectId
   teacherName      String
   phoneNumber      String
-  email            String   @unique
+  email            String       @unique
   hashedPassword   String
   employeeID       String
   photoLink        String?
   userRole         String
 
-  resetToken       String?  @map("_resetToken")
+  resetToken       String?      @map("_resetToken")
   resetTokenExpiry DateTime?
 
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
 
   // One teacher has only one course
-  courseID         String?   @unique @db.ObjectId
-  course           Courses? @relation(fields: [courseID],references: [id])
- classLink         ClassLink?
+  courseID         String?      @unique @db.ObjectId
+  course           Courses?     @relation(fields: [courseID],references: [id])
+  classLink         ClassLink?
 }
 
+
 model Courses {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  courseCode  String   @unique
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  courseCode  String        @unique
   courseName  String
   teacher     Teacher?
   courseFee   Int?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
 
   students    User[]
   chapters    Chapter[]
@@ -108,52 +116,52 @@ model Courses {
 }
 
 
-
 model Chapter {
-  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
-  chapterCode        String   @unique
+  id                 String       @id @default(auto()) @map("_id") @db.ObjectId
+  chapterCode        String       @unique
   chapterName        String
   chapterDescription String
-  isCompleted        Boolean? @default(false)
+  isCompleted        Boolean?     @default(false)
   notesLink          String?
-  courseID           String   @db.ObjectId
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
+  courseID           String       @db.ObjectId
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
 
-  course             Courses  @relation(fields: [courseID], references: [id], onDelete: Cascade)  
+  course             Courses      @relation(fields: [courseID], references: [id], onDelete: Cascade)  
   classes            Class[]
 
 }
 
 
-
 model Class {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
   classTitle  String?
   youTubeLink String?
 
-  chapterID   String   @db.ObjectId
-  chapter     Chapter  @relation(fields: [chapterID], references: [id],onDelete: Cascade)
+  chapterID   String      @db.ObjectId
+  chapter     Chapter     @relation(fields: [chapterID], references: [id],onDelete: Cascade)
 }
 
+
 model ClassLink {
-  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  id                String      @id @default(auto()) @map("_id") @db.ObjectId
   classLink         String
   topics            String[]
   description       String
-  teacherID         String   @unique @db.ObjectId
-  courseID          String   @unique @db.ObjectId
+  teacherID         String      @unique @db.ObjectId
+  courseID          String      @unique @db.ObjectId
   DateAndTime       DateTime
-  updatedAt         DateTime @updatedAt
+  updatedAt         DateTime    @updatedAt
 
-  teacher           Teacher  @relation(fields: [teacherID], references: [id])
-  course            Courses  @relation(fields: [courseID], references: [id])
+  teacher           Teacher     @relation(fields: [teacherID], references: [id])
+  course            Courses     @relation(fields: [courseID], references: [id])
 
-  users             User[]   // Multiple students can be associated with the same class link
+  users             User[]      // Multiple students can be associated with the same class link
 }
 
+
 model UpcomingEvent {
-  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  id                String        @id @default(auto()) @map("_id") @db.ObjectId
   title             String
   subTitle          String?
   description       String
@@ -166,27 +174,28 @@ model UpcomingEvent {
   registrationLink  String
   note              String?
 
-  published         Boolean   @default(false)
-  slug              String    @unique
+  published         Boolean       @default(false)
+  slug              String        @unique
   regEndDate        DateTime?
 
-  createdAt         DateTime   @default(now())
-  updatedAt         DateTime   @updatedAt
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
 }
 
+
 model Payment {
-  id                String   @id @default(auto()) @map("_id") @db.ObjectId
-  razorpayOrderId   String   @unique
+  id                String      @id @default(auto()) @map("_id") @db.ObjectId
+  razorpayOrderId   String      @unique
   razorpayPaymentId String?
   razorpaySignature String?
   receiptId         String
   amount            Int
   status            String   // 'created', 'completed', 'failed'
-  courseId          String   @db.ObjectId
-  userId            String   @db.ObjectId
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  courseId          String      @db.ObjectId
+  userId            String      @db.ObjectId
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
 
-  user              User     @relation(fields: [userId], references: [id])
-  course            Courses  @relation(fields: [courseId], references: [id])
+  user              User        @relation(fields: [userId], references: [id])
+  course            Courses     @relation(fields: [courseId], references: [id])
 }
