@@ -29,7 +29,7 @@ export default function CourseDetails({ course }: CourseDetailsProps) {
 
           {/* Content section */}
           <div className="md:w-2/3">
-            <div className="bg-white/40 backdrop-blur-sm rounded-xl p-6 shadow-inner">
+            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-inner">
               <h1 className="mb-4 text-3xl font-bold text-gray-800">
                 {course.courseName}
               </h1>
