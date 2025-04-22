@@ -48,16 +48,12 @@ export default function CheckoutFailurePage() {
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
-      {/* Background Video */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute top-0 left-0 min-h-screen min-w-full object-cover"
-      >
-        <source src="/cfbgv.mp4" type="video/mp4" />
-      </video>
+      <div
+        className="absolute top-0 left-0 min-h-screen min-w-full bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: 'url("/checkerror.jpg")',
+        }}
+      ></div>
 
       {/* Semi-transparent overlay */}
       <div
@@ -90,7 +86,7 @@ export default function CheckoutFailurePage() {
                     </svg>
                   </div>
                 </div>
-                <span className="step-label mt-3 text-sm font-bold text-white transition-opacity duration-500">REGISTRATION</span>
+                <span className="step-label mt-3 text-sm font-bold text-black transition-opacity duration-500">REGISTRATION</span>
               </div>
 
               {/* Line between Step 1 and 2 */}
@@ -118,7 +114,7 @@ export default function CheckoutFailurePage() {
                     </svg>
                   </div>
                 </div>
-                <span className="step-label mt-3 text-sm font-bold text-white transition-opacity duration-500">COURSE SELECTION</span>
+                <span className="step-label mt-3 text-sm font-bold text-black transition-opacity duration-500">COURSE SELECTION</span>
               </div>
 
               {/* Line between Step 2 and 3 */}
@@ -146,15 +142,13 @@ export default function CheckoutFailurePage() {
                     </svg>
                   </div>
                 </div>
-                <span className="step-label mt-3 text-sm font-bold text-white transition-opacity duration-500">PAYMENT</span>
+                <span className="step-label mt-3 text-sm font-bold text-black transition-opacity duration-500">PAYMENT</span>
               </div>
             </div>
           </div>
 
-          {/* Neo Brutalism Error Card */}
-          <div className="error-card shadow-brutal relative mb-8 overflow-hidden rounded-2xl border-4 border-black bg-[#ffb800] p-8">
-            <div className="circuit-pattern absolute inset-0 opacity-10"></div>
-
+          {/*Card */}
+          <div className="error-card shadow-lg relative mb-8 overflow-hidden rounded-2xl border-4 border-black bg-red-200 p-8">
             <div className="mb-8 text-center">
               <div className="flex mb-3 items-center justify-center space-x-4">
                 <div className=" inline-flex h-16 w-16 items-center justify-center rounded-full border-4 border-black bg-white">
@@ -224,168 +218,20 @@ export default function CheckoutFailurePage() {
             <div className="flex flex-col space-y-4">
               <Link
                 href="/courses"
-                className="btn btn-block shadow-brutal-sm rounded-xl border-4 border-black bg-[#00ffa0] py-4 text-center font-black tracking-wider text-black uppercase transition-all hover:translate-y-1 hover:shadow-none"
+                className="btn btn-block shadow-lg rounded-xl border-4 border-black bg-[#00ffa0] py-4 text-center font-black tracking-wider text-black uppercase transition-all hover:translate-y-1 hover:shadow-none"
               >
                 Return to Courses
               </Link>
 
               <Link
                 href="/contact"
-                className="btn btn-block shadow-brutal-sm rounded-xl border-4 border-black bg-white py-4 text-center font-black tracking-wider text-black uppercase transition-all hover:translate-y-1 hover:shadow-none"
+                className="btn btn-block shadow-lg rounded-xl border-4 border-black bg-white py-4 text-center font-black tracking-wider text-black uppercase transition-all hover:translate-y-1 hover:shadow-none"
               >
                 Contact Support
               </Link>
             </div>
           </div>
         </div>
-
-        {/* Add CSS for the robotic animations and neo-brutalism style */}
-        <style jsx global>{`
-          /* Neo Brutalism styling */
-          .shadow-brutal {
-            box-shadow: 0.5rem 0.5rem 0 #000000;
-          }
-
-          .shadow-brutal-sm {
-            box-shadow: 0.25rem 0.25rem 0 #000000;
-          }
-
-          /* Robot animations */
-          .robot-element {
-            position: relative;
-            overflow: hidden;
-          }
-
-          .robot-element::after {
-            content: "";
-            position: absolute;
-            top: -100%;
-            left: -100%;
-            width: 300%;
-            height: 100%;
-            background: linear-gradient(
-              90deg,
-              transparent,
-              rgba(255, 255, 255, 0.4),
-              transparent
-            );
-            transform: rotate(25deg);
-            animation: scan 4s infinite linear;
-          }
-
-          @keyframes scan {
-            0% {
-              top: -100%;
-              left: -100%;
-            }
-            100% {
-              top: 200%;
-              left: 200%;
-            }
-          }
-
-          .robot-text {
-            position: relative;
-            display: inline-block;
-          }
-
-          .glitch {
-            animation: glitch 0.2s ease-in-out;
-          }
-
-          @keyframes glitch {
-            0% {
-              transform: translateX(0);
-            }
-            25% {
-              transform: translateX(-5px) scale(1.05);
-            }
-            50% {
-              transform: translateX(5px);
-            }
-            75% {
-              transform: translateX(-2px);
-            }
-            100% {
-              transform: translateX(0);
-            }
-          }
-
-          .shake {
-            animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-            animation-iteration-count: 2;
-          }
-
-          @keyframes shake {
-            10%,
-            90% {
-              transform: translate3d(-1px, 0, 0);
-            }
-
-            20%,
-            80% {
-              transform: translate3d(2px, 0, 0);
-            }
-
-            30%,
-            50%,
-            70% {
-              transform: translate3d(-4px, 0, 0);
-            }
-
-            40%,
-            60% {
-              transform: translate3d(4px, 0, 0);
-            }
-          }
-
-          .glitch-effect {
-            position: relative;
-          }
-
-          .glitch-effect::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 255, 160, 0.2);
-            mix-blend-mode: overlay;
-            animation: glitchEffect 0.2s linear;
-          }
-
-          @keyframes glitchEffect {
-            0% {
-              transform: translate(0);
-            }
-            20% {
-              transform: translate(-5px, 5px);
-            }
-            40% {
-              transform: translate(-5px, -5px);
-            }
-            60% {
-              transform: translate(5px, 5px);
-            }
-            80% {
-              transform: translate(5px, -5px);
-            }
-            100% {
-              transform: translate(0);
-            }
-          }
-
-          .circuit-pattern {
-            background-image: linear-gradient(
-                90deg,
-                rgba(0, 0, 0, 0.1) 1px,
-                transparent 1px
-              ),
-              linear-gradient(0deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
-            background-size: 20px 20px;
-          }
-        `}</style>
       </div>
     </div>
   );
