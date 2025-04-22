@@ -25,25 +25,19 @@ export default function CourseCard({ course }: CourseCardProps) {
   return (
     <div
       className="
-        group
-        relative
-        bg-white/80
-        backdrop-blur-sm
-        border border-gray-200
-        rounded-lg
-        overflow-hidden
-        shadow-md
-        transition-all duration-300 ease-in-out
-        hover:shadow-lg hover:shadow-orange-200
-        hover:border-orange-400
-        hover:scale-[1.03]
-        flex flex-col
+      group
+      relative
+      bg-white
+      border border-gray-200
+      rounded-lg
+      overflow-hidden
+      shadow-md
+      transition-all duration-300 ease-in-out
+      hover:shadow-lg hover:shadow-orange-200
+      hover:border-orange-400
+      hover:scale-[1.03]
+      flex flex-col
       "
-      style={{
-        backgroundImage: 'url(/corecourse.avif)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
     >
       <div className="absolute inset-0 bg-white/85 backdrop-blur-sm"></div>
       <div className="relative flex flex-col flex-grow"> {/* Added relative positioning for content */}
