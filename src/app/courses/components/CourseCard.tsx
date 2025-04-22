@@ -68,29 +68,45 @@ export default function CourseCard({ course }: CourseCardProps) {
 
         {/* Content Section */}
         <div className="p-5 flex flex-col flex-grow">
-          {/* Link wraps the title */}
-          <Link href={`/courses/${course.courseCode}`} className="group/link mb-2">
-              <h3
-              className="
-                  text-xl font-semibold
-                  text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-orange-800 // Gradient text using orange theme
-                  group-hover/link:text-orange-600 // Solid color on hover for emphasis
-                  group-hover/link:underline // Underline on hover
-                  transition-colors duration-300
-              "
-              >
-              {course.courseName}
-              </h3>
-          </Link>
+          {/* Course Title without link */}
+          <h3
+            className="
+                text-xl font-semibold mb-2
+                text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-orange-800
+                transition-colors duration-300
+            "
+          >
+            {course.courseName}
+          </h3>
 
           <p className="text-gray-600 text-sm mb-4 flex-grow">
-            {displayDescription} {/* Use dynamic or generated description */}
+            {displayDescription}
           </p>
 
           {/* Course Fee */}
           <p className="font-semibold text-lg text-orange-700 mb-3">
               ₹{course.courseFee}
           </p>
+
+          {/* Explore Button with link */}
+          <Link 
+            href={`/courses/${course.courseCode}`}
+            className="
+              w-full
+              text-center
+              px-4 py-2
+              bg-orange-500
+              text-white
+              rounded-md
+              font-medium
+              hover:bg-orange-600
+              transition-colors
+              duration-300
+              mb-3
+            "
+          >
+            Explore Course
+          </Link>
 
           {/* Tags Section (Optional - based on your data) */}
           {course.tags && course.tags.length > 0 && (
