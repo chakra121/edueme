@@ -5,6 +5,7 @@ import prisma from "@/lib/globalPrisma";
 import PDFDocument from "pdfkit";
 import path from "path";
 import fs from "fs";
+export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
   try {

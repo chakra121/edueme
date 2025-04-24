@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/globalPrisma";
 
+
 export async function GET(_req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);

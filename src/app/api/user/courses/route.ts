@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { getUserCourses } from "@/lib/courses";
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
