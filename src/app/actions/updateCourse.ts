@@ -4,7 +4,7 @@ import prisma from "@/lib/globalPrisma";
 
 export async function updateCourse(
   id: string,
-  updates: { courseCode?: string; courseName?: string },
+  updates: { courseCode?: string; courseName?: string; courseFee?: number; courseDescription?: string; },
 ) {
   try {
     await prisma.$connect();

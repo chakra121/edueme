@@ -40,6 +40,7 @@ const ViewCoursesComponent: React.FC<ViewCoursesProps> = ({
                 <th>Course Name</th>
                 <th>Teacher Assigned</th>
                 <th>No. of Chapters</th>
+                <th>Course Fee</th>
               </tr>
             </thead>
             <tbody>
@@ -51,6 +52,7 @@ const ViewCoursesComponent: React.FC<ViewCoursesProps> = ({
                     <td>{course.courseName}</td>
                     <td>{course.teacher || "Not assigned"}</td>
                     <td>{course.chapters || 0}</td>
+                    <td>{course.courseFee}</td>
                   </tr>
                 ))
               ) : (

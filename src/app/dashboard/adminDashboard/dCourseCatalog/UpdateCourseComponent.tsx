@@ -31,6 +31,8 @@ const UpdateCourseComponent: React.FC<UpdateCourseProps> = ({
       setSelectedCourse(id);
       setValue("courseCode", course.courseCode);
       setValue("courseName", course.courseName);
+      setValue("courseFee", course.courseFee);
+      setValue("courseDescription", course.courseDescription);
     }
   };
 
@@ -109,6 +111,46 @@ const UpdateCourseComponent: React.FC<UpdateCourseProps> = ({
             {errors.courseName && (
               <span className="text-error text-sm">
                 {errors.courseName.message}
+              </span>
+            )}
+          </div>
+          {/* Course Fee Input */}
+          <div className="form-control">
+            <label className="mb-1 block text-lg font-medium text-gray-700">
+              <span className="label-text">Course Fee :</span>
+            </label>
+            <input
+              type="number"
+              className="input input-bordered w-full"
+              {...register("courseFee", {
+                required: "Course Fee is required",
+                valueAsNumber: true,
+              })}
+            />
+            {errors.courseCode && (
+              <span className="text-error mt-1 text-sm">
+                {errors.courseCode.message}
+              </span>
+            )}
+          </div>
+
+          {/* courseDescription */}
+          <div className="form-control">
+            <label className="mb-1 block text-lg font-medium text-gray-700">
+              <span className="label-text">Course Description :</span>
+            </label>
+
+            <textarea
+              className="textarea textarea-bordered w-full"
+              rows={5}
+              {...register("courseDescription", {
+                required: "Course Description is required",
+              })}
+            ></textarea>
+
+            {errors.courseDescription && (
+              <span className="text-error mt-1 text-sm">
+                {errors.courseDescription.message}
               </span>
             )}
           </div>

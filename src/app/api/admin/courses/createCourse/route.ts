@@ -5,13 +5,13 @@ import prisma from "@/lib/globalPrisma";
 export async function POST(req: NextRequest) {
   try {
     // ✅ Step 1: Parse and type request body
-    const body = (await req.json()) as { courseCode: string; courseName: string };
-    const { courseCode, courseName } = body;
+    const body = (await req.json()) as { courseCode: string; courseName: string, courseFee: number, courseDescription: string };
+    const { courseCode, courseName, courseFee, courseDescription } = body;
 
     // ✅ Step 2: Validate input
-    if (!courseCode || !courseName) {
+    if (!courseCode || !courseName || !courseFee || !courseDescription) {
       return NextResponse.json(
-        { message: "Course code and name are required" },
+        { message: "All fields are required" },
         { status: 400 },
       );
     }
@@ -30,7 +30,12 @@ export async function POST(req: NextRequest) {
 
     // ✅ Step 4: Create a new course in the database
     const newCourse = await prisma.courses.create({
-      data: { courseCode, courseName },
+      data: {
+        courseCode,
+        courseName,
+        courseFee,
+        courseDescription,
+      },
     });
 
     return NextResponse.json(newCourse, { status: 201 });

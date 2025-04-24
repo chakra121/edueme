@@ -24,7 +24,7 @@ const CreateCourseForm: React.FC<CreateCourseFormProps> = ({
       await onSubmit(data);
       reset(); // Reset form on success
     } catch {
-      // Error handling is done in the parent component
+      // Error handling is done in the parent omponentc
     }
   };
 
@@ -66,6 +66,49 @@ const CreateCourseForm: React.FC<CreateCourseFormProps> = ({
         {errors.courseName && (
           <span className="text-error mt-1 text-sm">
             {errors.courseName.message}
+          </span>
+        )}
+      </div>
+
+      {/* Course Fee Input */}
+      <div className="form-control">
+        <label className="mb-1 block text-lg font-medium text-gray-700">
+          <span className="label-text">Course Fee :</span>
+        </label>
+        <input
+          type="number"
+          placeholder="E.g., 500"
+          className="input input-bordered w-full"
+          {...register("courseFee", {
+            required: "Course Fee is required",
+            valueAsNumber: true,
+          })}
+        />
+        {errors.courseCode && (
+          <span className="text-error mt-1 text-sm">
+            {errors.courseCode.message}
+          </span>
+        )}
+      </div>
+
+      {/* courseDescription */}
+      <div className="form-control">
+        <label className="mb-1 block text-lg font-medium text-gray-700">
+          <span className="label-text">Course Description :</span>
+        </label>
+
+        <textarea
+          placeholder="E.g., This course covers the basics of ..."
+          className="textarea textarea-bordered w-full"
+          rows={5}
+          {...register("courseDescription", {
+            required: "Course Description is required",
+          })}
+        ></textarea>
+
+        {errors.courseDescription && (
+          <span className="text-error mt-1 text-sm">
+            {errors.courseDescription.message}
           </span>
         )}
       </div>

@@ -4,12 +4,16 @@ export type Course = {
   courseCode: string;
   courseName: string;
   teacher: string;
+  courseFee: number;
+  courseDescription: string; // Optional field for course description
   chapters: string | number;
 };
 
 export type CourseFormData = {
   courseCode: string;
   courseName: string;
+  courseFee: number;
+  courseDescription: string; // Optional field for course description
 };
 
 export type ServiceResponse = {

@@ -10,6 +10,8 @@ export async function GET() {
         id: true,
         courseCode: true,
         courseName: true,
+        courseFee: true,
+        courseDescription: true,
         teacher: {
           select: { teacherName: true }, // Fetch teacher name if available
         },
@@ -24,6 +26,8 @@ export async function GET() {
       id: course.id,
       courseCode: course.courseCode,
       courseName: course.courseName,
+      courseFee: course.courseFee,
+      courseDescription: course.courseDescription || "NaN",
       teacher: course.teacher ? course.teacher.teacherName : "NaN",
       chapters: course._count?.chapters ?? "NaN",
     }));
