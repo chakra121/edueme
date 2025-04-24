@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/globalPrisma";
-
+export const dynamic = "force-dynamic";
 
 // GET all events
 export async function GET() {
