@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/globalPrisma";
-import { generateSlug } from "@/lib/event-utils";
+
 
 // GET all events
 export async function GET() {

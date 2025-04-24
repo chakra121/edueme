@@ -1,19 +1,8 @@
 
-import Image from 'next/image';
 import EventsList from '../../components/EventsList';
 
 
 export default function Home() {
-    const featuredEvents = [
-      {
-        id: 1,
-        title: "Navikarana 1.0",
-        date: "Apr 05, 2025",
-        time: "10:00 AM - 2:00 PM",
-        location: "Arka International School, Hyderabad",
-        image: "/events/evenbg.jpg",
-      },
-    ];
 
     return (
       <main className="min-h-screen bg-white">

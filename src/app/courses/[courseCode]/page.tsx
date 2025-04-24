@@ -2,7 +2,7 @@
 import { getCourseByCode } from "@/lib/courses";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import PurchaseCourseButton from "../components/PurchaseCourseButton";
 import CourseDetails from "../components/CourseDetails";
 
@@ -42,7 +42,18 @@ export default async function CourseDetailPage({
       }}
     >
       <div className="container mx-auto">
-        <CourseDetails course={course} />
+        <CourseDetails 
+          course={{
+            ...course,
+            chapters: course.chapters?.map(chapter => ({
+              id: chapter.id,
+              title: chapter.chapterName,
+            })),
+            teacher: course.teacher
+              ? { name: course.teacher.teacherName }
+              : undefined,
+          }} 
+        />
 
         {!isLoggedIn && (
           <div className="item-center mt-5 flex justify-center">

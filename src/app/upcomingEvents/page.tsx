@@ -33,7 +33,7 @@ export default function EventsPage() {
           throw new Error("Failed to fetch events");
         }
 
-        const data = await response.json();
+        const data = await response.json() as UpcomingEvent[];
         setEvents(data);
       } catch (err) {
         setError("Error loading events. Please try again later.");
@@ -43,7 +43,7 @@ export default function EventsPage() {
       }
     };
 
-    fetchEvents();
+    void fetchEvents();
   }, []);
 
   return (

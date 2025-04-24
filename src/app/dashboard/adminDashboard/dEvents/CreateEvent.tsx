@@ -3,11 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-type ToastState = {
-  show: boolean;
-  message: string;
-  type: "success" | "error";
-};
 
 export default function CreateEvent({
   onToast,
@@ -82,7 +77,7 @@ export default function CreateEvent({
         throw new Error("Failed to create event");
       }
 
-      const result = await response.json();
+      await response.json(); // Processed response without assigning to an unused variable
 
       // Clear form
       setFormData({

@@ -1,5 +1,5 @@
 // app/api/courses/check-access/route.ts
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { checkUserHasCourse } from "@/lib/courses";
@@ -12,7 +12,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ hasAccess: false }, { status: 401 });
     }
 
-    const { courseId } = await request.json();
+    const body = (await request.json()) as { courseId: string };
+    const { courseId } = body;
 
     if (!courseId) {
       return NextResponse.json(

@@ -18,8 +18,9 @@ export const AnnouncementSection = () => {
     const fetchAnnouncement = async () => {
       try {
         const res = await fetch("/api/landing/announcement");
-        const data = await res.json();
-        if (data?.title && data?.description) {
+      
+        const data = await res.json() as Announcement;
+        if (data.title && data.description) {
           setAnnouncement(data);
         }
       } catch (error) {
@@ -27,7 +28,7 @@ export const AnnouncementSection = () => {
       }
     };
 
-    fetchAnnouncement();
+    void fetchAnnouncement();
   }, []);
 
   useEffect(() => {

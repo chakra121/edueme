@@ -9,6 +9,7 @@ import DownloadReceiptButton from "../components/DownloadReceiptButton";
 import ConfettiEffect from "./Confetti"; // Corrected import name based on filename
 import styles from './styles.module.css';
 import Progress from './Progress';
+import Image from 'next/image';
 
 export default async function CheckoutSuccessPage({
   searchParams,
@@ -54,14 +55,7 @@ export default async function CheckoutSuccessPage({
     redirect("/courses?error=payment_not_found"); // Redirect with an error indicator
   }
 
-  // --- Progress Bar Data ---
-  // Since this is the success page, all steps are considered complete.
-  const steps = [
-    { name: "REGISTRATION", status: "complete" },
-    { name: "COURSE SELECTION", status: "complete" },
-    { name: "PAYMENT", status: "complete" },
-    { name: "SUCCESS", status: "complete"}, // Payment is successful here
-  ];
+ 
 
   return (
     <div 
@@ -84,7 +78,9 @@ export default async function CheckoutSuccessPage({
         <div className="mx-auto max-w-6xl flex items-center justify-center">
           {/* Left side image */}
           <div className="hidden lg:block relative w-1/4">
-            <img
+            <Image
+            height={500}
+            width={500}
               src="/roboside.png"
               alt="Robot Assistant"
               className="object-contain w-full h-auto"

@@ -8,7 +8,6 @@ import DeleteEvent from "./DeleteEvent";
 import Toast from "./Toast"
 
 export default function EventsPage() {
-  const [activeTab, setActiveTab] = useState("create");
   const [toast, setToast] = useState({
     message: "",
     type: "success" as "success" | "error",

@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CallToActionSection } from "./sections/CallToActionSection";
 import { CaseStudiesSection } from "./sections/CaseStudiesSection/CaseStudiesSection";
@@ -176,7 +175,9 @@ const Home = (): JSX.Element => {
   return (
     <div className="bg-white flex flex-row justify-center w-full" ref={containerRef}>
       {/* Robot Element that will be animated */}
-      <img 
+      <Image
+        width={120}
+        height={120} 
         ref={robotRef}
         src="/robo.gif" 
         alt="Robot Animation" 

@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 // Type definition
@@ -43,15 +42,14 @@ const getTimeRemaining = (endDate: string) => {
 export const UpcomingEventsSection = () => {
   const [events, setEvents] = useState<EventData[]>([]);
   const [countdowns, setCountdowns] = useState<Record<number, string>>({});
-  const router = useRouter();
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
         const res = await fetch("/api/landing/upcomingEvent");
-        const data = await res.json();
+        const data = await res.json() as EventData[];
         // Sort events by event date
-        const sorted = [...data].sort(
+        const sorted = data.sort(
           (a, b) => Date.parse(a.eventdate) - Date.parse(b.eventdate),
         );
         setEvents(sorted);
@@ -60,7 +58,7 @@ export const UpcomingEventsSection = () => {
       }
     };
 
-    fetchEvents();
+    void fetchEvents();
   }, []);
 
   useEffect(() => {
@@ -136,7 +134,7 @@ export const UpcomingEventsSection = () => {
 
               {event.regEndDate && (
                 <p className="text-md mt-2 font-medium text-red-500">
-                  ⏳ {countdowns[i] || "Loading..."}
+                  ⏳ {countdowns[i] ?? "Loading..."}
                 </p>
               )}
             </motion.div>

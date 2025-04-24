@@ -2,7 +2,6 @@ import { ArrowRightIcon } from "lucide-react";
 import React from "react";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
 

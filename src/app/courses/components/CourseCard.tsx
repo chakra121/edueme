@@ -1,7 +1,7 @@
 // components/CourseCard.tsx
 import Image from "next/image";
 import Link from "next/link";
-import { Courses } from "@prisma/client";
+import { type Courses } from "@prisma/client";
 
 interface CourseCardProps {
   // Assuming your Courses type has these fields, or you adapt the component
@@ -14,13 +14,12 @@ interface CourseCardProps {
 
 export default function CourseCard({ course }: CourseCardProps) {
   const primaryColor = "#ffb800"; // orange-500
-  const hoverColor = "#ffb800"; // orange-600
 
   // Provide a default image if course.imageUrl is missing
-  const displayImageUrl = course.imageUrl || '/courses/rbai.png'; // ** Adjust placeholder path **
+  const displayImageUrl = course.imageUrl ?? '/courses/rbai.png'; // ** Adjust placeholder path **
 
   // Provide a default description if course.description is missing
-  const displayDescription = course.description || `Learn ${course.courseName} from scratch. Explore the fundamentals and build practical skills.`;
+  const displayDescription = course.description ?? `Learn ${course.courseName} from scratch. Explore the fundamentals and build practical skills.`;
 
   return (
     <div

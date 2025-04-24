@@ -4,13 +4,11 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
 import { RiRobot2Fill } from "react-icons/ri";
 import {
   FaLocationDot,
   FaMicrochip,
   FaPhone,
-  FaTrophy,
   FaUserGraduate,
 } from "react-icons/fa6";
 import { FaCalendarAlt } from "react-icons/fa";
@@ -84,8 +82,8 @@ export default function EventDetailPage() {
           throw new Error("Failed to fetch event details");
         }
 
-        const data = await response.json();
-        setEvent(data);
+        const data = (await response.json()) as UpcomingEvent[];
+        setEvent(data[0] ?? null);
       } catch (err) {
         setError("Error loading event details. Please try again later.");
         console.error(err);
@@ -95,7 +93,7 @@ export default function EventDetailPage() {
     };
 
     if (slug) {
-      fetchEvent();
+      void fetchEvent();
     }
   }, [slug]);
 
@@ -114,7 +112,7 @@ export default function EventDetailPage() {
     return (
       <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-indigo-50 to-purple-50 p-6">
         <div className="text-center">
-          <p className="text-lg text-red-500">{error || "Event not found"}</p>
+          <p className="text-lg text-red-500">{error ?? "Event not found"}</p>
           <Link
             href="/events"
             className="mt-4 inline-block text-purple-600 hover:underline"

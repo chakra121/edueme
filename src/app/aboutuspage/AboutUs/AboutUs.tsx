@@ -1,25 +1,14 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { AwardRecognitionSection } from "./sections/AwardRecognitionSection";
-import { CoreValueSection } from "./sections/CoreValueSection";
-import { HeroSection } from "./sections/HeroSection/HeroSection";
-import { IndustryRecognitionSection } from "./sections/IndustryRecognitionSection";
-import { JourneyHeadingSection } from "./sections/JourneyHeadingSection";
-import { TestimonialsSection } from "./sections/TestimonialsSection/TestimonialsSection";
 import  ImpactSection  from "./sections/ImpactSection/ImpactSection";
 import  JourneySection from "./sections/JourneySection/JourneySection";
 
 
 
 export const AboutUs = (): JSX.Element => {
-  const impactNumbers = [
-    { value: "75+", label: "Students Enrolled" },
-    { value: "100+", label: "Teachers" },
-    { value: "50+", label: "Schools Registered" },
-    { value: "30+", label: "Courses Offered" },
-    { value: "5+", label: "Years of Experience" },
-  ];
 
   const awards = [
     {
@@ -49,21 +38,8 @@ export const AboutUs = (): JSX.Element => {
   ];
 
   return (
-    <div className="bg-white flex flex-col items-center w-full overflow-x-hidden">
-      {/* Hero Section */}
-      <section className="w-full relative">
-        <HeroSection />
-        <img
-          className="w-64 sm:w-80 md:w-[488px] h-auto mx-auto mt-10 object-cover"
-          alt="Logo"
-          src="/about/image-12.png"
-        />
-      </section>
-
-      {/* Impact Section
-      <section className="w-full mt-8 flex justify-center">
-        <ImpactSection />
-      </section> */}
+    <div className="bg-white flex pt-15 flex-col items-center w-full overflow-x-hidden">
+  
 
       {/* Journey Section */}
       <section className="w-full mt-8 flex justify-center">
@@ -84,15 +60,17 @@ export const AboutUs = (): JSX.Element => {
 
         <Card className="w-full max-w-6xl mx-auto mt-16 bg-[#0D1B2A] rounded-3xl overflow-hidden">
           <CardContent className="p-0 relative flex flex-col md:flex-row items-center md:items-start">
-            <img
+            <Image
               className="w-60 sm:w-80 md:w-[447px] h-auto mt-8 md:mt-12 md:ml-10 object-cover"
               alt="Global certificate"
               src="/about/globalcertificate-1.png"
+              width={10}
+              height={10}
             />
             <div className="px-6 py-6 md:py-10 md:pr-16 text-center md:text-left">
               <p className="text-white text-xl sm:text-2xl md:text-3xl font-medium leading-relaxed">
-                "At EdueMe, we believe that innovation begins with curiosity,
-                and every learner has the potential to change the world 🚀"
+                &quot;At EdueMe, we believe that innovation begins with curiosity,
+                and every learner has the potential to change the world 🚀&quot;
               </p>
             </div>
           </CardContent>
@@ -121,7 +99,9 @@ export const AboutUs = (): JSX.Element => {
               key={index}
               className="w-[90%] sm:w-[280px] h-auto bg-grey rounded-[40px] flex flex-col items-center p-4"
             >
-              <img
+              <Image
+                width={180}
+                height={180}
                 className="w-[180px] h-[180px] object-cover mt-2"
                 alt={`Award ${index + 1}`}
                 src={award.image}
@@ -142,7 +122,9 @@ export const AboutUs = (): JSX.Element => {
 
       {/* Footer Logo */}
       <section className="w-full mt-10">
-        <img
+        <Image
+          width={488}
+          height={0}
           className="w-64 sm:w-80 md:w-[488px] h-auto mx-auto object-cover"
           alt="Logo"
           src="/about/image-12.png"

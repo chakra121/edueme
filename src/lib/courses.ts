@@ -54,3 +54,23 @@ export async function getUserCourses(id: string) {
     return null;
   }
 }
+
+export async function checkUserHasCourse(userId: string, courseId: string) {
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      include: {
+        course: true,
+      },
+    });
+
+    if (!user) return false;
+
+    return Array.isArray(user.course) && user.course.some((course: { id: string }) => course.id === courseId);
+  } catch (error) {
+    console.error("Failed to check user course access:", error);
+    return false;
+  }
+}

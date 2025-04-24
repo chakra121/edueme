@@ -2,8 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { Courses } from "@prisma/client";
+import { type Courses } from "@prisma/client";
 import Link from "next/link";
 
 interface PurchaseCourseButtonProps {
@@ -13,15 +12,13 @@ interface PurchaseCourseButtonProps {
 
 export default function PurchaseCourseButton({
   course,
-  userId,
 }: PurchaseCourseButtonProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [canPurchase, setCanPurchase] = useState(false);
-  const [existingCourseId, setExistingCourseId] = useState<string | null>(null);
   const [existingCourseCode, setExistingCourseCode] = useState<string | null>(
     null,
   );
-  const router = useRouter();
+  
 
   useEffect(() => {
     // Check if the user already has a course
@@ -32,18 +29,31 @@ export default function PurchaseCourseButton({
           throw new Error("Failed to check course access");
         }
 
-        const data = await response.json();
+        interface CheckCourseAccessResponse {
+          canPurchase: boolean;
+          existingCourse?: { courseId: string };
+        }
+        const json = (await response.json()) as CheckCourseAccessResponse;
+        const data = {
+          canPurchase: json.canPurchase,
+          existingCourse: json.existingCourse
+            ? { courseId: json.existingCourse.courseId }
+            : undefined,
+        };
         setCanPurchase(data.canPurchase);
 
         if (!data.canPurchase && data.existingCourse) {
-          setExistingCourseId(data.existingCourse.courseId);
+          setExistingCourseCode(data.existingCourse.courseId);
 
           // Get the course code for the existing course
           const courseResponse = await fetch(
             `/api/buyCourse/id-param/${data.existingCourse.courseId}`,
           );
           if (courseResponse.ok) {
-            const courseData = await courseResponse.json();
+            interface CourseData {
+              courseCode: string;
+            }
+            const courseData = (await courseResponse.json()) as CourseData;
             setExistingCourseCode(courseData.courseCode);
           }
         }
@@ -57,7 +67,7 @@ export default function PurchaseCourseButton({
       }
     };
 
-    checkCourseAccess();
+    void checkCourseAccess();
   }, []);
 
   if (isLoading) {

@@ -30,7 +30,7 @@ export default async function CoursesPage() {
             No Courses Found
           </h2>
           <p className="text-center text-lg text-yellow-600">
-            You haven't enrolled in any course yet. Explore our offerings and
+            You haven&apos;t enrolled in any course yet. Explore our offerings and
             begin your learning journey today!
           </p>
           <a href="/courses" className="btn btn-secondary mt-2">

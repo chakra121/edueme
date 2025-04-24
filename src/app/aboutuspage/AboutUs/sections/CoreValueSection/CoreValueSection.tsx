@@ -1,11 +1,14 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import Image from "next/image";
 
 export const CoreValueSection = (): JSX.Element => {
   return (
     <Card className="bg-dark rounded-[45px] overflow-hidden w-full max-w-[563px]">
       <CardContent className="p-12 relative">
-        <img
+        <Image
+          width={51}
+          height={49}
           className="w-[51px] h-[49px] absolute top-[39px] left-12"
           alt="Vector"
           src="/about/vector.svg"

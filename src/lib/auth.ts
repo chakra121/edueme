@@ -1,4 +1,4 @@
-import NextAuth, { type NextAuthOptions, type User } from "next-auth";
+import NextAuth, { type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@/lib/globalPrisma";
 import { connectToDatabase } from "@/lib/connectDB";
@@ -106,7 +106,7 @@ export const authOptions: NextAuthOptions = {
             id: user.id,
             email: user.email,
             role: userRole as "student" | "teacher" | "superadmin",
-            courseID: user.courseID || null, // Include courseID if available
+            courseID: user.courseID ?? null, // Include courseID if available
           };
         } catch (error) {
           console.error("Authorization Error:", error);
@@ -125,7 +125,7 @@ export const authOptions: NextAuthOptions = {
           id: user.id,
           role: user.role,
           email: user.email,
-          courseID: user.courseID || null, // Include courseID if available
+          courseID: user.courseID ?? null, // Include courseID if available
           exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24, // 24-hour expiry
         };
       }

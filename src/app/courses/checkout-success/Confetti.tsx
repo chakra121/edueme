@@ -1,13 +1,13 @@
 // app/courses/components/ConfettiEffect.tsx
 "use client";
 
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 // Define the Confettiful class directly within the component or import if separated
 class Confettiful {
     el: HTMLElement;
     containerEl: HTMLElement | null = null;
-    confettiFrequency: number = 3;
+    confettiFrequency = 3;
     confettiColors: string[] = ['#EF2964', '#00C09D', '#2D87B0', '#48485E', '#EFFF1D'];
     confettiAnimations: string[] = ['slow', 'medium', 'fast'];
     confettiInterval: NodeJS.Timeout | null = null;
@@ -20,13 +20,6 @@ class Confettiful {
 
     _setupElements() {
         const containerEl = document.createElement('div');
-        const elPosition = this.el.style.position;
-
-        // Ensure the target element is positioned relatively or absolutely
-        // Or rely on the fixed positioning of the containerEl itself
-        // if (elPosition !== 'relative' && elPosition !== 'absolute') {
-        //   this.el.style.position = 'relative';
-        // }
 
         containerEl.classList.add('confetti-container');
         // Apply fixed positioning to cover the viewport
@@ -72,7 +65,7 @@ class Confettiful {
             }, 3000); // Remove after 3 seconds
 
             // Store timeoutId on the element for potential cleanup
-            (confettiEl as any).removeTimeout = timeoutId;
+            (confettiEl as HTMLElement & { removeTimeout?: number }).removeTimeout = timeoutId as unknown as number;
 
             this.containerEl.appendChild(confettiEl);
         }, 50); // Increased interval slightly for potentially better performance
@@ -87,8 +80,8 @@ class Confettiful {
         if (this.containerEl) {
              const confettiElements = this.containerEl.querySelectorAll('.confetti');
              confettiElements.forEach(el => {
-                const timeoutId = (el as any).removeTimeout;
-                if (timeoutId) clearTimeout(timeoutId);
+                const timeoutId = (el as HTMLElement & { removeTimeout?: number }).removeTimeout;
+                if (timeoutId !== undefined) clearTimeout(timeoutId);
                 el.remove();
              });
         }
@@ -113,7 +106,7 @@ export default function ConfettiEffect() {
             if (confettiInstance.current) {
                 confettiInstance.current.stop();
                  // Optional: remove the container itself if desired
-                if (confettiInstance.current.containerEl && confettiInstance.current.containerEl.parentNode) {
+                if (confettiInstance.current.containerEl?.parentNode) {
                     confettiInstance.current.containerEl.parentNode.removeChild(confettiInstance.current.containerEl);
                 }
                 confettiInstance.current = null;

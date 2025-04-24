@@ -2,7 +2,7 @@
 import { getCourses } from "@/lib/courses";
 import CourseCard from "./components/CourseCard";
 import { Suspense } from "react";
-import { Courses } from "@prisma/client";
+import { type Courses } from "@prisma/client";
 
 export default async function CoursesPage() {
   // Fetch courses using your existing function

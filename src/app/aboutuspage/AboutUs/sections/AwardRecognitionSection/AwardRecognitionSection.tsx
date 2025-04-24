@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import Image from "next/image";
 
 export const AwardRecognitionSection = (): JSX.Element => {
   return (
@@ -23,10 +24,12 @@ export const AwardRecognitionSection = (): JSX.Element => {
 
           {/* Right Image */}
           <div className="absolute bottom-[-20px] right-[-60px]">
-            <img
+            <Image
               className="w-[500px] h-auto object-cover"
               alt="Hand holding a lightbulb"
               src="/about/hand.png"
+              width={500}
+              height={500}
             />
           </div>
         </div>

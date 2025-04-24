@@ -56,8 +56,8 @@ export async function GET() {
       user: {
         firstName: user.firstName,
         lastName: user.lastName,
-        teacherID: user.teacherID || null,
-        classLinkUpdatedAt: user.classLink?.updatedAt || null,
+        teacherID: user.teacherID ?? null,
+        classLinkUpdatedAt: user.classLink?.updatedAt ?? null,
         course: user.course? 
         {
           courseName: user.course.courseName,

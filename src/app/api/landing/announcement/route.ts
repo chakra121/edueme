@@ -13,7 +13,7 @@ export async function GET() {
       },
     });
 
-    return NextResponse.json(announcement || {});
+    return NextResponse.json(announcement ?? {});
   } catch (error) {
     console.error("Failed to fetch announcements", error);
     return NextResponse.json(

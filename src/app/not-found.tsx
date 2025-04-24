@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { Inter, Orbitron } from 'next/font/google';
+import { Orbitron } from 'next/font/google';
 import { useRouter } from 'next/navigation';
 
 const orbitron = Orbitron({ subsets: ['latin'], weight: ['400', '700'] });
@@ -13,7 +13,6 @@ export default function ErrorPage() {
   const router = useRouter();
   
   // Mouse position tracking for smooth following
-  const mousePos = useRef({ x: 0, y: 0 });
   const targetPos = useRef({ x: 0, y: 0 });
   const robotRotation = useRef(0);
 
@@ -75,9 +74,23 @@ export default function ErrorPage() {
         if (y3 === 100) y3Forward = true;
         if (y3 === 317) y3Forward = false;
         
-        y1Forward ? y1 += 1 : y1 -= 1;
-        y2Forward ? y2 += 1 : y2 -= 1;
-        y3Forward ? y3 += 1 : y3 -= 1;
+        if (y1Forward) {
+          y1 += 1;
+        } else {
+          y1 -= 1;
+        }
+
+        if (y2Forward) {
+          y2 += 1;
+        } else {
+          y2 -= 1;
+        }
+
+        if (y3Forward) {
+          y3 += 1;
+        } else {
+          y3 -= 1;
+        }
       }
       
       animate();
@@ -111,12 +124,12 @@ export default function ErrorPage() {
     
     // Smooth animation for robot following cursor
     const animateRobotFollow = () => {
-      const robot = document.querySelector('.robot') as HTMLElement;
+      const robot = document.querySelector('.robot');
       if (robot) {
         // Get robot position
         const robotRect = robot.getBoundingClientRect();
-        const robotX = robotRect.left + robot.offsetWidth / 2;
-        const robotY = robotRect.top + robot.offsetHeight / 2;
+        const robotX = robotRect.left + (robot as HTMLElement).offsetWidth / 2;
+        const robotY = robotRect.top + (robot as HTMLElement).offsetHeight / 2;
         
         // Calculate angle to cursor with smooth interpolation
         const angleRad = Math.atan2(targetPos.current.y - robotY, targetPos.current.x - robotX);
@@ -126,7 +139,11 @@ export default function ErrorPage() {
         robotRotation.current += (angleDeg * 0.05 - robotRotation.current) * 0.1;
         
         // Apply smooth transform
-        robot.style.transform = `translate(-50%, -50%) rotate(${robotRotation.current}deg) scale(1.2)`;
+        if (robot) {
+          if (robot) {
+            (robot as HTMLElement).style.transform = `translate(-50%, -50%) rotate(${robotRotation.current}deg) scale(1.2)`;
+          }
+        }
       }
       
       requestAnimationFrame(animateRobotFollow);

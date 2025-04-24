@@ -1,5 +1,5 @@
 // app/api/payments/verify-payment/route.ts
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/globalPrisma";
@@ -15,13 +15,21 @@ export async function POST(request: NextRequest) {
     }
 
     // Get request body
+    interface RequestBody {
+      razorpay_payment_id: string;
+      razorpay_order_id: string;
+      razorpay_signature: string;
+      courseId: string;
+      userId: string;
+    }
+
     const {
       razorpay_payment_id,
       razorpay_order_id,
       razorpay_signature,
       courseId,
       userId,
-    } = await request.json();
+    }= await request.json() as RequestBody;
 
     // Verify the user ID matches the session user
     if (userId !== session.user.id) {
@@ -30,7 +38,7 @@ export async function POST(request: NextRequest) {
 
     // Verify Razorpay signature
     const generatedSignature = crypto
-      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET || "")
+      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET ?? "")
       .update(`${razorpay_order_id}|${razorpay_payment_id}`)
       .digest("hex");
 

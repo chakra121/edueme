@@ -1,4 +1,4 @@
-export function generateSlug(title) {
+export function generateSlug(title: string): string {
   return title
     .toLowerCase()
     .trim()
@@ -7,7 +7,7 @@ export function generateSlug(title) {
     .replace(/^-+|-+$/g, "");
 }
 
-export function formatDate(dateString) {
+export function formatDate(dateString: string): string {
   const date = new Date(dateString);
   return date.toLocaleDateString("en-US", {
     year: "numeric",

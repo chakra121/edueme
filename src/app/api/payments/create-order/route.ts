@@ -1,5 +1,5 @@
 // app/api/payments/create-order/route.ts
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/globalPrisma";
@@ -7,8 +7,8 @@ import Razorpay from "razorpay";
 
 // Initialize Razorpay
 const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID || "",
-  key_secret: process.env.RAZORPAY_KEY_SECRET || "",
+  key_id: process.env.RAZORPAY_KEY_ID ?? "",
+  key_secret: process.env.RAZORPAY_KEY_SECRET ?? "",
 });
 
 export async function POST(request: NextRequest) {
@@ -29,7 +29,14 @@ export async function POST(request: NextRequest) {
     }
 
     // Get request body
-    const { courseId, courseName, amount, userId } = await request.json();
+    interface RequestBody {
+      courseId: string;
+      courseName: string;
+      amount: number;
+      userId: string;
+    }
+
+    const { courseId, courseName, amount, userId } = (await request.json()) as RequestBody;
 
     // Verify the user ID matches the session user
     if (userId !== session.user.id) {

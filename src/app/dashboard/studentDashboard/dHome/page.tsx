@@ -4,7 +4,23 @@ import React, { useEffect, useState } from "react";
 import { format } from "date-fns";
 
 export default function DHomePage() {
-  const [data, setData] = useState<any>(null);
+  interface UserData {
+    user: {
+      firstName: string;
+      lastName: string;
+      course?: {
+        courseName: string;
+        chapterCount: number;
+      };
+      classLinkUpdatedAt?: string;
+    };
+    latestAnnouncement?: {
+      title: string;
+      description: string;
+    };
+  }
+
+  const [data, setData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -12,20 +28,20 @@ export default function DHomePage() {
     const fetchData = async () => {
       try {
         const res = await fetch("/api/user/homeData");
-        const json = await res.json();
+        const json= await res.json() as UserData;
         if ("error" in json) {
-          setError(json.error ?? null);
+          setError(typeof json.error === "string" ? json.error : null);
         } else {
           setData(json);
         }
-      } catch (err) {
+      } catch {
         setError("Something went wrong while loading your dashboard.");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchData();
+    void fetchData();
   }, []);
 
   if (loading) {
@@ -44,7 +60,7 @@ export default function DHomePage() {
     );
   }
 
-  const { user, latestAnnouncement } = data;
+  const { user, latestAnnouncement } = data ?? {};
 
   return (
     <div>
@@ -52,7 +68,7 @@ export default function DHomePage() {
       <div className="card mb-4 bg-base-100 shadow-xl">
         <div className="card-body">
           <h2 className="card-title text-3xl text-base-content">
-            Welcome {user.firstName} {user.lastName} 👋
+            Welcome {user?.firstName ?? "Student"} {user?.lastName ?? ""} 👋
           </h2>
           <p className="text-lg text-base-content">
             Ready to learn something new today?
@@ -68,14 +84,14 @@ export default function DHomePage() {
             Course Progress
           </h1>
           <div className="">
-            {user.course ? (
+            {user?.course ? (
                 <div className="">
-                  <p className="font-semibold text-lg mb-2">Course Name : {user.course.courseName}</p>
-                  <p className="font-semibold text-lg mb-2">No. of Chapters : {user.course.chapterCount}</p>
+                  <p className="font-semibold text-lg mb-2">Course Name : {user?.course.courseName}</p>
+                  <p className="font-semibold text-lg mb-2">No. of Chapters : {user?.course.chapterCount}</p>
                 </div>
             ) : (
               <p className="text-center text-lg font-medium">
-                You haven't purchased any course yet.
+                You haven&rsquo;t purchased any course yet.
               </p>
             )}
           </div>
@@ -107,7 +123,7 @@ export default function DHomePage() {
       <div className="card mb-4 bg-base-100">
         <div className="card-body">
           <h3 className="card-title text-2xl">Upcoming Classes</h3>
-          {user.course ? (
+          {user?.course ? (
             user.classLinkUpdatedAt ? (
               <p className="text-lg text-base-content">
                 Your class link was last updated on{" "}

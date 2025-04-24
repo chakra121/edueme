@@ -6,6 +6,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
+import Image from "next/image";
 
 export const HeroSection = (): JSX.Element => {
   // Navigation items data
@@ -49,7 +50,9 @@ export const HeroSection = (): JSX.Element => {
 
       <div className="flex w-full h-[520px] items-center px-[100px] py-0 relative">
         <div className="relative w-full h-[584px] mt-[-32.00px] mb-[-32.00px] bg-grey rounded-[45px]">
-          <img
+          <Image
+            width={541}
+            height={495}
             className="absolute w-[541px] h-[495px] top-[45px] left-16"
             alt="Untitled design"
             src="/about/untitled-design.png"

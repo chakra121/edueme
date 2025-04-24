@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { ClassNames } from "@emotion/react";
 
 type Event = {
   id: string;
@@ -25,7 +23,7 @@ type Event = {
 };
 
 export default function ViewEvents() {
-  const router = useRouter();
+
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -39,7 +37,7 @@ export default function ViewEvents() {
       if (!res.ok) {
         throw new Error("Failed to fetch events");
       }
-      const data = await res.json();
+      const data = (await res.json()) as Event[];
       setEvents(data);
     } catch (err) {
       setError("An error occurred while fetching events");
@@ -50,7 +48,7 @@ export default function ViewEvents() {
   };
 
   useEffect(() => {
-    fetchEvents();
+    void fetchEvents();
   }, []);
 
   const openModal = (event: Event) => {

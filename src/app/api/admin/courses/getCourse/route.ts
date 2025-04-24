@@ -27,7 +27,7 @@ export async function GET() {
       courseCode: course.courseCode,
       courseName: course.courseName,
       courseFee: course.courseFee,
-      courseDescription: course.courseDescription || "NaN",
+      courseDescription: course.courseDescription ?? "NaN",
       teacher: course.teacher ? course.teacher.teacherName : "NaN",
       chapters: course._count?.chapters ?? "NaN",
     }));

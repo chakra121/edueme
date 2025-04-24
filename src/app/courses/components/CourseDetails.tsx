@@ -1,11 +1,13 @@
 // components/CourseDetails.tsx
 import Image from "next/image";
-import { Courses } from "@prisma/client";
+import { type Courses } from "@prisma/client";
 
 interface CourseDetailsProps {
   course: Courses & {
-    chapters?: any[];
-    teacher?: any;
+    chapters?: { id: string; title: string }[];
+    teacher?: {
+      name: string;
+    };
   };
 }
 
@@ -46,10 +48,7 @@ export default function CourseDetails({ course }: CourseDetailsProps) {
               {course.teacher && (
                 <div className="mb-4">
                   <span className="text-lg font-semibold text-gray-700">
-                    Instructor:
-                  </span>
-                  <span className="ml-2 text-lg text-gray-600">
-                    {course.teacher.name}
+                    Instructor : {course.teacher?.name}
                   </span>
                 </div>
               )}
@@ -59,7 +58,7 @@ export default function CourseDetails({ course }: CourseDetailsProps) {
                   Chapters:
                 </span>
                 <span className="ml-2 text-lg text-gray-600">
-                  {course.chapters?.length || 0}
+                  {course.chapters?.length ?? 0}
                 </span>
               </div>
 
@@ -87,7 +86,7 @@ export default function CourseDetails({ course }: CourseDetailsProps) {
                     Chapter List
                   </h2>
                   <ul className="list-disc pl-5">
-                    {course.chapters.map((chapter) => (
+                    {course.chapters.map((chapter: { id: string; title: string }) => (
                       <li key={chapter.id} className="text-gray-700">
                         {chapter.title}
                       </li>

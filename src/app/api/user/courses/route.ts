@@ -1,10 +1,10 @@
 // app/api/user/courses/route.ts
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { getUserCourses } from "@/lib/courses";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const session = await getServerSession(authOptions);
 
@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
       courseFee: course.courseFee,
       createdAt: course.createdAt,
       updatedAt: course.updatedAt,
-      teacherName: course.teacher?.name || null,
+      teacherName: course.teacher?.name ?? null,
       chaptersCount: course.chapters.length,
     }));
 

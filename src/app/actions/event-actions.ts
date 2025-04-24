@@ -5,16 +5,24 @@ import { generateSlug } from "@/lib/event-utils";
 import { revalidatePath } from "next/cache";
 
 // Update event server action
-export async function updateEvent(eventData) {
+interface EventData {
+  id: string;
+  title: string;
+  slug: string;
+  regEndDate: Date;
+  [key: string]: unknown; // Allow additional properties
+}
+
+export async function updateEvent(eventData: EventData) {
   try {
     const { id, ...data } = eventData;
 
     // Generate new slug if title changed
     if (data.title) {
-      data.slug = generateSlug(data.title);
+      data.slug = generateSlug(data.title) as string;
     }
 
-    // Convert regEndDate to Date object if provided
+    // Convert regEndDate to Prisma-compatible type if provided
     if (data.regEndDate) {
       data.regEndDate = new Date(data.regEndDate);
     }

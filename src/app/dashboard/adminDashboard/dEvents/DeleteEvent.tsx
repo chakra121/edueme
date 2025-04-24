@@ -29,7 +29,7 @@ export default function DeleteEvent({
         throw new Error("Failed to fetch events");
       }
 
-      const data = await res.json();
+      const data = (await res.json()) as Event[];
       setEvents(data);
     } catch (error) {
       console.error("Error fetching events:", error);
@@ -40,8 +40,8 @@ export default function DeleteEvent({
   };
 
   useEffect(() => {
-    fetchEvents();
-  }, []);
+    void fetchEvents();
+  },);
 
   const handleDeleteClick = (id: string) => {
     setConfirmDelete(id);
@@ -63,7 +63,7 @@ export default function DeleteEvent({
         // Remove from local state to avoid refetching
         setEvents((prev) => prev.filter((event) => event.id !== id));
       } else {
-        throw new Error(result.error || "Failed to delete event");
+        throw new Error(result.error ?? "Failed to delete event");
       }
     } catch (error) {
       console.error("Error deleting event:", error);

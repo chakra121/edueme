@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect } from "react";
 import { updateEvent } from "@/app/actions/event-actions";
 
 type Event = {
@@ -43,7 +43,7 @@ export default function UpdateEvent({
         setFetchingEvents(true);
         const res = await fetch("/api/admin/events/dropdown");
         if (!res.ok) throw new Error("Failed to fetch events");
-        const data = await res.json();
+        const data = await res.json() as Event[];
 
         // Only store ID and title for dropdown
         const eventsList = data.map((event: Event) => ({
@@ -60,8 +60,8 @@ export default function UpdateEvent({
       }
     };
 
-    fetchEventsList();
-  }, []);
+    void fetchEventsList();
+  }, );
 
   // Fetch specific event details when selected from dropdown
   const fetchEventDetails = async (eventId: string) => {
@@ -71,7 +71,7 @@ export default function UpdateEvent({
       setFetchingEventDetails(true);
       const res = await fetch(`/api/admin/events/${eventId}`);
       if (!res.ok) throw new Error("Failed to fetch event details");
-      const eventData = await res.json();
+      const eventData = await res.json() as Event;
       return eventData;
     } catch (error) {
       console.error(error);
@@ -118,8 +118,9 @@ export default function UpdateEvent({
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<any>) => {
-    const { name, value } = e.target;
+  const handleChange = (e: React.ChangeEvent<unknown>) => {
+    const target = e.target as HTMLInputElement;
+    const { name, value } = target;
     setFormData((prev) => (prev ? { ...prev, [name]: value } : null));
   };
 
@@ -136,11 +137,14 @@ export default function UpdateEvent({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData || !formData.id) return;
+    if (!formData?.id) return;
 
     setLoading(true);
     try {
-      const result = await updateEvent(formData);
+      const result = await updateEvent({
+        ...formData,
+        regEndDate: formData?.regEndDate ? new Date(formData.regEndDate) : undefined,
+      } as Omit<Event, "regEndDate"> & { regEndDate?: Date });
       if (result.success) {
         onToast("Event updated successfully!", "success");
         // Update the cached event data
@@ -150,7 +154,7 @@ export default function UpdateEvent({
           document.getElementById("edit_event_modal") as HTMLDialogElement
         )?.close();
       } else {
-        throw new Error(result.error || "Failed to update event");
+        throw new Error(result.error ?? "Failed to update event");
       }
     } catch (error) {
       console.error(error);
@@ -234,7 +238,7 @@ export default function UpdateEvent({
                   {field.type === "textarea" ? (
                     <textarea
                       name={field.name}
-                      value={(formData as any)[field.name] || ""}
+                      value={formData && field.name in formData ? String(formData[field.name as keyof Event] ?? "") : ""}
                       onChange={handleChange}
                       className="textarea textarea-bordered h-20 w-full"
                     ></textarea>
@@ -242,7 +246,7 @@ export default function UpdateEvent({
                     <input
                       type={field.type}
                       name={field.name}
-                      value={(formData as any)[field.name] || ""}
+                      value={formData && field.name in formData ? String(formData[field.name as keyof Event] ?? "") : ""}
                       onChange={handleChange}
                       className="input input-bordered w-full"
                     />
@@ -259,7 +263,7 @@ export default function UpdateEvent({
                 <input
                   type="text"
                   name="programs"
-                  value={formData.programs?.join(", ") || ""}
+                  value={formData.programs?.join(", ") ?? ""}
                   onChange={handleProgramsChange}
                   className="input input-bordered w-full"
                 />
@@ -271,7 +275,7 @@ export default function UpdateEvent({
                 </label>
                 <input
                   type="checkbox"
-                  checked={formData.published || false}
+                  checked={formData.published ?? false}
                   onChange={handlePublishedChange}
                   className="toggle toggle-primary"
                 />

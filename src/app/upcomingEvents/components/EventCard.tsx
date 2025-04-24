@@ -55,8 +55,8 @@ export default function EventCard({
 
 
     // Find the text effect element and set its background color
-    const textEffectElement = element.querySelector('.card-title-effect') as HTMLElement;
-    if (textEffectElement) {
+    const textEffectElement = element.querySelector('.card-title-effect')!;
+    if (textEffectElement instanceof HTMLElement) {
         textEffectElement.style.backgroundColor = borderColor;
     }
 

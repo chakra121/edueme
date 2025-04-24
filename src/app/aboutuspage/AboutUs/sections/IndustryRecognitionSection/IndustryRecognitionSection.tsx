@@ -1,12 +1,15 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import Image from "next/image";
 
 export const IndustryRecognitionSection = (): JSX.Element => {
   return (
     <Card className="w-full bg-dark rounded-[45px] overflow-hidden relative">
       <CardContent className="p-0">
         <div className="relative p-12">
-          <img
+          <Image
+            width={51}
+            height={49}
             className="absolute top-[10px] left-[4px] w-[51px] h-[49px]"
             alt="Vector"
             src="/about/vector.svg"

@@ -49,7 +49,7 @@ const TimelineCard = ({ item, index, isEven }: { item: TimelineItem; index: numb
 
   useEffect(() => {
     if (isInView) {
-      controls.start("visible");
+      void controls.start("visible");
     }
   }, [isInView, controls]);
 
