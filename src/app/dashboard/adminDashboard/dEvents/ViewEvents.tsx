@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 type Event = {
   id: string;
@@ -23,17 +23,18 @@ type Event = {
 };
 
 export default function ViewEvents() {
-
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
 
-  const fetchEvents = async () => {
+  const fetchEvents = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/admin/events/getEvents", { cache: "no-store" });
+      const res = await fetch("/api/admin/events/getEvents", {
+        cache: "no-store",
+      });
       if (!res.ok) {
         throw new Error("Failed to fetch events");
       }
@@ -45,11 +46,26 @@ export default function ViewEvents() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    void fetchEvents();
-  }, []);
+    // Set up a flag to track whether the component is mounted
+    let isMounted = true;
+
+    // Wrap the async operation to respect the mounted state
+    const getEvents = async () => {
+      if (isMounted) {
+        await fetchEvents();
+      }
+    };
+
+    void getEvents();
+
+    // Cleanup function to prevent state updates if unmounted
+    return () => {
+      isMounted = false;
+    };
+  }, [fetchEvents]);
 
   const openModal = (event: Event) => {
     setSelectedEvent(event);
@@ -77,7 +93,10 @@ export default function ViewEvents() {
     <div>
       <div className="mb-6 flex items-center justify-between">
         <h2 className="text-2xl font-bold">View Events</h2>
-        <button onClick={fetchEvents} className="btn btn-outline btn-sm">
+        <button
+          onClick={() => void fetchEvents()}
+          className="btn btn-outline btn-sm"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"

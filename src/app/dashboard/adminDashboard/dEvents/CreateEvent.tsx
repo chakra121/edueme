@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 
 export default function CreateEvent({
@@ -9,7 +8,6 @@ export default function CreateEvent({
 }: {
   onToast: (message: string, type: "success" | "error") => void;
 }) {
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState<{
     title: string;
@@ -99,8 +97,6 @@ export default function CreateEvent({
       // Show success toast
       onToast("Event created successfully!", "success");
 
-      // Refresh data
-      router.refresh();
     } catch (error) {
       console.error("Error creating event:", error);
       onToast("Failed to create event", "error");

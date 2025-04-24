@@ -82,8 +82,8 @@ export default function EventDetailPage() {
           throw new Error("Failed to fetch event details");
         }
 
-        const data = (await response.json()) as UpcomingEvent[];
-        setEvent(data[0] ?? null);
+        const data = (await response.json()) as UpcomingEvent;
+        setEvent(data ?? null);
       } catch (err) {
         setError("Error loading event details. Please try again later.");
         console.error(err);
@@ -114,7 +114,7 @@ export default function EventDetailPage() {
         <div className="text-center">
           <p className="text-lg text-red-500">{error ?? "Event not found"}</p>
           <Link
-            href="/events"
+            href="/upcomingEvents"
             className="mt-4 inline-block text-purple-600 hover:underline"
           >
             Back to Events
@@ -213,7 +213,7 @@ export default function EventDetailPage() {
       </div>
       <div className="mt-12 text-center">
         <Link
-          href="/events"
+          href="/upcomingEvents"
           className="inline-block rounded-md bg-purple-100 px-6 py-3 font-medium text-purple-600 transition-colors hover:bg-purple-200"
         >
           Back to Events

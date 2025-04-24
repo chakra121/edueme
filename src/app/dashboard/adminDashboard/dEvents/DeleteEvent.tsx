@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { deleteEvent } from "@/app/actions/event-actions"
+import { useState, useEffect, useCallback } from "react";
+import { deleteEvent } from "@/app/actions/event-actions";
 
 type Event = {
   id: string;
@@ -20,10 +20,13 @@ export default function DeleteEvent({
   const [deleting, setDeleting] = useState<string | null>(null);
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
 
-  const fetchEvents = async () => {
+  // Use useCallback to memoize the fetchEvents function
+  const fetchEvents = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/admin/events/getEvents", { cache: "no-store" });
+      const res = await fetch("/api/admin/events/getEvents", {
+        cache: "no-store",
+      });
 
       if (!res.ok) {
         throw new Error("Failed to fetch events");
@@ -37,11 +40,26 @@ export default function DeleteEvent({
     } finally {
       setLoading(false);
     }
-  };
+  }, [onToast]);
 
   useEffect(() => {
-    void fetchEvents();
-  },);
+    // Set up a flag to track whether the component is mounted
+    let isMounted = true;
+
+    // Wrap the async operation to respect the mounted state
+    const getEvents = async () => {
+      if (isMounted) {
+        await fetchEvents();
+      }
+    };
+
+    void getEvents();
+
+    // Cleanup function to prevent state updates if unmounted
+    return () => {
+      isMounted = false;
+    };
+  }, [fetchEvents]);
 
   const handleDeleteClick = (id: string) => {
     setConfirmDelete(id);
@@ -86,7 +104,10 @@ export default function DeleteEvent({
     <div>
       <div className="mb-6 flex items-center justify-between">
         <h2 className="text-2xl font-bold">Delete Events</h2>
-        <button onClick={fetchEvents} className="btn btn-outline btn-sm">
+        <button
+          onClick={() => void fetchEvents()}
+          className="btn btn-outline btn-sm"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"
@@ -113,7 +134,7 @@ export default function DeleteEvent({
         <div className="overflow-x-auto">
           <table className="table w-full">
             <thead>
-              <tr className="font-semibold text-sm">
+              <tr className="text-sm font-semibold">
                 <th>#</th>
                 <th>Title</th>
                 <th>Registration Fee</th>
@@ -123,8 +144,8 @@ export default function DeleteEvent({
             </thead>
             <tbody>
               {events.map((event, index) => (
-                <tr key={index} className="text-sm hover">
-                  <td>{index+1}</td>
+                <tr key={index} className="hover text-sm">
+                  <td>{index + 1}</td>
                   <td>{event.title}</td>
                   <td>{event.regFee}</td>
                   <td>
@@ -139,7 +160,7 @@ export default function DeleteEvent({
                       <div className="flex gap-2">
                         <button
                           className="btn btn-error btn-sm"
-                          onClick={() => handleConfirmDelete(event.id)}
+                          onClick={() => void handleConfirmDelete(event.id)}
                           disabled={!!deleting}
                         >
                           {deleting === event.id ? (

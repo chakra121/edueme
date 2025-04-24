@@ -93,39 +93,6 @@ export default function EventsPage() {
           <DeleteEvent onToast={showToast} />
         </div>
       </div>
-      {/* <div className="tabs tabs-bordered mb-6">
-        <button
-          className={`tab-lg tab ${activeTab === "create" ? "tab-active" : ""}`}
-          onClick={() => setActiveTab("create")}
-        >
-          Create
-        </button>
-        <button
-          className={`tab-lg tab ${activeTab === "view" ? "tab-active" : ""}`}
-          onClick={() => setActiveTab("view")}
-        >
-          View
-        </button>
-        <button
-          className={`tab-lg tab ${activeTab === "update" ? "tab-active" : ""}`}
-          onClick={() => setActiveTab("update")}
-        >
-          Update
-        </button>
-        <button
-          className={`tab-lg tab ${activeTab === "delete" ? "tab-active" : ""}`}
-          onClick={() => setActiveTab("delete")}
-        >
-          Delete
-        </button>
-      </div>
-
-      <div className="rounded-lg bg-base-100 shadow-lg">
-        {activeTab === "create" && <CreateEvent onToast={showToast} />}
-        {activeTab === "view" && <ViewEvents />}
-        {activeTab === "update" && <UpdateEvent onToast={showToast} />}
-        {activeTab === "delete" && <DeleteEvent onToast={showToast} />}
-      </div> */}
 
       <Toast
         message={toast.message}

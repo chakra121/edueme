@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { updateEvent } from "@/app/actions/event-actions";
 
 type Event = {
@@ -36,32 +36,48 @@ export default function UpdateEvent({
   const [fetchingEvents, setFetchingEvents] = useState(true);
   const [fetchingEventDetails, setFetchingEventDetails] = useState(false);
 
+  // Memoize fetchEventsList to prevent recreation on each render
+  const fetchEventsList = useCallback(async () => {
+    try {
+      setFetchingEvents(true);
+      const res = await fetch("/api/admin/events/dropdown");
+      if (!res.ok) throw new Error("Failed to fetch events");
+      const data = (await res.json()) as Event[];
+
+      const eventsList = data.map((event: Event) => ({
+        id: event.id,
+        title: event.title,
+      }));
+
+      setEvents(eventsList);
+    } catch (error) {
+      console.error(error);
+      onToast("Error loading events", "error");
+    } finally {
+      setFetchingEvents(false);
+    }
+  }, [onToast]);
+
   // Fetch event list for dropdown (only titles and IDs)
   useEffect(() => {
-    const fetchEventsList = async () => {
-      try {
-        setFetchingEvents(true);
-        const res = await fetch("/api/admin/events/dropdown");
-        if (!res.ok) throw new Error("Failed to fetch events");
-        const data = await res.json() as Event[];
+    // Set up a flag to track whether the component is mounted
+    let isMounted = true;
 
-        // Only store ID and title for dropdown
-        const eventsList = data.map((event: Event) => ({
-          id: event.id,
-          title: event.title,
-        }));
-
-        setEvents(eventsList);
-      } catch (error) {
-        console.error(error);
-        onToast("Error loading events", "error");
-      } finally {
-        setFetchingEvents(false);
-      }
+    // Wrap the async operation to respect the mounted state
+    const getEvents = async () => {
+      await fetchEventsList();
     };
 
-    void fetchEventsList();
-  }, );
+    // Only run the effect if the component is mounted
+    if (isMounted) {
+      void getEvents();
+    }
+
+    // Cleanup function to prevent state updates if unmounted
+    return () => {
+      isMounted = false;
+    };
+  }, [fetchEventsList]);
 
   // Fetch specific event details when selected from dropdown
   const fetchEventDetails = async (eventId: string) => {
@@ -71,7 +87,7 @@ export default function UpdateEvent({
       setFetchingEventDetails(true);
       const res = await fetch(`/api/admin/events/${eventId}`);
       if (!res.ok) throw new Error("Failed to fetch event details");
-      const eventData = await res.json() as Event;
+      const eventData = (await res.json()) as Event;
       return eventData;
     } catch (error) {
       console.error(error);
@@ -143,8 +159,11 @@ export default function UpdateEvent({
     try {
       const result = await updateEvent({
         ...formData,
-        regEndDate: formData?.regEndDate ? new Date(formData.regEndDate) : undefined,
-      } as Omit<Event, "regEndDate"> & { regEndDate?: Date });
+        regEndDate: formData?.regEndDate
+          ? new Date(formData.regEndDate)
+          : new Date(),
+      } as Omit<Event, "regEndDate"> & { regEndDate: Date });
+
       if (result.success) {
         onToast("Event updated successfully!", "success");
         // Update the cached event data
@@ -238,7 +257,11 @@ export default function UpdateEvent({
                   {field.type === "textarea" ? (
                     <textarea
                       name={field.name}
-                      value={formData && field.name in formData ? String(formData[field.name as keyof Event] ?? "") : ""}
+                      value={
+                        formData && field.name in formData
+                          ? String(formData[field.name as keyof Event] ?? "")
+                          : ""
+                      }
                       onChange={handleChange}
                       className="textarea textarea-bordered h-20 w-full"
                     ></textarea>
@@ -246,7 +269,11 @@ export default function UpdateEvent({
                     <input
                       type={field.type}
                       name={field.name}
-                      value={formData && field.name in formData ? String(formData[field.name as keyof Event] ?? "") : ""}
+                      value={
+                        formData && field.name in formData
+                          ? String(formData[field.name as keyof Event] ?? "")
+                          : ""
+                      }
                       onChange={handleChange}
                       className="input input-bordered w-full"
                     />
