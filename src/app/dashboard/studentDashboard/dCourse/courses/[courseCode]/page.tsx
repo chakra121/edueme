@@ -7,6 +7,8 @@ interface Chapter {
   id: string;
   chapterCode: string;
   chapterName: string;
+  isCompleted: boolean;
+  notesLink: string;
   chapterDescription: string;
 }
 
@@ -78,10 +80,7 @@ export default function CourseDetailPage() {
       </div>
 
       <h1 className="mb-4 text-3xl font-bold text-base-content">
-        Course: {courseCode}
-      </h1>
-      <h1 className="mb-4 text-2xl font-semibold text-base-content">
-        The Chapters are:
+        Chapters in {courseCode}
       </h1>
 
       {chapters.length === 0 ? (
@@ -97,6 +96,8 @@ export default function CourseDetailPage() {
               chapterCode={chapter.chapterCode}
               chapterId={chapter.id}
               chapterName={chapter.chapterName}
+              isCompleted={chapter.isCompleted}
+              notesLink={chapter.notesLink}
               chapterDescription={chapter.chapterDescription}
             />
           ))}

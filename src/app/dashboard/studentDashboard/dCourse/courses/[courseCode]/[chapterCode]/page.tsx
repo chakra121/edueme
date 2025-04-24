@@ -88,13 +88,14 @@ export default function ChapterDetailPage() {
           No classes found for this chapter.
         </p>
       ) : (
-        <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="mt-4 grid gap-4 grid-cols-2">
           {classes.map((classItem) => (
-            <div key={classItem.id} className="card bg-base-100 shadow-xl">
+            <div key={classItem.id} className="card bg-base-200 border-2 shadow-xl">
               <div className="card-body">
                 <h2 className="card-title">{classItem.classTitle}</h2>
                 {classItem.youTubeLink ? (
-                  <a
+                 <div className="card-actions justify-center mt-2">
+                 <a
                     href={classItem.youTubeLink}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -102,6 +103,7 @@ export default function ChapterDetailPage() {
                   >
                     Watch Video
                   </a>
+                </div>
                 ) : (
                   <p className="text-gray-500">No video available</p>
                 )}

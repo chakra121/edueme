@@ -53,6 +53,8 @@ export async function GET(
         chapterName: true,
         chapterDescription: true,
         chapterCode: true,
+        isCompleted: true,
+        notesLink: true,
       },
     });
 
