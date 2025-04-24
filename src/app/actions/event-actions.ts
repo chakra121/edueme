@@ -19,7 +19,7 @@ export async function updateEvent(eventData: EventData) {
 
     // Generate new slug if title changed
     if (data.title) {
-      data.slug = generateSlug(data.title) as string;
+      data.slug = generateSlug(data.title);
     }
 
     // Convert regEndDate to Prisma-compatible type if provided
