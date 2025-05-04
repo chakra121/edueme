@@ -1,0 +1,393 @@
+/* src/app/auth/signup/signup.css */
+
+/* Base styles */
+.signup-container {
+  width: 100%;
+  min-height: 100vh;
+  /* --- Theme Change: Light background gradient --- */
+  background-image: linear-gradient(to bottom right, #ffffff 0%, #f0f2f5 100%); /* Light gray gradient */
+  font-family: "Lato", sans-serif;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.signup-form {
+  position: relative;
+  width: 75vw;
+  max-width: 600px;
+  height: 400px; /* Keep fixed height for animation */
+  margin: auto;
+}
+
+/* Field wrapper (Animation logic remains the same) */
+.field-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  transform: translate(-50%, -300%);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.4s cubic-bezier(0.1, 0.45, 0.1, 0.85),
+    transform 0.5s cubic-bezier(0.4, 0.25, 0.8, 0.3);
+}
+
+.field-wrapper.active {
+  opacity: 1;
+  transform: translate(-50%, -100%);
+  pointer-events: auto;
+  transition-delay: 0.4s;
+  z-index: 10;
+}
+
+.field-wrapper.inactive-prev {
+  opacity: 0;
+  transform: translate(-50%, -300%);
+  pointer-events: none;
+  transition: all 0.3s ease-out;
+}
+
+.field-wrapper.inactive-next {
+  opacity: 0;
+  transform: translate(-50%, 500%);
+  pointer-events: none;
+  transition: all 0.5s ease-in;
+}
+
+/* Input and Select Styling */
+.signup-form input[type="text"],
+.signup-form input[type="tel"],
+.signup-form input[type="email"],
+.signup-form input[type="password"],
+.signup-form select {
+  display: block;
+  width: 100%;
+  padding: 0.25rem 0;
+  border: 0;
+  /* --- Theme Change: Input border and text color --- */
+  border-bottom: 1px solid #ccc; /* Light gray border */
+  outline: 0;
+  background: transparent;
+  color: #333; /* Dark text */
+  font-size: 2rem;
+  line-height: 3rem;
+  letter-spacing: 0.1rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.signup-form select {
+  /* --- Theme Change: Select arrow color --- */
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23333333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'); /* Changed fill to dark gray (#333) - URL encoded */
+  background-repeat: no-repeat;
+  background-position-x: calc(100% - 10px);
+  background-position-y: 50%;
+  padding-right: 30px;
+}
+
+/* Style options for light theme */
+.signup-form select option {
+    /* --- Theme Change: Option background and text color --- */
+    background-color: #ffffff; /* White background */
+    color: #333; /* Dark text */
+}
+
+
+.signup-form input::selection {
+  /* --- Theme Change: Selection color --- */
+  background: rgba(255, 184, 0, 0.3); /* Lighter accent color selection */
+}
+
+/* Label Text */
+.label-text {
+  position: absolute;
+  top: -4.5rem;
+  left: 0;
+  width: 100%;
+  text-transform: uppercase;
+  /* --- Theme Change: Label text color --- */
+  color: #555; /* Medium-dark gray */
+  opacity: 0;
+  font-size: 0.9rem;
+  font-weight: 300;
+  letter-spacing: 0.1rem;
+  pointer-events: none;
+  transform: translateY(20px);
+  transition: all 0.3s ease-out;
+}
+
+.field-wrapper.active .label-text {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.5s;
+}
+
+/* Navigation Dots */
+.nav-dots-container {
+  position: fixed;
+  top: 50%;
+  right: 1.25rem;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 5;
+}
+
+.nav-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  /* --- Theme Change: Dot background color --- */
+  background-color: #ccc; /* Light gray for inactive dots */
+  border-radius: 50%;
+  transition: all 0.25s;
+  cursor: pointer;
+}
+
+.nav-dot.active {
+  /* --- Theme Change: Active dot shadow --- */
+  background-color: #ffb800; /* Accent color */
+  box-shadow: 0 0 0 0.15rem #fff, 0 0 0.05rem 0.26rem #ffb800; /* White inner glow */
+}
+.nav-dot.completed {
+  /* --- Theme Change: Completed dot style --- */
+  background-color: #ffb800; /* Use accent color */
+  opacity: 0.6; /* Make it slightly faded */
+}
+
+/* Error Message Styling */
+.error-message {
+  color: #f87272; /* Standard error red - okay */
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  position: absolute;
+  bottom: -1.8rem;
+  left: 0;
+  width: 100%;
+  text-align: left;
+}
+.server-error-message {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 400px;
+    padding: 0.75rem;
+    /* --- Theme Change: Server error background --- */
+    background-color: rgba(248, 114, 114, 0.1); /* Light red background */
+    color: #d9534f; /* Slightly darker red text for better contrast */
+    border: 1px solid #f87272;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    text-align: center;
+    z-index: 15;
+}
+
+/* Submit/Next/Back Buttons */
+.form-actions {
+  position: absolute;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.4s ease-out;
+  z-index: 10;
+}
+
+.form-actions.visible {
+  bottom: 0;
+  opacity: 1;
+  pointer-events: auto;
+  transition-delay: 0.5s;
+}
+
+.form-actions button {
+  padding: 0.75em 1.5em;
+  border: none;
+  border-radius: 25px;
+  background: #ffb800; /* Accent color */
+  /* --- Theme Change: Button text color --- */
+  color: #333; /* Dark text for contrast on yellow */
+  font-size: 1.2rem;
+  line-height: 1.5;
+  letter-spacing: 0.05rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* Slightly lighter shadow */
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-width: 120px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shine effect remains the same - light on yellow is fine */
+.form-actions button::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: -100px;
+  background-image: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0.3), /* White shine is okay */
+    rgba(255, 255, 255, 0) 70%
+  );
+  animation: buttonShine 3s infinite linear;
+}
+
+@keyframes buttonShine {
+  0% { left: -100px; }
+  20% { left: 100%; }
+  100% { left: 100%; }
+}
+
+.form-actions button:hover::before {
+  animation-duration: 2s;
+}
+
+.form-actions button:hover {
+  background: #ffc632; /* Lighter yellow */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow on hover */
+}
+
+.form-actions button:disabled {
+  /* --- Theme Change: Disabled button style --- */
+  background-color: #e0e0e0; /* Light gray background */
+  color: #999; /* Dimmer text color */
+  cursor: not-allowed;
+  opacity: 0.7;
+  box-shadow: none;
+}
+.form-actions button:disabled::before {
+    display: none; /* Hide shine on disabled */
+}
+
+
+.form-actions .back-button {
+  /* --- Theme Change: Back button style --- */
+  background-color: #f0f0f0; /* Very light gray */
+  color: #555; /* Darker gray text */
+  border: 1px solid #ddd; /* Subtle border */
+  border-radius: 25px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+.form-actions .back-button:hover {
+  background-color: #e5e5e5; /* Slightly darker gray on hover */
+  border-color: #ccc;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+.form-actions .back-button:disabled {
+    background-color: #f5f5f5;
+    color: #bbb;
+    border-color: #eee;
+    box-shadow: none;
+}
+
+
+/* Loading Spinner */
+.loading-spinner {
+  /* --- Theme Change: Spinner colors to match button text --- */
+  border: 4px solid rgba(0, 0, 0, 0.1); /* Darker, semi-transparent base */
+  border-top: 4px solid #ffb800; /* Accent color */
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+/* Tip Text */
+.tip {
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+  width: auto;
+  opacity: 0.6;
+  /* --- Theme Change: Tip text color --- */
+  color: #777; /* Medium gray */
+  font-size: 0.75rem;
+  font-weight: 300;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  text-align: right;
+  transition: opacity 0.25s 0.5s;
+  z-index: 5;
+}
+
+
+/* Success Message (Handled primarily by inline styles in JSX, ensure they match) */
+.success-message {
+  /* Placeholder - styles are mostly inline */
+  text-align: center;
+}
+
+.success-message h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.success-message p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.success-message a {
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .signup-form input[type="text"],
+  .signup-form input[type="tel"],
+  .signup-form input[type="email"],
+  .signup-form input[type="password"],
+  .signup-form select {
+    font-size: 1.5rem;
+    line-height: 2.5rem;
+  }
+  .label-text {
+    font-size: 0.8rem;
+    top: -3.5rem;
+  }
+  .nav-dots-container {
+      right: 0.5rem;
+  }
+  .nav-dot {
+      width: 0.4rem;
+      height: 0.4rem;
+  }
+   .form-actions button {
+    font-size: 1rem;
+    min-width: 100px;
+    padding: 0.6em 1.2em; /* Adjust padding for smaller font */
+  }
+  .tip {
+      font-size: 0.65rem;
+  }
+}

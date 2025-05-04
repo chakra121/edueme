@@ -80,8 +80,7 @@ export default function CheckoutPage() {
           setIsLoading(false);
           return;
         }
-
-        // Get course details
+        //Get course details
         const courseResponse = await fetch(
           `/api/buyCourse/id-param/${courseId}`,
         );

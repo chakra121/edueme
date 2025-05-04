@@ -1,7 +1,14 @@
+//first name, last name
+//  grade, school name
+// phone number, email 
+//gender parent email
+//  password, confirm password
 "use client";
-import React, { useState } from "react";
-import type { ChangeEvent, FormEvent } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import type { ChangeEvent, FormEvent, KeyboardEvent } from "react";
+import "./signup.css"; // Import the new CSS
 
+// (Keep the FormData interface and FormErrors type as they are)
 interface FormData {
   firstName: string;
   lastName: string;
@@ -18,6 +25,33 @@ interface FormData {
 
 type FormErrors = Record<string, string>;
 
+
+// Define the structure for each form field
+interface FormField {
+  id: keyof Omit<FormData, "userRole" | "confirmPassword"> | "confirmPassword"; // Adjusted keys
+  label: string;
+  type: "text" | "tel" | "email" | "password" | "select";
+  placeholder?: string;
+  options?: string[]; // For select type
+  validationRules?: (value: string, allData: FormData) => string; // Optional specific validation
+}
+
+// --- Form Fields Configuration ---
+const formFields: FormField[] = [
+  { id: "firstName", label: "First Name", type: "text", placeholder: "e.g., John" },
+  { id: "lastName", label: "Last Name", type: "text", placeholder: "e.g., Doe" },
+  { id: "gender", label: "Gender", type: "select", options: ["Male", "Female"] },
+  { id: "grade", label: "Grade", type: "select", options: ["2 to 3", "4 to 5", "6 to 7", "8 to 9", "10 to 12"] },
+  { id: "schoolName", label: "School Name", type: "text", placeholder: "e.g., Springfield High" },
+  { id: "phoneNumber", label: "Phone Number (10 digits)", type: "tel", placeholder: "e.g., 1234567890" },
+  { id: "email", label: "Your Email", type: "email", placeholder: "you@example.com" },
+  { id: "parentEmail", label: "Parent's Email", type: "email", placeholder: "parent@example.com" },
+  { id: "password", label: "Password (min. 8 chars)", type: "password", placeholder: "••••••••" },
+  { id: "confirmPassword", label: "Confirm Password", type: "password", placeholder: "••••••••" },
+];
+// --- End Form Fields Configuration ---
+
+
 const Signup: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
@@ -30,451 +64,412 @@ const Signup: React.FC = () => {
     parentEmail: "",
     password: "",
     confirmPassword: "",
-    userRole: "student",
+    userRole: "student", // Default role
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
-  const [step, setStep] = useState(1);
+  const [currentFieldIndex, setCurrentFieldIndex] = useState(0); // Track active field index
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); // For server errors
 
-  const validateStep = (stepNumber: number): boolean => {
+  const inputRefs = useRef<(HTMLInputElement | HTMLSelectElement | null)[]>([]);
+
+  // --- Validation Logic ---
+  const validateField = useCallback((fieldName: keyof FormData, value: string): string => {
+      switch (fieldName) {
+        case "firstName": return !value ? "First name is required" : "";
+        case "lastName": return !value ? "Last name is required" : "";
+        case "gender": return !value ? "Gender is required" : "";
+        case "grade": return !value ? "Grade is required" : "";
+        case "schoolName": return !value ? "School name is required" : "";
+        case "phoneNumber":
+          if (!value) return "Phone number is required";
+          if (!/^\d{10}$/.test(value)) return "Invalid phone number (10 digits required)";
+          return "";
+        case "email":
+        case "parentEmail":
+          const emailRegex = /\S+@\S+\.\S+/;
+          if (!value) return `${fieldName === "email" ? "Your" : "Parent's"} email is required`;
+          if (!emailRegex.test(value)) return `Invalid ${fieldName === "email" ? "your" : "parent's"} email format`;
+          return "";
+        case "password":
+          if (!value) return "Password is required";
+          if (value.length < 8) return "Password must be at least 8 characters";
+          return "";
+        case "confirmPassword":
+          if (!value) return "Please confirm your password";
+          if (value !== formData.password) return "Passwords do not match";
+          return "";
+        default: return "";
+      }
+    }, [formData.password]); // Re-create if password changes for confirmPassword validation
+
+  const validateAllFields = (): boolean => {
     const newErrors: FormErrors = {};
-
-    if (stepNumber === 1) {
-      if (!formData.firstName) newErrors.firstName = "First name is required";
-      if (!formData.lastName) newErrors.lastName = "Last name is required";
-      if (!formData.gender) newErrors.gender = "Gender is required";
-      if (!formData.grade) newErrors.grade = "Grade is required";
-      if (!formData.schoolName)
-        newErrors.schoolName = "School name is required";
-    } else if (stepNumber === 2) {
-      if (!formData.phoneNumber) {
-        newErrors.phoneNumber = "Phone number is required";
-      } else if (!/^\d{10}$/.test(formData.phoneNumber)) {
-        newErrors.phoneNumber = "Invalid phone number (10 digits required)";
-      }
-
-      const emailRegex = /\S+@\S+\.\S+/;
-      if (!formData.email) {
-        newErrors.email = "Email is required";
-      } else if (!emailRegex.test(formData.email)) {
-        newErrors.email = "Invalid email format";
-      }
-
-      if (!formData.parentEmail) {
-        newErrors.parentEmail = "Parent's email is required";
-      } else if (!emailRegex.test(formData.parentEmail)) {
-        newErrors.parentEmail = "Invalid parent email format";
-      }
-
-      if (!formData.password) {
-        newErrors.password = "Password is required";
-      } else if (formData.password.length < 8) {
-        newErrors.password = "Password must be at least 8 characters";
-      }
-
-      if (formData.password !== formData.confirmPassword) {
-        newErrors.confirmPassword = "Passwords do not match";
-      }
-    }
-
+    let isValid = true;
+    formFields.forEach(field => {
+        const error = validateField(field.id, formData[field.id]);
+        if (error) {
+            newErrors[field.id] = error;
+            isValid = false;
+        }
+    });
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return isValid;
   };
 
+  // --- Handlers ---
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    if (errors[e.target.name]) {
-      setErrors({ ...errors, [e.target.name]: "" });
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    // Clear error for the field being edited
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: "" }));
+    }
+    // Clear server error message on any input change
+    if (errorMessage) {
+        setErrorMessage("");
     }
   };
 
-  const handleNext = (e: FormEvent) => {
-    e.preventDefault();
-    if (validateStep(1)) setStep(2);
-  };
+  const handleNext = useCallback(() => {
+    const currentField = formFields[currentFieldIndex];
+    const error = validateField(currentField.id, formData[currentField.id]);
+
+    if (!error) {
+      setErrors(prev => ({ ...prev, [currentField.id]: "" })); // Clear specific error
+      if (currentFieldIndex < formFields.length - 1) {
+        setCurrentFieldIndex(prev => prev + 1);
+      } else {
+        // If on the last field, pressing "Next" could potentially trigger submit
+        // Or we rely solely on the dedicated submit button. Let's keep it separate.
+        console.log("Reached end, ready to submit");
+      }
+    } else {
+      setErrors(prev => ({ ...prev, [currentField.id]: error }));
+      // Optionally focus the input again if validation fails
+      inputRefs.current[currentFieldIndex]?.focus();
+    }
+  }, [currentFieldIndex, formData, validateField]);
 
   const handleBack = () => {
-    setErrorMessage("");
-    setStep(1);
+    setErrorMessage(""); // Clear server error when going back
+    if (currentFieldIndex > 0) {
+      setCurrentFieldIndex(prev => prev - 1);
+    }
   };
-  // ------------------------------------------------------------
- const handleSubmit = async (e: FormEvent) => {
-   e.preventDefault();
-   setErrorMessage("");
-   if (validateStep(2)) {
-     try {
-       setIsSubmitting(true);
-       const response = await fetch("/api/auth/registerStudent", {
-         method: "POST",
-         headers: {
-           "Content-Type": "application/json",
-         },
-         body: JSON.stringify({
-           ...formData,
-           userRole: "student", // Ensuring userRole is included as 'student'
-         }),
-       });
 
-       interface RegisterStudentResponse {
-         message?: string;
+  const handleDotClick = (index: number) => {
+    // Allow jumping back, but only forward if intermediate steps are valid
+    if (index < currentFieldIndex) {
+        setErrorMessage("");
+        setCurrentFieldIndex(index);
+    } else if (index > currentFieldIndex) {
+        // Validate all steps up to the target index
+        let canProceed = true;
+        const intermediateErrors: FormErrors = {};
+        for (let i = currentFieldIndex; i < index; i++) {
+           const field = formFields[i];
+           const error = validateField(field.id, formData[field.id]);
+           if (error) {
+               intermediateErrors[field.id] = error;
+               canProceed = false;
+               break; // Stop validation on first error
+           }
+        }
+        setErrors(prev => ({...prev, ...intermediateErrors}));
+        if (canProceed) {
+            setErrorMessage("");
+            setCurrentFieldIndex(index);
+        } else {
+           // Focus the first field with an error among the intermediate ones
+           const firstErrorField = formFields.findIndex((f, i) => i >= currentFieldIndex && i < index && intermediateErrors[f.id]);
+           if (firstErrorField !== -1) {
+               inputRefs.current[firstErrorField]?.focus();
+           }
+        }
+    }
+  };
+
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setErrorMessage(""); // Clear previous server errors
+
+    if (validateAllFields()) {
+      setIsSubmitting(true);
+      try {
+        const response = await fetch("/api/auth/registerStudent", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...formData, userRole: "student" }), // Ensure role is sent
+        });
+
+        interface RegisterStudentResponse { message?: string; }
+        const result = (await response.json()) as RegisterStudentResponse;
+
+        if (response.ok) {
+          console.log("Registration successful:", result);
+          setSubmitted(true);
+        } else {
+          setErrorMessage(result.message ?? "Registration failed. Please try again.");
+          // Try to focus the first field again if general error
+          inputRefs.current[0]?.focus();
+        }
+      } catch (error) {
+        console.error("Network error:", error);
+        setErrorMessage("Network error. Please try again.");
+        // Try to focus the first field again if network error
+        inputRefs.current[0]?.focus();
+      } finally {
+        setIsSubmitting(false);
+      }
+    } else {
+        // If validation fails on submit, find the first field with an error and focus it
+        const firstErrorIndex = formFields.findIndex(field => errors[field.id]);
+        if (firstErrorIndex !== -1) {
+            setCurrentFieldIndex(firstErrorIndex);
+            inputRefs.current[firstErrorIndex]?.focus();
+        }
+        console.log("Validation failed on submit", errors);
+    }
+  };
+
+  // Handle Enter key press to navigate
+   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement | HTMLSelectElement>) => {
+       if (e.key === 'Enter') {
+           e.preventDefault(); // Prevent form submission on Enter
+           if (currentFieldIndex < formFields.length - 1) {
+               handleNext();
+           } else {
+               // If on the last field, Enter triggers submit
+               handleSubmit(e as any); // Type assertion might be needed
+           }
        }
-       const result = (await response.json()) as RegisterStudentResponse;
+   };
 
-       if (response.ok) {
-         console.log("Registration successful:", result);
-         setSubmitted(true);
-       } else {
-         setErrorMessage(
-           result.message ?? "Registration failed. Please try again.",
-         );
-       }
-     } catch (error) {
-       console.error("Network error:", error);
-       setErrorMessage("Network error. Please try again.");
-     } finally {
-       setIsSubmitting(false);
-     }
-   }
- };
-  // ------------------------------------------------------------
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center bg-cover bg-center pb-[5rem] pt-[6rem]"
-      style={{
-        backgroundImage: "url('/registerbg.jpg')",
-        backgroundPosition: "center 30%",
-      }}
-    >
-      <div className="card w-96 bg-base-100 shadow-xl">
-        <div className="card-body">
-          {submitted ? (
-            <div className="alert">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                className="h-6 w-6 shrink-0 stroke-info"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                ></path>
-              </svg>
-              <span className="text-base font-semibold text-base-content">
-                Registration Successful!
-                <br />
-                <a href="/auth/login" className="link link-info font-medium">
-                  Login
-                </a>{" "}
-                to Continue
-                <br />
-                Happy Learning 😊
-              </span>
-            </div>
-          ) : (
-            <form onSubmit={step === 1 ? handleNext : handleSubmit}>
-              {step === 1 && (
-                <>
-                  <h2 className="card-title mb-4 text-2xl font-bold text-base-content">
-                    Register to Edueme
-                  </h2>
-                  <div className="form-control">
-                    <label className="label">
-                      <span className="label-text text-base-content">
-                        First Name:
-                      </span>
-                    </label>
-                    <input
-                      type="text"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handleChange}
-                      className={`input input-bordered text-base-content ${errors.firstName ? "input-error" : ""}`}
-                    />
-                    {errors.firstName && (
-                      <span className="text-sm text-error">
-                        {errors.firstName}
-                      </span>
-                    )}
-                  </div>
+  // Focus the input when the currentFieldIndex changes
+  useEffect(() => {
+    inputRefs.current[currentFieldIndex]?.focus();
+  }, [currentFieldIndex]);
 
-                  <div className="form-control mt-4">
-                    <label className="label">
-                      <span className="label-text text-base-content">
-                        Last Name:
-                      </span>
-                    </label>
-                    <input
-                      type="text"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleChange}
-                      className={`input input-bordered text-base-content ${errors.lastName ? "input-error" : ""}`}
-                    />
-                    {errors.lastName && (
-                      <span className="text-sm text-error">
-                        {errors.lastName}
-                      </span>
-                    )}
-                  </div>
+  // --- Render Logic ---
+  const renderField = (field: FormField, index: number) => {
+    const isActive = index === currentFieldIndex;
+    const isPrev = index < currentFieldIndex;
+    const isNext = index > currentFieldIndex;
+    const fieldError = errors[field.id];
 
-                  <div className="form-control mt-4">
-                    <label className="label">
-                      <span className="label-text text-base-content">
-                        Gender:
-                      </span>
-                    </label>
-                    <select
-                      name="gender"
-                      value={formData.gender}
-                      onChange={handleChange}
-                      className={`select select-bordered text-base-content ${errors.gender ? "select-error" : ""}`}
-                    >
-                      <option disabled value="">
-                        Select Gender
-                      </option>
-                      <option>Male</option>
-                      <option>Female</option>
-                    </select>
-                    {errors.gender && (
-                      <span className="text-sm text-error">
-                        {errors.gender}
-                      </span>
-                    )}
-                  </div>
+    const wrapperClass = `field-wrapper ${
+      isActive ? "active" : isPrev ? "inactive-prev" : "inactive-next"
+    }`;
 
-                  <div className="form-control mt-4">
-                    <label className="label">
-                      <span className="label-text text-base-content">
-                        Grade:
-                      </span>
-                    </label>
-                    <select
-                      name="grade"
-                      value={formData.grade}
-                      onChange={handleChange}
-                      className={`select select-bordered text-base-content ${errors.grade ? "select-error" : ""}`}
-                    >
-                      <option disabled value="">
-                        Select Grade
-                      </option>
-                      <option>2 to 3</option>
-                      <option>4 to 5</option>
-                      <option>6 to 7</option>
-                      <option>8 to 9</option>
-                      <option>10 to 12</option>
-                    </select>
-                    {errors.grade && (
-                      <span className="text-sm text-error">{errors.grade}</span>
-                    )}
-                  </div>
+    const commonProps = {
+      id: field.id,
+      name: field.id,
+      value: formData[field.id],
+      onChange: handleChange,
+      onKeyDown: handleKeyDown, // Add keydown listener
+      ref: (el: HTMLInputElement | HTMLSelectElement | null) => { inputRefs.current[index] = el; },
+      required: true, // Basic HTML5 validation (optional)
+      'aria-invalid': !!fieldError,
+      'aria-describedby': fieldError ? `${field.id}-error` : undefined,
+    };
 
-                  <div className="form-control mt-4">
-                    <label className="label">
-                      <span className="label-text text-base-content">
-                        School Name:
-                      </span>
-                    </label>
-                    <input
-                      type="text"
-                      name="schoolName"
-                      value={formData.schoolName}
-                      onChange={handleChange}
-                      className={`input input-bordered text-base-content ${errors.schoolName ? "input-error" : ""}`}
-                    />
-                    {errors.schoolName && (
-                      <span className="text-sm text-error">
-                        {errors.schoolName}
-                      </span>
-                    )}
-                  </div>
+    return (
+      <div key={field.id} className={wrapperClass}>
+        <label htmlFor={field.id} className="label-text">
+          {field.label}
+        </label>
+        {field.type === "select" ? (
+          <select {...commonProps} defaultValue="">
+            <option value="" disabled>
+              Select {field.label}... {/* More informative default */}
+            </option>
+            {field.options?.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        ) : (
+          <input
+            type={field.type}
+            placeholder={field.placeholder || ""}
+            {...commonProps}
+          />
+        )}
+        {fieldError && <span id={`${field.id}-error`} className="error-message">{fieldError}</span>}
+         {/* Optional Tip */}
+         {isActive && <p className="tip">Press Enter to continue</p>}
+      </div>
+    );
+  };
 
-                  <div className="card-actions mt-6 justify-end">
-                    <button type="submit" className="btn btn-primary w-full">
-                      Continue
-                    </button>
-                  </div>
-                  <p className="mt-3 text-center text-sm text-base-content">
-                    Already have an account?{" "}
-                    <a
-                      href="/auth/login"
-                      className="link link-info font-medium"
-                    >
-                      Login
-                    </a>
-                  </p>
-                </>
-              )}
-
-              {step === 2 && (
-                <>
-                  <h2 className="card-title mb-4 text-2xl font-bold text-base-content">
-                    Register to Edueme
-                  </h2>
-                  {errorMessage && (
-                    <div className="alert alert-error mb-4">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6 shrink-0 stroke-current"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                      <span>{errorMessage}</span>
-                    </div>
-                  )}
-
-                  <div className="form-control">
-                    <label className="label">
-                      <span className="label-text text-base-content">
-                        Phone Number:
-                      </span>
-                    </label>
-                    <input
-                      type="tel"
-                      name="phoneNumber"
-                      value={formData.phoneNumber}
-                      onChange={handleChange}
-                      className={`input input-bordered text-base-content ${errors.phoneNumber ? "input-error" : ""}`}
-                    />
-                    {errors.phoneNumber && (
-                      <span className="text-sm text-error">
-                        {errors.phoneNumber}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="form-control mt-4">
-                    <label className="label">
-                      <span className="label-text text-base-content">
-                        Email:
-                      </span>
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      className={`input input-bordered text-base-content ${errors.email ? "input-error" : ""}`}
-                    />
-                    {errors.email && (
-                      <span className="text-sm text-error">{errors.email}</span>
-                    )}
-                  </div>
-
-                  <div className="form-control mt-4">
-                    <label className="label">
-                      <span className="label-text text-base-content">
-                        Parent&apos;s Email:
-                      </span>
-                    </label>
-                    <input
-                      type="email"
-                      name="parentEmail"
-                      value={formData.parentEmail}
-                      onChange={handleChange}
-                      className={`input input-bordered text-base-content ${errors.parentEmail ? "input-error" : ""}`}
-                    />
-                    {errors.parentEmail && (
-                      <span className="text-sm text-error">
-                        {errors.parentEmail}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="form-control mt-4">
-                    <label className="label">
-                      <span className="label-text text-base-content">
-                        Password:
-                      </span>
-                    </label>
-                    <input
-                      type="password"
-                      name="password"
-                      value={formData.password}
-                      onChange={handleChange}
-                      className={`input input-bordered text-base-content ${errors.password ? "input-error" : ""}`}
-                    />
-                    {errors.password && (
-                      <span className="text-sm text-error">
-                        {errors.password}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="form-control mt-4">
-                    <label className="label">
-                      <span className="label-text text-base-content">
-                        Confirm Password:
-                      </span>
-                    </label>
-                    <input
-                      type="password"
-                      name="confirmPassword"
-                      value={formData.confirmPassword}
-                      onChange={handleChange}
-                      className={`input input-bordered text-base-content ${errors.confirmPassword ? "input-error" : ""}`}
-                    />
-                    {errors.confirmPassword && (
-                      <span className="text-sm text-error">
-                        {errors.confirmPassword}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="card-actions mt-6 justify-between">
-                    <button
-                      type="button"
-                      onClick={handleBack}
-                      className="btn btn-neutral"
-                      disabled={isSubmitting}
-                    >
-                      Back
-                    </button>
-
-                    <button
-                      type="submit"
-                      className="btn btn-primary"
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <span className="loading loading-infinity loading-md"></span>
-                          Registering...
-                        </>
-                      ) : (
-                        "Register"
-                      )}
-                    </button>
-                  </div>
-                  <p className="mt-3 text-center text-sm text-base-content">
-                    Already have an account?{" "}
-                    <a
-                      href="/auth/login"
-                      className="link link-info font-medium"
-                    >
-                      Login
-                    </a>
-                  </p>
-                </>
-              )}
-            </form>
-          )}
+  if (submitted) {
+    return (
+      <div className="signup-container">
+        <div className="success-message" style={{
+          padding: '2rem',
+          textAlign: 'center',
+          backgroundColor: 'rgba(255, 255, 255, 0.1)', // Changed to transparent
+          backdropFilter: 'blur(10px)', // Added blur effect
+          borderRadius: '12px',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+          animation: 'fadeInScale 0.5s ease-out'
+        }}>
+          <div className="success-icon" style={{
+            width: '80px',
+            height: '80px',
+            margin: '0 auto 1.5rem',
+            backgroundColor: '#FFB800',
+            borderRadius: '50%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            animation: 'pulse 2s infinite'
+          }}>
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+              <path 
+                d="M20 6L9 17L4 12" 
+                stroke="white" 
+                strokeWidth="3" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+          <h2 style={{
+            color: '#FFB800',
+            fontSize: '24px',
+            marginBottom: '1rem',
+            animation: 'slideUp 0.5s ease-out 0.2s both'
+          }}>Registration Successful!</h2>
+          <p style={{
+            color: '#666',
+            lineHeight: '1.6',
+            marginBottom: '1.5rem',
+            animation: 'slideUp 0.5s ease-out 0.4s both'
+          }}>
+            Your account has been created. Please check your email (and your parent's email) for further instructions.
+          </p>
+          <a 
+            href="/auth/login" 
+            style={{
+              display: 'inline-block',
+              padding: '12px 24px',
+              backgroundColor: '#FFB800',
+              color: 'white',
+              textDecoration: 'none',
+              borderRadius: '25px',
+              fontWeight: 'bold',
+              transition: 'all 0.3s ease',
+              animation: 'slideUp 0.5s ease-out 0.6s both'
+            }}
+            onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#FFA500'}
+            onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#FFB800'}
+          >
+            Login Now
+          </a>
+          <style jsx>{`
+            @keyframes fadeInScale {
+              from {
+                opacity: 0;
+                transform: scale(0.8);
+              }
+              to {
+                opacity: 1;
+                transform: scale(1);
+              }
+            }
+            @keyframes pulse {
+              0% { transform: scale(1); }
+              50% { transform: scale(1.05); }
+              100% { transform: scale(1); }
+            }
+            @keyframes slideUp {
+              from {
+                opacity: 0;
+                transform: translateY(20px);
+              }
+              to {
+                opacity: 1;
+                transform: translateY(0);
+              }
+            }
+          `}</style>
         </div>
       </div>
+    );
+  }
+
+  return (
+    <div className="signup-container">
+      {/* Navigation Dots */}
+      <div className="nav-dots-container">
+        {formFields.map((field, index) => (
+          <div
+            key={`dot-${field.id}`}
+            className={`nav-dot ${index === currentFieldIndex ? "active" : ""} ${index < currentFieldIndex && !errors[field.id] ? "completed" : "" }`}
+            onClick={() => handleDotClick(index)}
+            title={field.label} // Tooltip for accessibility
+           />
+        ))}
+      </div>
+
+      <form className="signup-form" onSubmit={handleSubmit} noValidate>
+        {/* Render all fields */}
+        {formFields.map(renderField)}
+
+        {/* Server Error Message */}
+        {errorMessage && (
+            <div className="server-error-message">
+                {/* Optional: Add an error icon SVG */}
+                {errorMessage}
+            </div>
+        )}
+
+        {/* Action Buttons */}
+        <div className={`form-actions ${currentFieldIndex >= 0 ? "visible" : ""}`}>
+          <button
+            type="button"
+            onClick={handleBack}
+            className="back-button"
+            disabled={currentFieldIndex === 0 || isSubmitting}
+          >
+            Back
+          </button>
+
+          {currentFieldIndex < formFields.length - 1 ? (
+            <button
+              type="button"
+              onClick={handleNext}
+              className="next-button" // You might want specific styles
+              disabled={isSubmitting} // Disable next if submitting (edge case)
+            >
+              Next
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className="submit-button" // You might want specific styles
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <>
+                  <span className="loading-spinner"></span>
+                  Registering...
+                </>
+              ) : (
+                "Register"
+              )}
+            </button>
+          )}
+        </div>
+      </form>
     </div>
   );
 };

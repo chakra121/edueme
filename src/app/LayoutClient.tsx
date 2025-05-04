@@ -14,6 +14,8 @@ const HIDDEN_FOOTER_PATHS = [
   "/dashboard/studentDashboard",
   "/dashboard/teacherDashboard",
   "/dashboard/adminDashboard",
+  "/auth/signup",
+  "/auth/login",
   "/courses" // This will hide footer for all course related pages
 ];
 
