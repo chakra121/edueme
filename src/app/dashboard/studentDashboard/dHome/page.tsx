@@ -65,13 +65,24 @@ export default function DHomePage() {
   return (
     <div>
       {/* Welcome Banner */}
-      <div className="card mb-4 bg-base-100 shadow-xl">
-        <div className="card-body">
-          <h2 className="card-title text-3xl text-base-content">
-            Welcome {user?.firstName ?? "Student"} {user?.lastName ?? ""} 👋
-          </h2>
-          <p className="text-lg text-base-content">
-            Ready to learn something new today?
+      <div className="card mb-4 bg-base-100 shadow-xl relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-16 h-16 border-t-4 border-l-4 border-primary animate-pulse"></div>
+          <div className="absolute top-0 right-0 w-16 h-16 border-t-4 border-r-4 border-primary animate-pulse"></div>
+          <div className="absolute bottom-0 left-0 w-16 h-16 border-b-4 border-l-4 border-primary animate-pulse"></div>
+          <div className="absolute bottom-0 right-0 w-16 h-16 border-b-4 border-r-4 border-primary animate-pulse"></div>
+          <div className="absolute top-1/2 left-4 w-2 h-2 bg-primary rounded-full animate-ping"></div>
+          <div className="absolute top-1/2 right-4 w-2 h-2 bg-primary rounded-full animate-ping delay-300"></div>
+        </div>
+        <div className="card-body relative z-10">
+          <div className="flex items-center space-x-2">
+        <div className="w-3 h-3 bg-primary rounded-full animate-pulse"></div>
+        <h2 className="card-title text-3xl text-base-content">
+          Welcome {user?.firstName ?? "Student"} {user?.lastName ?? ""} 👋
+        </h2>
+          </div>
+          <p className="text-lg text-base-content pl-5 border-l-2 border-primary">
+        Ready to learn something new today?
           </p>
         </div>
       </div>
