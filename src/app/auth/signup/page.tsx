@@ -109,7 +109,7 @@ const Signup: React.FC = () => {
     const newErrors: FormErrors = {};
     let isValid = true;
     formFields.forEach(field => {
-        const error = validateField(field.id, formData[field.id]);
+         const error = field ? validateField(field.id, formData[field.id]) : "";
         if (error) {
             newErrors[field.id] = error;
             isValid = false;
@@ -137,10 +137,12 @@ const Signup: React.FC = () => {
 
   const handleNext = useCallback(() => {
     const currentField = formFields[currentFieldIndex];
-    const error = validateField(currentField.id, formData[currentField.id]);
+    const error = currentField ? validateField(currentField.id, formData[currentField.id]) : "";
 
     if (!error) {
-      setErrors(prev => ({ ...prev, [currentField.id]: "" })); // Clear specific error
+      if (currentField) {
+        setErrors(prev => ({ ...prev, [currentField.id]: "" })); // Clear specific error
+      }
       if (currentFieldIndex < formFields.length - 1) {
         setCurrentFieldIndex(prev => prev + 1);
       } else {
@@ -149,7 +151,9 @@ const Signup: React.FC = () => {
         console.log("Reached end, ready to submit");
       }
     } else {
-      setErrors(prev => ({ ...prev, [currentField.id]: error }));
+      if (currentField) {
+        setErrors(prev => ({ ...prev, [currentField.id]: error }));
+      }
       // Optionally focus the input again if validation fails
       inputRefs.current[currentFieldIndex]?.focus();
     }
@@ -173,9 +177,11 @@ const Signup: React.FC = () => {
         const intermediateErrors: FormErrors = {};
         for (let i = currentFieldIndex; i < index; i++) {
            const field = formFields[i];
-           const error = validateField(field.id, formData[field.id]);
+           const error = field ? validateField(field.id, formData[field.id]) : "";
            if (error) {
-               intermediateErrors[field.id] = error;
+               if (field) {
+                   intermediateErrors[field.id] = error;
+               }
                canProceed = false;
                break; // Stop validation on first error
            }
@@ -246,7 +252,7 @@ const Signup: React.FC = () => {
                handleNext();
            } else {
                // If on the last field, Enter triggers submit
-               handleSubmit(e as any); // Type assertion might be needed
+               void handleSubmit(new Event('submit') as unknown as FormEvent<HTMLFormElement>); // Trigger submit programmatically
            }
        }
    };
@@ -260,7 +266,7 @@ const Signup: React.FC = () => {
   const renderField = (field: FormField, index: number) => {
     const isActive = index === currentFieldIndex;
     const isPrev = index < currentFieldIndex;
-    const isNext = index > currentFieldIndex;
+    
     const fieldError = errors[field.id];
 
     const wrapperClass = `field-wrapper ${
@@ -298,7 +304,7 @@ const Signup: React.FC = () => {
         ) : (
           <input
             type={field.type}
-            placeholder={field.placeholder || ""}
+            placeholder={field.placeholder ?? ""}
             {...commonProps}
           />
         )}
@@ -354,7 +360,7 @@ const Signup: React.FC = () => {
             marginBottom: '1.5rem',
             animation: 'slideUp 0.5s ease-out 0.4s both'
           }}>
-            Your account has been created. Please check your email (and your parent's email) for further instructions.
+            Your account has been created. Please check your email (and your parent&apos;s email) for further instructions.
           </p>
           <a 
             href="/auth/login" 

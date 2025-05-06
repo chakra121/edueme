@@ -18,23 +18,37 @@ export default function Page({ children }: PageProps) {
   const pageRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   
+  const handleMouseEnter = () => {
+    const sidebarEl = document.querySelector(".sidebar-container");
+    if (sidebarEl) {
+      gsap.to(sidebarEl, { 
+        boxShadow: "0 10px 30px rgba(0, 120, 255, 0.2)",
+        duration: 0.4 
+      });
+    }
+  };
+
+  const handleMouseLeave = () => {
+    const sidebarEl = document.querySelector(".sidebar-container");
+    if (sidebarEl) {
+      gsap.to(sidebarEl, { 
+        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)", 
+        duration: 0.4 
+      });
+    }
+  };
+
   useEffect(() => {
     // Add hover effect to sidebar
     const sidebarEl = document.querySelector(".sidebar-container");
     if (sidebarEl) {
-      sidebarEl.addEventListener("mouseenter", () => {
-        gsap.to(sidebarEl, { 
-          boxShadow: "0 10px 30px rgba(0, 120, 255, 0.2)",
-          duration: 0.4 
-        });
-      });
-      
-      sidebarEl.addEventListener("mouseleave", () => {
-        gsap.to(sidebarEl, { 
-          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)", 
-          duration: 0.4 
-        });
-      });
+      sidebarEl.addEventListener("mouseenter", handleMouseEnter);
+      sidebarEl.addEventListener("mouseleave", handleMouseLeave);
+
+      return () => {
+        sidebarEl.removeEventListener("mouseenter", handleMouseEnter);
+        sidebarEl.removeEventListener("mouseleave", handleMouseLeave);
+      };
     }
     
     // Animate page content on load
@@ -73,8 +87,8 @@ export default function Page({ children }: PageProps) {
       // Clean up any event listeners
       const sidebar = document.querySelector(".sidebar-container");
       if (sidebar) {
-        sidebar.removeEventListener("mouseenter", () => {});
-        sidebar.removeEventListener("mouseleave", () => {});
+        sidebar.removeEventListener("mouseenter", handleMouseEnter);
+        sidebar.removeEventListener("mouseleave", handleMouseLeave);
       }
       
       // Kill all GSAP animations to prevent memory leaks

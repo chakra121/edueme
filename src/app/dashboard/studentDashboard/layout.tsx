@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import React, { useEffect, useRef, type ReactNode } from "react";
@@ -18,30 +19,34 @@ export default function Page({ children }: PageProps) {
   const pageRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    // Add hover effect to sidebar
-    const sidebarEl = document.querySelector(".sidebar-container"); // Ensure your sidebar div has this class
+  const onMouseEnter = () => {
+    const sidebarEl = document.querySelector(".sidebar-container");
     if (sidebarEl) {
       const enterAnimation = gsap.to(sidebarEl, {
         boxShadow: "0 10px 30px rgba(79, 195, 247, 0.25)", // Adjusted color for blue theme
         duration: 0.4,
         paused: true,
       });
+      enterAnimation.play();
+    }
+  };
+
+  const onMouseLeave = () => {
+    const sidebarEl = document.querySelector(".sidebar-container");
+    if (sidebarEl) {
       const leaveAnimation = gsap.to(sidebarEl, {
         boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
         duration: 0.4,
         paused: true,
       });
+      leaveAnimation.play();
+    }
+  };
 
-      const onMouseEnter = () => {
-        leaveAnimation.pause();
-        enterAnimation.play();
-      };
-      const onMouseLeave = () => {
-        enterAnimation.pause();
-        leaveAnimation.play();
-      };
-      
+  useEffect(() => {
+    // Add hover effect to sidebar
+    const sidebarEl = document.querySelector(".sidebar-container"); // Ensure your sidebar div has this class
+    if (sidebarEl) {
       sidebarEl.addEventListener("mouseenter", onMouseEnter);
       sidebarEl.addEventListener("mouseleave", onMouseLeave);
 
@@ -60,7 +65,7 @@ export default function Page({ children }: PageProps) {
 
     // Create scroll animations for elements with data-animate
     if (pageRef.current) {
-      const animatedSections = Array.from(pageRef.current.querySelectorAll("[data-animate]")) as HTMLElement[];
+      const animatedSections = Array.from(pageRef.current.querySelectorAll("[data-animate]"));
       
       animatedSections.forEach((section) => {
         gsap.fromTo(
@@ -85,14 +90,14 @@ export default function Page({ children }: PageProps) {
       if (sidebarEl) {
         const sidebar = document.querySelector(".sidebar-container");
         if (sidebar) {
-          sidebar.removeEventListener("mouseenter", () => {}); // These might not correctly remove if the functions are not identical references.
-          sidebar.removeEventListener("mouseleave", () => {}); // Better to store and remove the exact function references if needed, but for this case, GSAP's internal cleanup on kill should suffice for animations.
+          sidebar.removeEventListener("mouseenter", onMouseEnter); // Use the exact function reference
+          sidebar.removeEventListener("mouseleave", onMouseLeave); // Use the exact function reference
         }
       }
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
       gsap.killTweensOf([".sidebar-container", contentRef.current]); // Kill specific tweens
       if (pageRef.current) {
-        const animatedSections = Array.from(pageRef.current.querySelectorAll("[data-animate]")) as HTMLElement[];
+        const animatedSections = Array.from(pageRef.current.querySelectorAll("[data-animate]"));
         gsap.killTweensOf(animatedSections);
       }
     };
