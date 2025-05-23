@@ -3,10 +3,6 @@ import { motion } from "framer-motion";
 import { 
   FaWhatsapp, 
   FaLinkedin, 
-  FaTwitter, 
-  FaInstagram, 
-  FaFacebook, 
-  FaYoutube 
 } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 
@@ -29,7 +25,7 @@ const socialLinks: SocialLink[] = [
   {
     name: "LinkedIn",
     icon: <FaLinkedin className="text-3xl" />,
-    link: "https://linkedin.com/company/yourcompany",
+    link: "https://www.linkedin.com/company/edueme-research-labs/",
     color: "text-blue-600",
     hoverBg: "hover:bg-blue-600",
   },
