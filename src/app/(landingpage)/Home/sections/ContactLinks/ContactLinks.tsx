@@ -38,7 +38,7 @@ const socialLinks: SocialLink[] = [
   },
 ];
 
-const ContactLinks: FC = () => {
+export const ContactLinks: FC = () => {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -116,6 +116,3 @@ const ContactLinks: FC = () => {
     </div>
   );
 };
-
-export { ContactLinks };
-export default ContactLinks;
