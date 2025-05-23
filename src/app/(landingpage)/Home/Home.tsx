@@ -232,20 +232,7 @@ const Home = (): JSX.Element => {
 
         <div id="cta-section" className="w-full relative">
           <CallToActionSection />
-          <Image
-            width={70}
-            height={70}
-            className="absolute w-[70px] h-[70px] top-56 left-[1274px]"
-            alt="Image"
-            src="/image-9.png"
-          />
-          <Image
-            width={70} 
-            height={70}
-            className="absolute w-[70px] h-[70px] top-[294px] left-[1110px] object-cover"
-            alt="Image"
-            src="/image-10.png"
-          />
+  
         </div>
 
         <div id="case-studies-section" className="w-full">
