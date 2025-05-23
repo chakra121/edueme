@@ -27,9 +27,9 @@ export const CallToActionSection = (): JSX.Element => {
               </p>
             </div>
 
-            <div className="relative w-full lg:w-[494px] h-[394px] overflow-hidden">
+            <div className="relative w-full lg:w-[450px] h-[450px] overflow-hidden">
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="relative w-[300px] h-[300px] bg-gradient-to-b from-gray-50 to-transparent rounded-full">
+                <div className="relative w-[350px] h-[350px] bg-gradient-to-b from-gray-50 to-transparent rounded-full">
                   <motion.div
                     animate={{
                       y: [0, -400, 0],
@@ -44,14 +44,14 @@ export const CallToActionSection = (): JSX.Element => {
                     {partnerLogos.map((logo, index) => (
                       <motion.div
                         key={index}
-                        className="w-[120px] h-[120px] bg-white rounded-xl shadow-lg p-4 flex items-center justify-center"
+                        className="w-[160px] h-[160px] bg-white rounded-xl shadow-lg p-5 flex items-center justify-center"
                         whileHover={{ scale: 1.05 }}
                       >
                         <Image
                           src={logo.src}
                           alt={logo.alt}
-                          width={100}
-                          height={100}
+                          width={130}
+                          height={130}
                           className="object-contain"
                         />
                       </motion.div>
