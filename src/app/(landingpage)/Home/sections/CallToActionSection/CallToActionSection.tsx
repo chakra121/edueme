@@ -11,16 +11,18 @@ const partnerLogos = [
 
 export const CallToActionSection = (): JSX.Element => {
   return (
-    <section className="w-full py-12 px-4 md:px-6 lg:px-[100px]">
-      <Card className="w-full bg-grey rounded-[45px] border-none overflow-hidden relative">
+    <section className="w-full px-4 py-12 md:px-6 lg:px-[100px]">
+      <Card className="bg-grey relative w-full overflow-hidden rounded-[45px] border-none">
         <CardContent className="p-8 lg:p-[60px]">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+          <div className="flex flex-col items-center justify-between gap-12 lg:flex-row">
             {/* Left content */}
             <div className="max-w-[500px]">
-              <div className="px-4 py-2 bg-[#ffb800] text-black rounded-lg font-bold text-4xl leading-tight">
-              Our Services
-            </div>
-              <p className="text-gray-700 text-base leading-relaxed mb-[26px]">
+              <div className="mb-4">
+                <div className="inline-block rounded-lg bg-[#ffb800] px-4 py-2 text-4xl leading-tight font-bold text-black">
+                  Our Services
+                </div>
+              </div>
+              <p className="text-base leading-relaxed text-gray-700">
                 At EduMe, we provide a range of cutting-edge solutions designed
                 to enhance education and streamline learning experiences for
                 students, educators, and institutions.
@@ -31,20 +33,17 @@ export const CallToActionSection = (): JSX.Element => {
             <div className="w-full lg:w-auto">
               <div className="grid grid-cols-2 gap-8">
                 {partnerLogos.map((logo, index) => (
-                  <div
-                    key={index}
-                    className="relative w-[160px] h-[160px]"
-                  >
+                  <div key={index} className="relative h-[160px] w-[160px]">
                     {/* Outer border with gradient */}
                     <div className="absolute inset-0 rounded-full bg-gradient-to-br from-orange-400 to-yellow-400 p-[2px]">
                       {/* Inner white background */}
-                      <div className="w-full h-full bg-white rounded-full p-5 flex items-center justify-center shadow-lg">
+                      <div className="flex h-full w-full items-center justify-center rounded-full bg-white p-5 shadow-lg">
                         <Image
                           src={logo.src}
                           alt={logo.alt}
                           width={120}
                           height={120}
-                          className="object-contain rounded-full"
+                          className="rounded-full object-contain"
                           priority={index < 2}
                         />
                       </div>

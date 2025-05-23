@@ -118,8 +118,8 @@ export const HeroSection = (): JSX.Element => {
       </div>
 
       {/* Partner Logos */}
-      <div className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-white px-4 py-6 lg:py-8">
-        <div>
+      <div className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-white px-4 py-8 lg:py-8">
+        <div className="pb-4">
           <h1 className="text-base-content pb-5 text-2xl font-bold text-balance sm:text-3xl lg:text-4xl">
             Schools in Collaboration
           </h1>
