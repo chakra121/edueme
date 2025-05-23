@@ -277,9 +277,6 @@ const Home = (): JSX.Element => {
 
         <div id="features-section" className="w-full relative">
           <FeaturesSection />
-          <Button className="absolute bottom-[68px] right-[269px] bg-dark text-white text-xl font-normal rounded-[14px] px-[35px] py-5 [font-family:'Space_Grotesk',Helvetica]">
-            Explore
-          </Button>
         </div>
 
         <div id="testimonials-section" className="w-full mt-16">
