@@ -59,7 +59,11 @@ export default function ChapterDetailPage() {
     })();
   }, [chapterCode, courseCode]); // ✅ Added `courseCode` to dependencies
 
-  if (loading) return <p className="text-center text-xl">Loading...</p>;
+  if (loading) return (
+    <div className="flex items-center justify-center">
+      <span className="loading loading-spinner text-yellow-500"></span>
+    </div>
+  );
   if (error) return <p className="text-center text-xl text-error">{error}</p>;
 
   return (

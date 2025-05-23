@@ -1,9 +1,8 @@
-import { FC } from "react";
+import { type FC } from "react";
 import { motion } from "framer-motion";
 import { 
   FaWhatsapp, 
-  FaLinkedin, 
-} from "react-icons/fa";
+  FaLinkedin} from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 
 interface SocialLink {

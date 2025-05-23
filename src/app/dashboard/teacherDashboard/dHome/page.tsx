@@ -147,47 +147,47 @@ const DoodlesBackground = () => {
 };
 
 // Stats Card Component
-interface StatsCardProps {
-  icon: React.ReactNode;
-  number: string | number;
-  label: string;
-  delay: number;
-}
+// interface StatsCardProps {
+//   icon: React.ReactNode;
+//   number: string | number;
+//   label: string;
+//   delay: number;
+// }
 
-const StatsCard = ({ icon, number, label, delay }: StatsCardProps) => {
-  const cardRef = useRef<HTMLDivElement | null>(null);
+// // const StatsCard = ({ icon, number, label, delay }: StatsCardProps) => {
+//   const cardRef = useRef<HTMLDivElement | null>(null);
   
-  useEffect(() => {
-    const card = cardRef.current;
-    if (!card) return;
+//   useEffect(() => {
+//     const card = cardRef.current;
+//     if (!card) return;
     
-    gsap.fromTo(card, 
-      { y: 50, opacity: 0 },
-      { 
-        y: 0, 
-        opacity: 1, 
-        duration: 0.8, 
-        delay: delay,
-        scrollTrigger: {
-          trigger: card,
-          start: "top bottom-=100",
-          toggleActions: "play none none none"
-        }
-      }
-    );
-  }, [delay]);
+//     gsap.fromTo(card, 
+//       { y: 50, opacity: 0 },
+//       { 
+//         y: 0, 
+//         opacity: 1, 
+//         duration: 0.8, 
+//         delay: delay,
+//         scrollTrigger: {
+//           trigger: card,
+//           start: "top bottom-=100",
+//           toggleActions: "play none none none"
+//         }
+//       }
+//     );
+//   }, [delay]);
   
-  return (
-    <div 
-      ref={cardRef}
-      className="bg-white rounded-xl p-6 flex flex-col items-center transition-all duration-300 hover:transform hover:scale-105 hover:shadow-lg border-2 border-amber-100"
-    >
-      <div className="text-4xl text-amber-500 mb-2">{icon}</div>
-      <div className="text-3xl font-bold text-gray-800 mb-1">{number}</div>
-      <div className="text-sm text-gray-500">{label}</div>
-    </div>
-  );
-};
+//   return (
+//     <div 
+//       ref={cardRef}
+//       className="bg-white rounded-xl p-6 flex flex-col items-center transition-all duration-300 hover:transform hover:scale-105 hover:shadow-lg border-2 border-amber-100"
+//     >
+//       <div className="text-4xl text-amber-500 mb-2">{icon}</div>
+//       <div className="text-3xl font-bold text-gray-800 mb-1">{number}</div>
+//       <div className="text-sm text-gray-500">{label}</div>
+//     </div>
+//   );
+// };
 
 // Main TeacherHomePage Component
 const TeacherHomePage = () => {
@@ -255,7 +255,7 @@ const TeacherHomePage = () => {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 py-12 max-w-6xl">
         {/* Hero Section */}
-        <div className="text-center mb-24 mt-12">
+        <div className="text-center mb-12 mt-12">
           <h1 ref={headingRef} className="text-6xl font-bold mb-6 overflow-hidden">
             <div className="inline-block">Welcome</div>{" "}
             <div className="inline-block">Back,</div>{" "}
@@ -266,13 +266,13 @@ const TeacherHomePage = () => {
           </p>
         </div>
         
-        {/* Stats Cards */}
+        {/* Stats Cards
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 parallax-section">
           <StatsCard icon="👨‍🎓" number="124" label="Active Students" delay={0.2} />
           <StatsCard icon="📚" number="18" label="Courses Created" delay={0.3} />
           <StatsCard icon="🎯" number="85%" label="Completion Rate" delay={0.4} />
           <StatsCard icon="⭐" number="4.8" label="Average Rating" delay={0.5} />
-        </div>
+        </div> */}
       </div>
       
       {/* Geometric shapes floating in background */}

@@ -9,7 +9,6 @@ import {
   Lightbulb,
   Calendar,
   ExternalLink,
-  Filter,
   Search,
   ChevronRight,
   Award,
@@ -19,6 +18,7 @@ import {
   Globe,
   FileText
 } from 'lucide-react';
+import Image from 'next/image';
 
 interface Research {
   title: string;
@@ -288,7 +288,7 @@ const ResearchPage = () => {
               exit="hidden"
               className="grid grid-cols-1 md:grid-cols-2 gap-8"
             >
-              {filteredResearch.map((research, index) => (
+              {filteredResearch.map((research) => (
                 <motion.div
                   key={research.title}
                   variants={itemVariants}
@@ -297,8 +297,10 @@ const ResearchPage = () => {
                 >
                   {/* Research Image */}
                   <div className="relative h-48 overflow-hidden">
-                    <img 
-                      src={research.image} 
+                    <Image 
+                      src={research.image}
+                      width={600}
+                      height={400}
                       alt={research.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />

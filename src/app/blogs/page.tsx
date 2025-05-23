@@ -362,45 +362,7 @@ export default function BlogPage() {
               </ul>
             </section>
 
-            <section className="mt-8 rounded border p-6 shadow-xs">
-              <h2 className="mb-4 text-3xl font-bold">Newsletter</h2>
-              <p className="mb-4">
-                Join thousands of Tiny Salt subscribers and get our best recipes
-                delivered each week!
-              </p>
-              <div className="mb-4 flex">
-                <input
-                  type="text"
-                  placeholder="Type And Hit Enter"
-                  className="grow rounded-l border p-2"
-                />
-                <button className="rounded-r border-l bg-gray-200 p-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-gray-600"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M16 12H8m0 0l4-4m-4 4l4 4"
-                    />
-                  </svg>
-                </button>
-              </div>
-              <button className="w-full rounded bg-green-500 py-2 text-white transition-colors hover:bg-green-600">
-                Sign In
-              </button>
-              <p className="mt-4 text-sm text-gray-600">
-                By Signing Up, You Agree To{" "}
-                <a href="#" className="text-blue-500 hover:underline">
-                  Privacy Policy
-                </a>
-              </p>
-            </section>
+            
           </div>
         </main>
       </div>

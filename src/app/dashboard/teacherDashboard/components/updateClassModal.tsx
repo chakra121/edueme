@@ -60,8 +60,8 @@ const UpdateClassModal: React.FC<Props> = ({
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-base-content bg-opacity-50">
-      <div className="card w-2/5 bg-base-100">
+    <div className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black">
+      <div className="card bg-base-100 w-2/5">
         <div className="card-body">
           <h3 className="card-title mb-4 text-xl font-bold">Update Class</h3>
 
@@ -112,7 +112,7 @@ const UpdateClassModal: React.FC<Props> = ({
       </div>
 
       {toastMessage && (
-        <div className="fixed bottom-5 right-5 z-50">
+        <div className="fixed right-5 bottom-5 z-50">
           <div
             className={`alert ${
               toastType === "success" ? "alert-success" : "alert-error"

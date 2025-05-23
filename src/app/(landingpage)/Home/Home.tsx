@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { Button } from "@/components/ui/button";
 import { CallToActionSection } from "./sections/CallToActionSection";
 import { CaseStudiesSection } from "./sections/CaseStudiesSection/CaseStudiesSection";
 import Image from "next/image";

@@ -43,12 +43,7 @@ const StudentSideBar = () => {
   return (
     <div className="space-y-4">
       <div className="flex flex-col items-center space-y-2">
-        <div className="avatar">
-          <div className="ring-base-primary w-16 rounded-full ring-3">
-            {/* ✅ Use Next.js Image Component */}
-            
-          </div>
-        </div>
+        
         <h2 className="text-center text-lg font-bold text-base-content">
           {Data.data?.user.email}
         </h2>
