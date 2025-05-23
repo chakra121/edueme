@@ -17,9 +17,9 @@ export const CallToActionSection = (): JSX.Element => {
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
             {/* Left content */}
             <div className="max-w-[500px]">
-              <h3 className="text-black text-[32px] font-bold tracking-tight leading-tight mb-[26px]">
-                Our Products
-              </h3>
+              <div className="px-4 py-2 bg-[#ffb800] text-black rounded-lg font-bold text-4xl leading-tight">
+              Our Services
+            </div>
               <p className="text-gray-700 text-base leading-relaxed mb-[26px]">
                 At EduMe, we provide a range of cutting-edge solutions designed
                 to enhance education and streamline learning experiences for
