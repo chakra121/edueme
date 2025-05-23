@@ -99,7 +99,7 @@ const DProfilePage = () => {
   return (
     <div className="max-w-full">
       {toastMessage && (
-        <div className="fixed bottom-4 right-4 z-50">
+        <div className="fixed right-4 bottom-4 z-50">
           <div
             className={`alert ${
               toastMessage.includes("success") ? "alert-success" : "alert-error"
@@ -110,15 +110,20 @@ const DProfilePage = () => {
         </div>
       )}
 
-      <section className="card mb-4 bg-base-100 p-6 shadow-lg">
+      <section className="card bg-base-100 mb-4 p-6 shadow-lg">
         <h2 className="text-center text-xl font-bold">Student&#39;s Profile</h2>
 
-        <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">First Name:</span>
+        <div className="mt-4 grid grid-cols-1 gap-x-8 gap-y-6 md:grid-cols-2">
+          {/* First Name */}
+          <div className="form-control flex flex-col">
+            <label
+              htmlFor="firstName"
+              className="mb-1 text-sm font-medium text-gray-700"
+            >
+              First Name:
             </label>
             <input
+              id="firstName"
               type="text"
               name="firstName"
               value={formData.firstName}
@@ -128,11 +133,16 @@ const DProfilePage = () => {
             />
           </div>
 
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Last Name:</span>
+          {/* Last Name */}
+          <div className="form-control flex flex-col">
+            <label
+              htmlFor="lastName"
+              className="mb-1 text-sm font-medium text-gray-700"
+            >
+              Last Name:
             </label>
             <input
+              id="lastName"
               type="text"
               name="lastName"
               value={formData.lastName}
@@ -142,11 +152,16 @@ const DProfilePage = () => {
             />
           </div>
 
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Gender:</span>
+          {/* Gender */}
+          <div className="form-control flex flex-col">
+            <label
+              htmlFor="gender"
+              className="mb-1 text-sm font-medium text-gray-700"
+            >
+              Gender:
             </label>
             <select
+              id="gender"
               name="gender"
               value={formData.gender}
               onChange={handleChange}
@@ -161,11 +176,16 @@ const DProfilePage = () => {
             </select>
           </div>
 
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">School Name:</span>
+          {/* School Name */}
+          <div className="form-control flex flex-col">
+            <label
+              htmlFor="schoolName"
+              className="mb-1 text-sm font-medium text-gray-700"
+            >
+              School Name:
             </label>
             <input
+              id="schoolName"
               type="text"
               name="schoolName"
               value={formData.schoolName}
@@ -175,11 +195,16 @@ const DProfilePage = () => {
             />
           </div>
 
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Phone Number:</span>
+          {/* Phone Number */}
+          <div className="form-control flex flex-col">
+            <label
+              htmlFor="phoneNumber"
+              className="mb-1 text-sm font-medium text-gray-700"
+            >
+              Phone Number:
             </label>
             <input
+              id="phoneNumber"
               type="text"
               name="phoneNumber"
               value={formData.phoneNumber}
@@ -189,11 +214,16 @@ const DProfilePage = () => {
             />
           </div>
 
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Parent Email:</span>
+          {/* Parent Email */}
+          <div className="form-control flex flex-col">
+            <label
+              htmlFor="parentEmail"
+              className="mb-1 text-sm font-medium text-gray-700"
+            >
+              Parent Email:
             </label>
             <input
+              id="parentEmail"
               type="text"
               name="parentEmail"
               value={formData.parentEmail}
@@ -203,11 +233,16 @@ const DProfilePage = () => {
             />
           </div>
 
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Grade:</span>
+          {/* Grade */}
+          <div className="form-control flex flex-col">
+            <label
+              htmlFor="grade"
+              className="mb-1 text-sm font-medium text-gray-700"
+            >
+              Grade:
             </label>
             <select
+              id="grade"
               name="grade"
               value={formData.grade}
               onChange={handleChange}
@@ -225,16 +260,21 @@ const DProfilePage = () => {
             </select>
           </div>
 
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Email:</span>
+          {/* Email (Read-only) */}
+          <div className="form-control flex flex-col">
+            <label
+              htmlFor="email"
+              className="mb-1 text-sm font-medium text-gray-700"
+            >
+              Email:
             </label>
             <input
+              id="email"
               type="email"
               name="email"
               value={formData.email}
               disabled
-              className="input input-bordered w-full cursor-not-allowed bg-gray-200"
+              className="input input-bordered w-full cursor-not-allowed bg-gray-200 text-gray-500"
             />
           </div>
         </div>

@@ -1,9 +1,8 @@
-import { FC } from "react";
+import { type FC } from "react";
 import { motion } from "framer-motion";
 import { 
   FaWhatsapp, 
-  FaLinkedin, 
-} from "react-icons/fa";
+  FaLinkedin} from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 
 interface SocialLink {
@@ -39,7 +38,7 @@ const socialLinks: SocialLink[] = [
   },
 ];
 
-const ContactLinks: FC = () => {
+export const ContactLinks: FC = () => {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -117,6 +116,3 @@ const ContactLinks: FC = () => {
     </div>
   );
 };
-
-export { ContactLinks };
-export default ContactLinks;

@@ -226,7 +226,7 @@ export default function ClassLinkManager() {
                   href={teacherLink.classLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn btn-primary ml-2"
+                  className="btn btn-primary mt-2 ml-2"
                 >
                   Start Live Class
                 </a>

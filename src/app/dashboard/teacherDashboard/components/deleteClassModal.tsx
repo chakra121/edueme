@@ -56,8 +56,8 @@ const DeleteClassModal: React.FC<Props> = ({
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-base-content bg-opacity-50">
-      <div className="card w-1/3 bg-base-100 shadow-lg">
+    <div className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black">
+      <div className="card bg-base-100 w-1/3 shadow-lg">
         <div className="card-body">
           <h2 className="card-title mb-4 text-xl font-bold">Delete Class</h2>
 
@@ -83,7 +83,7 @@ const DeleteClassModal: React.FC<Props> = ({
       </div>
 
       {toastMessage && (
-        <div className="fixed bottom-5 right-5 z-50">
+        <div className="fixed right-5 bottom-5 z-50">
           <div
             className={`alert ${
               toastType === "success" ? "alert-success" : "alert-error"

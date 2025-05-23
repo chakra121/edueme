@@ -86,16 +86,70 @@ export async function POST(req: NextRequest) {
         to: email,
         subject: "Password Reset Request - Edueme",
         html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e9e9e9; border-radius: 5px;">
-            <h2 style="color: #333;">Reset Your Password</h2>
-            <p>You've requested to reset your password for your Edueme account.</p>
-            <p>Please click the button below to set a new password. This link is valid for 1 hour.</p>
-            <a href="${resetUrl}" style="display: inline-block; background-color: #4F46E5; color: white; padding: 10px 20px; margin: 20px 0; text-decoration: none; border-radius: 5px;">Reset Password</a>
-            <p>If you didn't request this password reset, you can safely ignore this email.</p>
-            <p>Best regards,<br>The Edueme Team</p>
-          </div>
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <title>Password Reset - Edueme</title>
+            <style>
+              @media only screen and (max-width: 600px) {
+                .container {
+                  width: 100% !important;
+                  padding: 0 10px !important;
+                }
+      
+                .button {
+                  width: 100% !important;
+                  box-sizing: border-box;
+                }
+              }
+            </style>
+          </head>
+          <body style="margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; background-color: #f4f4f7;">
+            <table width="100%" cellspacing="0" cellpadding="0" style="background-color: #f4f4f7; padding: 30px 0;">
+              <tr>
+                <td align="center">
+                  <table width="600" cellpadding="0" cellspacing="0" class="container" style="background-color: #ffffff; border-radius: 8px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05); overflow: hidden;">
+                    <tr style="background-color: #4f46e5;">
+                      <td align="center" style="padding: 20px;">
+                        <a href="${baseUrl}" target="_blank" style="display: inline-block;">
+                          <img src="${baseUrl}/logo_white.png" alt="Edueme Logo" height="70" style="display: block;" draggable="false" oncontextmenu="return false;" />
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 40px 30px 30px;">
+                        <h2 style="margin: 0 0 15px; color: #333333;">Reset Your Password</h2>
+                        <p style="margin: 0 0 20px; font-size: 16px; color: #555;">
+                          You’ve requested to reset your password for your Edueme account.
+                          Click the button below to set a new password. This link is valid for <strong>1 hour</strong>.
+                        </p>
+                        <p style="text-align: center; margin: 30px 0;">
+                          <a href="${resetUrl}" class="button" style="background-color: #4f46e5; color: #ffffff; text-decoration: none; padding: 12px 25px; border-radius: 6px; font-size: 16px; display: inline-block;">
+                            Reset Password
+                          </a>
+                        </p>
+                        <p style="margin-top: 30px; font-size: 14px; color: #777;">
+                          If you didn’t request this password reset, you can safely ignore this email.
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="center" style="background-color: #f0f0f0; padding: 20px; font-size: 13px; color: #888;">
+                        Best regards,<br />
+                        The Edueme Team
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </body>
+          </html>
         `,
       });
+      
     }
 
     // For security, always return the same message whether user exists or not

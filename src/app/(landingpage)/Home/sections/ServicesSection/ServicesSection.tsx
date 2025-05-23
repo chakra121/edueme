@@ -114,18 +114,37 @@ export const ServicesSection = (): JSX.Element => {
                 className="flex items-center gap-4 cursor-pointer" 
                 onClick={handleLearnMore}
               >
-                <div
-                  className="w-[50px] h-[50px] p-0 bg-[#060a08] rounded-full flex items-center justify-center"
-                >
-                  <ArrowRightIcon
-                    className="w-6 h-6 text-white transform rotate-[-45deg]"
-                  />
-                </div>
-                <span
-                  className={`[font-family:'Space_Grotesk',Helvetica] font-medium ${card.textColor} text-lg tracking-wide leading-6`}
-                >
-                  Learn more
-                </span>
+                {card.id>=0 ? (
+                  <>
+                    <div
+                      className="w-[50px] h-[50px] p-0 bg-[#060a08] rounded-full flex items-center justify-center opacity-100 cursor-not-allowed"
+                    >
+                      <ArrowRightIcon
+                        className="w-6 h-6 text-white transform rotate-[-45deg]"
+                      />
+                    </div>
+                    <span
+                      className={`[font-family:'Space_Grotesk',Helvetica] font-medium ${card.textColor} text-lg tracking-wide leading-6 opacity-100 cursor-not-allowed`}
+                    >
+                      Learn more
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <div
+                      className="w-[50px] h-[50px] p-0 bg-[#060a08] rounded-full flex items-center justify-center"
+                    >
+                      <ArrowRightIcon
+                        className="w-6 h-6 text-white transform rotate-[-45deg]"
+                      />
+                    </div>
+                    <span
+                      className={`[font-family:'Space_Grotesk',Helvetica] font-medium ${card.textColor} text-lg tracking-wide leading-6`}
+                    >
+                      Learn more
+                    </span>
+                  </>
+                )}
               </div>
             </CardContent>
             {card.isBackgroundImage ? (

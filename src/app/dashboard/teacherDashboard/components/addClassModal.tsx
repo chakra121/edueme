@@ -18,7 +18,7 @@ export default function AddClassModal({
   const [selectedChapter, setSelectedChapter] = useState<string | null>(null);
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-base-content bg-opacity-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black z-50 bg-opacity-50">
       <div className="card bg-base-100 shadow-lg w-1/3">
         <div className="card-body">
           <h2 className="card-title mb-4 text-xl font-bold">Add Class</h2>

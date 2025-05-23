@@ -45,22 +45,6 @@ export default function CourseDetails({ course }: CourseDetailsProps) {
                 </span>
               </div>
 
-              {course.teacher && (
-                <div className="mb-4">
-                  <span className="text-lg font-semibold text-gray-700">
-                    Instructor : {course.teacher?.name}
-                  </span>
-                </div>
-              )}
-
-              <div className="mb-4">
-                <span className="text-lg font-semibold text-gray-700">
-                  Chapters:
-                </span>
-                <span className="ml-2 text-lg text-gray-600">
-                  {course.chapters?.length ?? 0}
-                </span>
-              </div>
 
               <div className="mb-6">
                 <span className="text-2xl font-bold text-orange-500">
@@ -79,21 +63,6 @@ export default function CourseDetails({ course }: CourseDetailsProps) {
                   concepts.
                 </p>
               </div>
-
-              {course.chapters && course.chapters.length > 0 && (
-                <div>
-                  <h2 className="mb-2 text-xl font-semibold text-gray-800">
-                    Chapter List
-                  </h2>
-                  <ul className="list-disc pl-5">
-                    {course.chapters.map((chapter: { id: string; title: string }) => (
-                      <li key={chapter.id} className="text-gray-700">
-                        {chapter.title}
-                      </li>
-                    ))}
-                  </ul>
-                </div>   
-              )}
             </div>
           </div>
         </div>

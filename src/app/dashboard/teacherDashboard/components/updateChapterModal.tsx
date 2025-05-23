@@ -63,15 +63,14 @@ export default function UpdateChapterModal({
   return (
     <>
       {/* Modal */}
-      <div className="fixed inset-0 flex items-center justify-center bg-base-content bg-opacity-50">
-        <div className="card bg-base-100 shadow-lg w-2/6">
+      <div className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black">
+        <div className="card bg-base-100 w-2/6 shadow-lg">
           <div className="card-body">
-            
             <h2 className="card-title mb-4 text-xl font-bold">
               Update Chapter Status
             </h2>
             <div className="overflow-x-auto">
-              <table className="table mb-4 w-full">
+              <table className="mb-4 table w-full">
                 <thead>
                   <tr className="bg-base-200 text-base font-semibold">
                     <th>Chapters</th>
@@ -97,7 +96,7 @@ export default function UpdateChapterModal({
                 </tbody>
               </table>
             </div>
-            <div className="flex gap-3 justify-end">
+            <div className="flex justify-end gap-3">
               <button className="btn btn-outline" onClick={onClose}>
                 Cancel
               </button>
@@ -106,10 +105,12 @@ export default function UpdateChapterModal({
               </button>
             </div>
             {toastMessage && (
-              <div className="fixed bottom-5 right-5 z-50">
-              <div className={`alert ${toastType === "success" ? "alert-success" : "alert-error"} shadow-lg`}>
-                <span>{toastMessage}</span>
-              </div>
+              <div className="fixed right-5 bottom-5 z-50">
+                <div
+                  className={`alert ${toastType === "success" ? "alert-success" : "alert-error"} shadow-lg`}
+                >
+                  <span>{toastMessage}</span>
+                </div>
               </div>
             )}
           </div>
