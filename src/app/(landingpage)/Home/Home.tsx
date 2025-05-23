@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { CallToActionSection } from "./sections/CallToActionSection";
 import { CaseStudiesSection } from "./sections/CaseStudiesSection/CaseStudiesSection";
 import Image from "next/image";
+import { ContactFormSection } from "./sections/ContactFormSection";
 import { FeaturesSection } from "./sections/FeaturesSection/FeaturesSection";
 import { HeroSection } from "./sections/HeroSection/HeroSection";
 import { ProcessOverviewSection } from "./sections/ProcessOverviewSection";
@@ -293,6 +294,20 @@ const Home = (): JSX.Element => {
             </div>
           </div>
           <TestimonialsSection />
+        </div>
+
+        <div id="contact-section" className="w-full mt-16">
+          <div className="flex w-full max-w-[1440px] items-start gap-10 px-[100px] py-0 mx-auto">
+            <div className="flex flex-col items-start">
+            <div className="px-4 py-2 bg-[#ffb800] text-black rounded-lg font-bold text-4xl leading-tight">
+              Contact Us
+            </div>
+            </div>
+            <div className="font-p text-black text-lg leading-relaxed w-[323px]">
+              {sectionHeaders?.[5]?.description}
+            </div>
+          </div>
+          <ContactFormSection />
         </div>
       </div>
     </div>
