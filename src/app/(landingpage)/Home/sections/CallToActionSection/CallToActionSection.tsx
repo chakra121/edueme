@@ -1,7 +1,6 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
-import { motion } from "framer-motion";
 
 const partnerLogos = [
   { src: "/nuroscience.jpg", alt: "Product - Neuroscience" },
@@ -14,9 +13,10 @@ export const CallToActionSection = (): JSX.Element => {
   return (
     <section className="w-full py-12 px-4 md:px-6 lg:px-[100px]">
       <Card className="w-full bg-grey rounded-[45px] border-none overflow-hidden relative">
-        <CardContent className="p-0">
-          <div className="flex flex-col lg:flex-row items-center justify-between">
-            <div className="p-8 lg:p-[60px] max-w-[500px]">
+        <CardContent className="p-8 lg:p-[60px]">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+            {/* Left content */}
+            <div className="max-w-[500px]">
               <h3 className="text-black text-[32px] font-bold tracking-tight leading-tight mb-[26px]">
                 Our Products
               </h3>
@@ -27,49 +27,30 @@ export const CallToActionSection = (): JSX.Element => {
               </p>
             </div>
 
-            <div className="relative w-full lg:w-[450px] h-[450px] overflow-hidden">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="relative w-[350px] h-[350px] bg-gradient-to-b from-gray-50 to-transparent rounded-full">
-                  <motion.div
-                    animate={{
-                      y: [0, -400, 0],
-                    }}
-                    transition={{
-                      duration: 20,
-                      repeat: Infinity,
-                      ease: "linear"
-                    }}
-                    className="flex flex-col gap-8 items-center"
+            {/* Simplified Logo Grid with circular shapes */}
+            <div className="w-full lg:w-auto">
+              <div className="grid grid-cols-2 gap-8">
+                {partnerLogos.map((logo, index) => (
+                  <div
+                    key={index}
+                    className="relative w-[160px] h-[160px]"
                   >
-                    {partnerLogos.map((logo, index) => (
-                      <motion.div
-                        key={index}
-                        className="w-[160px] h-[160px] bg-white rounded-xl shadow-lg p-5 flex items-center justify-center"
-                        whileHover={{ scale: 1.05 }}
-                      >
+                    {/* Outer border with gradient */}
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-orange-400 to-yellow-400 p-[2px]">
+                      {/* Inner white background */}
+                      <div className="w-full h-full bg-white rounded-full p-5 flex items-center justify-center shadow-lg">
                         <Image
                           src={logo.src}
                           alt={logo.alt}
-                          width={130}
-                          height={130}
-                          className="object-contain"
+                          width={120}
+                          height={120}
+                          className="object-contain rounded-full"
+                          priority={index < 2}
                         />
-                      </motion.div>
-                    ))}
-                  </motion.div>
-                </div>
-                
-                <motion.div
-                  animate={{
-                    rotate: 360,
-                  }}
-                  transition={{
-                    duration: 20,
-                    repeat: Infinity,
-                    ease: "linear"
-                  }}
-                  className="absolute w-full h-full border-2 border-dashed border-gray-200 rounded-full"
-                />
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
