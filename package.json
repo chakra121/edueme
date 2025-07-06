@@ -54,7 +54,7 @@
     "gsap": "^3.13.0",
     "lucide-react": "^0.486.0",
     "mongoose": "^8.8.1",
-    "next": "^14.2.20",
+    "next": "^14.2.30",
     "next-auth": "^4.24.11",
     "nodemailer": "^6.10.0",
     "pdfkit": "^0.17.0",
