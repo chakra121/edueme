@@ -1,16 +1,16 @@
-# 🎓 EduMe Research Labs - LMS Platform  
+# 🎓 EdueMe Research Labs - LMS Platform  
 **Think. Create. Innovate.**  
 
-EduMe Research Labs is a modern **Learning Management System (LMS)** designed to provide seamless learning experiences for students, teachers, and administrators.  
+EdueMe Research Labs is a modern **Learning Management System (LMS)** designed to provide seamless learning experiences for students, teachers, and administrators.  
 Built for real-time class management, student progress tracking, and payment-integrated course enrollment.
 
-🔗 **Live Demo:** [EduMe LMS](https://edueme.vercel.app/)
+🔗 **Live Demo:** [EdueMe LMS](https://edueme.vercel.app/)
 
 ---
 
 ## 🚀 Overview
 
-EduMe LMS enables **schools, students, and teachers** to connect in a digital ecosystem focused on **STEM, Robotics, and AI learning**.  
+EdueMe LMS enables **schools, students, and teachers** to connect in a digital ecosystem focused on **STEM, Robotics, and AI learning**.  
 It offers dedicated dashboards for **Admin**, **Teacher**, and **Student**, each with role-based features and secure authentication.
 
 ---
@@ -97,5 +97,3 @@ It offers dedicated dashboards for **Admin**, **Teacher**, and **Student**, each
 - Classes can be marked as completed, updating student progress automatically  
 
 ---
-   git clone https://github.com/yourusername/edueme-lms.git
-   cd edueme-lms
